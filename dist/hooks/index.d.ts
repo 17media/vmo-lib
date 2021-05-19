@@ -3,7 +3,7 @@ export * from "./useItemTransition";
 export * from "./useMergeLeaderboardData";
 export * from "./usePageData";
 declare const _default: {
-    useAutoNext: (isEnded: boolean, page: number) => void;
+    useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
         status: import("./useCountdown").TimeStatus;
         text: string;

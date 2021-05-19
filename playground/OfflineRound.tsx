@@ -9,7 +9,7 @@ const { test, initMockList } = qs<{ test: string; initMockList: string }>();
 
 const round1 = {
   startDate: "2021-05-01T18:55:00+08:00",
-  endDate: "2021-06-01T18:55:00+08:00",
+  endDate: "2021-05-11T18:55:00+08:00",
   nextPage: 2,
   isResultPage: false,
   endedText: "活動結束",

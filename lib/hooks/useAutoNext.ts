@@ -1,13 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { qs, globalThis } from "../utils";
 
-const useAutoNext = (isEnded: boolean, page: number) => {
+const useAutoNext = (isEnded: boolean, nextPage: number) => {
   useEffect(() => {
+    const { page = 1, ...search } = qs<{ page: string }>();
+    if (+page === nextPage) return;
     if (isEnded) {
-      const search = qs();
       const query = {
         ...search,
-        page,
+        page: nextPage,
       };
       const queryPath = Object.entries(query).map(
         ([key, value]) => `${key}=${value}`
@@ -17,7 +18,7 @@ const useAutoNext = (isEnded: boolean, page: number) => {
       )}`;
       globalThis.location.href = nextLocation;
     }
-  }, [isEnded, page]);
+  }, [isEnded, nextPage, qs]);
 };
 
 export default useAutoNext;
