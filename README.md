@@ -11,7 +11,9 @@
 1. Install from github
 `yarn add https://github.com/17media/vmo-lib.git`
 
-2. Use components or hooks with vmo-frontend. See playground folder for use case
+2. Use components or hooks with vmo-frontend. See Playground folder for use case
+
+3. copy paste whole components file in template can quickly make custom components. See Template folder
 
 ### lib
 
@@ -20,7 +22,9 @@
 
 ## template
 
-- offline(TBD)
+- offline
+    - offlineNormal: no team pk leaderboard, only boards with transition
+    - offlineTeam(TBD): team pk leaderboard without transition but every leaderboards should scroll at the same time
 - online(TBD)
 
 ### playground
@@ -32,4 +36,3 @@
 1. create a folder or file 
 2. testing hooks if needed
 3. use playground to create use case for vmo-frontend and e2e testing
-4. copy paste whole components in template can develop customized components easily
