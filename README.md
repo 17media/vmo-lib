@@ -1,15 +1,15 @@
-# A library for template and function for customized event frontend
+# A templates and functions library for custom event frontend
 
 ## When to use vmo lib?
-1. The customized event business logic need to be wrapped to a function and be reused
+1. The custom event business logic need to be wrapped to a function and be reused
 2. Components or functions need to be save in a library that others can keep maintaining
 3. Documentation and Experimental
-4. Accelerated customized event development
+4. Accelerated custom event development
 5. Be testable and maintainable
 
 ## How to use 
 1. Install from github
-`yarn add git+https://github.com/pauljay611/vmo-lib.git`
+`yarn add https://github.com/17media/vmo-lib.git`
 
 2. Use components or hooks with vmo-frontend. See playground folder for use case
 

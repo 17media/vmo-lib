@@ -9,7 +9,7 @@ export interface TransitionStyle {
   transition: string;
 }
 
-const useItemTransition = (
+export const useItemTransition = (
   itemStyle: ItemStyle,
   transition: TransitionStyle,
   rowItems: number,

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { qs, globalThis } from "../utils";
 
-const useAutoNext = (isEnded: boolean, nextPage: number) => {
+export const useAutoNext = (isEnded: boolean, nextPage: number) => {
   useEffect(() => {
     const { page = 1, ...search } = qs<{ page: string }>();
     if (+page === nextPage) return;

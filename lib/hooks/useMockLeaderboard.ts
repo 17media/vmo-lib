@@ -74,7 +74,7 @@ const replaceLeaderboard = (curLeaderboard: User[], limit: number) => {
     .map((user, index) => ({ ...user, rank: index + 1 }));
 };
 
-const useMockLeaderboard = (
+export const useMockLeaderboard = (
   enable = false,
   initMockList = false,
   stable = false,

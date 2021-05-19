@@ -33,6 +33,7 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": "off",
     "react/jsx-filename-extension": 0,
     "no-console": 0,
+    "import/no-named-as-default": 0,
   },
   settings: {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],

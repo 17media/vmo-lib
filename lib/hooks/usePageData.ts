@@ -17,7 +17,7 @@ export interface PageContext {
   init: boolean;
 }
 
-const usePageData = ({
+export const usePageData = ({
   startDate,
   endDate,
   nextPage,
