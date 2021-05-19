@@ -8,7 +8,7 @@ export interface PageContext {
     test: boolean;
     init: boolean;
 }
-declare const usePageData: ({ startDate, endDate, nextPage, isResultPage, endedText, test, init, }: PageContext) => {
+export declare const usePageData: ({ startDate, endDate, nextPage, isResultPage, endedText, test, init, }: PageContext) => {
     mockLeaderboard: import("../types").User[];
     countdownText: string;
     status: TimeStatus;

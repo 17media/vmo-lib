@@ -11,6 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.useAutoNext = void 0;
 const react_1 = require("react");
 const utils_1 = require("../utils");
 const useAutoNext = (isEnded, nextPage) => {
@@ -26,5 +27,6 @@ const useAutoNext = (isEnded, nextPage) => {
         }
     }, [isEnded, nextPage, utils_1.qs]);
 };
-exports.default = useAutoNext;
+exports.useAutoNext = useAutoNext;
+exports.default = exports.useAutoNext;
 //# sourceMappingURL=useAutoNext.js.map

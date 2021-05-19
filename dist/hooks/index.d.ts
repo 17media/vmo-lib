@@ -2,6 +2,8 @@ export * from "./useCountdown";
 export * from "./useItemTransition";
 export * from "./useMergeLeaderboardData";
 export * from "./usePageData";
+export * from "./useAutoNext";
+export * from "./useMockLeaderboard";
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {

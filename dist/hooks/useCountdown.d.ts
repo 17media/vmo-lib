@@ -12,7 +12,7 @@ export interface TimeCount {
 }
 export declare const formatCountdownText: (times: TimeCount) => string;
 export declare const getRelatedDistance: (dist: number) => TimeCount;
-declare const useCountdown: (start: number, end: number, timeEndText: string) => {
+export declare const useCountdown: (start: number, end: number, timeEndText: string) => {
     status: TimeStatus;
     text: string;
 };

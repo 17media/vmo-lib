@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRelatedDistance = exports.formatCountdownText = exports.TimeStatus = void 0;
+exports.useCountdown = exports.getRelatedDistance = exports.formatCountdownText = exports.TimeStatus = void 0;
 const dad_1 = require("@17media/dad");
 const react_1 = require("react");
 const utils_1 = require("../utils");
@@ -67,5 +67,6 @@ const useCountdown = (start, end, timeEndText) => {
         text: timeEndText,
     };
 };
-exports.default = useCountdown;
+exports.useCountdown = useCountdown;
+exports.default = exports.useCountdown;
 //# sourceMappingURL=useCountdown.js.map

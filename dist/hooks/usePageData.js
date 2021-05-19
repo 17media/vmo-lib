@@ -22,6 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.usePageData = void 0;
 const dad_1 = require("@17media/dad");
 const useCountdown_1 = __importStar(require("./useCountdown"));
 const useAutoNext_1 = __importDefault(require("./useAutoNext"));
@@ -39,5 +40,6 @@ const usePageData = ({ startDate, endDate, nextPage, isResultPage, endedText, te
         status,
     };
 };
-exports.default = usePageData;
+exports.usePageData = usePageData;
+exports.default = exports.usePageData;
 //# sourceMappingURL=usePageData.js.map

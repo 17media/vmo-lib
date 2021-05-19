@@ -9,26 +9,25 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const useAutoNext_1 = __importDefault(require("./useAutoNext"));
-const useCountdown_1 = __importDefault(require("./useCountdown"));
-const useItemTransition_1 = __importDefault(require("./useItemTransition"));
-const useMergeLeaderboardData_1 = __importDefault(require("./useMergeLeaderboardData"));
-const useMockLeaderboard_1 = __importDefault(require("./useMockLeaderboard"));
-const usePageData_1 = __importDefault(require("./usePageData"));
+const useAutoNext_1 = require("./useAutoNext");
+const useCountdown_1 = require("./useCountdown");
+const useItemTransition_1 = require("./useItemTransition");
+const useMergeLeaderboardData_1 = require("./useMergeLeaderboardData");
+const useMockLeaderboard_1 = require("./useMockLeaderboard");
+const usePageData_1 = require("./usePageData");
 __exportStar(require("./useCountdown"), exports);
 __exportStar(require("./useItemTransition"), exports);
 __exportStar(require("./useMergeLeaderboardData"), exports);
 __exportStar(require("./usePageData"), exports);
+__exportStar(require("./useAutoNext"), exports);
+__exportStar(require("./useMockLeaderboard"), exports);
 exports.default = {
-    useAutoNext: useAutoNext_1.default,
-    useCountdown: useCountdown_1.default,
-    useItemTransition: useItemTransition_1.default,
-    useMergeLeaderboardData: useMergeLeaderboardData_1.default,
-    useMockLeaderboard: useMockLeaderboard_1.default,
-    usePageData: usePageData_1.default,
+    useAutoNext: useAutoNext_1.useAutoNext,
+    useCountdown: useCountdown_1.useCountdown,
+    useItemTransition: useItemTransition_1.useItemTransition,
+    useMergeLeaderboardData: useMergeLeaderboardData_1.useMergeLeaderboardData,
+    useMockLeaderboard: useMockLeaderboard_1.useMockLeaderboard,
+    usePageData: usePageData_1.usePageData,
 };
 //# sourceMappingURL=index.js.map

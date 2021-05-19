@@ -7,7 +7,7 @@ export interface ItemStyle {
 export interface TransitionStyle {
     transition: string;
 }
-declare const useItemTransition: (itemStyle: ItemStyle, transition: TransitionStyle, rowItems: number, currentRank: number | number[]) => {
+export declare const useItemTransition: (itemStyle: ItemStyle, transition: TransitionStyle, rowItems: number, currentRank: number | number[]) => {
     itemTransitionStyle: {
         transition: string;
         left: number;
