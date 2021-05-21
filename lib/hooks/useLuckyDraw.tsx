@@ -3,8 +3,14 @@ import { useState } from 'react';
 /**
  * random integer number between min to max.
  */
-const randomInteger = (min: number, max: number): number =>
-  Math.floor(Math.random() * (max - min + 1) + min);
+const randomInteger = (min: number, max: number): number => {
+  if (min > max) {
+    const temp = min;
+    min = max;
+    max = temp;
+  }
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
 type Props = (allCandidates: any[]) => {
   candidates: any[];
