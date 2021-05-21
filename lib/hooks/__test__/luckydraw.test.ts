@@ -1,17 +1,19 @@
 /* eslint-disable prettier/prettier */
 import { renderHook, act } from '@testing-library/react-hooks';
 import useLuckyDraw from '../useLuckyDraw';
+import { mockUsers } from '../useMockLeaderboard';
+import { User } from '../../types';
 
 describe('test lucky draw hook', () => {
   test('should get candidates as all candidates and no winner before draw.', () => {
-    const allCandidates = [1, 2, 3, 4, 5, 6];
-    const { result } = renderHook(() => useLuckyDraw(allCandidates));
-    expect(result.current.candidates).toEqual(allCandidates);
+    const allCandidates = mockUsers;
+    const { result } = renderHook(() => useLuckyDraw(mockUsers));
+    expect(result.current.candidates).toEqual(mockUsers);
     expect(result.current.winners).toEqual([]);
   });
 
   test('should not draw success if no candidates.', () => {
-    const allCandidates: any[] = [];
+    const allCandidates: User[] = [];
     const { result } = renderHook(() => useLuckyDraw(allCandidates));
     const roundWinnersCount = 2;
     act(() => {
@@ -25,7 +27,7 @@ describe('test lucky draw hook', () => {
   });
 
   test('should not draw success if candidates is less than number of winners.', () => {
-    const allCandidates: any[] = [1];
+    const allCandidates = mockUsers.slice(0, 1);
     const { result } = renderHook(() => useLuckyDraw(allCandidates));
     const roundWinnersCount = 2;
     act(() => {
@@ -39,7 +41,7 @@ describe('test lucky draw hook', () => {
   });
 
   test('should draw success with correct number of remain candidates and winners.', async () => {
-    const allCandidates: any[] = [1, 2, 3];
+    const allCandidates = mockUsers.slice(0, 3);
     const { result } = renderHook(() => useLuckyDraw(allCandidates));
     const roundWinnersCount = 2;
     act(() => {
@@ -52,10 +54,10 @@ describe('test lucky draw hook', () => {
   });
 
   test('should draw multiple time success and get the correct all winners.', () => {
-    const allCandidates: any[] = [1, 2, 3, 4];
+    const allCandidates = mockUsers.slice(0, 4);
     const { result } = renderHook(() => useLuckyDraw(allCandidates));
     const roundWinnersCount = 2;
-    let recordWinners: any[] = [];
+    let recordWinners: User[] = [];
     act(() => {
       result.current.draw(roundWinnersCount);
     });
@@ -65,8 +67,8 @@ describe('test lucky draw hook', () => {
     });
     recordWinners = [...recordWinners, ...result.current.winners];
 
-    const sortAllCandidates = allCandidates.sort((a, b) => a - b);
-    const sortAllWinners = recordWinners.sort((a, b) => a - b);
+    const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
+    const sortAllWinners = recordWinners.sort((a, b) => a.rank - b.rank);
     expect(result.current.candidates.length).toBe(0);
     expect(sortAllWinners).toEqual(sortAllCandidates);
   });

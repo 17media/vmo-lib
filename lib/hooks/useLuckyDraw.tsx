@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { User } from '../types';
 
 /**
  * random integer number between min to max.
@@ -12,9 +13,9 @@ const randomInteger = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-type Props = (allCandidates: any[]) => {
-  candidates: any[];
-  winners: any[];
+type Props = (allCandidates: User[]) => {
+  candidates: User[];
+  winners: User[];
   draw: (roundWinnersCount: number) => void;
 };
 
@@ -22,8 +23,8 @@ type Props = (allCandidates: any[]) => {
  * pass all candidates then use the draw function with number of round winners to get each round winners and remain candidates.
  */
 export const useLuckyDraw: Props = (allCandidates) => {
-  const [candidates, setCandidates] = useState<any[]>(allCandidates);
-  const [winners, setWinners] = useState<any[]>([]);
+  const [candidates, setCandidates] = useState<User[]>(allCandidates);
+  const [winners, setWinners] = useState<User[]>([]);
 
   const draw = (roundWinnersCount: number) => {
     if (!candidates.length) {
@@ -36,7 +37,7 @@ export const useLuckyDraw: Props = (allCandidates) => {
       return;
     }
 
-    let nonRepeatWinnersIndex: any[] = [];
+    let nonRepeatWinnersIndex: number[] = [];
     const getNonRepeatWinnerIndex: any = () => {
       const winnerIndex = randomInteger(0, candidates.length - 1);
       if (nonRepeatWinnersIndex.includes(winnerIndex)) {
