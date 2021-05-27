@@ -1,43 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import { User } from "../lib/types";
-import usePageData from "../lib/hooks/usePageData";
-import { qs } from "../lib/utils";
+import useMockLeaderboard from "../lib/hooks/useMockLeaderboard";
 
-interface Props {}
+interface Props {
+  handleScroll?: (e) => void;
+}
 
 const LeaderboardWrapper = styled.div`
   width: 300px;
-  height: 800px;
+  height: 100%;
   border: 1px solid black;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 const Item = styled.div`
-  width: 100px;
+  width: 300px;
   height: 100px;
   border: 1px solid black;
   margin-bottom: 20px;
 `;
 
-const { test, initMockList } = qs<{ test: string; initMockList: string }>();
+const Team: React.FC<Props> = ({ handleScroll }) => {
+  const { leaderboard: mockLeaderboard } = useMockLeaderboard(true, true);
 
-const round1 = {
-  startDate: "2021-05-01T18:55:00+08:00",
-  endDate: "2021-06-02T18:55:00+08:00",
-  nextPage: 2,
-  isResultPage: false,
-  endedText: "活動結束",
-  test: !!test,
-  init: !!initMockList,
-};
-
-const Team: React.FC<Props> = () => {
-  const { mockLeaderboard } = usePageData(round1);
   return (
-    <LeaderboardWrapper>
+    <LeaderboardWrapper onScroll={handleScroll}>
       {mockLeaderboard.map((item) => (
-        <Item key={item.userInfo.userID}>
+        // key must be empty or the scrollbar would back to top
+        <Item>
           {item.userInfo.openID}: {item.score}
         </Item>
       ))}
@@ -45,4 +35,4 @@ const Team: React.FC<Props> = () => {
   );
 };
 
-export default React.memo(Team);
+export default Team;

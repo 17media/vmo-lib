@@ -1,40 +1,26 @@
-import React, { useMemo, useRef, useCallback, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import usePageData from "../lib/hooks/usePageData";
-import { qs } from "../lib/utils";
-import { usersID } from "../lib/hooks/useMockLeaderboard";
-import SyncScrollLeaderboardWrapper from "../lib/components/SyncScrollLeaderboardWrapper";
+import { v4 as uuidv4 } from "uuid";
 import Team from "./Team";
-import useCountdown from "../lib/hooks/useCountdown";
+import useSyncScroll from "../lib/hooks/useSyncScroll";
 
 const Wrapper = styled.div`
   width: 100%;
+  display: flex;
+  height: 800px;
 `;
 
-const round1 = {
-  startDate: "2021-05-01T18:55:00+08:00",
-  endDate: "2021-06-02T18:55:00+08:00",
-  endedText: "活動結束",
-};
+const teams = new Array(3).fill(0).map(() => uuidv4());
 
 const OfflineTeamRound = () => {
-  // const { text } = useCountdown(
-  //   new Date(round1.startDate).getTime(),
-  //   new Date(round1.endDate).getTime(),
-  //   round1.endedText
-  // );
-
-  const teams = new Array(3).fill(0);
+  const { wrapperRef, handleSroll } = useSyncScroll();
 
   return (
     <div>
-      {/* <span>{text}</span> */}
-      <Wrapper>
-        <SyncScrollLeaderboardWrapper>
-          {teams.map(() => (
-            <Team />
-          ))}
-        </SyncScrollLeaderboardWrapper>
+      <Wrapper ref={wrapperRef}>
+        {teams.map((key) => (
+          <Team key={key} handleScroll={handleSroll()} />
+        ))}
       </Wrapper>
     </div>
   );
