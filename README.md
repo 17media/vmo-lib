@@ -1,19 +1,23 @@
 # A templates and functions library for custom event frontend
 
 ## When to use vmo lib?
+
 1. The custom event business logic need to be wrapped to a function and be reused
 2. Components or functions need to be save in a library that others can keep maintaining
 3. Documentation and Experimental
 4. Accelerated custom event development
 5. Be testable and maintainable
 
-## How to use 
+## How to use
+
 1. Install from github
-`yarn add https://github.com/17media/vmo-lib.git`
+   `yarn add https://github.com/17media/vmo-lib.git`
 
 2. Use components or hooks with vmo-frontend. See Playground folder for use case
 
 3. copy paste whole components file in template can quickly make custom components. See Template folder
+
+4. Use `yarn remove vmo-lib` & `yarn add https://github.com/17media/vmo-lib.git` to reinstall the library
 
 ### lib
 
@@ -23,16 +27,18 @@
 ## template
 
 - offline
-    - offlineNormal: no team pk leaderboard, only boards with transition
-    - offlineTeam(TBD): team pk leaderboard without transition but every leaderboards should scroll at the same time
+  - offlineNormal: no team pk leaderboard, only boards with transition
+  - offlineTeam(TBD): team pk leaderboard without transition but every leaderboards should scroll at the same time
 - online(TBD)
 
 ### playground
+
 > local testing
 
 `yarn start`
 
 ## How to create components or hooks
-1. create a folder or file 
+
+1. create a folder or file
 2. testing hooks if needed
 3. use playground to create use case for vmo-frontend and e2e testing
