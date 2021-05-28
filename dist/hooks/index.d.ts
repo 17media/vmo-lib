@@ -1,9 +1,12 @@
+/// <reference types="react" />
 export * from "./useCountdown";
 export * from "./useItemTransition";
 export * from "./useMergeLeaderboardData";
 export * from "./usePageData";
 export * from "./useAutoNext";
 export * from "./useMockLeaderboard";
+export * from "./useLuckyDraw";
+export * from "./useSyncScroll";
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
@@ -47,6 +50,15 @@ declare const _default: {
         mockLeaderboard: import("../types").User[];
         countdownText: string;
         status: import("./useCountdown").TimeStatus;
+    };
+    useLuckyDraw: (allCandidates: import("../types").User[]) => {
+        candidates: import("../types").User[];
+        winners: import("../types").User[];
+        draw: (roundWinnersCount: number) => void;
+    };
+    useSyncScroll: () => {
+        handleSroll: (e: any) => void;
+        elPoolRef: import("react").MutableRefObject<Element[]>;
     };
 };
 export default _default;

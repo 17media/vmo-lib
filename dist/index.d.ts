@@ -46,5 +46,14 @@ declare const _default: {
         countdownText: string;
         status: import("./hooks").TimeStatus;
     };
+    useLuckyDraw: (allCandidates: import("./types").User[]) => {
+        candidates: import("./types").User[];
+        winners: import("./types").User[];
+        draw: (roundWinnersCount: number) => void;
+    };
+    useSyncScroll: () => {
+        handleSroll: (e: any) => void;
+        elPoolRef: import("react").MutableRefObject<Element[]>;
+    };
 };
 export default _default;
