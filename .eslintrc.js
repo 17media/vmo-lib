@@ -34,6 +34,8 @@ module.exports = {
     "react/jsx-filename-extension": 0,
     "no-console": 0,
     "import/no-named-as-default": 0,
+    "consistent-return": 0,
+    "react/jsx-props-no-spreading": 0,
   },
   settings: {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],

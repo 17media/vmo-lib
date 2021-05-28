@@ -5,7 +5,6 @@ import useCountdown, { TimeStatus } from "./useCountdown";
 import useAutoNext from "./useAutoNext";
 
 import useMockLeaderboard from "./useMockLeaderboard";
-import { qs } from "../utils";
 
 export interface PageContext {
   startDate: string;
