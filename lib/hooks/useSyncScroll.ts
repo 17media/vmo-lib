@@ -1,18 +1,19 @@
 import { useRef } from "react";
 
 export const useSyncScroll = () => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  // element which want to handle scroll
+  const elPoolRef = useRef<Element[]>([]);
 
-  const handleSroll = () => (e: any) => {
-    if (!wrapperRef.current) return;
-    Array.from(wrapperRef.current.children).forEach((el) => {
+  const handleSroll = (e: any) => {
+    if (!elPoolRef.current) return;
+    Array.from(elPoolRef.current).forEach((el) => {
       el.scrollTop = e.target.scrollTop;
     });
   };
 
   return {
     handleSroll,
-    wrapperRef,
+    elPoolRef,
   };
 };
 
