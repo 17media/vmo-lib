@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import OfflineRound from "./OfflineRound";
+import OfflineTeamRound from "./OfflineTeamRound";
 import LuckyDraw from "./LuckyDraw";
 
 const App = () => {
@@ -16,10 +17,14 @@ const App = () => {
           OfflineRound
         </button>
         <button onClick={() => changeComponent("luckyDraw")}>LuckyDraw</button>
+        <button onClick={() => changeComponent("OfflineTeamRound")}>
+          LuckyDraw
+        </button>
       </div>
       <hr />
       {currentComponent === "offlineRound" && <OfflineRound />}
       {currentComponent === "luckyDraw" && <LuckyDraw />}
+      {currentComponent === "OfflineTeamRound" && <OfflineTeamRound />}
     </div>
   );
 };
