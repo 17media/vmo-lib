@@ -13,12 +13,17 @@ const App = () => {
     <div>
       <div>
         選擇範例:
-        <button onClick={() => changeComponent("offlineRound")}>
+        <button type="button" onClick={() => changeComponent("offlineRound")}>
           OfflineRound
         </button>
-        <button onClick={() => changeComponent("luckyDraw")}>LuckyDraw</button>
-        <button onClick={() => changeComponent("OfflineTeamRound")}>
+        <button type="button" onClick={() => changeComponent("luckyDraw")}>
           LuckyDraw
+        </button>
+        <button
+          type="button"
+          onClick={() => changeComponent("OfflineTeamRound")}
+        >
+          OfflineTeamRound
         </button>
       </div>
       <hr />

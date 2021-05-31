@@ -12,7 +12,6 @@ const LeaderboardWrapper = styled.div`
   width: 300px;
   height: 100%;
   border: 1px solid black;
-  overflow: auto;
 `;
 
 const Item = styled.div`
@@ -41,6 +40,7 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   height: 800px;
+  overflow: auto;
 `;
 
 const teams = new Array(3).fill(0).map(() => uuidv4());
