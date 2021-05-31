@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { mockUsers } from '../lib/hooks/useMockLeaderboard';
-import { User } from '../lib/types';
-import useLuckyDraw from '../lib/hooks/useLuckyDraw';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { mockUsers } from "../lib/hooks/useMockLeaderboard";
+import { User } from "../lib/types";
+import useLuckyDraw from "../lib/hooks/useLuckyDraw";
 
 const Wrapper = styled.div`
   text-align: center;

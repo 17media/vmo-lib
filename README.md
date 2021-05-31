@@ -28,8 +28,8 @@
 
 - offline
   - offlineNormal: no team pk leaderboard, only boards with transition
-  - offlineTeam(TBD): team pk leaderboard without transition but every leaderboards should scroll at the same time
-- online(TBD)
+  - offlineTeam: team pk leaderboard without transition but every leaderboards should scroll at the same time
+- online
 
 ### playground
 
