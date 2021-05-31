@@ -42,3 +42,10 @@
 1. create a folder or file
 2. testing hooks if needed
 3. use playground to create use case for vmo-frontend and e2e testing
+
+## Release
+
+1. checkout master branch
+2. git tag vX.X.X
+3. git push origin vX.X.X
+4. release tag on https://github.com/17media/vmo-lib/releases/new
