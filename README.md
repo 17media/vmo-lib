@@ -11,7 +11,7 @@
 ## How to use
 
 1. Install from github
-   `yarn add https://github.com/17media/vmo-lib.git`
+   `yarn add https://github.com/17media/vmo-lib.git#latest`
 
 2. Use components or hooks with vmo-frontend. See Playground folder for use case
 
