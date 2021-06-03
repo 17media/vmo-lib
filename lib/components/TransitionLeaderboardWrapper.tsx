@@ -19,7 +19,7 @@ const transitionStyle = {
   transition: "all 0.5s ease 0.3s",
 };
 
-export const TransitionLeaderboardWrapper: React.FC<Props> = ({
+export const TransitionLeaderboardWrapper: React.FC<Props> = React.memo(({
   user,
   itemStyle,
   rowCount,
@@ -46,6 +46,6 @@ export const TransitionLeaderboardWrapper: React.FC<Props> = ({
   }
 
   return <Wrapper>{renderChild()}</Wrapper>;
-};
+});
 
 export default TransitionLeaderboardWrapper;
