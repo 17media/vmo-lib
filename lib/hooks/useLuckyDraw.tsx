@@ -23,7 +23,8 @@ type Props = (allCandidates: User[]) => {
  * pass all candidates then use the draw function with number of round winners to get each round winners and remain candidates.
  */
 export const useLuckyDraw: Props = (allCandidates) => {
-  const [candidates, setCandidates] = useState<User[]>(allCandidates);
+  const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
+  const [candidates, setCandidates] = useState<User[]>(sortAllCandidates);
   const [winners, setWinners] = useState<User[]>([]);
 
   const draw = (roundWinnersCount: number) => {
@@ -51,12 +52,13 @@ export const useLuckyDraw: Props = (allCandidates) => {
     const winnersIndex = new Array(roundWinnersCount)
       .fill(0)
       .map(getNonRepeatWinnerIndex);
-    const remainCandidates = candidates.filter(
-      (_, index) => !winnersIndex.includes(index)
-    );
-    const roundWinners = candidates.filter((winner, index) =>
-      winnersIndex.includes(index)
-    );
+    const remainCandidates = candidates
+      .filter((_, index) => !winnersIndex.includes(index))
+      .sort((a, b) => a.rank - b.rank);
+    const roundWinners = candidates
+      .filter((_, index) => winnersIndex.includes(index))
+      .sort((a, b) => a.rank - b.rank);
+
     setCandidates(remainCandidates);
     setWinners(roundWinners);
   };
