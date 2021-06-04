@@ -15,7 +15,7 @@ const Wrapper = styled_components_1.default.div `
 const transitionStyle = {
     transition: "all 0.5s ease 0.3s",
 };
-const TransitionLeaderboardWrapper = ({ user, itemStyle, rowCount, children, }) => {
+exports.TransitionLeaderboardWrapper = react_1.default.memo(({ user, itemStyle, rowCount, children, }) => {
     const { itemTransitionStyle } = useItemTransition_1.default(itemStyle, transitionStyle, rowCount, user.map((u) => u.rank));
     function renderChild() {
         return react_1.default.Children.map(children, (child, index) => {
@@ -26,7 +26,6 @@ const TransitionLeaderboardWrapper = ({ user, itemStyle, rowCount, children, }) 
         });
     }
     return react_1.default.createElement(Wrapper, null, renderChild());
-};
-exports.TransitionLeaderboardWrapper = TransitionLeaderboardWrapper;
+});
 exports.default = exports.TransitionLeaderboardWrapper;
 //# sourceMappingURL=TransitionLeaderboardWrapper.js.map

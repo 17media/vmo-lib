@@ -46,6 +46,7 @@
 ## Release
 
 1. checkout master branch
-2. git tag vX.X.X
-3. git push origin vX.X.X
-4. release tag on https://github.com/17media/vmo-lib/releases/new
+2. yarn build
+3. git tag vX.X.X
+4. git push origin vX.X.X
+5. release tag on https://github.com/17media/vmo-lib/releases/new

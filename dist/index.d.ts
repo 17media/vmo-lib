@@ -49,7 +49,10 @@ declare const _default: {
     useLuckyDraw: (allCandidates: import("./types").User[]) => {
         candidates: import("./types").User[];
         winners: import("./types").User[];
+        allWinners: import("./types").User[][];
         draw: (roundWinnersCount: number) => void;
+        clearWinners: () => void;
+        reset: () => void;
     };
     useSyncScroll: () => {
         handleSroll: (e: any) => void;

@@ -2,23 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useLuckyDraw = void 0;
 const react_1 = require("react");
+const utils_1 = require("../utils");
 /**
- * random integer number between min to max.
- */
-const randomInteger = (min, max) => {
-    if (min > max) {
-        const temp = min;
-        min = max;
-        max = temp;
-    }
-    return Math.floor(Math.random() * (max - min + 1) + min);
-};
-/**
- * pass all candidates then use the draw function with number of round winners to get each round winners and remain candidates.
+ * useLuckyDraw - pass all candidates, use the draw function with number of round winners to get each round winners, remain candidates and allWinners.
+ * - Record by localstorage for custom feature. ex: key: 'http://localhost:9000/?page=2'(location href), value: allWinners<User[][]> (This feature can only use in client side and will not clear.)
  */
 const useLuckyDraw = (allCandidates) => {
-    const [candidates, setCandidates] = react_1.useState(allCandidates);
+    const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
+    const [candidates, setCandidates] = react_1.useState(sortAllCandidates);
     const [winners, setWinners] = react_1.useState([]);
+    const [allWinners, setAllWinners] = react_1.useState([]);
     const draw = (roundWinnersCount) => {
         if (!candidates.length) {
             console.warn('can not draw without candidates.');
@@ -30,7 +23,7 @@ const useLuckyDraw = (allCandidates) => {
         }
         let nonRepeatWinnersIndex = [];
         const getNonRepeatWinnerIndex = () => {
-            const winnerIndex = randomInteger(0, candidates.length - 1);
+            const winnerIndex = utils_1.getRandomInteger(0, candidates.length - 1);
             if (nonRepeatWinnersIndex.includes(winnerIndex)) {
                 return getNonRepeatWinnerIndex();
             }
@@ -40,15 +33,34 @@ const useLuckyDraw = (allCandidates) => {
         const winnersIndex = new Array(roundWinnersCount)
             .fill(0)
             .map(getNonRepeatWinnerIndex);
-        const remainCandidates = candidates.filter((_, index) => !winnersIndex.includes(index));
-        const roundWinners = candidates.filter((winner, index) => winnersIndex.includes(index));
+        const remainCandidates = candidates
+            .filter((_, index) => !winnersIndex.includes(index))
+            .sort((a, b) => a.rank - b.rank);
+        const roundWinners = candidates
+            .filter((_, index) => winnersIndex.includes(index))
+            .sort((a, b) => a.rank - b.rank);
         setCandidates(remainCandidates);
         setWinners(roundWinners);
+        setAllWinners((preAllWinners) => {
+            const newAllWinners = [...preAllWinners, roundWinners];
+            if (utils_1.isBrowser()) {
+                localStorage.setItem(utils_1.globalThis.location.href, JSON.stringify(newAllWinners));
+            }
+            return newAllWinners;
+        });
+    };
+    const clearWinners = () => setWinners([]);
+    const reset = () => {
+        setCandidates(allCandidates);
+        setWinners([]);
     };
     return {
         candidates,
         winners,
+        allWinners,
         draw,
+        clearWinners,
+        reset,
     };
 };
 exports.useLuckyDraw = useLuckyDraw;
