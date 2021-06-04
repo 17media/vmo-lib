@@ -41,7 +41,6 @@ const LuckyDraw = React.memo(() => {
   const recordAllWinners = JSON.parse(
     window.localStorage.getItem(window.location.href)
   );
-
   const handleWinnersCount = (e: React.ChangeEvent<HTMLInputElement>) =>
     setRoundWinnersCount(+e.target.value);
 

@@ -3,6 +3,11 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import useLuckyDraw from '../useLuckyDraw';
 import { mockUsers } from '../useMockLeaderboard';
 import { User } from '../../types';
+import { localStorageMock, urlMock } from './setupTests';
+
+const url: string = 'http://jest/mock/url?page=1';
+urlMock(url);
+localStorageMock();
 
 describe('test lucky draw hook', () => {
   test('should get candidates as all candidates and no winner before draw.', () => {
@@ -53,23 +58,82 @@ describe('test lucky draw hook', () => {
     expect(result.current.winners.length).toBe(roundWinnersCount);
   });
 
+  test('should get correct sort candidates before draw and correct sort winners by rank after draw', async () => {
+    const allCandidates = mockUsers.slice(0, 3);
+    const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
+    const { result } = renderHook(() => useLuckyDraw(allCandidates));
+    const roundWinnersCount = 3;
+    expect(result.current.candidates).toEqual(sortAllCandidates);
+
+    act(() => {
+      result.current.draw(roundWinnersCount);
+    });
+
+    expect(result.current.winners).toEqual(sortAllCandidates);
+  });
+
   test('should draw multiple time success and get the correct all winners.', () => {
     const allCandidates = mockUsers.slice(0, 4);
+    const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
     const { result } = renderHook(() => useLuckyDraw(allCandidates));
     const roundWinnersCount = 2;
-    let recordWinners: User[] = [];
+    let allRecordWinners: User[] = [];
+    let allRoundRecordWinners: User[][] = [];
     act(() => {
       result.current.draw(roundWinnersCount);
     });
-    recordWinners = [...recordWinners, ...result.current.winners];
+    allRecordWinners = [...allRecordWinners, ...result.current.winners];
+    allRoundRecordWinners = [...allRoundRecordWinners, result.current.winners];
     act(() => {
       result.current.draw(roundWinnersCount);
     });
-    recordWinners = [...recordWinners, ...result.current.winners];
+    allRecordWinners = [...allRecordWinners, ...result.current.winners];
+    allRecordWinners = [...allRecordWinners.sort((a, b) => a.rank - b.rank)];
+    allRoundRecordWinners = [...allRoundRecordWinners, result.current.winners];
 
-    const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
-    const sortAllWinners = recordWinners.sort((a, b) => a.rank - b.rank);
     expect(result.current.candidates.length).toBe(0);
-    expect(sortAllWinners).toEqual(sortAllCandidates);
+    expect(sortAllCandidates).toEqual(allRecordWinners);
+    expect(result.current.allWinners).toEqual(allRoundRecordWinners);
+  });
+
+  test('should clear round winners success after draw.', async () => {
+    const allCandidates = mockUsers.slice(0, 3);
+    const { result } = renderHook(() => useLuckyDraw(allCandidates));
+    const roundWinnersCount = 3;
+
+    act(() => {
+      result.current.draw(roundWinnersCount);
+      result.current.clearWinners();
+    });
+
+    expect(result.current.winners).toEqual([]);
+  });
+
+  test('should reset success after draw.', async () => {
+    const allCandidates = mockUsers.slice(0, 3);
+    const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
+    const { result } = renderHook(() => useLuckyDraw(allCandidates));
+    const roundWinnersCount = 3;
+
+    act(() => {
+      result.current.draw(roundWinnersCount);
+      result.current.reset();
+    });
+
+    expect(result.current.candidates).toEqual(sortAllCandidates);
+    expect(result.current.winners).toEqual([]);
+  });
+
+  test('should localstorage record correct all winners by url key.', async () => {
+    const allCandidates = mockUsers.slice(0, 3);
+    const { result } = renderHook(() => useLuckyDraw(allCandidates));
+    const roundWinnersCount = 3;
+
+    act(() => {
+      result.current.draw(roundWinnersCount);
+    });
+    const allRecordWinners = JSON.parse(localStorage.getItem(url) ?? '');
+    expect(allRecordWinners).toEqual(result.current.allWinners);
+    expect(window.location.href).toEqual(url);
   });
 });
