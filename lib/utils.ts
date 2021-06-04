@@ -19,3 +19,21 @@ export const qs = <T extends { [k: string]: string | boolean }>(
 
 export const addLeadingZeros = (value: number) =>
   String(value).length < 2 ? `0${String(value)}` : value;
+
+/**
+ *
+ * check is using in client side.
+ */
+export const isClient = () => typeof window !== 'undefined';
+
+/**
+ * random integer number between min to max.
+ */
+export const getRandomInteger = (min: number, max: number): number => {
+  if (min > max) {
+    const temp = min;
+    min = max;
+    max = temp;
+  }
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
