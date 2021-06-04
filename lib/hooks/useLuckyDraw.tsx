@@ -1,30 +1,25 @@
 import { useState } from 'react';
 import { User } from '../types';
-
-/**
- * random integer number between min to max.
- */
-const randomInteger = (min: number, max: number): number => {
-  if (min > max) {
-    const temp = min;
-    min = max;
-    max = temp;
-  }
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
+import { getRandomInteger, isBrowser, globalThis } from '../utils';
 
 type Props = (allCandidates: User[]) => {
   candidates: User[];
   winners: User[];
+  allWinners: User[][];
   draw: (roundWinnersCount: number) => void;
+  clearWinners: () => void;
+  reset: () => void;
 };
 
 /**
- * pass all candidates then use the draw function with number of round winners to get each round winners and remain candidates.
+ * useLuckyDraw - pass all candidates, use the draw function with number of round winners to get each round winners, remain candidates and allWinners.
+ * - Record by localstorage for custom feature. ex: key: 'http://localhost:9000/?page=2'(location href), value: allWinners<User[][]> (This feature can only use in client side and will not clear.)
  */
 export const useLuckyDraw: Props = (allCandidates) => {
-  const [candidates, setCandidates] = useState<User[]>(allCandidates);
+  const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
+  const [candidates, setCandidates] = useState<User[]>(sortAllCandidates);
   const [winners, setWinners] = useState<User[]>([]);
+  const [allWinners, setAllWinners] = useState<User[][]>([]);
 
   const draw = (roundWinnersCount: number) => {
     if (!candidates.length) {
@@ -39,7 +34,7 @@ export const useLuckyDraw: Props = (allCandidates) => {
 
     let nonRepeatWinnersIndex: number[] = [];
     const getNonRepeatWinnerIndex: any = () => {
-      const winnerIndex = randomInteger(0, candidates.length - 1);
+      const winnerIndex = getRandomInteger(0, candidates.length - 1);
       if (nonRepeatWinnersIndex.includes(winnerIndex)) {
         return getNonRepeatWinnerIndex();
       }
@@ -51,20 +46,40 @@ export const useLuckyDraw: Props = (allCandidates) => {
     const winnersIndex = new Array(roundWinnersCount)
       .fill(0)
       .map(getNonRepeatWinnerIndex);
-    const remainCandidates = candidates.filter(
-      (_, index) => !winnersIndex.includes(index)
-    );
-    const roundWinners = candidates.filter((winner, index) =>
-      winnersIndex.includes(index)
-    );
+    const remainCandidates = candidates
+      .filter((_, index) => !winnersIndex.includes(index))
+      .sort((a, b) => a.rank - b.rank);
+    const roundWinners = candidates
+      .filter((_, index) => winnersIndex.includes(index))
+      .sort((a, b) => a.rank - b.rank);
+
     setCandidates(remainCandidates);
     setWinners(roundWinners);
+    setAllWinners((preAllWinners) => {
+      const newAllWinners = [...preAllWinners, roundWinners];
+      if (isBrowser()) {
+        localStorage.setItem(
+          globalThis.location.href,
+          JSON.stringify(newAllWinners)
+        );
+      }
+      return newAllWinners;
+    });
+  };
+
+  const clearWinners = () => setWinners([]);
+  const reset = () => {
+    setCandidates(allCandidates);
+    setWinners([]);
   };
 
   return {
     candidates,
     winners,
+    allWinners,
     draw,
+    clearWinners,
+    reset,
   };
 };
 export default useLuckyDraw;
