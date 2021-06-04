@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { User } from '../types';
-import { getRandomInteger, isClient, globalThis } from '../utils';
+import { getRandomInteger, isBrowser, globalThis } from '../utils';
 
 type Props = (allCandidates: User[]) => {
   candidates: User[];
@@ -57,7 +57,7 @@ export const useLuckyDraw: Props = (allCandidates) => {
     setWinners(roundWinners);
     setAllWinners((preAllWinners) => {
       const newAllWinners = [...preAllWinners, roundWinners];
-      if (isClient()) {
+      if (isBrowser()) {
         localStorage.setItem(
           globalThis.location.href,
           JSON.stringify(newAllWinners)
