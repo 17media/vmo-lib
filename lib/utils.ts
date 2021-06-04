@@ -24,7 +24,7 @@ export const addLeadingZeros = (value: number) =>
  *
  * check is using in client side.
  */
-export const isClient = () => typeof window !== 'undefined';
+export const isBrowser = () => typeof window !== 'undefined';
 
 /**
  * random integer number between min to max.
