@@ -32,40 +32,63 @@ const Button = styled.button`
   padding: 5px 10px;
 `;
 
+const Input = styled.input`
+  padding: 5px 10px;
+`;
+
 const LuckyDraw = React.memo(() => {
   const allCandidates: User[] = mockUsers.slice(0, 50);
-  const [roundWinnersCount, setRoundWinnersCount] = useState<number>(1);
-  const { candidates, winners, allWinners, draw, clearWinners, reset } =
-    useLuckyDraw(allCandidates);
-  const [currentRound, setCurrentRound] = useState<number>(0);
+  const [drawCount, setDrawCount] = useState<number>(20);
+  const [willAutoDrawRemainCount, setwillAutoDrawRemainCount] =
+    useState<boolean>(true);
+  const {
+    candidates,
+    winners,
+    allWinners,
+    currentRound,
+    draw,
+    clearWinners,
+    reset,
+  } = useLuckyDraw(allCandidates, willAutoDrawRemainCount);
   const recordAllWinners = JSON.parse(
     window.localStorage.getItem(window.location.href)
   );
   const handleWinnersCount = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setRoundWinnersCount(+e.target.value);
+    setDrawCount(+e.target.value);
 
-  const handleDraw = () => {
-    draw(roundWinnersCount);
-    setCurrentRound((prevRound) => prevRound + 1);
-  };
+  const handleDraw = () => draw(drawCount);
 
   const handleClearWinners = () => clearWinners();
-  const handleReset = () => {
-    reset();
-    setCurrentRound(0);
-  };
+
+  const handleReset = () => reset();
+
+  const handleAutoDrawWithRemainCount = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => setwillAutoDrawRemainCount(e.target.checked);
 
   return (
     <Wrapper>
       <h1>抽獎 sample</h1>
       <div>
         <p>設定每輪開獎人數並開獎(依照 rank 排序)</p>
-        <input
+        <Input
           type="number"
-          value={roundWinnersCount}
+          value={drawCount}
           placeholder="請輸入開獎人數"
           onChange={handleWinnersCount}
         />
+        <label htmlFor="autoDrawRemainCount">
+          自動抽出剩餘人數
+          <input
+            id="autoDrawRemainCount"
+            type="checkbox"
+            checked={willAutoDrawRemainCount}
+            onChange={handleAutoDrawWithRemainCount}
+          />
+        </label>
+      </div>
+      <p>(當參加者不足抽獎人數時, 是否抽出所有剩餘人數)</p>
+      <div>
         <Button onClick={handleDraw}>開獎</Button>
         <Button onClick={handleClearWinners}>清空得獎者</Button>
         <Button onClick={handleReset}>重新開始</Button>
