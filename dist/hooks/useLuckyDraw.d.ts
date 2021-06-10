@@ -1,11 +1,12 @@
 import { User } from '../types';
-declare type Props = (allCandidates: User[]) => {
+declare type Props = (allCandidates: User[], willAutoDrawRemainCount?: Boolean) => {
     candidates: User[];
     winners: User[];
     allWinners: User[][];
     draw: (roundWinnersCount: number) => void;
     clearWinners: () => void;
     reset: () => void;
+    currentRound: number;
 };
 /**
  * useLuckyDraw - pass all candidates, use the draw function with number of round winners to get each round winners, remain candidates and allWinners.

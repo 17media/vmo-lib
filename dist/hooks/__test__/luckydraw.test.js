@@ -27,6 +27,17 @@ describe('test lucky draw hook', () => {
         expect(result.current.candidates).toEqual(useMockLeaderboard_1.mockUsers);
         expect(result.current.winners).toEqual([]);
     });
+    test('should not draw success if no given draw count.(not using typescript)', () => {
+        const allCandidates = [];
+        const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));
+        react_hooks_1.act(() => {
+            result.current.draw(undefined);
+        });
+        const msg = 'can not draw without drawCount.';
+        const consoleSpy = jest.spyOn(console, 'warn');
+        console.warn(msg);
+        expect(consoleSpy).toHaveBeenCalledWith(msg);
+    });
     test('should not draw success if no candidates.', () => {
         const allCandidates = [];
         const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));
@@ -39,7 +50,7 @@ describe('test lucky draw hook', () => {
         console.warn(msg);
         expect(consoleSpy).toHaveBeenCalledWith(msg);
     });
-    test('should not draw success if candidates is less than number of winners.', () => {
+    test('should not draw success if no using willAutoDrawRemainCount and candidates is less than number of winners.', () => {
         const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 1);
         const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));
         const roundWinnersCount = 2;
@@ -72,6 +83,16 @@ describe('test lucky draw hook', () => {
         });
         expect(result.current.winners).toEqual(sortAllCandidates);
     }));
+    test('should get correct round before draw and after draw', () => __awaiter(void 0, void 0, void 0, function* () {
+        const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 3);
+        const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));
+        const roundWinnersCount = 3;
+        expect(result.current.currentRound).toEqual(0);
+        react_hooks_1.act(() => {
+            result.current.draw(roundWinnersCount);
+        });
+        expect(result.current.currentRound).toEqual(1);
+    }));
     test('should draw multiple time success and get the correct all winners.', () => {
         const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 4);
         const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
@@ -94,6 +115,35 @@ describe('test lucky draw hook', () => {
         expect(sortAllCandidates).toEqual(allRecordWinners);
         expect(result.current.allWinners).toEqual(allRoundRecordWinners);
     });
+    test('should default using willAutoDrawRemainCount to draw.', () => __awaiter(void 0, void 0, void 0, function* () {
+        const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 3);
+        const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));
+        const roundWinnersCount = 2;
+        const lessWinnersCount = 1;
+        react_hooks_1.act(() => {
+            result.current.draw(roundWinnersCount);
+        });
+        react_hooks_1.act(() => {
+            result.current.draw(roundWinnersCount);
+        });
+        expect(result.current.candidates.length).toBe(0);
+        expect(result.current.winners.length).toBe(lessWinnersCount);
+    }));
+    test('should draw correct when using willAutoDrawRemainCount and candidates is less than given draw count.', () => __awaiter(void 0, void 0, void 0, function* () {
+        const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 3);
+        const willAutoDrawRemainCount = true;
+        const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates, willAutoDrawRemainCount));
+        const roundWinnersCount = 2;
+        const lessWinnersCount = 1;
+        react_hooks_1.act(() => {
+            result.current.draw(roundWinnersCount);
+        });
+        react_hooks_1.act(() => {
+            result.current.draw(roundWinnersCount);
+        });
+        expect(result.current.candidates.length).toBe(0);
+        expect(result.current.winners.length).toBe(lessWinnersCount);
+    }));
     test('should clear round winners success after draw.', () => __awaiter(void 0, void 0, void 0, function* () {
         const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 3);
         const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));

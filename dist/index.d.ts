@@ -46,13 +46,14 @@ declare const _default: {
         countdownText: string;
         status: import("./hooks").TimeStatus;
     };
-    useLuckyDraw: (allCandidates: import("./types").User[]) => {
+    useLuckyDraw: (allCandidates: import("./types").User[], willAutoDrawRemainCount?: Boolean | undefined) => {
         candidates: import("./types").User[];
         winners: import("./types").User[];
         allWinners: import("./types").User[][];
         draw: (roundWinnersCount: number) => void;
         clearWinners: () => void;
         reset: () => void;
+        currentRound: number;
     };
     useSyncScroll: () => {
         handleSroll: (e: any) => void;
