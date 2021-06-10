@@ -17,6 +17,19 @@ describe('test lucky draw hook', () => {
     expect(result.current.winners).toEqual([]);
   });
 
+  test('should not draw success if no given draw count.(not using typescript)', () => {
+    const allCandidates: User[] = [];
+    const { result } = renderHook(() => useLuckyDraw(allCandidates));
+    act(() => {
+      result.current.draw(undefined as any);
+    });
+    const msg = 'can not draw without drawCount.';
+    const consoleSpy = jest.spyOn(console, 'warn');
+    console.warn(msg);
+
+    expect(consoleSpy).toHaveBeenCalledWith(msg);
+  });
+
   test('should not draw success if no candidates.', () => {
     const allCandidates: User[] = [];
     const { result } = renderHook(() => useLuckyDraw(allCandidates));
@@ -31,7 +44,7 @@ describe('test lucky draw hook', () => {
     expect(consoleSpy).toHaveBeenCalledWith(msg);
   });
 
-  test('should not draw success if candidates is less than number of winners.', () => {
+  test('should not draw success if no using willAutoDrawRemainCount and candidates is less than number of winners.', () => {
     const allCandidates = mockUsers.slice(0, 1);
     const { result } = renderHook(() => useLuckyDraw(allCandidates));
     const roundWinnersCount = 2;
@@ -72,6 +85,19 @@ describe('test lucky draw hook', () => {
     expect(result.current.winners).toEqual(sortAllCandidates);
   });
 
+  test('should get correct round before draw and after draw', async () => {
+    const allCandidates = mockUsers.slice(0, 3);
+    const { result } = renderHook(() => useLuckyDraw(allCandidates));
+    const roundWinnersCount = 3;
+    expect(result.current.currentRound).toEqual(0);
+
+    act(() => {
+      result.current.draw(roundWinnersCount);
+    });
+
+    expect(result.current.currentRound).toEqual(1);
+  });
+
   test('should draw multiple time success and get the correct all winners.', () => {
     const allCandidates = mockUsers.slice(0, 4);
     const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
@@ -94,6 +120,39 @@ describe('test lucky draw hook', () => {
     expect(result.current.candidates.length).toBe(0);
     expect(sortAllCandidates).toEqual(allRecordWinners);
     expect(result.current.allWinners).toEqual(allRoundRecordWinners);
+  });
+
+  test('should default using willAutoDrawRemainCount to draw.', async () => {
+    const allCandidates = mockUsers.slice(0, 3);
+    const { result } = renderHook(() => useLuckyDraw(allCandidates));
+    const roundWinnersCount = 2;
+    const lessWinnersCount = 1;
+    act(() => {
+      result.current.draw(roundWinnersCount);
+    });
+    act(() => {
+      result.current.draw(roundWinnersCount);
+    });
+    expect(result.current.candidates.length).toBe(0);
+    expect(result.current.winners.length).toBe(lessWinnersCount);
+  });
+
+  test('should draw correct when using willAutoDrawRemainCount and candidates is less than given draw count.', async () => {
+    const allCandidates = mockUsers.slice(0, 3);
+    const willAutoDrawRemainCount = true;
+    const { result } = renderHook(() =>
+      useLuckyDraw(allCandidates, willAutoDrawRemainCount)
+    );
+    const roundWinnersCount = 2;
+    const lessWinnersCount = 1;
+    act(() => {
+      result.current.draw(roundWinnersCount);
+    });
+    act(() => {
+      result.current.draw(roundWinnersCount);
+    });
+    expect(result.current.candidates.length).toBe(0);
+    expect(result.current.winners.length).toBe(lessWinnersCount);
   });
 
   test('should clear round winners success after draw.', async () => {
