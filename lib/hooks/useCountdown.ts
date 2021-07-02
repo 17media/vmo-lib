@@ -43,6 +43,10 @@ function getCurrentStatus(time: number, start: number, end: number) {
   return TimeStatus.Ongoing;
 }
 
+/**
+ *
+ * when you use this hook, outside component should use React.memo() to prevent rerender.
+ */
 export const useCountdown = (
   start: number,
   end: number,
@@ -51,12 +55,12 @@ export const useCountdown = (
   const timer = useRef(0);
   const [currentTime, setCurrentTime] = useState(now() * 1000);
 
-  const getCurrentTime = useCallback(() => {
+  const getCurrentTime = () => {
     if (currentTime > start && currentTime < end) {
       setCurrentTime(now() * 1000);
       requestAnimationFrame(getCurrentTime);
     }
-  }, [currentTime, end, start]);
+  };
 
   useEffect(() => {
     timer.current = requestAnimationFrame(getCurrentTime);
@@ -67,24 +71,20 @@ export const useCountdown = (
 
   const countdownTime = end - currentTime;
   const defaultCountdownTime = end - start;
+  const status = getCurrentStatus(currentTime, start, end);
 
-  const currentStatus = getCurrentStatus(currentTime, start, end);
+  let text;
+  if (status === TimeStatus.NotYet) {
+    text = formatCountdownText(getRelatedDistance(defaultCountdownTime));
+  } else if (status === TimeStatus.Ongoing) {
+    text = formatCountdownText(getRelatedDistance(countdownTime));
+  } else {
+    text = timeEndText;
+  }
 
-  if (currentStatus === TimeStatus.NotYet) {
-    return {
-      status: currentStatus,
-      text: formatCountdownText(getRelatedDistance(defaultCountdownTime)),
-    };
-  }
-  if (currentStatus === TimeStatus.Ongoing) {
-    return {
-      status: currentStatus,
-      text: formatCountdownText(getRelatedDistance(countdownTime)),
-    };
-  }
   return {
-    status: currentStatus,
-    text: timeEndText,
+    status,
+    text,
   };
 };
 

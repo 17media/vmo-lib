@@ -16,6 +16,10 @@ export interface PageContext {
   init: boolean;
 }
 
+/**
+ *
+ * when you use this hook, outside component should use React.memo() to prevent rerender. (trigger by useCountdown)
+ */
 export const usePageData = ({
   startDate,
   endDate,
