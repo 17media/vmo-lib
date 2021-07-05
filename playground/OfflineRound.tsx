@@ -58,4 +58,4 @@ const OfflineRound = () => {
   );
 };
 
-export default OfflineRound;
+export default React.memo(OfflineRound);
