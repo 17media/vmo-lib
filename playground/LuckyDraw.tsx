@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { mockUsers } from '../lib/hooks/useMockLeaderboard';
-import { User } from '../lib/types';
-import useLuckyDraw from '../lib/hooks/useLuckyDraw';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { mockUsers } from "../lib/hooks/useMockLeaderboard";
+import { User } from "../lib/types";
+import useLuckyDraw from "../lib/hooks/useLuckyDraw";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -42,6 +42,8 @@ const LuckyDraw = React.memo(() => {
   const [willAutoDrawRemainCount, setwillAutoDrawRemainCount] =
     useState<boolean>(true);
   const {
+    MaskDiv,
+    hasDraw,
     candidates,
     winners,
     allWinners,
@@ -51,7 +53,7 @@ const LuckyDraw = React.memo(() => {
     reset,
   } = useLuckyDraw(allCandidates, willAutoDrawRemainCount);
   const recordAllWinners = JSON.parse(
-    window.localStorage.getItem(window.location.href)
+    window.localStorage.getItem(window.location.href),
   );
   const handleWinnersCount = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDrawCount(+e.target.value);
@@ -63,7 +65,7 @@ const LuckyDraw = React.memo(() => {
   const handleReset = () => reset();
 
   const handleAutoDrawWithRemainCount = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => setwillAutoDrawRemainCount(e.target.checked);
 
   return (
@@ -93,11 +95,12 @@ const LuckyDraw = React.memo(() => {
         <Button onClick={handleClearWinners}>清空得獎者</Button>
         <Button onClick={handleReset}>重新開始</Button>
       </div>
+      {hasDraw && <MaskDiv />}
       <LuckyDrawSection>
         <Left>
           <h2>參加者名單</h2>
           <UsersSection>
-            {candidates.map((candidate) => (
+            {candidates.map(candidate => (
               <li key={candidate.rank}>
                 <p>參加者: {candidate.userInfo.name}</p>
                 <p>(ID: {candidate.userInfo.userID})</p>
@@ -108,7 +111,7 @@ const LuckyDraw = React.memo(() => {
         <Right>
           <h2>得獎者名單 - 第{currentRound}輪</h2>
           <UsersSection>
-            {winners.map((winner) => (
+            {winners.map(winner => (
               <li key={winner.rank}>
                 <p>得獎者: {winner.userInfo.name}</p>
                 <p>(ID: {winner.userInfo.userID})</p>
@@ -125,7 +128,7 @@ const LuckyDraw = React.memo(() => {
             <div key={index}>
               <h2>第{index + 1}輪</h2>
               <ul>
-                {roundWinners.map((winner) => (
+                {roundWinners.map(winner => (
                   <li key={winner.rank}>
                     <p>得獎者: {winner.userInfo.name}</p>
                     <p>(ID: {winner.userInfo.userID})</p>
@@ -144,7 +147,7 @@ const LuckyDraw = React.memo(() => {
             <div key={index}>
               <h2>第{index + 1}輪</h2>
               <ul>
-                {roundWinners.map((winner) => (
+                {roundWinners.map(winner => (
                   <li key={winner.rank}>
                     <p>得獎者: {winner.userInfo.name}</p>
                     <p>(ID: {winner.userInfo.userID})</p>
