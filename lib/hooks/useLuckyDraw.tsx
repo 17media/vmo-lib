@@ -130,8 +130,13 @@ export const useLuckyDraw: Props = (
 
   const clearWinners = () => setWinners([]);
   const reset = () => {
+    setCurrentRound(0);
     setCandidates(allCandidates);
     setWinners([]);
+    setAllWinners([]);
+    if (isBrowser()) {
+      localStorage.removeItem(globalThis.location.href);
+    }
   };
 
   return {

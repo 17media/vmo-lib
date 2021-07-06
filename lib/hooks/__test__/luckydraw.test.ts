@@ -179,8 +179,10 @@ describe("test lucky draw hook", () => {
       result.current.reset();
     });
 
+    expect(result.current.currentRound).toBe(0);
     expect(result.current.candidates).toEqual(sortAllCandidates);
     expect(result.current.winners).toEqual([]);
+    expect(result.current.allWinners).toEqual([]);
   });
 
   test("should localstorage record correct all winners by url key.", async () => {
@@ -198,7 +200,6 @@ describe("test lucky draw hook", () => {
 
   test("should get correct hasDraw before draw and after draw.", async () => {
     const allCandidates = mockUsers.slice(0, 3);
-    const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
     const { result } = renderHook(() => useLuckyDraw(allCandidates));
     const roundWinnersCount = 3;
 
