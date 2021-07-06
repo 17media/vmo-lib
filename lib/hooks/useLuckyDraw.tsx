@@ -47,8 +47,8 @@ type Props = (
 
 const MaskDiv = () => (
   <>
-    <StyledMaskDivOuter id="mask1" />
-    <StyledMaskDivInner id="mask2" />
+    <StyledMaskDivOuter />
+    <StyledMaskDivInner />
   </>
 );
 
