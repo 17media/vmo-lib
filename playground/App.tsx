@@ -9,29 +9,26 @@ const App = () => {
   const changeComponent = (componentName: string) =>
     setCurrentComponent(componentName);
 
+  const playgrounds = {
+    offlineRound: <OfflineRound />,
+    luckyDraw: <LuckyDraw />,
+    offlineTeamRound: <OfflineTeamRound />,
+  };
+
   return (
     <div>
       <div>
-        選擇範例:
-        <button type="button" onClick={() => changeComponent("offlineRound")}>
-          OfflineRound
-        </button>
-        <button type="button" onClick={() => changeComponent("luckyDraw")}>
-          LuckyDraw
-        </button>
-        <button
-          type="button"
-          onClick={() => changeComponent("OfflineTeamRound")}
-        >
-          OfflineTeamRound
-        </button>
+        <p>選擇範例:</p>
+        {Object.keys(playgrounds).map(playground => (
+          <button type="button" onClick={() => changeComponent(playground)}>
+            playground
+          </button>
+        ))}
       </div>
       <hr />
-      {currentComponent === "offlineRound" && <OfflineRound />}
-      {currentComponent === "luckyDraw" && <LuckyDraw />}
-      {currentComponent === "OfflineTeamRound" && <OfflineTeamRound />}
+      {playgrounds[currentComponent]}
     </div>
   );
 };
 
-export default App;
+export default React.memo(App);
