@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { User } from "../types";
-import { getRandomInteger, isBrowser, globalThis } from "../utils";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { User } from '../types';
+import { getRandomInteger, isBrowser, globalThis } from '../utils';
 
 const maskDiv = styled.div`
   position: fixed;
@@ -69,17 +69,17 @@ export const useLuckyDraw: Props = (
 
   const draw = (drawCount: number) => {
     if (!drawCount) {
-      console.warn("can not draw without drawCount.");
+      console.warn('can not draw without drawCount.');
       return;
     }
 
     if (!candidates.length) {
-      console.warn("can not draw without candidates.");
+      console.warn('can not draw without candidates.');
       return;
     }
 
     if (!willAutoDrawRemainCount && drawCount > candidates.length) {
-      console.warn("remain candidates is less than winners count.");
+      console.warn('remain candidates is less than winners count.');
       return;
     }
 

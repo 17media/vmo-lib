@@ -17,14 +17,14 @@ export const localStorageMock = () => {
     },
   });
 
-  Object.defineProperty(window, "localStorage", {
+  Object.defineProperty(window, 'localStorage', {
     value: mock(),
   });
 };
 
 export const urlMock = (url: string) => {
   global.window = Object.create(window);
-  Object.defineProperty(window, "location", {
+  Object.defineProperty(window, 'location', {
     value: {
       href: url,
     },
