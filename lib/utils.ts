@@ -3,7 +3,7 @@ export const globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 export const qs = <T extends { [k: string]: string | boolean }>(
   search: string = globalThis.location
     ? globalThis.location.search.slice(1)
-    : ''
+    : '',
 ): Partial<T> =>
   search
     .split('&')

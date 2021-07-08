@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { User } from "../types";
+import { useMemo } from 'react';
+import { User } from '../types';
 
 export interface LeaderboardDataList {
   data: User[];
@@ -20,12 +20,12 @@ export const useMergeLeaderboardData = ({
           bonus: bonus[index].score,
         }))
         .filter(
-          (item) =>
+          item =>
             !blackList
-              .map((user) => user.userInfo.userID)
-              .includes(item.userInfo.userID)
+              .map(user => user.userInfo.userID)
+              .includes(item.userInfo.userID),
         ),
-    [blackList, bonus, data]
+    [blackList, bonus, data],
   );
 
 export default useMergeLeaderboardData;
