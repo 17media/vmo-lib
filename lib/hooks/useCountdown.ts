@@ -1,6 +1,6 @@
-import { now } from "@17media/dad";
-import { useRef, useEffect, useCallback, useState } from "react";
-import { addLeadingZeros } from "../utils";
+import { now } from '@17media/dad';
+import { useRef, useEffect, useCallback, useState } from 'react';
+import { addLeadingZeros } from '../utils';
 
 export enum TimeStatus {
   NotYet,
@@ -22,7 +22,7 @@ const m = 1000 * 60;
 
 export const formatCountdownText = (times: TimeCount) =>
   `${addLeadingZeros(times.d * 24 + times.h)}:${addLeadingZeros(
-    times.m
+    times.m,
   )}:${addLeadingZeros(times.s)}`;
 
 export const getRelatedDistance = (dist: number): TimeCount => ({
@@ -50,7 +50,7 @@ function getCurrentStatus(time: number, start: number, end: number) {
 export const useCountdown = (
   start: number,
   end: number,
-  timeEndText: string
+  timeEndText: string,
 ) => {
   const timer = useRef(0);
   const [currentTime, setCurrentTime] = useState(now() * 1000);

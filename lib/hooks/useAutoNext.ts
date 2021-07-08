@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { qs, globalThis } from "../utils";
+import { useEffect } from 'react';
+import { qs, globalThis } from '../utils';
 
 export const useAutoNext = (isEnded: boolean, nextPage: number) => {
   useEffect(() => {
@@ -11,10 +11,10 @@ export const useAutoNext = (isEnded: boolean, nextPage: number) => {
         page: nextPage,
       };
       const queryPath = Object.entries(query).map(
-        ([key, value]) => `${key}=${value}`
+        ([key, value]) => `${key}=${value}`,
       );
       const nextLocation = `${globalThis.location.pathname}?${queryPath.join(
-        "&"
+        '&',
       )}`;
       globalThis.location.href = nextLocation;
     }

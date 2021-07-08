@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from "react";
-import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
-import useSyncScroll from "../lib/hooks/useSyncScroll";
-import useMockLeaderboard from "../lib/hooks/useMockLeaderboard";
+import React, { useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
+import useSyncScroll from '../lib/hooks/useSyncScroll';
+import useMockLeaderboard from '../lib/hooks/useMockLeaderboard';
 
 interface Props {
   handleScroll?: (e) => void;
@@ -26,7 +26,7 @@ const Team: React.FC<Props> = ({ handleScroll }) => {
 
   return (
     <LeaderboardWrapper onScroll={handleScroll}>
-      {mockLeaderboard.map((item) => (
+      {mockLeaderboard.map(item => (
         // key must be empty or the scrollbar would back to top
         <Item>
           {item.userInfo.openID}: {item.score}
@@ -58,7 +58,7 @@ const OfflineTeamRound = () => {
   return (
     <div>
       <Wrapper ref={wrapperRef}>
-        {teams.map((key) => (
+        {teams.map(key => (
           <Team key={key} handleScroll={handleSroll} />
         ))}
       </Wrapper>

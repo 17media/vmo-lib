@@ -1,10 +1,10 @@
-import { now } from "@17media/dad";
+import { now } from '@17media/dad';
 
-import useCountdown, { TimeStatus } from "./useCountdown";
+import useCountdown, { TimeStatus } from './useCountdown';
 
-import useAutoNext from "./useAutoNext";
+import useAutoNext from './useAutoNext';
 
-import useMockLeaderboard from "./useMockLeaderboard";
+import useMockLeaderboard from './useMockLeaderboard';
 
 export interface PageContext {
   startDate: string;
@@ -39,7 +39,7 @@ export const usePageData = ({
   const { leaderboard: mockLeaderboard } = useMockLeaderboard(
     test,
     init,
-    isResultPage
+    isResultPage,
   );
 
   return {

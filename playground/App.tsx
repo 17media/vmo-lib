@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import OfflineRound from "./OfflineRound";
-import OfflineTeamRound from "./OfflineTeamRound";
-import LuckyDraw from "./LuckyDraw";
+import React, { useState } from 'react';
+import OfflineRound from './OfflineRound';
+import OfflineTeamRound from './OfflineTeamRound';
+import LuckyDraw from './LuckyDraw';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] =
-    useState<string>("offlineRound");
+    useState<string>('offlineRound');
   const changeComponent = (componentName: string) =>
     setCurrentComponent(componentName);
 

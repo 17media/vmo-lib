@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import useItemTransition, { ItemStyle } from "../hooks/useItemTransition";
-import { User } from "../types";
+import React from 'react';
+import styled from 'styled-components';
+import useItemTransition, { ItemStyle } from '../hooks/useItemTransition';
+import { User } from '../types';
 
 export interface Props {
   user: User[];
@@ -16,36 +16,36 @@ const Wrapper = styled.div`
 `;
 
 const transitionStyle = {
-  transition: "all 0.5s ease 0.3s",
+  transition: 'all 0.5s ease 0.3s',
 };
 
-export const TransitionLeaderboardWrapper: React.FC<Props> = React.memo(({
-  user,
-  itemStyle,
-  rowCount,
-  children,
-}) => {
-  const { itemTransitionStyle } = useItemTransition(
-    itemStyle,
-    transitionStyle,
-    rowCount,
-    user.map((u) => u.rank)
-  );
+export const TransitionLeaderboardWrapper: React.FC<Props> = React.memo(
+  ({ user, itemStyle, rowCount, children }) => {
+    const { itemTransitionStyle } = useItemTransition(
+      itemStyle,
+      transitionStyle,
+      rowCount,
+      user.map(u => u.rank),
+    );
 
-  function renderChild() {
-    return React.Children.map(children, (child, index) => {
-      if (!React.isValidElement(child) || !Array.isArray(itemTransitionStyle)) {
-        throw new Error("Invalid child element");
-      }
-      return React.cloneElement(child, {
-        style: itemTransitionStyle[index],
-        key: user[index].userInfo.userID,
-        ...child.props,
+    function renderChild() {
+      return React.Children.map(children, (child, index) => {
+        if (
+          !React.isValidElement(child) ||
+          !Array.isArray(itemTransitionStyle)
+        ) {
+          throw new Error('Invalid child element');
+        }
+        return React.cloneElement(child, {
+          style: itemTransitionStyle[index],
+          key: user[index].userInfo.userID,
+          ...child.props,
+        });
       });
-    });
-  }
+    }
 
-  return <Wrapper>{renderChild()}</Wrapper>;
-});
+    return <Wrapper>{renderChild()}</Wrapper>;
+  },
+);
 
 export default TransitionLeaderboardWrapper;

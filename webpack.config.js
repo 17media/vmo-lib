@@ -1,18 +1,18 @@
-const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: "./playground/index.tsx",
+  mode: 'development',
+  entry: './playground/index.tsx',
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "output"),
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'output'),
   },
 
-  devtool: "source-map",
+  devtool: 'source-map',
 
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json"],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
   },
   devServer: {
     hot: true,
@@ -24,25 +24,25 @@ module.exports = {
       {
         test: /.ts$/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/typescript", "@babel/preset-env"],
+            presets: ['@babel/typescript', '@babel/preset-env'],
           },
         },
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /.tsx$/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
-              "@babel/typescript",
-              "@babel/preset-react",
-              "@babel/preset-env",
+              '@babel/typescript',
+              '@babel/preset-react',
+              '@babel/preset-env',
             ],
           },
         },
@@ -51,8 +51,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "index.html",
-      filename: "index.html",
+      template: 'index.html',
+      filename: 'index.html',
     }),
   ],
 };

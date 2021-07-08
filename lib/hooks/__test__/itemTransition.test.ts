@@ -1,7 +1,7 @@
-import useItemTransition from "../useItemTransition";
+import useItemTransition from '../useItemTransition';
 
-describe("test transition style hook", () => {
-  test("should return correct top and left position", () => {
+describe('test transition style hook', () => {
+  test('should return correct top and left position', () => {
     const rowCount = 4;
 
     const itemStyle = {
@@ -11,39 +11,39 @@ describe("test transition style hook", () => {
       offsetY: 20,
     };
     const transitionStyle = {
-      transition: "all 0.5s ease 0.3s",
+      transition: 'all 0.5s ease 0.3s',
     };
 
     const expectedItemsStyle = [
       {
         left: 0,
         top: 0,
-        position: "absolute",
-        transition: "all 0.5s ease 0.3s",
+        position: 'absolute',
+        transition: 'all 0.5s ease 0.3s',
       },
       {
         left: 120,
         top: 0,
-        position: "absolute",
-        transition: "all 0.5s ease 0.3s",
+        position: 'absolute',
+        transition: 'all 0.5s ease 0.3s',
       },
       {
         left: 240,
         top: 0,
-        position: "absolute",
-        transition: "all 0.5s ease 0.3s",
+        position: 'absolute',
+        transition: 'all 0.5s ease 0.3s',
       },
       {
         left: 360,
         top: 0,
-        position: "absolute",
-        transition: "all 0.5s ease 0.3s",
+        position: 'absolute',
+        transition: 'all 0.5s ease 0.3s',
       },
       {
         left: 0,
         top: 120,
-        position: "absolute",
-        transition: "all 0.5s ease 0.3s",
+        position: 'absolute',
+        transition: 'all 0.5s ease 0.3s',
       },
     ];
 
@@ -51,7 +51,7 @@ describe("test transition style hook", () => {
       itemStyle,
       transitionStyle,
       rowCount,
-      new Array(5).fill(0).map((_, index) => index + 1)
+      new Array(5).fill(0).map((_, index) => index + 1),
     );
     expect(itemsStyle.itemTransitionStyle).toEqual(expectedItemsStyle);
   });

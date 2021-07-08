@@ -1,18 +1,18 @@
-import React from "react";
-import styled from "styled-components";
-import usePageData from "../hooks/usePageData";
-import { TransitionLeaderboardWrapper } from "../components/TransitionLeaderboardWrapper";
-import { ItemStyle } from "../hooks/useItemTransition";
-import { qs } from "../utils";
+import React from 'react';
+import styled from 'styled-components';
+import usePageData from '../hooks/usePageData';
+import { TransitionLeaderboardWrapper } from '../components/TransitionLeaderboardWrapper';
+import { ItemStyle } from '../hooks/useItemTransition';
+import { qs } from '../utils';
 
 const { test, initMockList } = qs<{ test: string; initMockList: string }>();
 
 const round1 = {
-  startDate: "2021-05-01T18:55:00+08:00",
-  endDate: "2021-05-11T18:55:00+08:00",
+  startDate: '2021-05-01T18:55:00+08:00',
+  endDate: '2021-05-11T18:55:00+08:00',
   nextPage: 2,
   isResultPage: false,
-  endedText: "活動結束",
+  endedText: '活動結束',
   test: !!test,
   init: !!initMockList,
 };
@@ -47,7 +47,7 @@ export const OfflineNormalTemplate = () => {
           rowCount={rowCount}
           user={mockLeaderboard}
         >
-          {mockLeaderboard.map((item) => (
+          {mockLeaderboard.map(item => (
             <Item key={item.userInfo.userID}>
               {item.userInfo.openID}: {item.score}
             </Item>
