@@ -15,7 +15,7 @@ export const EVENTORY_ENDPOINT =
   'https://api.17app.co/api/v1/leaderboards/eventory';
 
 /**
- * same as const `EVENTORY_ENDPOINT`
+ * same as const `EVENTORY_ENDPOINT`.
  */
 export const EVENTORY_OFFLINE_ENDPOINT =
   'https://dsa-api.17app.co/api/v1/leaderboards/eventory';
