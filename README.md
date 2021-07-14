@@ -37,36 +37,6 @@
 
 `yarn start`
 
-## Document
-
-[vmo-lib Documentation](https://17media.github.io/vmo-lib)
-
----
-
-leave comments when coding (support Markdown!) and it would generate docs automatically.
-
-Here is [typedoc guideline](https://typedoc.org/guides/doccomments/)
-
-Generate document
-
-```
-yarn doc
-```
-
-where config at `typedoc.json`
-
-to confirm what options have been loaded:
-
-```
-npx typedoc --showConfig
-```
-
-Publish
-
-```
-yarn run deploy:doc
-```
-
 ## How to create components or hooks
 
 1. create a folder or file
