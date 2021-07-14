@@ -10,6 +10,8 @@ export const GCP_CDN_HOST = `https://${GCP_CDN_DOMAIN}`;
  * Eventory Api
  *
  * usage: `https://api.17app.co/api/v1/leaderboards/eventory?containerID={containerID}`
+ *
+ * use query `containerID={containerID}` to compose to complete leaderboard API url.
  */
 export const EVENTORY_ENDPOINT =
   'https://api.17app.co/api/v1/leaderboards/eventory';
@@ -42,15 +44,17 @@ export const AVATAR_ENDPOINT = 'https://assets-17app.akamaized.net';
 
 /**
  * usage: ``AVATAR_BASE_URL${userID}``
+ *
+ * use `userID` to compose to streamer's avatar image url.
  */
 export const AVATAR_BASE_URL = `${AVATAR_ENDPOINT}/THUMBNAIL_`;
 
 /**
- * svg image
+ * if streamer does not have avatar image, use this image instead.
  */
 export const DEFAULT_AVATAR_IMAGE = `https://${GCP_CDN_DOMAIN}/17live/ig-default.svg`;
 
 /**
- * png image
+ * if streamer is streaming, use this image wrap around streamer's avatar.
  */
 export const ONLINE_RIM_IMAGE = `https://${GCP_CDN_DOMAIN}/campaign/assets/igOfficialCircle.png`;
