@@ -39,9 +39,13 @@
 
 ## Document
 
+[vmo-lib Documentation](https://17media.github.io/vmo-lib)
+
+---
+
 leave comments when coding (support Markdown!) and it would generate docs automatically.
 
-Here is [guideline](https://typedoc.org/guides/doccomments/)
+Here is [typedoc guideline](https://typedoc.org/guides/doccomments/)
 
 Generate document
 
@@ -55,6 +59,12 @@ to confirm what options have been loaded:
 
 ```
 npx typedoc --showConfig
+```
+
+Publish
+
+```
+yarn run deploy:doc
 ```
 
 ## How to create components or hooks
