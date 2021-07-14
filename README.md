@@ -37,6 +37,26 @@
 
 `yarn start`
 
+## Document
+
+leave comments when coding (support Markdown!) and it would generate docs automatically.
+
+Here is [guideline](https://typedoc.org/guides/doccomments/)
+
+Generate document
+
+```
+yarn doc
+```
+
+where config at `typedoc.json`
+
+to confirm what options have been loaded:
+
+```
+npx typedoc --showConfig
+```
+
 ## How to create components or hooks
 
 1. create a folder or file
