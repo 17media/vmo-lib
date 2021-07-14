@@ -60,6 +60,6 @@
     "test": "jest",
     "format": "prettier --write .",
     "doc": "typedoc",
-    "deploy:doc": "doc && gh-pages -d docs"
+    "deploy:doc": "rm -rf doc && yarn doc && gh-pages -d docs"
   }
 }
