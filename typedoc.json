@@ -1,0 +1,5 @@
+{
+  "entryPoints": ["lib"],
+  "out": "docs",
+  "exclude": ["**/__test__/*.ts"]
+}
