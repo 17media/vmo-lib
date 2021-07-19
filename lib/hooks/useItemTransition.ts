@@ -9,6 +9,14 @@ export interface TransitionStyle {
   transition: string;
 }
 
+/**
+ * 換位動畫
+ * @param itemStyle 長寬與偏移x,y
+ * @param transition 位移動畫css
+ * @param rowItems 每一行多少個
+ * @param currentRank 當前榜單數目
+ */
+
 export const useItemTransition = (
   itemStyle: ItemStyle,
   transition: TransitionStyle,

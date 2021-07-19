@@ -44,7 +44,10 @@ function getCurrentStatus(time: number, start: number, end: number) {
 }
 
 /**
- *
+ * 線下倒數計時
+ * @param start 開始時間
+ * @param end 結束時間
+ * @param 結束時 text
  * when you use this hook, outside component should use React.memo() to prevent rerender.
  */
 export const useCountdown = (

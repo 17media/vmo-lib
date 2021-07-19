@@ -1,5 +1,8 @@
 import { useRef } from 'react';
 
+/**
+ * 多個榜單同時下滑
+ */
 export const useSyncScroll = () => {
   // element which want to handle scroll
   const elPoolRef = useRef<Element[]>([]);
