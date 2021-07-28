@@ -4,8 +4,8 @@ function updateLeaderboard(prevLB: User[], newLB: User[]) {
   const prevLBMap = new Map(prevLB.map(user => [user.userInfo.userID, user]));
 
   newLB.forEach(user => {
-    if (prevLBMap.has(user.userInfo.userID)) {
-      const curData = prevLBMap.get(user.userInfo.userID);
+    const curData = prevLBMap.get(user.userInfo.userID);
+    if (curData) {
       curData.score += user.score;
     } else {
       prevLBMap.set(user.userInfo.userID, user);
@@ -55,7 +55,7 @@ class LeaderboardData {
     return this;
   }
 
-  setWhiteList(index, name) {
+  setWhiteList(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
     const curData = this.data[index];
     const curDataUserSet = new Set(curData.map(user => user.userInfo.userID));
@@ -65,7 +65,7 @@ class LeaderboardData {
     return this;
   }
 
-  setBlackList(index, name) {
+  setBlackList(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
     const curData = this.data[index];
     const curDataUserSet = new Set(curData.map(user => user.userInfo.userID));
@@ -78,7 +78,7 @@ class LeaderboardData {
   /**
    * bonus 只合併 bonus key 與 meta key 不合併分數
    */
-  setBonus(index, name) {
+  setBonus(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
     const bonusData = this.data[index];
     const leaderboardData = this.leaderboardMap[name];
@@ -88,8 +88,8 @@ class LeaderboardData {
     );
 
     bonusData.forEach(data => {
-      if (leaderboardDataMap.has(data.userInfo.userID)) {
-        const curData = leaderboardDataMap.get(data.userInfo.userID);
+      const curData = leaderboardDataMap.get(data.userInfo.userID);
+      if (curData) {
         curData.bonus += data.score;
         curData.meta = {
           ...curData.meta,
