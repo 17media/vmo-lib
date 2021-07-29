@@ -23,8 +23,8 @@ function updateLeaderboard(prevLB: User[], newLB: User[]) {
 }
 
 /**
- * 處理榜單資料 data
- * input data: 榜單資料集 (data array 包含 data, bonus, whiteList, blackList)
+ * 處理榜單資料 data.
+ * input data: 榜單資料集 (data array 包含 data, bonus, whiteList, blackList),
  * output data: 榜單 map (for 多榜單)
  */
 class LeaderboardData {
@@ -38,11 +38,11 @@ class LeaderboardData {
   }
 
   /**
-   * 分配 input 的 data array 至 leaderboardMap
-   * 把 name 跟 [users] 綁成key-value pair. e.g. kitty隊 - [users])
+   * 分配 input 的 data array 至 leaderboardMap,
+   * 把 name 跟 [users] 綁成key-value pair. e.g. kitty隊 - [users]).
+   * 結果：leaderboardMap被更新
    * @param lbIndex 要被設定的榜單index
    * @param name 榜單要對應的name
-   * 結果：leaderboardMap被更新
    */
   setLeaderboard(lbIndex: number, name: string) {
     const curData = this.data[lbIndex];
@@ -67,10 +67,10 @@ class LeaderboardData {
   }
 
   /**
-   * 有在白名單的user才留在leaderboard裡
+   * 有在白名單的user才留在leaderboard裡,
+   * 結果：input榜單被更新
    * @param index 要被更新的榜單index
    * @param name whitelist在leaderboardMap裡對應的name
-   * 結果：input榜單被更新
    */
   setWhiteList(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
@@ -83,10 +83,10 @@ class LeaderboardData {
   }
 
   /**
-   * 沒有在黑名單的user才留在leaderboard裡
+   * 沒有在黑名單的user才留在leaderboard裡.
+   * 結果：input榜單被更新
    * @param index 要被更新的榜單index
    * @param name blacklist在leaderboardMap裡對應的name
-   * 結果：input榜單被更新
    */
   setBlackList(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
@@ -99,11 +99,11 @@ class LeaderboardData {
   }
 
   /**
-   * bonus 只合併 bonus key 與 meta key 不合併分數
-   * 對name(榜單), 做index(bonus)的操作
+   * bonus 只合併 bonus key 與 meta key, 不合併分數.
+   * 對name(榜單) 做index(bonus)的操作.
+   * 結果：input榜單被更新
    * @param index bonus data的index
    * @param name 要被更新的榜單的name
-   * 結果：input榜單被更新
    */
   setBonus(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
