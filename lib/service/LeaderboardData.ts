@@ -1,5 +1,12 @@
 import { User } from '../types';
 
+/**
+ * 更新原始榜單
+ * @param prevLB 原始榜單
+ * @param newLB 新榜單資料
+ * @returns 更新後的原始榜單
+ */
+
 function updateLeaderboard(prevLB: User[], newLB: User[]) {
   const prevLBMap = new Map(prevLB.map(user => [user.userInfo.userID, user]));
 
@@ -32,6 +39,10 @@ class LeaderboardData {
 
   /**
    * 分配 input 的 data array 至 leaderboardMap
+   * 把 name 跟 [users] 綁成key-value pair. e.g. kitty隊 - [users])
+   * @param lbIndex 要被設定的榜單index
+   * @param name 榜單要對應的name
+   * 結果：leaderboardMap被更新
    */
   setLeaderboard(lbIndex: number, name: string) {
     const curData = this.data[lbIndex];
@@ -55,6 +66,12 @@ class LeaderboardData {
     return this;
   }
 
+  /**
+   * 有在白名單的user才留在leaderboard裡
+   * @param index 要被更新的榜單index
+   * @param name whitelist在leaderboardMap裡對應的name
+   * 結果：input榜單被更新
+   */
   setWhiteList(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
     const curData = this.data[index];
@@ -65,6 +82,12 @@ class LeaderboardData {
     return this;
   }
 
+  /**
+   * 沒有在黑名單的user才留在leaderboard裡
+   * @param index 要被更新的榜單index
+   * @param name blacklist在leaderboardMap裡對應的name
+   * 結果：input榜單被更新
+   */
   setBlackList(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
     const curData = this.data[index];
@@ -77,6 +100,10 @@ class LeaderboardData {
 
   /**
    * bonus 只合併 bonus key 與 meta key 不合併分數
+   * 對name(榜單), 做index(bonus)的操作
+   * @param index bonus data的index
+   * @param name 要被更新的榜單的name
+   * 結果：input榜單被更新
    */
   setBonus(index: number, name: string) {
     if (!this.leaderboardMap[name]) return this;
