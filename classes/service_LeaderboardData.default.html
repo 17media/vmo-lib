@@ -70,11 +70,24 @@
 		<div class="col-8 col-content">
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>處理榜單資料 data.
-							input data: 榜單資料集 (data array 包含 data, bonus, whiteList, blackList),
-						output data: 榜單 map (for 多榜單)</p>
-					</div>
+					<dl class="tsd-comment-tags">
+						<dt>example</dt>
+						<dd><pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">team1</span><span style="color: #000000"> = []</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">team2</span><span style="color: #000000"> = []</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">team3</span><span style="color: #000000"> = []</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">bonus1</span><span style="color: #000000"> = []</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">whiteList</span><span style="color: #000000"> = []</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">data</span><span style="color: #000000"> = [</span><span style="color: #001080">team1</span><span style="color: #000000">, </span><span style="color: #001080">team2</span><span style="color: #000000">, </span><span style="color: #001080">team3</span><span style="color: #000000">, </span><span style="color: #001080">bonus</span><span style="color: #000000">, </span><span style="color: #001080">whiteList</span><span style="color: #000000">] </span><span style="color: #008000">// 資料集</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">team1</span><span style="color: #000000">, </span><span style="color: #0070C1">team2</span><span style="color: #000000">, </span><span style="color: #0070C1">team3</span><span style="color: #000000"> } = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">LeaderboardData</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">)</span>
+<span style="color: #000000">.</span><span style="color: #795E26">setLeaderboard</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;team1&#039;</span><span style="color: #000000">) </span><span style="color: #008000">// 設置資料集 0 為 team1</span>
+<span style="color: #000000">.</span><span style="color: #795E26">setLeaderboard</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;team2&#039;</span><span style="color: #000000">) </span><span style="color: #008000">// 設置資料集 1 為 team2</span>
+<span style="color: #000000">.</span><span style="color: #795E26">setLeaderboard</span><span style="color: #000000">(</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;team3&#039;</span><span style="color: #000000">) </span><span style="color: #008000">// 設置資料集 2 為 team3</span>
+<span style="color: #000000">.</span><span style="color: #795E26">setBonus</span><span style="color: #000000">(</span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;team1&#039;</span><span style="color: #000000">) </span><span style="color: #008000">// 把資料集 3 的 分數 設置為 team1 bomus meta</span>
+<span style="color: #000000">.</span><span style="color: #795E26">setWhiteList</span><span style="color: #000000">(</span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;team2&#039;</span><span style="color: #000000">) </span><span style="color: #008000">// 把資料集 4 的 名單 設置為 team2 白名單</span>
+<span style="color: #000000">.</span><span style="color: #795E26">getLeaderboard</span><span style="color: #000000">()</span>
+</code></pre>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -129,7 +142,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L35">service/LeaderboardData.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L47">service/LeaderboardData.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -151,7 +164,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L31">service/LeaderboardData.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L43">service/LeaderboardData.ts:43</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,7 +174,7 @@
 					<div class="tsd-signature tsd-kind-icon">leaderboard<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L33">service/LeaderboardData.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L45">service/LeaderboardData.ts:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +191,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L142">service/LeaderboardData.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L154">service/LeaderboardData.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,7 +240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L91">service/LeaderboardData.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L103">service/LeaderboardData.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -265,7 +278,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L108">service/LeaderboardData.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L120">service/LeaderboardData.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -304,7 +317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L131">service/LeaderboardData.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L143">service/LeaderboardData.ts:143</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -330,7 +343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L47">service/LeaderboardData.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L59">service/LeaderboardData.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -369,7 +382,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L62">service/LeaderboardData.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L74">service/LeaderboardData.ts:74</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -395,7 +408,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L75">service/LeaderboardData.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/377432f/lib/service/LeaderboardData.ts#L87">service/LeaderboardData.ts:87</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
