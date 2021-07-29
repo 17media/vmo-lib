@@ -6,7 +6,6 @@ import { User } from '../types';
  * @param newLB 新榜單資料
  * @returns 更新後的原始榜單
  */
-
 function updateLeaderboard(prevLB: User[], newLB: User[]) {
   const prevLBMap = new Map(prevLB.map(user => [user.userInfo.userID, user]));
 
@@ -23,9 +22,22 @@ function updateLeaderboard(prevLB: User[], newLB: User[]) {
 }
 
 /**
- * 處理榜單資料 data.
- * input data: 榜單資料集 (data array 包含 data, bonus, whiteList, blackList),
- * output data: 榜單 map (for 多榜單)
+ * @example
+ * ```
+ * const team1 = []
+ * const team2 = []
+ * const team3 = []
+ * const bonus1 = []
+ * const whiteList = []
+ * const data = [team1, team2, team3, bonus, whiteList] // 資料集
+ * const { team1, team2, team3 } = new LeaderboardData(data)
+ * .setLeaderboard(0, 'team1') // 設置資料集 0 為 team1
+ * .setLeaderboard(1, 'team2') // 設置資料集 1 為 team2
+ * .setLeaderboard(2, 'team3') // 設置資料集 2 為 team3
+ * .setBonus(3, 'team1') // 把資料集 3 的 分數 設置為 team1 bomus meta
+ * .setWhiteList(4, 'team2') // 把資料集 4 的 名單 設置為 team2 白名單
+ * .getLeaderboard()
+ * ```
  */
 class LeaderboardData {
   private data: User[][];
