@@ -1,4 +1,4 @@
-import LeaderboardData from '../../service/LeaderboardData';
+import LeaderboardData from '../LeaderboardData';
 import { User } from '../../types';
 
 /* 榜單資料集：
