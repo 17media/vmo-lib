@@ -1,0 +1,151 @@
+import { User } from '../types';
+
+/**
+ * 更新原始榜單
+ * @param prevLB 原始榜單
+ * @param newLB 新榜單資料
+ * @returns 更新後的原始榜單
+ */
+
+function updateLeaderboard(prevLB: User[], newLB: User[]) {
+  const prevLBMap = new Map(prevLB.map(user => [user.userInfo.userID, user]));
+
+  newLB.forEach(user => {
+    const curData = prevLBMap.get(user.userInfo.userID);
+    if (curData) {
+      curData.score += user.score;
+    } else {
+      prevLBMap.set(user.userInfo.userID, user);
+    }
+  });
+
+  return Array.from(prevLBMap.values());
+}
+
+/**
+ * 處理榜單資料 data.
+ * input data: 榜單資料集 (data array 包含 data, bonus, whiteList, blackList),
+ * output data: 榜單 map (for 多榜單)
+ */
+class LeaderboardData {
+  private data: User[][];
+
+  private leaderboardMap: Record<string, User[]>;
+
+  constructor(data: User[][]) {
+    this.data = data;
+    this.leaderboardMap = {};
+  }
+
+  /**
+   * 分配 input 的 data array 至 leaderboardMap,
+   * 把 name 跟 [users] 綁成key-value pair. e.g. kitty隊 - [users]).
+   * 結果：leaderboardMap被更新
+   * @param lbIndex 要被設定的榜單index
+   * @param name 榜單要對應的name
+   */
+  setLeaderboard(lbIndex: number, name: string) {
+    const curData = this.data[lbIndex];
+
+    if (this.leaderboardMap[name]) {
+      this.leaderboardMap[name] = updateLeaderboard(
+        this.leaderboardMap[name],
+        curData,
+      );
+      return this;
+    }
+    this.leaderboardMap[name] = curData;
+    this.leaderboardMap[name].sort((a, b) => b.score - a.score);
+    return this;
+  }
+
+  setLeaderboards(lbIndexes: number[], names: string[]) {
+    lbIndexes.forEach((lbIndex, index) => {
+      this.setLeaderboard(lbIndex, names[index]);
+    });
+    return this;
+  }
+
+  /**
+   * 有在白名單的user才留在leaderboard裡,
+   * 結果：input榜單被更新
+   * @param index 要被更新的榜單index
+   * @param name whitelist在leaderboardMap裡對應的name
+   */
+  setWhiteList(index: number, name: string) {
+    if (!this.leaderboardMap[name]) return this;
+    const curData = this.data[index];
+    const curDataUserSet = new Set(curData.map(user => user.userInfo.userID));
+    this.leaderboardMap[name] = this.leaderboardMap[name].filter(user =>
+      curDataUserSet.has(user.userInfo.userID),
+    );
+    return this;
+  }
+
+  /**
+   * 沒有在黑名單的user才留在leaderboard裡.
+   * 結果：input榜單被更新
+   * @param index 要被更新的榜單index
+   * @param name blacklist在leaderboardMap裡對應的name
+   */
+  setBlackList(index: number, name: string) {
+    if (!this.leaderboardMap[name]) return this;
+    const curData = this.data[index];
+    const curDataUserSet = new Set(curData.map(user => user.userInfo.userID));
+    this.leaderboardMap[name] = this.leaderboardMap[name].filter(
+      user => !curDataUserSet.has(user.userInfo.userID),
+    );
+    return this;
+  }
+
+  /**
+   * bonus 只合併 bonus key 與 meta key, 不合併分數.
+   * 對name(榜單) 做index(bonus)的操作.
+   * 結果：input榜單被更新
+   * @param index bonus data的index
+   * @param name 要被更新的榜單的name
+   */
+  setBonus(index: number, name: string) {
+    if (!this.leaderboardMap[name]) return this;
+    const bonusData = this.data[index];
+    const leaderboardData = this.leaderboardMap[name];
+
+    const leaderboardDataMap = new Map(
+      leaderboardData.map(user => [user.userInfo.userID, user]),
+    );
+
+    bonusData.forEach(data => {
+      const curData = leaderboardDataMap.get(data.userInfo.userID);
+      if (curData) {
+        curData.bonus += data.score;
+        curData.meta = {
+          ...curData.meta,
+          [name]: data.score,
+        };
+      }
+    });
+
+    return this;
+  }
+
+  setBonuses(bonusIndexes: number[], names: string[]) {
+    bonusIndexes.forEach((bonusIndex, index) => {
+      this.setBonus(bonusIndex, names[index]);
+    });
+    return this;
+  }
+
+  /**
+   * 取得 leaderboard
+   * @param operation 額外邏輯處理
+   */
+  getLeaderboard(operation?: (data: Record<string, User[]>) => void) {
+    if (operation) {
+      operation(this.leaderboardMap);
+      return this.leaderboardMap;
+    }
+    return this.leaderboardMap;
+  }
+}
+
+export default LeaderboardData;
