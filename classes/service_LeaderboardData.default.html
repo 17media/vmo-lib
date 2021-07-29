@@ -71,8 +71,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>處理榜單資料 data
-							input data: 榜單資料集 (data array 包含 data, bonus, whiteList, blackList)
+						<p>處理榜單資料 data.
+							input data: 榜單資料集 (data array 包含 data, bonus, whiteList, blackList),
 						output data: 榜單 map (for 多榜單)</p>
 					</div>
 				</div>
@@ -129,7 +129,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L35">service/LeaderboardData.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L35">service/LeaderboardData.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -151,7 +151,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L31">service/LeaderboardData.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L31">service/LeaderboardData.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">leaderboard<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L33">service/LeaderboardData.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L33">service/LeaderboardData.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +178,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L142">service/LeaderboardData.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L142">service/LeaderboardData.ts:142</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,12 +227,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L91">service/LeaderboardData.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L91">service/LeaderboardData.ts:91</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>沒有在黑名單的user才留在leaderboard裡</p>
+									<p>沒有在黑名單的user才留在leaderboard裡.
+									結果：input榜單被更新</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -246,8 +247,7 @@
 								<li>
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>blacklist在leaderboardMap裡對應的name
-										結果：input榜單被更新</p>
+										<p>blacklist在leaderboardMap裡對應的name</p>
 									</div>
 								</li>
 							</ul>
@@ -265,13 +265,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L108">service/LeaderboardData.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L108">service/LeaderboardData.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>bonus 只合併 bonus key 與 meta key 不合併分數
-									對name(榜單), 做index(bonus)的操作</p>
+									<p>bonus 只合併 bonus key 與 meta key, 不合併分數.
+										對name(榜單) 做index(bonus)的操作.
+									結果：input榜單被更新</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -285,8 +286,7 @@
 								<li>
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>要被更新的榜單的name
-										結果：input榜單被更新</p>
+										<p>要被更新的榜單的name</p>
 									</div>
 								</li>
 							</ul>
@@ -304,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L131">service/LeaderboardData.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L131">service/LeaderboardData.ts:131</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -330,13 +330,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L47">service/LeaderboardData.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L47">service/LeaderboardData.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>分配 input 的 data array 至 leaderboardMap
-									把 name 跟 [users] 綁成key-value pair. e.g. kitty隊 - [users])</p>
+									<p>分配 input 的 data array 至 leaderboardMap,
+										把 name 跟 [users] 綁成key-value pair. e.g. kitty隊 - [users]).
+									結果：leaderboardMap被更新</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -350,8 +351,7 @@
 								<li>
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>榜單要對應的name
-										結果：leaderboardMap被更新</p>
+										<p>榜單要對應的name</p>
 									</div>
 								</li>
 							</ul>
@@ -369,7 +369,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L62">service/LeaderboardData.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L62">service/LeaderboardData.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -395,12 +395,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f65dfb5/lib/service/LeaderboardData.ts#L75">service/LeaderboardData.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/816d0d8/lib/service/LeaderboardData.ts#L75">service/LeaderboardData.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>有在白名單的user才留在leaderboard裡</p>
+									<p>有在白名單的user才留在leaderboard裡,
+									結果：input榜單被更新</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -414,8 +415,7 @@
 								<li>
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>whitelist在leaderboardMap裡對應的name
-										結果：input榜單被更新</p>
+										<p>whitelist在leaderboardMap裡對應的name</p>
 									</div>
 								</li>
 							</ul>
