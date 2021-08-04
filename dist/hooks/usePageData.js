@@ -27,6 +27,10 @@ const dad_1 = require("@17media/dad");
 const useCountdown_1 = __importStar(require("./useCountdown"));
 const useAutoNext_1 = __importDefault(require("./useAutoNext"));
 const useMockLeaderboard_1 = __importDefault(require("./useMockLeaderboard"));
+/**
+ *
+ * when you use this hook, outside component should use React.memo() to prevent rerender. (trigger by useCountdown)
+ */
 const usePageData = ({ startDate, endDate, nextPage, isResultPage, endedText, test, init, }) => {
     const start = new Date(startDate).getTime();
     const end = new Date(endDate).getTime();

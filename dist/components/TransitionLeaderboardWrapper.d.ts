@@ -1,6 +1,6 @@
-import React from "react";
-import { ItemStyle } from "../hooks/useItemTransition";
-import { User } from "../types";
+import React from 'react';
+import { ItemStyle } from '../hooks/useItemTransition';
+import { User } from '../types';
 export interface Props {
     user: User[];
     rowCount: number;

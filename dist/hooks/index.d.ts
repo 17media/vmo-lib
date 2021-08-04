@@ -1,12 +1,11 @@
 /// <reference types="react" />
-export * from "./useCountdown";
-export * from "./useItemTransition";
-export * from "./useMergeLeaderboardData";
-export * from "./usePageData";
-export * from "./useAutoNext";
-export * from "./useMockLeaderboard";
-export * from "./useLuckyDraw";
-export * from "./useSyncScroll";
+export * from './useCountdown';
+export * from './useItemTransition';
+export * from './usePageData';
+export * from './useAutoNext';
+export * from './useMockLeaderboard';
+export * from './useLuckyDraw';
+export * from './useSyncScroll';
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
@@ -27,22 +26,6 @@ declare const _default: {
             position: string;
         }[];
     };
-    useMergeLeaderboardData: ({ data, bonus, blackList, }: import("./useMergeLeaderboardData").LeaderboardDataList) => {
-        bonus: number;
-        meta: Record<string, number>;
-        rank: number;
-        score: number;
-        userInfo: {
-            displayName: string;
-            gloryroadMode: number;
-            level: number;
-            name: string;
-            openID: string;
-            picture: string;
-            region: string;
-            userID: string;
-        };
-    }[];
     useMockLeaderboard: (enable?: boolean, initMockList?: boolean, stable?: boolean, limit?: number) => {
         readonly leaderboard: import("../types").User[];
     };
@@ -59,6 +42,8 @@ declare const _default: {
         clearWinners: () => void;
         reset: () => void;
         currentRound: number;
+        hasDraw: Boolean;
+        MaskDiv: import("react").FC<{}>;
     };
     useSyncScroll: () => {
         handleSroll: (e: any) => void;

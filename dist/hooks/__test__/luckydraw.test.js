@@ -72,7 +72,7 @@ describe('test lucky draw hook', () => {
         expect(result.current.candidates.length).toBe(allCandidates.length - roundWinnersCount);
         expect(result.current.winners.length).toBe(roundWinnersCount);
     }));
-    test('should get correct sort candidates before draw and correct sort winners by rank after draw', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('should get correct sort candidates before draw and correct sort winners by rank after draw.', () => __awaiter(void 0, void 0, void 0, function* () {
         const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 3);
         const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
         const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));
@@ -83,7 +83,7 @@ describe('test lucky draw hook', () => {
         });
         expect(result.current.winners).toEqual(sortAllCandidates);
     }));
-    test('should get correct round before draw and after draw', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('should get correct round before draw and after draw.', () => __awaiter(void 0, void 0, void 0, function* () {
         const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 3);
         const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));
         const roundWinnersCount = 3;
@@ -163,8 +163,10 @@ describe('test lucky draw hook', () => {
             result.current.draw(roundWinnersCount);
             result.current.reset();
         });
+        expect(result.current.currentRound).toBe(0);
         expect(result.current.candidates).toEqual(sortAllCandidates);
         expect(result.current.winners).toEqual([]);
+        expect(result.current.allWinners).toEqual([]);
     }));
     test('should localstorage record correct all winners by url key.', () => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
@@ -177,6 +179,19 @@ describe('test lucky draw hook', () => {
         const allRecordWinners = JSON.parse((_a = localStorage.getItem(url)) !== null && _a !== void 0 ? _a : '');
         expect(allRecordWinners).toEqual(result.current.allWinners);
         expect(window.location.href).toEqual(url);
+    }));
+    test('should get correct hasDraw before draw and after draw.', () => __awaiter(void 0, void 0, void 0, function* () {
+        const allCandidates = useMockLeaderboard_1.mockUsers.slice(0, 3);
+        const { result } = react_hooks_1.renderHook(() => useLuckyDraw_1.default(allCandidates));
+        const roundWinnersCount = 3;
+        expect(result.current.hasDraw).toBe(false);
+        react_hooks_1.act(() => {
+            result.current.draw(roundWinnersCount);
+        });
+        expect(result.current.hasDraw).toBe(true);
+        setTimeout(() => {
+            expect(result.current.hasDraw).toBe(false);
+        }, 500);
     }));
 });
 //# sourceMappingURL=luckydraw.test.js.map

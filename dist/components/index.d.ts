@@ -1,5 +1,5 @@
 /// <reference types="react" />
-export * from "./TransitionLeaderboardWrapper";
+export * from './TransitionLeaderboardWrapper';
 declare const _default: {
     TransitionLeaderboardWrapper: import("react").FC<import("./TransitionLeaderboardWrapper").Props>;
 };

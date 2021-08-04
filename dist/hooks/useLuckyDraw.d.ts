@@ -1,3 +1,4 @@
+import React from 'react';
 import { User } from '../types';
 declare type Props = (allCandidates: User[], willAutoDrawRemainCount?: Boolean) => {
     candidates: User[];
@@ -7,6 +8,8 @@ declare type Props = (allCandidates: User[], willAutoDrawRemainCount?: Boolean) 
     clearWinners: () => void;
     reset: () => void;
     currentRound: number;
+    hasDraw: Boolean;
+    MaskDiv: React.FC;
 };
 /**
  * useLuckyDraw - pass all candidates, use the draw function with number of round winners to get each round winners, remain candidates and allWinners.

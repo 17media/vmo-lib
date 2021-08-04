@@ -13,14 +13,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const useAutoNext_1 = require("./useAutoNext");
 const useCountdown_1 = require("./useCountdown");
 const useItemTransition_1 = require("./useItemTransition");
-const useMergeLeaderboardData_1 = require("./useMergeLeaderboardData");
 const useMockLeaderboard_1 = require("./useMockLeaderboard");
 const usePageData_1 = require("./usePageData");
 const useLuckyDraw_1 = require("./useLuckyDraw");
 const useSyncScroll_1 = require("./useSyncScroll");
 __exportStar(require("./useCountdown"), exports);
 __exportStar(require("./useItemTransition"), exports);
-__exportStar(require("./useMergeLeaderboardData"), exports);
 __exportStar(require("./usePageData"), exports);
 __exportStar(require("./useAutoNext"), exports);
 __exportStar(require("./useMockLeaderboard"), exports);
@@ -30,7 +28,6 @@ exports.default = {
     useAutoNext: useAutoNext_1.useAutoNext,
     useCountdown: useCountdown_1.useCountdown,
     useItemTransition: useItemTransition_1.useItemTransition,
-    useMergeLeaderboardData: useMergeLeaderboardData_1.useMergeLeaderboardData,
     useMockLeaderboard: useMockLeaderboard_1.useMockLeaderboard,
     usePageData: usePageData_1.usePageData,
     useLuckyDraw: useLuckyDraw_1.useLuckyDraw,

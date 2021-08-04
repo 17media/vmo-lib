@@ -32,15 +32,22 @@ function getCurrentStatus(time, start, end) {
     }
     return TimeStatus.Ongoing;
 }
+/**
+ * 線下倒數計時
+ * @param start 開始時間
+ * @param end 結束時間
+ * @param timeEndText 結束時 text
+ * when you use this hook, outside component should use React.memo() to prevent rerender.
+ */
 const useCountdown = (start, end, timeEndText) => {
     const timer = react_1.useRef(0);
     const [currentTime, setCurrentTime] = react_1.useState(dad_1.now() * 1000);
-    const getCurrentTime = react_1.useCallback(() => {
+    const getCurrentTime = () => {
         if (currentTime > start && currentTime < end) {
             setCurrentTime(dad_1.now() * 1000);
             requestAnimationFrame(getCurrentTime);
         }
-    }, [currentTime, end, start]);
+    };
     react_1.useEffect(() => {
         timer.current = requestAnimationFrame(getCurrentTime);
         return () => {
@@ -49,22 +56,20 @@ const useCountdown = (start, end, timeEndText) => {
     }, [getCurrentTime]);
     const countdownTime = end - currentTime;
     const defaultCountdownTime = end - start;
-    const currentStatus = getCurrentStatus(currentTime, start, end);
-    if (currentStatus === TimeStatus.NotYet) {
-        return {
-            status: currentStatus,
-            text: exports.formatCountdownText(exports.getRelatedDistance(defaultCountdownTime)),
-        };
+    const status = getCurrentStatus(currentTime, start, end);
+    let text;
+    if (status === TimeStatus.NotYet) {
+        text = exports.formatCountdownText(exports.getRelatedDistance(defaultCountdownTime));
     }
-    if (currentStatus === TimeStatus.Ongoing) {
-        return {
-            status: currentStatus,
-            text: exports.formatCountdownText(exports.getRelatedDistance(countdownTime)),
-        };
+    else if (status === TimeStatus.Ongoing) {
+        text = exports.formatCountdownText(exports.getRelatedDistance(countdownTime));
+    }
+    else {
+        text = timeEndText;
     }
     return {
-        status: currentStatus,
-        text: timeEndText,
+        status,
+        text,
     };
 };
 exports.useCountdown = useCountdown;

@@ -1,6 +1,6 @@
 export interface User {
     bonus: number;
-    meta: Record<string, number>;
+    meta: Record<string, number | string>;
     rank: number;
     score: number;
     userInfo: {

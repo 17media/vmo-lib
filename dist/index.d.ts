@@ -1,6 +1,6 @@
 /// <reference types="react" />
-export * from "./hooks";
-export * from "./components";
+export * from './hooks';
+export * from './components';
 declare const _default: {
     TransitionLeaderboardWrapper: import("react").FC<import("./components").Props>;
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
@@ -22,22 +22,6 @@ declare const _default: {
             position: string;
         }[];
     };
-    useMergeLeaderboardData: ({ data, bonus, blackList, }: import("./hooks").LeaderboardDataList) => {
-        bonus: number;
-        meta: Record<string, number>;
-        rank: number;
-        score: number;
-        userInfo: {
-            displayName: string;
-            gloryroadMode: number;
-            level: number;
-            name: string;
-            openID: string;
-            picture: string;
-            region: string;
-            userID: string;
-        };
-    }[];
     useMockLeaderboard: (enable?: boolean, initMockList?: boolean, stable?: boolean, limit?: number) => {
         readonly leaderboard: import("./types").User[];
     };
@@ -54,6 +38,8 @@ declare const _default: {
         clearWinners: () => void;
         reset: () => void;
         currentRound: number;
+        hasDraw: Boolean;
+        MaskDiv: import("react").FC<{}>;
     };
     useSyncScroll: () => {
         handleSroll: (e: any) => void;

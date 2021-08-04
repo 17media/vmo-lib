@@ -14,6 +14,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useAutoNext = void 0;
 const react_1 = require("react");
 const utils_1 = require("../utils");
+/**
+ * 線下階段結束跳轉結果頁面
+ * @param isEnded 是否結束
+ * @param nextPage 跳轉至哪個頁面
+ */
 const useAutoNext = (isEnded, nextPage) => {
     react_1.useEffect(() => {
         const _a = utils_1.qs(), { page = 1 } = _a, search = __rest(_a, ["page"]);
@@ -22,7 +27,7 @@ const useAutoNext = (isEnded, nextPage) => {
         if (isEnded) {
             const query = Object.assign(Object.assign({}, search), { page: nextPage });
             const queryPath = Object.entries(query).map(([key, value]) => `${key}=${value}`);
-            const nextLocation = `${utils_1.globalThis.location.pathname}?${queryPath.join("&")}`;
+            const nextLocation = `${utils_1.globalThis.location.pathname}?${queryPath.join('&')}`;
             utils_1.globalThis.location.href = nextLocation;
         }
     }, [isEnded, nextPage, utils_1.qs]);

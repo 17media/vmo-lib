@@ -13,14 +13,15 @@ const Wrapper = styled_components_1.default.div `
   height: 100%;
 `;
 const transitionStyle = {
-    transition: "all 0.5s ease 0.3s",
+    transition: 'all 0.5s ease 0.3s',
 };
-exports.TransitionLeaderboardWrapper = react_1.default.memo(({ user, itemStyle, rowCount, children, }) => {
-    const { itemTransitionStyle } = useItemTransition_1.default(itemStyle, transitionStyle, rowCount, user.map((u) => u.rank));
+exports.TransitionLeaderboardWrapper = react_1.default.memo(({ user, itemStyle, rowCount, children }) => {
+    const { itemTransitionStyle } = useItemTransition_1.default(itemStyle, transitionStyle, rowCount, user.map(u => u.rank));
     function renderChild() {
         return react_1.default.Children.map(children, (child, index) => {
-            if (!react_1.default.isValidElement(child) || !Array.isArray(itemTransitionStyle)) {
-                throw new Error("Invalid child element");
+            if (!react_1.default.isValidElement(child) ||
+                !Array.isArray(itemTransitionStyle)) {
+                throw new Error('Invalid child element');
             }
             return react_1.default.cloneElement(child, Object.assign({ style: itemTransitionStyle[index], key: user[index].userInfo.userID }, child.props));
         });

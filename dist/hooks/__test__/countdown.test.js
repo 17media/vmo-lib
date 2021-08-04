@@ -22,29 +22,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_hooks_1 = require("@testing-library/react-hooks");
 const dad_1 = require("@17media/dad");
 const useCountdown_1 = __importStar(require("../useCountdown"));
-describe("test stage countdown hook", () => {
-    test("should return rest of the end time and not yet status", () => {
-        const start = new Date("2026-05-01T18:55:00+08:00").getTime();
-        const end = new Date("2026-06-01T18:55:00+08:00").getTime();
-        const endText = "ended";
+describe('test stage countdown hook', () => {
+    test('should return rest of the end time and not yet status', () => {
+        const start = new Date('2026-05-01T18:55:00+08:00').getTime();
+        const end = new Date('2026-06-01T18:55:00+08:00').getTime();
+        const endText = 'ended';
         const defaultCountdownTime = end - start;
         const { result } = react_hooks_1.renderHook(() => useCountdown_1.default(start, end, endText));
         expect(result.current.status).toBe(useCountdown_1.TimeStatus.NotYet);
         expect(result.current.text).toBe(useCountdown_1.formatCountdownText(useCountdown_1.getRelatedDistance(defaultCountdownTime)));
     });
-    test("should return rest of the end time and ongoing status", () => {
-        const start = new Date("2021-05-01T18:55:00+08:00").getTime();
-        const end = new Date("2026-06-01T18:55:00+08:00").getTime();
-        const endText = "ended";
+    test('should return rest of the end time and ongoing status', () => {
+        const start = new Date('2021-05-01T18:55:00+08:00').getTime();
+        const end = new Date('2026-06-01T18:55:00+08:00').getTime();
+        const endText = 'ended';
         const currentTime = end - dad_1.now() * 1000;
         const { result } = react_hooks_1.renderHook(() => useCountdown_1.default(start, end, endText));
         expect(result.current.status).toBe(useCountdown_1.TimeStatus.Ongoing);
         expect(result.current.text).toBe(useCountdown_1.formatCountdownText(useCountdown_1.getRelatedDistance(currentTime)));
     });
-    test("should return end test and end status", () => {
-        const start = new Date("2021-05-01T18:55:00+08:00").getTime();
-        const end = new Date("2021-05-02T18:55:00+08:00").getTime();
-        const endText = "ended";
+    test('should return end test and end status', () => {
+        const start = new Date('2021-05-01T18:55:00+08:00').getTime();
+        const end = new Date('2021-05-02T18:55:00+08:00').getTime();
+        const endText = 'ended';
         const { result } = react_hooks_1.renderHook(() => useCountdown_1.default(start, end, endText));
         expect(result.current.status).toBe(useCountdown_1.TimeStatus.Ended);
         expect(result.current.text).toBe(endText);
