@@ -1,6 +1,6 @@
 import { CancelToken } from 'axios';
 import { getInstanceEventory } from './axios';
-import { User } from '../../types';
+import { User } from '../types';
 import { getType } from '../utils';
 
 const url = `/v1/leaderboards/eventory`;

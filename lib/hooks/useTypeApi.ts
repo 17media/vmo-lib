@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import axios, { CancelTokenSource } from 'axios';
 
-import { getLeaderboard } from '../share/services/leaderboard.service';
-import { getLeaderboardCache } from '../share/services/leaderboardCache.service';
-import { getLeaderboardEventory } from '../share/services/leaderboardEventory.service';
-import { getLeaderboardVote } from '../share/services/leaderboardVote.service';
+import { getLeaderboard } from '../service/leaderboard.service';
+import { getLeaderboardCache } from '../service/leaderboardCache.service';
+import { getLeaderboardEventory } from '../service/leaderboardEventory.service';
+import { getLeaderboardVote } from '../service/leaderboardVote.service';
 import { User } from '../types';
 
 /**

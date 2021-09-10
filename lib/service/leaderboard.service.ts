@@ -1,6 +1,6 @@
 import { CancelToken } from 'axios';
 import { getInstance } from './axios';
-import { User } from '../../types';
+import { User } from '../types';
 import { getType } from '../utils';
 
 // eslint-disable-next-line import/prefer-default-export

@@ -2,7 +2,7 @@ import { CancelToken } from 'axios';
 
 import { getUUID } from '../utils';
 import { getInstanceCache } from './axios';
-import { User } from '../../types';
+import { User } from '../types';
 
 const defaultUrl = `/campaign/cache/`;
 
