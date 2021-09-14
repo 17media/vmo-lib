@@ -31,6 +31,12 @@
   - offlineTeam: team pk leaderboard without transition but every leaderboards should scroll at the same time
 - online
 
+## How to create components or hooks
+
+1. create a folder or file
+2. testing hooks if needed
+3. use playground to create use case for vmo-frontend and e2e testing
+
 ### playground
 
 - local testing
@@ -73,7 +79,7 @@ npx typedoc --showConfig
 
 - Before deploy
 
-run following command to make sure build success
+Run the following command to make sure build successfully.
 
 ```
 yarn build:both
@@ -81,15 +87,11 @@ yarn build:both
 
 - Build and Deploy TypeDoc & Playground (already include build command)
 
+To run the following command, you need to wait until feature branch successfully merged back to master since that is the correct version you want to deploy. After passing QA test, follow "Release" step to release the version.
+
 ```
 yarn deploy:both
 ```
-
-## How to create components or hooks
-
-1. create a folder or file
-2. testing hooks if needed
-3. use playground to create use case for vmo-frontend and e2e testing
 
 ## Release
 
