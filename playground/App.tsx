@@ -21,12 +21,12 @@ const App = () => {
         <p>選擇範例:</p>
         {Object.keys(playgrounds).map(playground => (
           <button type="button" onClick={() => changeComponent(playground)}>
-            playground
+            {playground}
           </button>
         ))}
       </div>
       <hr />
-      {playgrounds[currentComponent]}
+      {(playgrounds as any)[currentComponent]}
     </div>
   );
 };

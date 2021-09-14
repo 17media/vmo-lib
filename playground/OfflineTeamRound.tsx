@@ -5,7 +5,7 @@ import useSyncScroll from '../lib/hooks/useSyncScroll';
 import useMockLeaderboard from '../lib/hooks/useMockLeaderboard';
 
 interface Props {
-  handleScroll?: (e) => void;
+  handleScroll?: (e: any) => void;
 }
 
 const LeaderboardWrapper = styled.div`
@@ -52,7 +52,9 @@ const OfflineTeamRound = () => {
 
   useEffect(() => {
     if (!elPoolRef.current) return;
-    elPoolRef.current.push(...Array.from(wrapperRef.current.children));
+    if (wrapperRef.current) {
+      elPoolRef.current.push(...Array.from(wrapperRef.current.children));
+    }
   }, []);
 
   return (
