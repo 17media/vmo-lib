@@ -103,17 +103,31 @@
 					</li>
 					<li>online</li>
 				</ul>
+				<a href="#how-to-create-components-or-hooks" id="how-to-create-components-or-hooks" style="color: inherit; text-decoration: none;">
+					<h2>How to create components or hooks</h2>
+				</a>
+				<ol>
+					<li>create a folder or file</li>
+					<li>testing hooks if needed</li>
+					<li>use playground to create use case for vmo-frontend and e2e testing</li>
+				</ol>
 				<a href="#playground" id="playground" style="color: inherit; text-decoration: none;">
 					<h3>playground</h3>
 				</a>
-				<blockquote>
-					<p>local testing</p>
-				</blockquote>
+				<ul>
+					<li>local testing</li>
+				</ul>
 				<p><code>yarn start</code></p>
+				<ul>
+					<li>GitHub pages testing</li>
+				</ul>
+				<p><a href="https://17media.github.io/vmo-lib/output/index.html">vmo-lib Playground</a></p>
 				<a href="#document" id="document" style="color: inherit; text-decoration: none;">
 					<h2>Document</h2>
 				</a>
-				<p><a href="https://17media.github.io/vmo-lib">vmo-lib Documentation</a></p>
+				<p><a href="https://17media.github.io/vmo-lib">vmo-lib Instruction index</a></p>
+				<p><a href="https://17media.github.io/vmo-lib/docs/index.html">vmo-lib TypeDoc</a></p>
+				<p><a href="https://17media.github.io/vmo-lib/output/index.html">vmo-lib Playground</a></p>
 				<hr>
 				<p>leave comments when coding (support Markdown!) and it would generate docs automatically.</p>
 				<p>Here is <a href="https://typedoc.org/guides/doccomments/">typedoc guideline</a></p>
@@ -124,17 +138,21 @@
 				<p>to confirm what options have been loaded:</p>
 				<pre><code><span style="color: #001080">npx</span><span style="color: #000000"> </span><span style="color: #001080">typedoc</span><span style="color: #000000"> --</span><span style="color: #001080">showConfig</span>
 </code></pre>
-				<p>Publish</p>
-				<pre><code><span style="color: #001080">yarn</span><span style="color: #000000"> </span><span style="color: #001080">run</span><span style="color: #000000"> deploy:</span><span style="color: #001080">doc</span>
-</code></pre>
-				<a href="#how-to-create-components-or-hooks" id="how-to-create-components-or-hooks" style="color: inherit; text-decoration: none;">
-					<h2>How to create components or hooks</h2>
+				<a href="#build-and-deploy-github-pages" id="build-and-deploy-github-pages" style="color: inherit; text-decoration: none;">
+					<h2>Build and Deploy GitHub pages</h2>
 				</a>
-				<ol>
-					<li>create a folder or file</li>
-					<li>testing hooks if needed</li>
-					<li>use playground to create use case for vmo-frontend and e2e testing</li>
-				</ol>
+				<ul>
+					<li>Before deploy</li>
+				</ul>
+				<p>Run the following command to make sure build successfully.</p>
+				<pre><code><span style="color: #001080">yarn</span><span style="color: #000000"> build:</span><span style="color: #001080">both</span>
+</code></pre>
+				<ul>
+					<li>Build and Deploy TypeDoc &amp; Playground (already include build command)</li>
+				</ul>
+				<p>To run the following command, you need to wait until feature branch successfully merged back to master since that is the correct version you want to deploy. After passing QA test, follow &quot;Release&quot; step to release the version.</p>
+				<pre><code><span style="color: #001080">yarn</span><span style="color: #000000"> deploy:</span><span style="color: #001080">both</span>
+</code></pre>
 				<a href="#release" id="release" style="color: inherit; text-decoration: none;">
 					<h2>Release</h2>
 				</a>
