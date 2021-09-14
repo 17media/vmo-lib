@@ -30,7 +30,7 @@ const App = () => {
         ))}
       </div>
       <hr />
-      {playgrounds[currentComponent]}
+      {(playgrounds as any)[currentComponent]}
     </div>
   );
 };
