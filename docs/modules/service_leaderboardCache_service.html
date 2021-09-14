@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>components | vmo-lib</title>
+	<title>service/leaderboardCache.service | vmo-lib</title>
 	<meta name="description" content="Documentation for vmo-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">vmo-lib</a>
 				</li>
 				<li>
-					<a href="components.html">components</a>
+					<a href="service_leaderboardCache_service.html">service/leaderboardCache.service</a>
 				</li>
 			</ul>
-			<h1>Module components</h1>
+			<h1>Module service/leaderboardCache.service</h1>
 		</div>
 	</div>
 </header>
@@ -70,50 +70,49 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>References</h3>
+							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="components.html#Props" class="tsd-kind-icon">Props</a></li>
-								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="components.html#TransitionLeaderboardWrapper" class="tsd-kind-icon">Transition<wbr>Leaderboard<wbr>Wrapper</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-module"><a href="components.html#default" class="tsd-kind-icon">default</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="service_leaderboardCache_service.html#getLeaderboardCache" class="tsd-kind-icon">get<wbr>Leaderboard<wbr>Cache</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>References</h2>
-				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
-					<a name="Props" class="tsd-anchor"></a>
-					<h3>Props</h3>
-					Re-exports <a href="../interfaces/components_TransitionLeaderboardWrapper.Props.html">Props</a>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
-					<a name="TransitionLeaderboardWrapper" class="tsd-anchor"></a>
-					<h3>Transition<wbr>Leaderboard<wbr>Wrapper</h3>
-					Re-exports <a href="components_TransitionLeaderboardWrapper.html#TransitionLeaderboardWrapper">TransitionLeaderboardWrapper</a>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-module">
-					<a name="default" class="tsd-anchor"></a>
-					<h3>default</h3>
-					<div class="tsd-signature tsd-kind-icon">default<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>TransitionLeaderboardWrapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FC</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/components_TransitionLeaderboardWrapper.Props.html" class="tsd-signature-type" data-tsd-kind="Interface">Props</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter">
-								<h5>Transition<wbr>Leaderboard<wbr>Wrapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FC</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/components_TransitionLeaderboardWrapper.Props.html" class="tsd-signature-type" data-tsd-kind="Interface">Props</a><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-						</ul>
-					</div>
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getLeaderboardCache" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Leaderboard<wbr>Cache</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Leaderboard<wbr>Cache<span class="tsd-signature-symbol">(</span>uuid<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span>, cancelToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CancelToken</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f958eda/lib/service/leaderboardCache.service.ts#L10">service/leaderboardCache.service.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>uuid: <span class="tsd-signature-symbol">{ </span>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>cancelToken: <span class="tsd-signature-type">CancelToken</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -123,7 +122,7 @@
 					<li class=" ">
 						<a href="../modules.html">Modules</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="components.html">components</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -171,7 +170,7 @@
 					<li class=" tsd-kind-module">
 						<a href="service_leaderboard_service.html">service/leaderboard.service</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="service_leaderboardCache_service.html">service/leaderboard<wbr>Cache.service</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -199,14 +198,8 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-reference tsd-parent-kind-module">
-						<a href="components.html#Props" class="tsd-kind-icon">Props</a>
-					</li>
-					<li class=" tsd-kind-reference tsd-parent-kind-module">
-						<a href="components.html#TransitionLeaderboardWrapper" class="tsd-kind-icon">Transition<wbr>Leaderboard<wbr>Wrapper</a>
-					</li>
-					<li class=" tsd-kind-property tsd-parent-kind-module">
-						<a href="components.html#default" class="tsd-kind-icon">default</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="service_leaderboardCache_service.html#getLeaderboardCache" class="tsd-kind-icon">get<wbr>Leaderboard<wbr>Cache</a>
 					</li>
 				</ul>
 			</nav>

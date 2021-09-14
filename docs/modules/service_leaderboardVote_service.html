@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>hooks/useMockLeaderboard | vmo-lib</title>
+	<title>service/leaderboardVote.service | vmo-lib</title>
 	<meta name="description" content="Documentation for vmo-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">vmo-lib</a>
 				</li>
 				<li>
-					<a href="hooks_useMockLeaderboard.html">hooks/useMockLeaderboard</a>
+					<a href="service_leaderboardVote_service.html">service/leaderboardVote.service</a>
 				</li>
 			</ul>
-			<h1>Module hooks/useMockLeaderboard</h1>
+			<h1>Module service/leaderboardVote.service</h1>
 		</div>
 	</div>
 </header>
@@ -70,111 +70,96 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>References</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="hooks_useMockLeaderboard.html#default" class="tsd-kind-icon">default</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="hooks_useMockLeaderboard.html#mockUsers" class="tsd-kind-icon">mock<wbr>Users</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="hooks_useMockLeaderboard.html#usersID" class="tsd-kind-icon">usersID</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="hooks_useMockLeaderboard.html#useMockLeaderboard" class="tsd-kind-icon">use<wbr>Mock<wbr>Leaderboard</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="service_leaderboardVote_service.html#doLeaderboardVote" class="tsd-kind-icon">do<wbr>Leaderboard<wbr>Vote</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="service_leaderboardVote_service.html#getLeaderboardVote" class="tsd-kind-icon">get<wbr>Leaderboard<wbr>Vote</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>References</h2>
-				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
-					<a name="default" class="tsd-anchor"></a>
-					<h3>default</h3>
-					Renames and exports <a href="hooks_useMockLeaderboard.html#useMockLeaderboard">useMockLeaderboard</a>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="mockUsers" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> mock<wbr>Users</h3>
-					<div class="tsd-signature tsd-kind-icon">mock<wbr>Users<span class="tsd-signature-symbol">:</span> <a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f958eda/lib/hooks/useMockLeaderboard.ts#L38">hooks/useMockLeaderboard.ts:38</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="usersID" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> usersID</h3>
-					<div class="tsd-signature tsd-kind-icon">usersID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f958eda/lib/hooks/useMockLeaderboard.ts#L22">hooks/useMockLeaderboard.ts:22</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="useMockLeaderboard" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> use<wbr>Mock<wbr>Leaderboard</h3>
+					<a name="doLeaderboardVote" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> do<wbr>Leaderboard<wbr>Vote</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">use<wbr>Mock<wbr>Leaderboard<span class="tsd-signature-symbol">(</span>enable<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, initMockList<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, stable<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, limit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>leaderboard<span class="tsd-signature-symbol">: </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">do<wbr>Leaderboard<wbr>Vote<span class="tsd-signature-symbol">(</span>voteId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span>, topic<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span>, nomineeUserID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cancelToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CancelToken</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f958eda/lib/hooks/useMockLeaderboard.ts#L84">hooks/useMockLeaderboard.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f958eda/lib/service/leaderboardVote.service.ts#L29">service/leaderboardVote.service.ts:29</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>測試用 leaderboard 資料</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>enable: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>開啟</p>
-									</div>
+									<h5>voteId: <span class="tsd-signature-symbol">{ </span>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
 								</li>
 								<li>
-									<h5>initMockList: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>初始化榜單</p>
-									</div>
+									<h5>topic: <span class="tsd-signature-symbol">{ </span>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
 								</li>
 								<li>
-									<h5>stable: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>是否固定還是要持續增加 user</p>
-									</div>
+									<h5>nomineeUserID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>limit: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 100</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>最多幾名 users</p>
-									</div>
+									<h5>cancelToken: <span class="tsd-signature-type">CancelToken</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>leaderboard<span class="tsd-signature-symbol">: </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getLeaderboardVote" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Leaderboard<wbr>Vote</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Leaderboard<wbr>Vote<span class="tsd-signature-symbol">(</span>voteId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span>, cancelToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CancelToken</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/f958eda/lib/service/leaderboardVote.service.ts#L9">service/leaderboardVote.service.ts:9</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>leaderboard<span class="tsd-signature-symbol">: </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span></h5>
+								<li>
+									<h5>voteId: <span class="tsd-signature-symbol">{ </span>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>prod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>sta<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>cancelToken: <span class="tsd-signature-type">CancelToken</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -210,7 +195,7 @@
 					<li class=" tsd-kind-module">
 						<a href="hooks_useLuckyDraw.html">hooks/use<wbr>Lucky<wbr>Draw</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="hooks_useMockLeaderboard.html">hooks/use<wbr>Mock<wbr>Leaderboard</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -240,7 +225,7 @@
 					<li class=" tsd-kind-module">
 						<a href="service_leaderboardEventory_service.html">service/leaderboard<wbr>Eventory.service</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="service_leaderboardVote_service.html">service/leaderboard<wbr>Vote.service</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -262,17 +247,11 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-reference tsd-parent-kind-module">
-						<a href="hooks_useMockLeaderboard.html#default" class="tsd-kind-icon">default</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="hooks_useMockLeaderboard.html#mockUsers" class="tsd-kind-icon">mock<wbr>Users</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="hooks_useMockLeaderboard.html#usersID" class="tsd-kind-icon">usersID</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="service_leaderboardVote_service.html#doLeaderboardVote" class="tsd-kind-icon">do<wbr>Leaderboard<wbr>Vote</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="hooks_useMockLeaderboard.html#useMockLeaderboard" class="tsd-kind-icon">use<wbr>Mock<wbr>Leaderboard</a>
+						<a href="service_leaderboardVote_service.html#getLeaderboardVote" class="tsd-kind-icon">get<wbr>Leaderboard<wbr>Vote</a>
 					</li>
 				</ul>
 			</nav>
