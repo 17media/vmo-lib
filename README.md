@@ -33,13 +33,21 @@
 
 ### playground
 
-> local testing
+- local testing
 
 `yarn start`
 
+- GitHub pages testing
+
+[vmo-lib Playground](https://17media.github.io/vmo-lib/output/index.html)
+
 ## Document
 
-[vmo-lib Documentation](https://17media.github.io/vmo-lib)
+[vmo-lib Instruction index](https://17media.github.io/vmo-lib)
+
+[vmo-lib TypeDoc](https://17media.github.io/vmo-lib/docs/index.html)
+
+[vmo-lib Playground](https://17media.github.io/vmo-lib/output/index.html)
 
 ---
 
@@ -61,10 +69,20 @@ to confirm what options have been loaded:
 npx typedoc --showConfig
 ```
 
-Publish
+## Build and Deploy GitHub pages
+
+- Before deploy
+
+run following command to make sure build success
 
 ```
-yarn run deploy:doc
+yarn build:both
+```
+
+- Build and Deploy TypeDoc & Playground (already include build command)
+
+```
+yarn deploy:both
 ```
 
 ## How to create components or hooks
