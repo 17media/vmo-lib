@@ -53,10 +53,7 @@ const LuckyDraw = React.memo(() => {
     reset,
   } = useLuckyDraw(allCandidates, willAutoDrawRemainCount);
   const href = window.localStorage.getItem(window.location.href);
-  let recordAllWinners = [];
-  if (href) {
-    recordAllWinners = JSON.parse(href);
-  }
+  const recordAllWinners = href ? JSON.parse(href) : [];
 
   const handleWinnersCount = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDrawCount(+e.target.value);

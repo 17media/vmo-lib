@@ -5,7 +5,7 @@ import useSyncScroll from '../lib/hooks/useSyncScroll';
 import useMockLeaderboard from '../lib/hooks/useMockLeaderboard';
 
 interface Props {
-  handleScroll?: (e: any) => void;
+  handleScroll?: (e: React.UIEvent<HTMLElement>) => void;
 }
 
 const LeaderboardWrapper = styled.div`
