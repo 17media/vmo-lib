@@ -2045,11 +2045,7 @@ var LuckyDraw = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.memo(function ()
       reset = _useLuckyDraw.reset;
 
   var href = window.localStorage.getItem(window.location.href);
-  var recordAllWinners = [];
-
-  if (href) {
-    recordAllWinners = JSON.parse(href);
-  }
+  var recordAllWinners = href ? JSON.parse(href) : [];
 
   var handleWinnersCount = function handleWinnersCount(e) {
     return setDrawCount(+e.target.value);
