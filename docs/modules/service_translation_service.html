@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>hooks/useItemTransition | vmo-lib</title>
+	<title>service/translation.service | vmo-lib</title>
 	<meta name="description" content="Documentation for vmo-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">vmo-lib</a>
 				</li>
 				<li>
-					<a href="hooks_useItemTransition.html">hooks/useItemTransition</a>
+					<a href="service_translation_service.html">service/translation.service</a>
 				</li>
 			</ul>
-			<h1>Module hooks/useItemTransition</h1>
+			<h1>Module service/translation.service</h1>
 		</div>
 	</div>
 </header>
@@ -70,83 +70,66 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>References</h3>
+							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="hooks_useItemTransition.html#default" class="tsd-kind-icon">default</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/hooks_useItemTransition.ItemStyle.html" class="tsd-kind-icon">Item<wbr>Style</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/hooks_useItemTransition.TransitionStyle.html" class="tsd-kind-icon">Transition<wbr>Style</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="service_translation_service.html#Translation" class="tsd-kind-icon">Translation</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="hooks_useItemTransition.html#useItemTransition" class="tsd-kind-icon">use<wbr>Item<wbr>Transition</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="service_translation_service.html#getTranslation" class="tsd-kind-icon">get<wbr>Translation</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>References</h2>
-				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
-					<a name="default" class="tsd-anchor"></a>
-					<h3>default</h3>
-					Renames and exports <a href="hooks_useItemTransition.html#useItemTransition">useItemTransition</a>
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="Translation" class="tsd-anchor"></a>
+					<h3>Translation</h3>
+					<div class="tsd-signature tsd-kind-icon">Translation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>values<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>language<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/b65f669/lib/service/translation.service.ts#L3">service/translation.service.ts:3</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>values<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>language<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="useItemTransition" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> use<wbr>Item<wbr>Transition</h3>
+					<a name="getTranslation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Translation</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">use<wbr>Item<wbr>Transition<span class="tsd-signature-symbol">(</span>itemStyle<span class="tsd-signature-symbol">: </span><a href="../interfaces/hooks_useItemTransition.ItemStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">ItemStyle</a>, transition<span class="tsd-signature-symbol">: </span><a href="../interfaces/hooks_useItemTransition.TransitionStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">TransitionStyle</a>, rowItems<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, currentRank<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>itemTransitionStyle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>transition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>itemTransitionStyle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>position<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>transition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Translation<span class="tsd-signature-symbol">(</span>eventType<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="service_translation_service.html#Translation" class="tsd-signature-type" data-tsd-kind="Type alias">Translation</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/b65f669/lib/hooks/useItemTransition.ts#L20">hooks/useItemTransition.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/b65f669/lib/service/translation.service.ts#L8">service/translation.service.ts:8</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>換位動畫</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>itemStyle: <a href="../interfaces/hooks_useItemTransition.ItemStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">ItemStyle</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>長寬與偏移x,y</p>
-									</div>
-								</li>
-								<li>
-									<h5>transition: <a href="../interfaces/hooks_useItemTransition.TransitionStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">TransitionStyle</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>位移動畫css</p>
-									</div>
-								</li>
-								<li>
-									<h5>rowItems: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>每一行多少個</p>
-									</div>
-								</li>
-								<li>
-									<h5>currentRank: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>當前榜單數目</p>
-									</div>
+									<h5>eventType: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>itemTransitionStyle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>transition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>itemTransitionStyle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>position<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>transition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="service_translation_service.html#Translation" class="tsd-signature-type" data-tsd-kind="Type alias">Translation</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -176,7 +159,7 @@
 					<li class=" tsd-kind-module">
 						<a href="hooks_useCountdown.html">hooks/use<wbr>Countdown</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="hooks_useItemTransition.html">hooks/use<wbr>Item<wbr>Transition</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -215,7 +198,7 @@
 					<li class=" tsd-kind-module">
 						<a href="service_leaderboardVote_service.html">service/leaderboard<wbr>Vote.service</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="service_translation_service.html">service/translation.service</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -234,17 +217,11 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-reference tsd-parent-kind-module">
-						<a href="hooks_useItemTransition.html#default" class="tsd-kind-icon">default</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/hooks_useItemTransition.ItemStyle.html" class="tsd-kind-icon">Item<wbr>Style</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/hooks_useItemTransition.TransitionStyle.html" class="tsd-kind-icon">Transition<wbr>Style</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="service_translation_service.html#Translation" class="tsd-kind-icon">Translation</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="hooks_useItemTransition.html#useItemTransition" class="tsd-kind-icon">use<wbr>Item<wbr>Transition</a>
+						<a href="service_translation_service.html#getTranslation" class="tsd-kind-icon">get<wbr>Translation</a>
 					</li>
 				</ul>
 			</nav>
