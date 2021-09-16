@@ -1,7 +1,5 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-const DEV_MODE = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: 'development',
@@ -55,11 +53,6 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: 'index.html',
       filename: 'index.html',
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        DEV_MODE,
-      },
     }),
   ],
 };
