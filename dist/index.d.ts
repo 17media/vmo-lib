@@ -2,6 +2,7 @@
 export * from './hooks';
 export * from './components';
 declare const _default: {
+    OfflineNormalTemplate: () => JSX.Element;
     TransitionLeaderboardWrapper: import("react").FC<import("./components").Props>;
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {

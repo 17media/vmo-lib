@@ -9,14 +9,8 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const hooks_1 = __importDefault(require("./hooks"));
-const components_1 = __importDefault(require("./components"));
-const template_1 = __importDefault(require("./template"));
-__exportStar(require("./hooks"), exports);
-__exportStar(require("./components"), exports);
-exports.default = Object.assign(Object.assign(Object.assign({}, hooks_1.default), components_1.default), template_1.default);
+const offlineNormal_1 = require("./offlineNormal");
+__exportStar(require("./offlineNormal"), exports);
+exports.default = { OfflineNormalTemplate: offlineNormal_1.OfflineNormalTemplate };
 //# sourceMappingURL=index.js.map
