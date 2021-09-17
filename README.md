@@ -31,15 +31,29 @@
   - offlineTeam: team pk leaderboard without transition but every leaderboards should scroll at the same time
 - online
 
+## How to create components or hooks
+
+1. create a folder or file
+2. testing hooks if needed
+3. use playground to create use case for vmo-frontend and e2e testing
+
 ### playground
 
-> local testing
+- local testing
 
 `yarn start`
 
+- GitHub pages testing
+
+[vmo-lib Playground](https://17media.github.io/vmo-lib/output/index.html)
+
 ## Document
 
-[vmo-lib Documentation](https://17media.github.io/vmo-lib)
+[vmo-lib Instruction index](https://17media.github.io/vmo-lib)
+
+[vmo-lib TypeDoc](https://17media.github.io/vmo-lib/docs/index.html)
+
+[vmo-lib Playground](https://17media.github.io/vmo-lib/output/index.html)
 
 ---
 
@@ -61,17 +75,23 @@ to confirm what options have been loaded:
 npx typedoc --showConfig
 ```
 
-Publish
+## Build and Deploy GitHub pages
+
+- Before deploy
+
+Run the following command to make sure build successfully.
 
 ```
-yarn run deploy:doc
+yarn build:both
 ```
 
-## How to create components or hooks
+- Build and Deploy TypeDoc & Playground (already include build command)
 
-1. create a folder or file
-2. testing hooks if needed
-3. use playground to create use case for vmo-frontend and e2e testing
+To run the following command, you need to wait until feature branch successfully merged back to master since that is the correct version you want to deploy. After passing QA test, follow "Release" step to release the version.
+
+```
+yarn deploy:both
+```
 
 ## Release
 

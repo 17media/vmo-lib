@@ -52,8 +52,9 @@ const LuckyDraw = React.memo(() => {
     clearWinners,
     reset,
   } = useLuckyDraw(allCandidates, willAutoDrawRemainCount);
-  const recordAllWinners =
-    JSON.parse(window.localStorage.getItem(window.location.href)) ?? [];
+  const href = window.localStorage.getItem(window.location.href);
+  const recordAllWinners = href ? JSON.parse(href) : [];
+
   const handleWinnersCount = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDrawCount(+e.target.value);
 
@@ -141,7 +142,7 @@ const LuckyDraw = React.memo(() => {
       <div>
         <h2>得獎者名單紀錄 by localstorage</h2>
         <LuckyDrawSection>
-          {recordAllWinners.map((roundWinners, index) => (
+          {recordAllWinners.map((roundWinners: any[], index: number) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={index}>
               <h2>第{index + 1}輪</h2>

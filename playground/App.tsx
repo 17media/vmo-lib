@@ -20,8 +20,12 @@ const App = () => {
       <div>
         <p>選擇範例:</p>
         {Object.keys(playgrounds).map(playground => (
-          <button type="button" onClick={() => changeComponent(playground)}>
-            playground
+          <button
+            key={playground}
+            type="button"
+            onClick={() => changeComponent(playground)}
+          >
+            {playground}
           </button>
         ))}
       </div>
