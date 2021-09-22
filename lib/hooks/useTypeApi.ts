@@ -52,11 +52,13 @@ export const useTypeApi = (
   const source = useRef<CancelTokenSource>();
   const [loading, setLoading] = useState(true);
   const [polling, setPolling] = useState(false);
+  const [requestError, setRequestError] = useState(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
 
   const getDataRealTimeAPI = useCallback(
     (apis = [], time, previousData) => {
       timeoutKey.current = window.setTimeout(async () => {
+        setRequestError(null);
         setPolling(true);
         const apiArr: Promise<User[]>[] = [];
         apis.forEach((item: APIType) => {
@@ -118,9 +120,14 @@ export const useTypeApi = (
           //   );
           // }
         });
-        const results = await Promise.all(apiArr);
-        setLeaderboardData(results);
-        setPolling(false);
+        try {
+          const results = await Promise.all(apiArr);
+          setLeaderboardData(results);
+          setPolling(false);
+        } catch (error) {
+          setPolling(false);
+          setRequestError(error);
+        }
       }, time);
     },
     [method, opt.cursor, opt.limit],
@@ -128,6 +135,7 @@ export const useTypeApi = (
 
   useEffect(() => {
     setLoading(true);
+    setRequestError(null);
     const promiseList: Promise<User[]>[] = [];
     source.current = axios.CancelToken.source();
     apiList.forEach((item: APIType) => {
@@ -189,10 +197,17 @@ export const useTypeApi = (
       //   );
       // }
     });
-    Promise.all(promiseList).then(async (results: User[][]) => {
-      setLeaderboardData(results);
-      setLoading(false);
-    });
+    if (apiList && apiList.length > 0 && method) {
+      Promise.all(promiseList)
+        .then(async (results: User[][]) => {
+          setLeaderboardData(results);
+          setLoading(false);
+        })
+        .catch(error => {
+          setLoading(false);
+          setRequestError(error);
+        });
+    }
 
     return () => {
       if (source.current) source.current.cancel();
@@ -207,8 +222,7 @@ export const useTypeApi = (
       getDataRealTimeAPI(apiList, realTime, leaderboardData);
     }
   }, [polling, leaderboardData, apiList, realTime, getDataRealTimeAPI]);
-
-  return { loading, leaderboardData };
+  return { loading, polling, requestError, leaderboardData };
 };
 
 export default useTypeApi;

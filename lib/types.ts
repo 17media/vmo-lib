@@ -13,7 +13,7 @@ interface UserInfo {
 }
 
 export interface User {
-  bonus: number;
+  bonus?: number;
   meta?: Record<string, number | string>;
   rank: number;
   score: number;
