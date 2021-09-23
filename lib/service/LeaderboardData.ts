@@ -128,7 +128,7 @@ class LeaderboardData {
 
     bonusData.forEach(data => {
       const curData = leaderboardDataMap.get(data.userInfo.userID);
-      if (curData) {
+      if (curData && curData.bonus) {
         curData.bonus += data.score;
         curData.meta = {
           ...curData.meta,

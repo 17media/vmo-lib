@@ -1,14 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import axios, { CancelTokenSource } from 'axios';
 
-import { getLeaderboard } from '../service/leaderboard.service';
-import { getLeaderboardCache } from '../service/leaderboardCache.service';
 import { getLeaderboardEventory } from '../service/leaderboardEventory.service';
-import { getLeaderboardVote } from '../service/leaderboardVote.service';
 import { User } from '../types';
 
 /**
- * @TODO isCache, isVote, firstRender, needBonus 目前不常使用，未完整驗證，將其註解掉<br />
+ * @TODO isCache, isVote, firstRender, needBonus, 以及預設行為 getLeaderboard 目前不常使用，未完整驗證<br />
+ * getLeaderboard, getLeaderboardCache, getLeaderboardVote 這三個 service 目前不常使用，未完整驗證，且未將檔案移植<br />
  * 之後驗證完成後將功能逐步釋出
  */
 export type APIType = {
@@ -73,52 +71,6 @@ export const useTypeApi = (
               ),
             );
           }
-
-          /**
-           * @TODO isCache, isVote, firstRender, 以及預設行為 getLeaderboard 目前不常使用，未完整驗證，將其註解掉
-           * 之後驗證完成後將功能逐步釋出
-           */
-          // if (item.isCache) {
-          //   apiArr.push(
-          //     getLeaderboardCache(
-          //       {
-          //         sta: item.sta,
-          //         prod: item.prod,
-          //       },
-          //       source.current!.token,
-          //     ),
-          //   );
-          // } else if (item.isVote) {
-          //   apiArr.push(
-          //     getLeaderboardVote(
-          //       {
-          //         sta: item.sta,
-          //         prod: item.prod,
-          //       },
-          //       source.current!.token,
-          //     ),
-          //   );
-          // } else if (item.isEventory) {
-          //   apiArr.push(
-          //     getLeaderboardEventory(
-          //       item,
-          //       source.current!.token,
-          //       opt.limit,
-          //       opt.cursor,
-          //       method,
-          //     ),
-          //   );
-          // } else {
-          //   apiArr.push(
-          //     getLeaderboard(
-          //       item,
-          //       source.current!.token,
-          //       opt.limit,
-          //       opt.cursor,
-          //       method,
-          //     ),
-          //   );
-          // }
         });
         try {
           const results = await Promise.all(apiArr);
