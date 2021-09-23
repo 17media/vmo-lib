@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { isPRO } from '../utils';
+import { isProdVmo17Media } from '../utils';
 
 export const getInstance = () =>
   axios.create({
@@ -18,7 +18,7 @@ export const getInstanceCache = () => {
   }
 
   return axios.create({
-    baseURL: isPRO()
+    baseURL: isProdVmo17Media()
       ? 'https://event-server.17app.co/api'
       : 'https://event-server-sta.17app.co/api',
   });
