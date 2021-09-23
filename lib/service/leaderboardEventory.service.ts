@@ -40,20 +40,19 @@ export const getLeaderboardEventory = async (
     callBack(data);
   }
 
-  const leaderboardData = nextCursor
-    ? [
-        ...data,
-        ...(await getLeaderboardEventory(
-          type,
-          cancelToken,
-          limit,
-          nextCursor,
-          method,
-        )),
-      ]
-    : data;
+  if (nextCursor) {
+    const nextData = await getLeaderboardEventory(
+      type,
+      cancelToken,
+      limit,
+      nextCursor,
+      method,
+    );
 
-  return leaderboardData;
+    return [...data, ...nextData];
+  }
+
+  return data;
 };
 
 export const getLeaderboardEventoryBonus = async (
