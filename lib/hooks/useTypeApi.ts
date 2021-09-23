@@ -134,6 +134,17 @@ export const useTypeApi = (
   );
 
   useEffect(() => {
+    async function promiseAll(promiseList: any) {
+      try {
+        const results: User[][] = await Promise.all(promiseList);
+        setLeaderboardData(results);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setRequestError(error);
+      }
+    }
+
     setLoading(true);
     setRequestError(null);
     const promiseList: Promise<User[]>[] = [];
@@ -198,15 +209,7 @@ export const useTypeApi = (
       // }
     });
     if (apiList && apiList.length > 0 && method) {
-      Promise.all(promiseList)
-        .then(async (results: User[][]) => {
-          setLeaderboardData(results);
-          setLoading(false);
-        })
-        .catch(error => {
-          setLoading(false);
-          setRequestError(error);
-        });
+      promiseAll(promiseList);
     }
 
     return () => {
