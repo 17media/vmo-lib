@@ -38,13 +38,7 @@ export const getRandomInteger = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export const isDEV = () => window.location.hostname !== 'vmo.17.media';
-
 export const isPRO = () => window.location.hostname === 'vmo.17.media';
-
-export const isLocal = () => window.location.hostname === 'localhost';
-
-export const isSta = () => window.location.hostname === 'sta-vmo.17.media';
 
 export const isProdVmo17Media = () =>
   window.location.hostname === 'vmo.17.media';
