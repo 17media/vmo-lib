@@ -6,6 +6,7 @@ export * from './useAutoNext';
 export * from './useMockLeaderboard';
 export * from './useLuckyDraw';
 export * from './useSyncScroll';
+export * from './useTypeApi';
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
@@ -48,6 +49,15 @@ declare const _default: {
     useSyncScroll: () => {
         handleSroll: (e: any) => void;
         elPoolRef: import("react").MutableRefObject<Element[]>;
+    };
+    useTypeApi: (apiList: import("./useTypeApi").APIType[] | undefined, method: string | undefined, realTime: number, initialData?: import("../types").User[][] | undefined, opt?: {
+        limit: number;
+        cursor: string;
+    }) => {
+        loading: boolean;
+        polling: boolean;
+        requestError: null;
+        leaderboardData: import("../types").User[][] | undefined;
     };
 };
 export default _default;

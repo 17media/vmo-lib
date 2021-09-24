@@ -108,7 +108,7 @@ class LeaderboardData {
         const leaderboardDataMap = new Map(leaderboardData.map(user => [user.userInfo.userID, user]));
         bonusData.forEach(data => {
             const curData = leaderboardDataMap.get(data.userInfo.userID);
-            if (curData) {
+            if (curData && curData.bonus) {
                 curData.bonus += data.score;
                 curData.meta = Object.assign(Object.assign({}, curData.meta), { [name]: data.score });
             }

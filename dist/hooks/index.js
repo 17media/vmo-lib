@@ -17,6 +17,7 @@ const useMockLeaderboard_1 = require("./useMockLeaderboard");
 const usePageData_1 = require("./usePageData");
 const useLuckyDraw_1 = require("./useLuckyDraw");
 const useSyncScroll_1 = require("./useSyncScroll");
+const useTypeApi_1 = require("./useTypeApi");
 __exportStar(require("./useCountdown"), exports);
 __exportStar(require("./useItemTransition"), exports);
 __exportStar(require("./usePageData"), exports);
@@ -24,6 +25,7 @@ __exportStar(require("./useAutoNext"), exports);
 __exportStar(require("./useMockLeaderboard"), exports);
 __exportStar(require("./useLuckyDraw"), exports);
 __exportStar(require("./useSyncScroll"), exports);
+__exportStar(require("./useTypeApi"), exports);
 exports.default = {
     useAutoNext: useAutoNext_1.useAutoNext,
     useCountdown: useCountdown_1.useCountdown,
@@ -32,5 +34,6 @@ exports.default = {
     usePageData: usePageData_1.usePageData,
     useLuckyDraw: useLuckyDraw_1.useLuckyDraw,
     useSyncScroll: useSyncScroll_1.useSyncScroll,
+    useTypeApi: useTypeApi_1.useTypeApi,
 };
 //# sourceMappingURL=index.js.map

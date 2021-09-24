@@ -1,16 +1,27 @@
+interface UserInfo {
+    displayName?: any;
+    gloryroadMode?: number;
+    level: number;
+    userID: string;
+    openID: string;
+    name: string;
+    followerCount?: number;
+    roomID?: number;
+    experience?: number;
+    picture: string;
+    region: string;
+}
 export interface User {
-    bonus: number;
-    meta: Record<string, number | string>;
+    bonus?: number;
+    meta?: Record<string, number | string>;
     rank: number;
     score: number;
-    userInfo: {
-        displayName: string;
-        gloryroadMode: number;
-        level: number;
-        name: string;
-        openID: string;
-        picture: string;
-        region: string;
-        userID: string;
-    };
+    userInfo: UserInfo;
+    theme?: any;
+    userID?: string;
+    amount?: number;
+    lastTimestamp?: number;
+    member?: any;
+    missions?: any;
 }
+export {};

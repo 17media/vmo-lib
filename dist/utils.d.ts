@@ -12,3 +12,8 @@ export declare const isBrowser: () => boolean;
  * random integer number between min to max.
  */
 export declare const getRandomInteger: (min: number, max: number) => number;
+export declare const isProdVmo17Media: () => boolean;
+export declare const getType: (api: {
+    sta: string;
+    prod: string;
+}) => string;

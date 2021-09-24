@@ -46,5 +46,14 @@ declare const _default: {
         handleSroll: (e: any) => void;
         elPoolRef: import("react").MutableRefObject<Element[]>;
     };
+    useTypeApi: (apiList: import("./hooks").APIType[] | undefined, method: string | undefined, realTime: number, initialData?: import("./types").User[][] | undefined, opt?: {
+        limit: number;
+        cursor: string;
+    }) => {
+        loading: boolean;
+        polling: boolean;
+        requestError: null;
+        leaderboardData: import("./types").User[][] | undefined;
+    };
 };
 export default _default;
