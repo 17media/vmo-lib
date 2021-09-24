@@ -3855,7 +3855,7 @@ var useTypeApi = function useTypeApi() {
   var timeoutKey = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(0);
   var source = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)();
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(true),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
       _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState, 2),
       loading = _useState2[0],
       setLoading = _useState2[1];
@@ -3900,22 +3900,25 @@ var useTypeApi = function useTypeApi() {
             case 7:
               results = _context.sent;
               setLeaderboardData(results);
-              setPolling(false);
-              _context.next = 16;
+              _context.next = 14;
               break;
 
-            case 12:
-              _context.prev = 12;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](4);
-              setPolling(false);
               setRequestError(_context.t0);
 
-            case 16:
+            case 14:
+              _context.prev = 14;
+              setPolling(false);
+              return _context.finish(14);
+
+            case 17:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[4, 12]]);
+      }, _callee, null, [[4, 11, 14, 17]]);
     })), time);
   }, [method, opt.cursor, opt.limit]);
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
@@ -3930,35 +3933,38 @@ var useTypeApi = function useTypeApi() {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
+                setLoading(true);
+                setRequestError(null);
+                _context2.prev = 2;
+                _context2.next = 5;
                 return Promise.all(promiseList);
 
-              case 3:
+              case 5:
                 results = _context2.sent;
                 setLeaderboardData(results);
-                setLoading(false);
                 _context2.next = 12;
                 break;
 
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](0);
-                setLoading(false);
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
                 setRequestError(_context2.t0);
 
               case 12:
+                _context2.prev = 12;
+                setLoading(false);
+                return _context2.finish(12);
+
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[2, 9, 12, 15]]);
       }));
       return _promiseAll.apply(this, arguments);
     }
 
-    setLoading(true);
-    setRequestError(null);
     var promiseList = [];
     source.current = axios__WEBPACK_IMPORTED_MODULE_4___default().CancelToken.source();
     apiList.forEach(function (item) {
