@@ -48,7 +48,7 @@ export const useTypeApi = (
 ) => {
   const timeoutKey = useRef(0);
   const source = useRef<CancelTokenSource>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [polling, setPolling] = useState(false);
   const [requestError, setRequestError] = useState(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
@@ -75,10 +75,10 @@ export const useTypeApi = (
         try {
           const results = await Promise.all(apiArr);
           setLeaderboardData(results);
-          setPolling(false);
         } catch (error) {
-          setPolling(false);
           setRequestError(error);
+        } finally {
+          setPolling(false);
         }
       }, time);
     },
@@ -87,18 +87,18 @@ export const useTypeApi = (
 
   useEffect(() => {
     async function promiseAll(promiseList: any) {
+      setLoading(true);
+      setRequestError(null);
       try {
         const results: User[][] = await Promise.all(promiseList);
         setLeaderboardData(results);
-        setLoading(false);
       } catch (error) {
-        setLoading(false);
         setRequestError(error);
+      } finally {
+        setLoading(false);
       }
     }
 
-    setLoading(true);
-    setRequestError(null);
     const promiseList: Promise<User[]>[] = [];
     source.current = axios.CancelToken.source();
     apiList.forEach((item: APIType) => {
