@@ -37,3 +37,9 @@ export const getRandomInteger = (min: number, max: number): number => {
   }
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
+
+export const isProdVmo17Media = () =>
+  window.location.hostname === 'vmo.17.media';
+
+export const getType = (api: { sta: string; prod: string }) =>
+  isProdVmo17Media() ? api.prod : api.sta;

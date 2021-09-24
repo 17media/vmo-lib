@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import OfflineRound from './OfflineRound';
 import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
+import TypeApi from './TypeApi';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] =
@@ -13,6 +14,7 @@ const App = () => {
     offlineRound: <OfflineRound />,
     luckyDraw: <LuckyDraw />,
     offlineTeamRound: <OfflineTeamRound />,
+    typeApi: <TypeApi />,
   };
 
   return (
