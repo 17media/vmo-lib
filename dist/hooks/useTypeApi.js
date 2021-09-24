@@ -33,7 +33,7 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
 }) => {
     const timeoutKey = react_1.useRef(0);
     const source = react_1.useRef();
-    const [loading, setLoading] = react_1.useState(true);
+    const [loading, setLoading] = react_1.useState(false);
     const [polling, setPolling] = react_1.useState(false);
     const [requestError, setRequestError] = react_1.useState(null);
     const [leaderboardData, setLeaderboardData] = react_1.useState(initialData);
@@ -50,30 +50,32 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
             try {
                 const results = yield Promise.all(apiArr);
                 setLeaderboardData(results);
-                setPolling(false);
             }
             catch (error) {
-                setPolling(false);
                 setRequestError(error);
+            }
+            finally {
+                setPolling(false);
             }
         }), time);
     }, [method, opt.cursor, opt.limit]);
     react_1.useEffect(() => {
         function promiseAll(promiseList) {
             return __awaiter(this, void 0, void 0, function* () {
+                setLoading(true);
+                setRequestError(null);
                 try {
                     const results = yield Promise.all(promiseList);
                     setLeaderboardData(results);
-                    setLoading(false);
                 }
                 catch (error) {
-                    setLoading(false);
                     setRequestError(error);
+                }
+                finally {
+                    setLoading(false);
                 }
             });
         }
-        setLoading(true);
-        setRequestError(null);
         const promiseList = [];
         source.current = axios_1.default.CancelToken.source();
         apiList.forEach((item) => {
