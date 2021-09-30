@@ -43,3 +43,16 @@ export const isProdVmo17Media = () =>
 
 export const getType = (api: { sta: string; prod: string }) =>
   isProdVmo17Media() ? api.prod : api.sta;
+
+export function debounce<Params extends any[]>(
+  func: (...args: Params) => any,
+  timeout: number,
+): (...args: Params) => void {
+  let timer: any;
+  return (...args: Params) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...args);
+    }, timeout);
+  };
+}
