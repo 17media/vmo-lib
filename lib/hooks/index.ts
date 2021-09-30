@@ -6,6 +6,7 @@ import { usePageData } from './usePageData';
 import { useLuckyDraw } from './useLuckyDraw';
 import { useSyncScroll } from './useSyncScroll';
 import { useTypeApi } from './useTypeApi';
+import { useFilter } from './useFilter';
 
 export * from './useCountdown';
 export * from './useItemTransition';
@@ -15,6 +16,7 @@ export * from './useMockLeaderboard';
 export * from './useLuckyDraw';
 export * from './useSyncScroll';
 export * from './useTypeApi';
+export * from './useFilter';
 
 export default {
   useAutoNext,
@@ -25,4 +27,5 @@ export default {
   useLuckyDraw,
   useSyncScroll,
   useTypeApi,
+  useFilter,
 };
