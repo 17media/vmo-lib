@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 import useTypeApi from '../lib/hooks/useTypeApi';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
 import { ItemStyle } from '../lib/hooks/useItemTransition';
 import { User } from '../lib/types';
+import useFilter from '../lib/hooks/useFilter';
 
 const rowCount = 4;
 
@@ -93,6 +94,21 @@ const TypeApi = () => {
   const final =
     leaderboardData.length > 0 && leaderboardData[0] ? leaderboardData[0] : [];
 
+  const { data, handleOnChange } = useFilter(final);
+
+  const SearchFilter = useMemo(
+    () => (
+      <div>
+        <span>Filter 主播名稱:</span>
+        <Input
+          placeholder="請輸入主播名稱"
+          onChange={evt => handleOnChange(evt.target.value)}
+        />
+      </div>
+    ),
+    [handleOnChange],
+  );
+
   return (
     <div>
       <span>Eventory Container ID:</span>
@@ -115,6 +131,7 @@ const TypeApi = () => {
       <br />
       <Button onClick={submitHandler}>送出</Button>
       <br />
+      {SearchFilter}
       <span>is loading: {loading.toString()}</span> <br />
       <span>is polling: {polling.toString()}</span> <br />
       {requestError && <span>Error: {requestError.message}</span>} <br />
@@ -128,10 +145,12 @@ const TypeApi = () => {
           <TransitionLeaderboardWrapper
             itemStyle={itemStyle}
             rowCount={rowCount}
-            user={final}
+            user={data}
           >
-            {final.map(item => (
+            {data.map(item => (
               <Item key={item.userInfo.userID}>
+                <b>主播名稱:</b> {item.userInfo.displayName}
+                <br />
                 <b>id: </b> {item.userInfo.userID} <br />
                 <b>value:</b> {item.score}
               </Item>

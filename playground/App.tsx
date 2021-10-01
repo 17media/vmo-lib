@@ -3,6 +3,7 @@ import OfflineRound from './OfflineRound';
 import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
 import TypeApi from './TypeApi';
+import Filter from './Filter';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] =
@@ -15,6 +16,7 @@ const App = () => {
     luckyDraw: <LuckyDraw />,
     offlineTeamRound: <OfflineTeamRound />,
     typeApi: <TypeApi />,
+    filter: <Filter />,
   };
 
   return (
