@@ -93,12 +93,16 @@ const leaderboardData: User[] = [
   },
 ];
 
-const SearchFilter = props => (
+interface SearchFilterProps {
+  handleOnChange: (value: string) => void;
+}
+
+const SearchFilter = ({ handleOnChange }: SearchFilterProps) => (
   <div>
     <span>Filter 主播名稱:</span>
     <Input
       placeholder="請輸入主播名稱"
-      onChange={evt => props.handleOnChange(evt.target.value)}
+      onChange={evt => handleOnChange(evt.target.value)}
     />
   </div>
 );
