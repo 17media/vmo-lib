@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { createSearchAction } from '17media-browser-spy';
 
 import { User as LeaderboardItemInterface } from '../types';
@@ -7,49 +7,45 @@ import { trackingSource } from '../17appTrack';
 
 export const useFilter = (initialData: LeaderboardItemInterface[]) => {
   const [data, setData] = useState<LeaderboardItemInterface[]>(initialData);
-  const [isFiltering, setIsFiltering] = useState(false);
+  const [keyword, setKeyword] = useState('');
 
-  const handleOnChange = debounce(value => {
-    if (value) {
-      let filterData = [];
-      filterData = initialData.filter(item => {
+  const getFilterData = useMemo(
+    () =>
+      initialData.filter((item: any) => {
         const name =
-          item!.userInfo!.displayName || item!.userInfo!.openID || '';
-        return name!.toLowerCase().includes(value.trim().toLowerCase());
-      });
-      setData(filterData);
-      setIsFiltering(true);
-      // Track
-      trackingSource?.track(createSearchAction(value, filterData.length));
-    } else {
-      setData(initialData);
-      setIsFiltering(false);
-    }
-  }, 500);
-  // sync the new state of the initialData
-  useEffect(() => {
-    if (isFiltering) {
-      setData(preState => {
-        let newState: any[] = [];
-        if (
-          preState &&
-          preState.length > 0 &&
-          initialData &&
-          initialData.length > 0
-        ) {
-          newState = preState.map(item => ({
-            ...initialData.find(
-              x => x.userInfo.userID === item.userInfo.userID,
-            ),
-          }));
+          (item!.userInfo!.displayName || item!.userInfo!.openID) ?? '';
+        return name!.toLowerCase().includes(keyword.trim().toLowerCase());
+      }),
+    [initialData, keyword],
+  );
+
+  const handleOnChange = useMemo(
+    () =>
+      debounce(value => {
+        setKeyword(value);
+        if (!value) {
+          setData(initialData);
+          return;
         }
-        newState.sort((l, n) => n.score - l.score);
-        return newState;
+
+        const filterData = getFilterData;
+        setData(filterData);
+        // Track
+        trackingSource?.track(createSearchAction(value, filterData.length));
+      }, 500),
+    [initialData, getFilterData],
+  );
+
+  useEffect(() => {
+    if (keyword) {
+      setData(() => {
+        const filterData = getFilterData;
+        return filterData;
       });
     } else {
       setData(initialData);
     }
-  }, [initialData, isFiltering]);
+  }, [initialData, keyword, getFilterData]);
 
   return { data, handleOnChange };
 };
