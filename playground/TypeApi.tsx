@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo, memo } from 'react';
 import styled from 'styled-components';
 import useTypeApi from '../lib/hooks/useTypeApi';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
 import { ItemStyle } from '../lib/hooks/useItemTransition';
 import { User } from '../lib/types';
+import useFilter from '../lib/hooks/useFilter';
 
 const rowCount = 4;
 
@@ -34,6 +35,20 @@ const Button = styled.button`
   margin: 20px 0 20px 20px;
   padding: 5px 10px;
 `;
+
+interface SearchFilterProps {
+  handleOnChange: (value: string) => void;
+}
+
+const SearchFilter = ({ handleOnChange }: SearchFilterProps) => (
+  <div>
+    <span>Filter 主播名稱:</span>
+    <Input
+      placeholder="請輸入主播名稱"
+      onChange={evt => handleOnChange(evt.target.value)}
+    />
+  </div>
+);
 
 const TypeApi = () => {
   const [eventoryContainerId, setEventoryContainerId] = useState<string>('');
@@ -90,8 +105,9 @@ const TypeApi = () => {
   };
 
   // 因為apiList只有一筆，所以使用leaderboardData[0]資料，如果apiList有更多筆資料，後端資料會相對應leaderboardData[]位置
-  const final =
-    leaderboardData.length > 0 && leaderboardData[0] ? leaderboardData[0] : [];
+  const final = leaderboardData.length > 0 ? leaderboardData[0] : [];
+
+  const { data, handleOnChange } = useFilter(final);
 
   return (
     <div>
@@ -115,6 +131,7 @@ const TypeApi = () => {
       <br />
       <Button onClick={submitHandler}>送出</Button>
       <br />
+      <SearchFilter handleOnChange={handleOnChange} />
       <span>is loading: {loading.toString()}</span> <br />
       <span>is polling: {polling.toString()}</span> <br />
       {requestError && <span>Error: {requestError.message}</span>} <br />
@@ -128,10 +145,12 @@ const TypeApi = () => {
           <TransitionLeaderboardWrapper
             itemStyle={itemStyle}
             rowCount={rowCount}
-            user={final}
+            user={data}
           >
-            {final.map(item => (
+            {data.map(item => (
               <Item key={item.userInfo.userID}>
+                <b>主播名稱:</b> {item.userInfo.displayName}
+                <br />
                 <b>id: </b> {item.userInfo.userID} <br />
                 <b>value:</b> {item.score}
               </Item>

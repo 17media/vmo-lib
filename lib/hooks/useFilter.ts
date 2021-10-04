@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { createSearchAction } from '17media-browser-spy';
 
 import { User as LeaderboardItemInterface } from '../types';
