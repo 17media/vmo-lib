@@ -5,7 +5,7 @@ module.exports = {
     jsx: true,
     useJSXTextNode: true,
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'react-hooks'],
   env: {
     browser: true,
     node: true,
@@ -36,6 +36,8 @@ module.exports = {
     'import/no-named-as-default': 0,
     'consistent-return': 0,
     'react/jsx-props-no-spreading': 0,
+    'react-hooks/rules-of-hooks': 'error', // 檢查 Hook 的規則
+    'react-hooks/exhaustive-deps': 'warn', // 檢查 effect 的相依性
   },
   settings: {
     'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
