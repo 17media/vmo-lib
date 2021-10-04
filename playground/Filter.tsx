@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import useFilter from '../lib/hooks/useFilter';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
@@ -93,24 +93,22 @@ const leaderboardData: User[] = [
   },
 ];
 
+const SearchFilter = props => (
+  <div>
+    <span>Filter 主播名稱:</span>
+    <Input
+      placeholder="請輸入主播名稱"
+      onChange={evt => props.handleOnChange(evt.target.value)}
+    />
+  </div>
+);
+
 const Filter = () => {
   const { data, handleOnChange } = useFilter(leaderboardData);
 
-  const SearchFilter = useMemo(
-    () => (
-      <div>
-        <input
-          placeholder="請輸入主播名稱"
-          onChange={evt => handleOnChange(evt.target.value)}
-        />
-      </div>
-    ),
-    [handleOnChange],
-  );
-
   return (
     <div>
-      {SearchFilter}
+      <SearchFilter handleOnChange={handleOnChange} />
       <br />
       顯示資料為假資料，不是實際api資料，僅測試filter功能
       <Wrapper>
@@ -132,4 +130,4 @@ const Filter = () => {
   );
 };
 
-export default memo(Filter);
+export default React.memo(Filter);

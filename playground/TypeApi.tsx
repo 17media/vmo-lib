@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, memo } from 'react';
 import styled from 'styled-components';
 import useTypeApi from '../lib/hooks/useTypeApi';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
@@ -35,6 +35,16 @@ const Button = styled.button`
   margin: 20px 0 20px 20px;
   padding: 5px 10px;
 `;
+
+const SearchFilter = props => (
+  <div>
+    <span>Filter 主播名稱:</span>
+    <Input
+      placeholder="請輸入主播名稱"
+      onChange={evt => props.handleOnChange(evt.target.value)}
+    />
+  </div>
+);
 
 const TypeApi = () => {
   const [eventoryContainerId, setEventoryContainerId] = useState<string>('');
@@ -91,23 +101,9 @@ const TypeApi = () => {
   };
 
   // 因為apiList只有一筆，所以使用leaderboardData[0]資料，如果apiList有更多筆資料，後端資料會相對應leaderboardData[]位置
-  const final =
-    leaderboardData.length > 0 && leaderboardData[0] ? leaderboardData[0] : [];
+  const final = leaderboardData.length > 0 ? leaderboardData[0] : [];
 
   const { data, handleOnChange } = useFilter(final);
-
-  const SearchFilter = useMemo(
-    () => (
-      <div>
-        <span>Filter 主播名稱:</span>
-        <Input
-          placeholder="請輸入主播名稱"
-          onChange={evt => handleOnChange(evt.target.value)}
-        />
-      </div>
-    ),
-    [handleOnChange],
-  );
 
   return (
     <div>
@@ -131,7 +127,7 @@ const TypeApi = () => {
       <br />
       <Button onClick={submitHandler}>送出</Button>
       <br />
-      {SearchFilter}
+      <SearchFilter handleOnChange={handleOnChange} />
       <span>is loading: {loading.toString()}</span> <br />
       <span>is polling: {polling.toString()}</span> <br />
       {requestError && <span>Error: {requestError.message}</span>} <br />
