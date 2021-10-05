@@ -56,3 +56,83 @@ export function debounce<Params extends any[]>(
     }, timeout);
   };
 }
+
+export const getUserLangs = (): string[] => {
+  const q = qs<{ lang: string }>();
+  return Array.from(
+    new Set(
+      [q.lang, ...window.navigator.languages].filter(Boolean) as string[],
+    ),
+  );
+};
+
+export enum RegionLanguage {
+  TAIWAN = 'zh_TW',
+  CHINA = 'zh_CN',
+  HONGKONG = 'zh_HK',
+  JAPAN = 'ja',
+  EUROPE = 'en_US',
+  ARAB = 'ar',
+}
+
+export const getCurrentTransLateLang = (
+  supportLangs: RegionLanguage[],
+): string => {
+  if (supportLangs.length <= 0) {
+    return RegionLanguage.TAIWAN;
+  }
+
+  const isSupportHant =
+    supportLangs.includes(RegionLanguage.TAIWAN) ||
+    supportLangs.includes(RegionLanguage.CHINA) ||
+    supportLangs.includes(RegionLanguage.HONGKONG);
+
+  const supportHantLangList = supportLangs.filter(
+    lang =>
+      lang === RegionLanguage.TAIWAN ||
+      lang === RegionLanguage.CHINA ||
+      lang === RegionLanguage.HONGKONG,
+  );
+
+  const preferLangs = supportLangs.map(langCode => ({
+    prefix: langCode.substr(0, 2),
+    lang: langCode,
+  }));
+
+  const userLangList = getUserLangs().map(lang => {
+    if (lang.includes('-') || lang.includes('_')) {
+      const formatLang = lang.replace('-', '_').split('_');
+      return `${formatLang[0].toLowerCase()}_${formatLang[1].toUpperCase()}`;
+    }
+    return lang;
+  });
+
+  let currentLang = '';
+
+  userLangList.forEach(lang => {
+    if (currentLang === '') {
+      if (lang === 'zh') {
+        if (isSupportHant) {
+          const matchedLang = userLangList.find(userlang =>
+            supportHantLangList.includes(userlang as RegionLanguage),
+          );
+
+          if (matchedLang) {
+            currentLang = matchedLang;
+          } else {
+            const [defaultLang] = supportHantLangList;
+            currentLang = defaultLang;
+          }
+        }
+      } else {
+        const prefix = lang.substr(0, 2);
+        const prefixIndex = preferLangs.findIndex(p => p.prefix === prefix);
+        if (prefixIndex >= 0) {
+          currentLang = preferLangs[prefixIndex].lang;
+        }
+      }
+    }
+  });
+
+  return currentLang || RegionLanguage.TAIWAN;
+};
