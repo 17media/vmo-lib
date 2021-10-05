@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import {
   getUserLangs,
-  getCurrentTransLateLang,
+  getCurrentTranslateLang,
   RegionLanguage,
 } from '../lib/utils';
 
@@ -49,7 +49,7 @@ const Utils = () => {
   ];
 
   const currentTransLateLang = useMemo(
-    () => getCurrentTransLateLang(supportLangs),
+    () => getCurrentTranslateLang(supportLangs),
     [supportLangs],
   );
 
@@ -61,7 +61,7 @@ const Utils = () => {
       <p>Get browser languages or manually queryString. e.g. ?lang=ja</p>
       <br />
       <DisplayResult>{JSON.stringify(getUserLangs())}</DisplayResult>
-      <h3>getCurrentTransLateLang</h3>
+      <h3>getCurrentTranslateLang</h3>
       <p>這個方法可以拿到前端要顯示的語系</p>
       <span>eventory 支援語系: </span>
       {allSupportLanguages.map(langCode => (

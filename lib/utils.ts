@@ -57,6 +57,9 @@ export function debounce<Params extends any[]>(
   };
 }
 
+/**
+ * Get browser languages or manually queryString. e.g. ?lang=ja
+ */
 export const getUserLangs = (): string[] => {
   const q = qs<{ lang: string }>();
   return Array.from(
@@ -66,6 +69,9 @@ export const getUserLangs = (): string[] => {
   );
 };
 
+/**
+ * languages defined from Eventory
+ */
 export enum RegionLanguage {
   TAIWAN = 'zh_TW',
   CHINA = 'zh_CN',
@@ -75,11 +81,17 @@ export enum RegionLanguage {
   ARAB = 'ar',
 }
 
-export const getCurrentTransLateLang = (
+/**
+ * Get Currently selected language from campaign setting
+ * @param {RegionLanguage[]} supportLangs languages provide by campaign setting
+ * @returns {RegionLanguage}
+ */
+export const getCurrentTranslateLang = (
   supportLangs: RegionLanguage[],
 ): string => {
+  const defaultLang = RegionLanguage.TAIWAN;
   if (supportLangs.length <= 0) {
-    return RegionLanguage.TAIWAN;
+    return defaultLang;
   }
 
   const isSupportHant =
@@ -110,7 +122,7 @@ export const getCurrentTransLateLang = (
   let currentLang = '';
 
   userLangList.forEach(lang => {
-    if (currentLang === '') {
+    if (!currentLang) {
       if (lang === 'zh') {
         if (isSupportHant) {
           const matchedLang = userLangList.find(userlang =>
@@ -120,8 +132,8 @@ export const getCurrentTransLateLang = (
           if (matchedLang) {
             currentLang = matchedLang;
           } else {
-            const [defaultLang] = supportHantLangList;
-            currentLang = defaultLang;
+            const [defaultHant] = supportHantLangList;
+            currentLang = defaultHant;
           }
         }
       } else {
@@ -134,5 +146,5 @@ export const getCurrentTransLateLang = (
     }
   });
 
-  return currentLang || RegionLanguage.TAIWAN;
+  return currentLang || defaultLang;
 };
