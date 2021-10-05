@@ -48,10 +48,7 @@ const Utils = () => {
     RegionLanguage.ARAB,
   ];
 
-  const currentTransLateLang = useMemo(
-    () => getCurrentTranslateLang(supportLangs),
-    [supportLangs],
-  );
+  const currentTransLateLang = getCurrentTranslateLang(supportLangs);
 
   return (
     <div>
