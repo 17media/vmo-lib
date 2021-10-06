@@ -55,5 +55,9 @@ declare const _default: {
         requestError: null;
         leaderboardData: import("./types").User[][] | undefined;
     };
+    useFilter: (initialData: import("./types").User[]) => {
+        data: import("./types").User[];
+        handleOnChange: (value: any) => void;
+    };
 };
 export default _default;

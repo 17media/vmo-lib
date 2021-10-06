@@ -7,6 +7,7 @@ export * from './useMockLeaderboard';
 export * from './useLuckyDraw';
 export * from './useSyncScroll';
 export * from './useTypeApi';
+export * from './useFilter';
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
@@ -58,6 +59,10 @@ declare const _default: {
         polling: boolean;
         requestError: null;
         leaderboardData: import("../types").User[][] | undefined;
+    };
+    useFilter: (initialData: import("../types").User[]) => {
+        data: import("../types").User[];
+        handleOnChange: (value: any) => void;
     };
 };
 export default _default;

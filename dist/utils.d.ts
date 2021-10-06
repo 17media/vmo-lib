@@ -17,3 +17,4 @@ export declare const getType: (api: {
     sta: string;
     prod: string;
 }) => string;
+export declare function debounce<Params extends any[]>(func: (...args: Params) => any, timeout: number): (...args: Params) => void;
