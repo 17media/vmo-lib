@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>hooks/useItemTransition | vmo-lib</title>
+	<title>hooks/useFilter | vmo-lib</title>
 	<meta name="description" content="Documentation for vmo-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">vmo-lib</a>
 				</li>
 				<li>
-					<a href="hooks_useItemTransition.html">hooks/useItemTransition</a>
+					<a href="hooks_useFilter.html">hooks/useFilter</a>
 				</li>
 			</ul>
-			<h1>Module hooks/useItemTransition</h1>
+			<h1>Module hooks/useFilter</h1>
 		</div>
 	</div>
 </header>
@@ -72,20 +72,13 @@
 						<section class="tsd-index-section ">
 							<h3>References</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="hooks_useItemTransition.html#default" class="tsd-kind-icon">default</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/hooks_useItemTransition.ItemStyle.html" class="tsd-kind-icon">Item<wbr>Style</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/hooks_useItemTransition.TransitionStyle.html" class="tsd-kind-icon">Transition<wbr>Style</a></li>
+								<li class="tsd-kind-reference tsd-parent-kind-module"><a href="hooks_useFilter.html#default" class="tsd-kind-icon">default</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="hooks_useItemTransition.html#useItemTransition" class="tsd-kind-icon">use<wbr>Item<wbr>Transition</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="hooks_useFilter.html#useFilter" class="tsd-kind-icon">use<wbr>Filter</a></li>
 							</ul>
 						</section>
 					</div>
@@ -96,57 +89,67 @@
 				<section class="tsd-panel tsd-member tsd-kind-reference tsd-parent-kind-module">
 					<a name="default" class="tsd-anchor"></a>
 					<h3>default</h3>
-					Renames and exports <a href="hooks_useItemTransition.html#useItemTransition">useItemTransition</a>
+					Renames and exports <a href="hooks_useFilter.html#useFilter">useFilter</a>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="useItemTransition" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> use<wbr>Item<wbr>Transition</h3>
+					<a name="useFilter" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> use<wbr>Filter</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">use<wbr>Item<wbr>Transition<span class="tsd-signature-symbol">(</span>itemStyle<span class="tsd-signature-symbol">: </span><a href="../interfaces/hooks_useItemTransition.ItemStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">ItemStyle</a>, transition<span class="tsd-signature-symbol">: </span><a href="../interfaces/hooks_useItemTransition.TransitionStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">TransitionStyle</a>, rowItems<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, currentRank<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>itemTransitionStyle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>transition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>itemTransitionStyle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>position<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>transition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">use<wbr>Filter<span class="tsd-signature-symbol">(</span>initialData<span class="tsd-signature-symbol">: </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>data<span class="tsd-signature-symbol">: </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>handleOnChange<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> }</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/hooks/useItemTransition.ts#L20">hooks/useItemTransition.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/hooks/useFilter.ts#L14">hooks/useFilter.ts:14</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>換位動畫</p>
+									<p>篩選 (search filter) leaderboard 資料<br />
+									傳送追蹤篩選行為到 firebase</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>itemStyle: <a href="../interfaces/hooks_useItemTransition.ItemStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">ItemStyle</a></h5>
+									<h5>initialData: <a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>長寬與偏移x,y</p>
-									</div>
-								</li>
-								<li>
-									<h5>transition: <a href="../interfaces/hooks_useItemTransition.TransitionStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">TransitionStyle</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>位移動畫css</p>
-									</div>
-								</li>
-								<li>
-									<h5>rowItems: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>每一行多少個</p>
-									</div>
-								</li>
-								<li>
-									<h5>currentRank: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>當前榜單數目</p>
+										<p>未經過濾的 leaderboard 資料</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>itemTransitionStyle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>transition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>itemTransitionStyle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>position<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>transition<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>data<span class="tsd-signature-symbol">: </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>handleOnChange<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> }</span></h4>
+							<p>data: 取得過濾後的 leaderboard 資料, handleOnChange: handle filter 資料的 method</p>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>data<span class="tsd-signature-symbol">: </span><a href="../interfaces/types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>handle<wbr>OnChange<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-symbol">[</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -179,10 +182,10 @@
 					<li class=" tsd-kind-module">
 						<a href="hooks_useCountdown.html">hooks/use<wbr>Countdown</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="hooks_useFilter.html">hooks/use<wbr>Filter</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="hooks_useItemTransition.html">hooks/use<wbr>Item<wbr>Transition</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -232,16 +235,10 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-reference tsd-parent-kind-module">
-						<a href="hooks_useItemTransition.html#default" class="tsd-kind-icon">default</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/hooks_useItemTransition.ItemStyle.html" class="tsd-kind-icon">Item<wbr>Style</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/hooks_useItemTransition.TransitionStyle.html" class="tsd-kind-icon">Transition<wbr>Style</a>
+						<a href="hooks_useFilter.html#default" class="tsd-kind-icon">default</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="hooks_useItemTransition.html#useItemTransition" class="tsd-kind-icon">use<wbr>Item<wbr>Transition</a>
+						<a href="hooks_useFilter.html#useFilter" class="tsd-kind-icon">use<wbr>Filter</a>
 					</li>
 				</ul>
 			</nav>

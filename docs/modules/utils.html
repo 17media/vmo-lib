@@ -79,6 +79,7 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#addLeadingZeros" class="tsd-kind-icon">add<wbr>Leading<wbr>Zeros</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="utils.html#debounce" class="tsd-kind-icon">debounce</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#getRandomInteger" class="tsd-kind-icon">get<wbr>Random<wbr>Integer</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#getType" class="tsd-kind-icon">get<wbr>Type</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#isBrowser" class="tsd-kind-icon">is<wbr>Browser</a></li>
@@ -97,7 +98,7 @@
 					<div class="tsd-signature tsd-kind-icon">global<wbr>This<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/2287dae/lib/utils.ts#L1">utils.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L1">utils.ts:1</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -114,7 +115,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/2287dae/lib/utils.ts#L20">utils.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L20">utils.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -124,6 +125,74 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+					<a name="debounce" class="tsd-anchor"></a>
+					<h3>debounce</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">debounce&lt;Params&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Params</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span>, timeout<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Params</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L47">utils.ts:47</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>func: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Params</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Params</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">Params</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>timeout: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Params</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-signature">
+									<ul class="tsd-signatures tsd-kind-type-literal">
+										<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Params</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									</ul>
+									<ul class="tsd-descriptions">
+										<li class="tsd-description">
+											<h4 class="tsd-parameters-title">Parameters</h4>
+											<ul class="tsd-parameters">
+												<li>
+													<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">Params</span></h5>
+												</li>
+											</ul>
+											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+										</li>
+									</ul>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -137,7 +206,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/2287dae/lib/utils.ts#L32">utils.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L32">utils.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -168,7 +237,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/2287dae/lib/utils.ts#L44">utils.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L44">utils.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -199,7 +268,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/2287dae/lib/utils.ts#L27">utils.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L27">utils.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -221,7 +290,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/2287dae/lib/utils.ts#L41">utils.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L41">utils.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -238,7 +307,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/2287dae/lib/utils.ts#L3">utils.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L3">utils.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -266,6 +335,9 @@
 						<a href="../modules.html">Modules</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="17appTrack.html">17app<wbr>Track</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="components.html">components</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -282,6 +354,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="hooks_useCountdown.html">hooks/use<wbr>Countdown</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="hooks_useFilter.html">hooks/use<wbr>Filter</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="hooks_useItemTransition.html">hooks/use<wbr>Item<wbr>Transition</a>
@@ -337,6 +412,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="utils.html#addLeadingZeros" class="tsd-kind-icon">add<wbr>Leading<wbr>Zeros</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="utils.html#debounce" class="tsd-kind-icon">debounce</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="utils.html#getRandomInteger" class="tsd-kind-icon">get<wbr>Random<wbr>Integer</a>
