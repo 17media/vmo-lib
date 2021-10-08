@@ -146,13 +146,7 @@ export const getCurrentTranslateLang = (
     }
   });
 
-  const translateLang = (currentLang || defaultLang) as RegionLanguage;
-
-  if (!Object.values(RegionLanguage).includes(translateLang)) {
-    throw new Error('user language is not in support languages');
-  }
-
-  return translateLang;
+  return (currentLang || defaultLang) as RegionLanguage;
 };
 
 const getDateByFormat = (date: Date, format: string, locale: string) => {
