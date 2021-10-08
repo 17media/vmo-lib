@@ -84,11 +84,11 @@ export enum RegionLanguage {
 /**
  * Get Currently selected language from campaign setting
  * @param {RegionLanguage[]} supportLangs languages provide by campaign setting
- * @returns {RegionLanguage}
+ * @returns enum RegionLanguage
  */
 export const getCurrentTranslateLang = (
   supportLangs: RegionLanguage[],
-): string => {
+): RegionLanguage => {
   const defaultLang = RegionLanguage.TAIWAN;
   if (supportLangs.length <= 0) {
     return defaultLang;
@@ -146,5 +146,179 @@ export const getCurrentTranslateLang = (
     }
   });
 
-  return currentLang || defaultLang;
+  const translateLang = (currentLang || defaultLang) as RegionLanguage;
+
+  if (!Object.values(RegionLanguage).includes(translateLang)) {
+    throw new Error('user language is not in support languages');
+  }
+
+  return translateLang;
 };
+
+const getDateByFormat = (date: Date, format: string, locale: string) => {
+  if (format.indexOf('MM/DD/YYYY') > -1) {
+    return format.replace(
+      'MM/DD/YYYY',
+      date.toLocaleDateString(locale, {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+      }),
+    );
+  }
+
+  if (format.indexOf('MM/DD') > -1) {
+    return format.replace(
+      'MM/DD',
+      date.toLocaleDateString(locale, {
+        month: 'numeric',
+        day: '2-digit',
+      }),
+    );
+  }
+
+  if (format.indexOf('MM/d') > -1) {
+    return format.replace(
+      'MM/d',
+      date.toLocaleDateString(locale, {
+        month: 'numeric',
+        day: 'numeric',
+      }),
+    );
+  }
+
+  return format;
+};
+
+const getWeekdayByFormat = (date: Date, format: string, locale: string) => {
+  if (format.indexOf('WN') > -1) {
+    return format.replace(
+      'WN',
+      date.toLocaleDateString(locale, {
+        weekday: locale.indexOf('zh') > -1 ? 'narrow' : 'short',
+      }),
+    );
+  }
+
+  return format;
+};
+
+const getTimeByFormat = (date: Date, format: string, locale: string) => {
+  if (format.indexOf('hh:mm:ss') > -1) {
+    return format.replace(
+      'hh:mm:ss',
+      date.toLocaleTimeString('en-GB', {
+        hour12: false,
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      }),
+    );
+  }
+
+  if (format.indexOf('HH:mm PP') > -1) {
+    return format.replace(
+      'HH:mm PP',
+      date.toLocaleTimeString(locale, {
+        hour12: true,
+        hour: 'numeric',
+        minute: 'numeric',
+      }),
+    );
+  }
+
+  return format;
+};
+
+/**
+ * Get datetime text which shown on countdown date range, its language depends on RegionLanguage
+ * @param {string} dateString datetime, i.e. 2021-09-25T18:00:00+08:00
+ * @param {string} format if wants to change return format, default is 'MM/DD(WN)hh:mm:ss'
+ * @param {RegionLanguage} regionLanguage return language, options from enum RegionLanguage
+ * @returns formated dateString
+ */
+export const getStringDateByLocalFormat = (
+  dateString: string,
+  format = 'MM/DD(WN)hh:mm:ss',
+  regionLanguage: RegionLanguage = RegionLanguage.TAIWAN,
+) => {
+  const localeMap = {
+    [RegionLanguage.TAIWAN]: 'zh-TW',
+    [RegionLanguage.CHINA]: 'zh-CH',
+    [RegionLanguage.HONGKONG]: 'zh-HK',
+    [RegionLanguage.JAPAN]: 'ja-JP',
+    [RegionLanguage.EUROPE]: 'en-US',
+    [RegionLanguage.ARAB]: 'ar',
+  };
+
+  const date = new Date(dateString);
+  const locale = localeMap[regionLanguage];
+  format = getDateByFormat(date, format, locale);
+  format = getWeekdayByFormat(date, format, locale);
+  format = getTimeByFormat(date, format, locale);
+
+  return format;
+};
+
+const getDetailDate = (date: string) => {
+  const dateObj = new Date(date);
+  const month = dateObj.getMonth() + 1;
+  const dateOfMonth = dateObj.getDate();
+  const hours = dateObj.getHours();
+  const minutes = dateObj.getMinutes();
+  const sec = dateObj.getSeconds();
+  const stringDateOfMonth =
+    dateOfMonth < 10 ? `0${dateOfMonth}` : String(dateOfMonth);
+  const stringHours = hours < 10 ? `0${hours}` : String(hours);
+  const stringMinutes = minutes < 10 ? `0${minutes}` : String(minutes);
+  const stringSec = sec < 10 ? `0${sec}` : String(sec);
+  return { month, stringDateOfMonth, stringHours, stringMinutes, stringSec };
+};
+
+/**
+ * Get datetime text which shown on countdown remaining time
+ * @param {Object}
+ * @param {string} formatText format want to replace. i.e. 剩餘 D 天 hh:mm:ss
+ * @returns formated text
+ */
+export const getStringDateCountdownByLocalFormat = (
+  {
+    d,
+    h,
+    m,
+    s,
+    ms,
+  }: {
+    d: number;
+    h: number;
+    m: number;
+    s: number;
+    ms: number;
+  },
+  formatText: string,
+) =>
+  formatText
+    .replace('D', d.toString())
+    .replace('hh', addLeadingZeros(h).toString())
+    .replace('mm', addLeadingZeros(m).toString())
+    .replace('ss', addLeadingZeros(s).toString());
+
+/**
+ * Get time text which shown on countdown remaining time. * if remaining time is less than one day.
+ * @param {string} dateString datetime, i.e. 2021-09-25T18:00:00+08:00
+ * @returns {string}
+ */
+export const convertDateToTime = (dateString: string) => {
+  const { stringHours, stringMinutes, stringSec } = getDetailDate(dateString);
+  return `${stringHours}:${stringMinutes}:${stringSec}`;
+};
+
+/**
+ * Get result for compare two datetime is same or not
+ * @param {string} startDate datetime, i.e. 2021-09-25T18:00:00+08:00
+ * @param {string} endDate datetime, i.e. 2021-09-25T18:00:00+08:00
+ * @returns {boolean}
+ */
+export const isSameDate = (startDate: string, endDate: string) =>
+  getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') ===
+  getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
