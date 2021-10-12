@@ -266,6 +266,7 @@ const getDetailDate = (date: string) => {
   const stringHours = hours < 10 ? `0${hours}` : String(hours);
   const stringMinutes = minutes < 10 ? `0${minutes}` : String(minutes);
   const stringSec = sec < 10 ? `0${sec}` : String(sec);
+
   return { month, stringDateOfMonth, stringHours, stringMinutes, stringSec };
 };
 

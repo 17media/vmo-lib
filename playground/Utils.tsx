@@ -64,13 +64,9 @@ const Utils = () => {
   const [dateString, setDateString] = useState('2021-09-25T18:00:00+08:00');
   const [format, setFormat] = useState('MM/DD(WN)hh:mm:ss');
 
-  const dateStringHandler = e => {
-    setDateString(e.target.value);
-  };
+  const dateStringHandler = e => setDateString(e.target.value);
 
-  const formatHandler = e => {
-    setFormat(e.target.value);
-  };
+  const formatHandler = e => setFormat(e.target.value);
 
   const resultGetStringDateByLocalFormat = getStringDateByLocalFormat(
     dateString,
@@ -80,17 +76,9 @@ const Utils = () => {
 
   // getStringDateCountdownByLocalFormat
   const [formatText, setFormatText] = useState('剩餘 D 天 hh:mm:ss');
-  const mockTime = {
-    d: 1,
-    h: 0,
-    m: 10,
-    s: 0,
-    ms: 0,
-  };
+  const mockTime = { d: 1, h: 0, m: 10, s: 0, ms: 0 };
 
-  const formatTextHandler = e => {
-    setFormatText(e.target.value);
-  };
+  const formatTextHandler = e => setFormatText(e.target.value);
 
   const resultGetStringDateCountdownByLocalFormat =
     getStringDateCountdownByLocalFormat(mockTime, formatText);
