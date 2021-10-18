@@ -5,11 +5,14 @@ import { qs } from '../lib/utils';
 
 const FlexContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
 `;
 
 const Item = styled.div`
   flex: 1;
   border: 1px solid black;
+  margin: 0 20px;
 `;
 
 const StyledInput = styled.input`
