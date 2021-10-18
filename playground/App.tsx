@@ -4,6 +4,7 @@ import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
 import TypeApi from './TypeApi';
 import Filter from './Filter';
+import Follower from './Follower';
 import Utils from './Utils';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
     offlineTeamRound: <OfflineTeamRound />,
     typeApi: <TypeApi />,
     filter: <Filter />,
+    follower: <Follower />,
     utils: <Utils />,
   };
 
