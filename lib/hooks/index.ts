@@ -7,6 +7,7 @@ import { useLuckyDraw } from './useLuckyDraw';
 import { useSyncScroll } from './useSyncScroll';
 import { useTypeApi } from './useTypeApi';
 import { useFilter } from './useFilter';
+import { useScrollToLoadingContainer } from './useScrollToLoadingContainer';
 
 export * from './useCountdown';
 export * from './useItemTransition';
@@ -17,6 +18,7 @@ export * from './useLuckyDraw';
 export * from './useSyncScroll';
 export * from './useTypeApi';
 export * from './useFilter';
+export * from './useScrollToLoadingContainer';
 
 export default {
   useAutoNext,
@@ -28,4 +30,5 @@ export default {
   useSyncScroll,
   useTypeApi,
   useFilter,
+  useScrollToLoadingContainer,
 };
