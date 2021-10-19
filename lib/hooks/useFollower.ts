@@ -14,7 +14,6 @@ type Props = (
 export const useFollower: Props = (userID, accessToken) => {
   const [followers, setFollowers] = useState<string[]>([]);
   const [errorMsg, setErrorMsg] = useState<string>('');
-  console.log(userID, accessToken);
 
   useEffect(() => {
     const fetchFollowers = async () => {
