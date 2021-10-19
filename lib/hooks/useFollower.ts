@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-
 import { getUserFollowers } from '../service/follower.service';
-import { User } from '../types';
 
 type Props = (
   userID: string,
@@ -18,7 +16,10 @@ export const useFollower: Props = (userID, accessToken) => {
   useEffect(() => {
     const fetchFollowers = async () => {
       try {
-        const data = await getUserFollowers({ userID, accessToken });
+        const callback = (data: string[]) => {
+          setFollowers(data);
+        };
+        const data = await getUserFollowers({ userID, accessToken, callback });
         setFollowers(data);
       } catch (error) {
         setErrorMsg(error?.response?.data?.errorMessage ?? 'something wrong!');
