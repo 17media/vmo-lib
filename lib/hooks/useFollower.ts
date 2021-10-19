@@ -22,7 +22,11 @@ export const useFollower: Props = (userID, accessToken) => {
         const data = await getUserFollowers({ userID, accessToken, callback });
         setFollowers(data);
       } catch (error) {
-        setErrorMsg(error?.response?.data?.errorMessage ?? 'something wrong!');
+        if (error?.response && error?.response.data) {
+          setErrorMsg(error?.response.data?.errorMessage ?? 'something wrong!');
+        } else {
+          setErrorMsg('something wrong!');
+        }
       }
     };
 
