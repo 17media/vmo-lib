@@ -1,5 +1,4 @@
 import { getInstanceEventory } from './axios';
-import { User } from '../types';
 
 interface Props {
   userID: string;
