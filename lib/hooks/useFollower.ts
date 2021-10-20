@@ -21,7 +21,9 @@ export const useFollower: Props = (userID, accessToken) => {
         };
         const data = await getUserFollowers({ userID, accessToken, callback });
         setFollowers(data);
+        setErrorMsg('');
       } catch (error) {
+        setFollowers([]);
         if (error?.response && error?.response.data) {
           setErrorMsg(error?.response.data?.errorMessage ?? 'something wrong!');
         } else {
