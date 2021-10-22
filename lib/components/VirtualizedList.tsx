@@ -64,9 +64,7 @@ export const VirtualizedList: React.FC<IVirtualizedListProps> = ({
   const isAlreadyScroll = useRef<boolean>(false);
   const listRef = useRef<any>(null);
   const queryString = qs<{
-    copy: string;
     streamerUserID: string;
-    count: string;
   }>();
   const getInitScrollOffset = useCallback(() => {
     if (listRef.current) {
@@ -123,7 +121,7 @@ export const VirtualizedList: React.FC<IVirtualizedListProps> = ({
       rank={dataset[index].rank}
     />
   );
-  const getItemSize = (index: number): number => itemHeight;
+  const getItemSize = (): number => itemHeight;
 
   const getCalculatedHeight = () => dataset.length * itemHeight + 2;
 
