@@ -70,6 +70,12 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Enumerations</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum tsd-parent-kind-module"><a href="../enums/utils.RegionLanguage.html" class="tsd-kind-icon">Region<wbr>Language</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="utils.html#globalThis" class="tsd-kind-icon">global<wbr>This</a></li>
@@ -79,11 +85,18 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#addLeadingZeros" class="tsd-kind-icon">add<wbr>Leading<wbr>Zeros</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#convertDateToTime" class="tsd-kind-icon">convert<wbr>Date<wbr>ToTime</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#cumulativeOffset" class="tsd-kind-icon">cumulative<wbr>Offset</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="utils.html#debounce" class="tsd-kind-icon">debounce</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#getCurrentTranslateLang" class="tsd-kind-icon">get<wbr>Current<wbr>Translate<wbr>Lang</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#getRandomInteger" class="tsd-kind-icon">get<wbr>Random<wbr>Integer</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#getStringDateByLocalFormat" class="tsd-kind-icon">get<wbr>String<wbr>Date<wbr>ByLocal<wbr>Format</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#getStringDateCountdownByLocalFormat" class="tsd-kind-icon">get<wbr>String<wbr>Date<wbr>Countdown<wbr>ByLocal<wbr>Format</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#getType" class="tsd-kind-icon">get<wbr>Type</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#getUserLangs" class="tsd-kind-icon">get<wbr>User<wbr>Langs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#isBrowser" class="tsd-kind-icon">is<wbr>Browser</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#isProdVmo17Media" class="tsd-kind-icon">is<wbr>Prod<wbr>Vmo17<wbr>Media</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utils.html#isSameDate" class="tsd-kind-icon">is<wbr>Same<wbr>Date</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="utils.html#qs" class="tsd-kind-icon">qs</a></li>
 							</ul>
 						</section>
@@ -98,7 +111,7 @@
 					<div class="tsd-signature tsd-kind-icon">global<wbr>This<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L1">utils.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L1">utils.ts:1</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -115,7 +128,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L20">utils.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L20">utils.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -125,6 +138,68 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="convertDateToTime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> convert<wbr>Date<wbr>ToTime</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">convert<wbr>Date<wbr>ToTime<span class="tsd-signature-symbol">(</span>dateString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L306">utils.ts:306</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get time text which shown on countdown remaining time. * if remaining time is less than one day.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dateString: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>datetime, i.e. 2021-09-25T18:00:00+08:00</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="cumulativeOffset" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> cumulative<wbr>Offset</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">cumulative<wbr>Offset<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L321">utils.ts:321</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>element: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>left<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>top<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -138,7 +213,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L47">utils.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L47">utils.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -197,6 +272,38 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getCurrentTranslateLang" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Current<wbr>Translate<wbr>Lang</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Current<wbr>Translate<wbr>Lang<span class="tsd-signature-symbol">(</span>supportLangs<span class="tsd-signature-symbol">: </span><a href="../enums/utils.RegionLanguage.html" class="tsd-signature-type" data-tsd-kind="Enumeration">RegionLanguage</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/utils.RegionLanguage.html" class="tsd-signature-type" data-tsd-kind="Enumeration">RegionLanguage</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L89">utils.ts:89</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get Currently selected language from campaign setting</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>supportLangs: <a href="../enums/utils.RegionLanguage.html" class="tsd-signature-type" data-tsd-kind="Enumeration">RegionLanguage</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>languages provide by campaign setting</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../enums/utils.RegionLanguage.html" class="tsd-signature-type" data-tsd-kind="Enumeration">RegionLanguage</a></h4>
+							<p>enum RegionLanguage</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="getRandomInteger" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Random<wbr>Integer</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -206,7 +313,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L32">utils.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L32">utils.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -228,6 +335,102 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getStringDateByLocalFormat" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>String<wbr>Date<wbr>ByLocal<wbr>Format</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>String<wbr>Date<wbr>ByLocal<wbr>Format<span class="tsd-signature-symbol">(</span>dateString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, format<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, regionLanguage<span class="tsd-signature-symbol">?: </span><a href="../enums/utils.RegionLanguage.html" class="tsd-signature-type" data-tsd-kind="Enumeration">RegionLanguage</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L234">utils.ts:234</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get datetime text which shown on countdown date range, its language depends on RegionLanguage</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>dateString: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>datetime, i.e. 2021-09-25T18:00:00+08:00</p>
+									</div>
+								</li>
+								<li>
+									<h5>format: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;MM/DD(WN)hh:mm:ss&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>if wants to change return format, default is &#39;MM/DD(WN)hh:mm:ss&#39;</p>
+									</div>
+								</li>
+								<li>
+									<h5>regionLanguage: <a href="../enums/utils.RegionLanguage.html" class="tsd-signature-type" data-tsd-kind="Enumeration">RegionLanguage</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>return language, options from enum RegionLanguage</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>formated dateString</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getStringDateCountdownByLocalFormat" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>String<wbr>Date<wbr>Countdown<wbr>ByLocal<wbr>Format</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>String<wbr>Date<wbr>Countdown<wbr>ByLocal<wbr>Format<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>d<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>h<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>m<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>ms<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span>, formatText<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L279">utils.ts:279</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get datetime text which shown on countdown remaining time</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>d<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>h<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>m<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>ms<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>d<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>h<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>m<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>ms<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>s<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>formatText: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>format want to replace. i.e. 剩餘 D 天 hh:mm:ss</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>formated text</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="getType" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Type</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -237,7 +440,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L44">utils.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L44">utils.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -259,6 +462,28 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getUserLangs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>User<wbr>Langs</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>User<wbr>Langs<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L63">utils.ts:63</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get browser languages or manually queryString. e.g. ?lang=ja</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="isBrowser" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Browser</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
@@ -268,7 +493,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L27">utils.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L27">utils.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -290,9 +515,46 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L41">utils.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L41">utils.ts:41</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="isSameDate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Same<wbr>Date</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Same<wbr>Date<span class="tsd-signature-symbol">(</span>startDate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, endDate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L317">utils.ts:317</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get result for compare two datetime is same or not</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>startDate: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>datetime, i.e. 2021-09-25T18:00:00+08:00</p>
+									</div>
+								</li>
+								<li>
+									<h5>endDate: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>datetime, i.e. 2021-09-25T18:00:00+08:00</p>
+									</div>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
@@ -307,7 +569,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ac986a9/lib/utils.ts#L3">utils.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/56775b5/lib/utils.ts#L3">utils.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -334,72 +596,6 @@
 					<li class=" ">
 						<a href="../modules.html">Modules</a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="17appTrack.html">17app<wbr>Track</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="components.html">components</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="components_TransitionLeaderboardWrapper.html">components/<wbr>Transition<wbr>Leaderboard<wbr>Wrapper</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="constants.html">constants</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks.html">hooks</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_useAutoNext.html">hooks/use<wbr>Auto<wbr>Next</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_useCountdown.html">hooks/use<wbr>Countdown</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_useFilter.html">hooks/use<wbr>Filter</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_useItemTransition.html">hooks/use<wbr>Item<wbr>Transition</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_useLuckyDraw.html">hooks/use<wbr>Lucky<wbr>Draw</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_useMockLeaderboard.html">hooks/use<wbr>Mock<wbr>Leaderboard</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_usePageData.html">hooks/use<wbr>Page<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_useSyncScroll.html">hooks/use<wbr>Sync<wbr>Scroll</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="hooks_useTypeApi.html">hooks/use<wbr>Type<wbr>Api</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="index.html">index</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="service_LeaderboardData.html">service/<wbr>Leaderboard<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="service_axios.html">service/axios</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="service_leaderboardEventory_service.html">service/leaderboard<wbr>Eventory.service</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="service_translation_service.html">service/translation.service</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="template.html">template</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="template_offlineNormal.html">template/offline<wbr>Normal</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="types.html">types</a>
-					</li>
 					<li class="current tsd-kind-module">
 						<a href="utils.html">utils</a>
 					</li>
@@ -407,26 +603,50 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="../enums/utils.RegionLanguage.html" class="tsd-kind-icon">Region<wbr>Language</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
 						<a href="utils.html#globalThis" class="tsd-kind-icon">global<wbr>This</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="utils.html#addLeadingZeros" class="tsd-kind-icon">add<wbr>Leading<wbr>Zeros</a>
 					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="utils.html#convertDateToTime" class="tsd-kind-icon">convert<wbr>Date<wbr>ToTime</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="utils.html#cumulativeOffset" class="tsd-kind-icon">cumulative<wbr>Offset</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="utils.html#debounce" class="tsd-kind-icon">debounce</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="utils.html#getCurrentTranslateLang" class="tsd-kind-icon">get<wbr>Current<wbr>Translate<wbr>Lang</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="utils.html#getRandomInteger" class="tsd-kind-icon">get<wbr>Random<wbr>Integer</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="utils.html#getStringDateByLocalFormat" class="tsd-kind-icon">get<wbr>String<wbr>Date<wbr>ByLocal<wbr>Format</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="utils.html#getStringDateCountdownByLocalFormat" class="tsd-kind-icon">get<wbr>String<wbr>Date<wbr>Countdown<wbr>ByLocal<wbr>Format</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="utils.html#getType" class="tsd-kind-icon">get<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="utils.html#getUserLangs" class="tsd-kind-icon">get<wbr>User<wbr>Langs</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="utils.html#isBrowser" class="tsd-kind-icon">is<wbr>Browser</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="utils.html#isProdVmo17Media" class="tsd-kind-icon">is<wbr>Prod<wbr>Vmo17<wbr>Media</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="utils.html#isSameDate" class="tsd-kind-icon">is<wbr>Same<wbr>Date</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="utils.html#qs" class="tsd-kind-icon">qs</a>

@@ -2422,6 +2422,27 @@ function _arrayWithoutHoles(arr) {
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _assertThisInitialized)
+/* harmony export */ });
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js ***!
@@ -2495,6 +2516,58 @@ function _defineProperty(obj, key, value) {
   }
 
   return obj;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/extends.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _extends)
+/* harmony export */ });
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _inheritsLoose)
+/* harmony export */ });
+/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setPrototypeOf.js */ "./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js");
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  (0,_setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__.default)(subClass, superClass);
 }
 
 /***/ }),
@@ -2651,6 +2724,28 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   }
 
   return target;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _setPrototypeOf)
+/* harmony export */ });
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
 }
 
 /***/ }),
@@ -5642,6 +5737,111 @@ var useFilter = function useFilter(initialData) {
 
 /***/ }),
 
+/***/ "./lib/hooks/useFollower.ts":
+/*!**********************************!*\
+  !*** ./lib/hooks/useFollower.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useFollower": () => (/* binding */ useFollower),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _service_follower_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../service/follower.service */ "./lib/service/follower.service.ts");
+
+
+
+
+
+
+/**
+ * 給 userID 跟 accessToken 來取得 user followers 追蹤名單<br />
+ * @param userID 17 live 上的 account userID
+ * @param accessToken 17 live 上的 account accessToken
+ * @returns 取得 followers 資料以及 errMsg 判斷是否有問題
+ */
+var useFollower = function useFollower(userID, accessToken) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState, 2),
+      followers = _useState2[0],
+      setFollowers = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(''),
+      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState3, 2),
+      errorMsg = _useState4[0],
+      setErrorMsg = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    var fetchFollowers = /*#__PURE__*/function () {
+      var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
+        var callback, data, _error$response$data$, _error$response$data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+
+                callback = function callback(data) {
+                  setFollowers(data);
+                };
+
+                _context.next = 4;
+                return (0,_service_follower_service__WEBPACK_IMPORTED_MODULE_4__.getUserFollowers)({
+                  userID: userID,
+                  accessToken: accessToken,
+                  callback: callback
+                });
+
+              case 4:
+                data = _context.sent;
+                setFollowers(data);
+                setErrorMsg('');
+                _context.next = 13;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](0);
+                setFollowers([]);
+
+                if (_context.t0 !== null && _context.t0 !== void 0 && _context.t0.response && _context.t0 !== null && _context.t0 !== void 0 && _context.t0.response.data) {
+                  setErrorMsg((_error$response$data$ = _context.t0 === null || _context.t0 === void 0 ? void 0 : (_error$response$data = _context.t0.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.errorMessage) !== null && _error$response$data$ !== void 0 ? _error$response$data$ : 'something wrong!');
+                } else {
+                  setErrorMsg('something wrong!');
+                }
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 9]]);
+      }));
+
+      return function fetchFollowers() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    fetchFollowers();
+  }, [userID, accessToken]);
+  return {
+    followers: followers,
+    errorMsg: errorMsg
+  };
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useFollower);
+
+/***/ }),
+
 /***/ "./lib/hooks/useItemTransition.ts":
 /*!****************************************!*\
   !*** ./lib/hooks/useItemTransition.ts ***!
@@ -5908,6 +6108,35 @@ var usePageData = function usePageData(_ref) {
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (usePageData);
+
+/***/ }),
+
+/***/ "./lib/hooks/useScrollToLoadingContainer.ts":
+/*!**************************************************!*\
+  !*** ./lib/hooks/useScrollToLoadingContainer.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useScrollToLoadingContainer": () => (/* binding */ useScrollToLoadingContainer),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var useScrollToLoadingContainer = function useScrollToLoadingContainer(loading) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (loading) {
+      var target = document.getElementById('loading-container');
+
+      if (target) {
+        target.scrollIntoView();
+      }
+    }
+  }, [loading]);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useScrollToLoadingContainer);
 
 /***/ }),
 
@@ -6238,6 +6467,94 @@ var getInstanceVote = function getInstanceVote() {
 
 /***/ }),
 
+/***/ "./lib/service/follower.service.ts":
+/*!*****************************************!*\
+  !*** ./lib/service/follower.service.ts ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getUserFollowers": () => (/* binding */ getUserFollowers)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./axios */ "./lib/service/axios.ts");
+
+
+
+
+var DEFAULT_EACH_FOLLOWER_COUNT = 100;
+var getUserFollowers = /*#__PURE__*/function () {
+  var _ref2 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee(_ref) {
+    var userID, accessToken, cursor, _ref$count, count, callback, _ref$preData, preData, axios, url, res, _res$data, nextCursor, followeeIDs, currentData, nextData;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            userID = _ref.userID, accessToken = _ref.accessToken, cursor = _ref.cursor, _ref$count = _ref.count, count = _ref$count === void 0 ? DEFAULT_EACH_FOLLOWER_COUNT : _ref$count, callback = _ref.callback, _ref$preData = _ref.preData, preData = _ref$preData === void 0 ? [] : _ref$preData;
+            axios = (0,_axios__WEBPACK_IMPORTED_MODULE_3__.getInstanceEventory)();
+            url = "/v1/users/".concat(userID, "/followeeIDs");
+            _context.next = 5;
+            return axios.get(url, {
+              headers: {
+                accessToken: accessToken
+              },
+              params: {
+                count: count,
+                cursor: cursor
+              }
+            });
+
+          case 5:
+            res = _context.sent;
+            _res$data = res.data, nextCursor = _res$data.nextCursor, followeeIDs = _res$data.followeeIDs;
+            currentData = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(preData), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(followeeIDs));
+
+            if (callback) {
+              callback(currentData);
+            }
+
+            if (!nextCursor) {
+              _context.next = 14;
+              break;
+            }
+
+            _context.next = 12;
+            return getUserFollowers({
+              userID: userID,
+              accessToken: accessToken,
+              cursor: nextCursor,
+              callback: callback,
+              preData: currentData
+            });
+
+          case 12:
+            nextData = _context.sent;
+            return _context.abrupt("return", [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(followeeIDs), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(nextData)));
+
+          case 14:
+            return _context.abrupt("return", followeeIDs);
+
+          case 15:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getUserFollowers(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+/***/ }),
+
 /***/ "./lib/service/leaderboardEventory.service.ts":
 /*!****************************************************!*\
   !*** ./lib/service/leaderboardEventory.service.ts ***!
@@ -6448,9 +6765,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getRandomInteger": () => (/* binding */ getRandomInteger),
 /* harmony export */   "isProdVmo17Media": () => (/* binding */ isProdVmo17Media),
 /* harmony export */   "getType": () => (/* binding */ getType),
-/* harmony export */   "debounce": () => (/* binding */ debounce)
+/* harmony export */   "debounce": () => (/* binding */ debounce),
+/* harmony export */   "getUserLangs": () => (/* binding */ getUserLangs),
+/* harmony export */   "RegionLanguage": () => (/* binding */ RegionLanguage),
+/* harmony export */   "getCurrentTranslateLang": () => (/* binding */ getCurrentTranslateLang),
+/* harmony export */   "getStringDateByLocalFormat": () => (/* binding */ getStringDateByLocalFormat),
+/* harmony export */   "getStringDateCountdownByLocalFormat": () => (/* binding */ getStringDateCountdownByLocalFormat),
+/* harmony export */   "convertDateToTime": () => (/* binding */ convertDateToTime),
+/* harmony export */   "isSameDate": () => (/* binding */ isSameDate),
+/* harmony export */   "cumulativeOffset": () => (/* binding */ cumulativeOffset)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+
+
 
 var globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 
@@ -6458,7 +6787,7 @@ var qs = function qs() {
   var search = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : globalThis.location ? globalThis.location.search.slice(1) : '';
   return search.split('&').filter(Boolean).reduce(function (o, keyValue) {
     var _keyValue$split = keyValue.split('='),
-        _keyValue$split2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_keyValue$split, 2),
+        _keyValue$split2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__.default)(_keyValue$split, 2),
         key = _keyValue$split2[0],
         value = _keyValue$split2[1];
 
@@ -6509,6 +6838,245 @@ function debounce(func, timeout) {
     }, timeout);
   };
 }
+/**
+ * Get browser languages or manually queryString. e.g. ?lang=ja
+ */
+
+var getUserLangs = function getUserLangs() {
+  var q = qs();
+  return Array.from(new Set([q.lang].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__.default)(window.navigator.languages)).filter(Boolean)));
+};
+/**
+ * languages defined from Eventory
+ */
+
+var RegionLanguage;
+/**
+ * Get Currently selected language from campaign setting
+ * @param {RegionLanguage[]} supportLangs languages provide by campaign setting
+ * @returns enum RegionLanguage
+ */
+
+(function (RegionLanguage) {
+  RegionLanguage["TAIWAN"] = "zh_TW";
+  RegionLanguage["CHINA"] = "zh_CN";
+  RegionLanguage["HONGKONG"] = "zh_HK";
+  RegionLanguage["JAPAN"] = "ja";
+  RegionLanguage["EUROPE"] = "en_US";
+  RegionLanguage["ARAB"] = "ar";
+})(RegionLanguage || (RegionLanguage = {}));
+
+var getCurrentTranslateLang = function getCurrentTranslateLang(supportLangs) {
+  var defaultLang = RegionLanguage.TAIWAN;
+
+  if (supportLangs.length <= 0) {
+    return defaultLang;
+  }
+
+  var isSupportHant = supportLangs.includes(RegionLanguage.TAIWAN) || supportLangs.includes(RegionLanguage.CHINA) || supportLangs.includes(RegionLanguage.HONGKONG);
+  var supportHantLangList = supportLangs.filter(function (lang) {
+    return lang === RegionLanguage.TAIWAN || lang === RegionLanguage.CHINA || lang === RegionLanguage.HONGKONG;
+  });
+  var preferLangs = supportLangs.map(function (langCode) {
+    return {
+      prefix: langCode.substr(0, 2),
+      lang: langCode
+    };
+  });
+  var userLangList = getUserLangs().map(function (lang) {
+    if (lang.includes('-') || lang.includes('_')) {
+      var formatLang = lang.replace('-', '_').split('_');
+      return "".concat(formatLang[0].toLowerCase(), "_").concat(formatLang[1].toUpperCase());
+    }
+
+    return lang;
+  });
+  var currentLang = '';
+  userLangList.forEach(function (lang) {
+    if (!currentLang) {
+      if (lang === 'zh') {
+        if (isSupportHant) {
+          var matchedLang = userLangList.find(function (userlang) {
+            return supportHantLangList.includes(userlang);
+          });
+
+          if (matchedLang) {
+            currentLang = matchedLang;
+          } else {
+            var _supportHantLangList = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__.default)(supportHantLangList, 1),
+                defaultHant = _supportHantLangList[0];
+
+            currentLang = defaultHant;
+          }
+        }
+      } else {
+        var prefix = lang.substr(0, 2);
+        var prefixIndex = preferLangs.findIndex(function (p) {
+          return p.prefix === prefix;
+        });
+
+        if (prefixIndex >= 0) {
+          currentLang = preferLangs[prefixIndex].lang;
+        }
+      }
+    }
+  });
+  return currentLang || defaultLang;
+};
+
+var getDateByFormat = function getDateByFormat(date, format, locale) {
+  if (format.indexOf('MM/DD/YYYY') > -1) {
+    return format.replace('MM/DD/YYYY', date.toLocaleDateString(locale, {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    }));
+  }
+
+  if (format.indexOf('MM/DD') > -1) {
+    return format.replace('MM/DD', date.toLocaleDateString(locale, {
+      month: 'numeric',
+      day: '2-digit'
+    }));
+  }
+
+  if (format.indexOf('MM/d') > -1) {
+    return format.replace('MM/d', date.toLocaleDateString(locale, {
+      month: 'numeric',
+      day: 'numeric'
+    }));
+  }
+
+  return format;
+};
+
+var getWeekdayByFormat = function getWeekdayByFormat(date, format, locale) {
+  if (format.indexOf('WN') > -1) {
+    return format.replace('WN', date.toLocaleDateString(locale, {
+      weekday: locale.indexOf('zh') > -1 ? 'narrow' : 'short'
+    }));
+  }
+
+  return format;
+};
+
+var getTimeByFormat = function getTimeByFormat(date, format, locale) {
+  if (format.indexOf('hh:mm:ss') > -1) {
+    return format.replace('hh:mm:ss', date.toLocaleTimeString('en-GB', {
+      hour12: false,
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    }));
+  }
+
+  if (format.indexOf('HH:mm PP') > -1) {
+    return format.replace('HH:mm PP', date.toLocaleTimeString(locale, {
+      hour12: true,
+      hour: 'numeric',
+      minute: 'numeric'
+    }));
+  }
+
+  return format;
+};
+/**
+ * Get datetime text which shown on countdown date range, its language depends on RegionLanguage
+ * @param {string} dateString datetime, i.e. 2021-09-25T18:00:00+08:00
+ * @param {string} format if wants to change return format, default is 'MM/DD(WN)hh:mm:ss'
+ * @param {RegionLanguage} regionLanguage return language, options from enum RegionLanguage
+ * @returns formated dateString
+ */
+
+
+var getStringDateByLocalFormat = function getStringDateByLocalFormat(dateString) {
+  var _localeMap;
+
+  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'MM/DD(WN)hh:mm:ss';
+  var regionLanguage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : RegionLanguage.TAIWAN;
+  var localeMap = (_localeMap = {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_localeMap, RegionLanguage.TAIWAN, 'zh-TW'), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_localeMap, RegionLanguage.CHINA, 'zh-CH'), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_localeMap, RegionLanguage.HONGKONG, 'zh-HK'), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_localeMap, RegionLanguage.JAPAN, 'ja-JP'), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_localeMap, RegionLanguage.EUROPE, 'en-US'), (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(_localeMap, RegionLanguage.ARAB, 'ar'), _localeMap);
+  var date = new Date(dateString);
+  var locale = localeMap[regionLanguage];
+  format = getDateByFormat(date, format, locale);
+  format = getWeekdayByFormat(date, format, locale);
+  format = getTimeByFormat(date, format, locale);
+  return format;
+};
+
+var getDetailDate = function getDetailDate(date) {
+  var dateObj = new Date(date);
+  var month = dateObj.getMonth() + 1;
+  var dateOfMonth = dateObj.getDate();
+  var hours = dateObj.getHours();
+  var minutes = dateObj.getMinutes();
+  var sec = dateObj.getSeconds();
+  var stringDateOfMonth = dateOfMonth < 10 ? "0".concat(dateOfMonth) : String(dateOfMonth);
+  var stringHours = hours < 10 ? "0".concat(hours) : String(hours);
+  var stringMinutes = minutes < 10 ? "0".concat(minutes) : String(minutes);
+  var stringSec = sec < 10 ? "0".concat(sec) : String(sec);
+  return {
+    month: month,
+    stringDateOfMonth: stringDateOfMonth,
+    stringHours: stringHours,
+    stringMinutes: stringMinutes,
+    stringSec: stringSec
+  };
+};
+/**
+ * Get datetime text which shown on countdown remaining time
+ * @param {Object}
+ * @param {string} formatText format want to replace. i.e. 剩餘 D 天 hh:mm:ss
+ * @returns formated text
+ */
+
+
+var getStringDateCountdownByLocalFormat = function getStringDateCountdownByLocalFormat(_ref, formatText) {
+  var d = _ref.d,
+      h = _ref.h,
+      m = _ref.m,
+      s = _ref.s,
+      ms = _ref.ms;
+  return formatText.replace('D', d.toString()).replace('hh', addLeadingZeros(h).toString()).replace('mm', addLeadingZeros(m).toString()).replace('ss', addLeadingZeros(s).toString());
+};
+/**
+ * Get time text which shown on countdown remaining time. * if remaining time is less than one day.
+ * @param {string} dateString datetime, i.e. 2021-09-25T18:00:00+08:00
+ * @returns {string}
+ */
+
+var convertDateToTime = function convertDateToTime(dateString) {
+  var _getDetailDate = getDetailDate(dateString),
+      stringHours = _getDetailDate.stringHours,
+      stringMinutes = _getDetailDate.stringMinutes,
+      stringSec = _getDetailDate.stringSec;
+
+  return "".concat(stringHours, ":").concat(stringMinutes, ":").concat(stringSec);
+};
+/**
+ * Get result for compare two datetime is same or not
+ * @param {string} startDate datetime, i.e. 2021-09-25T18:00:00+08:00
+ * @param {string} endDate datetime, i.e. 2021-09-25T18:00:00+08:00
+ * @returns {boolean}
+ */
+
+var isSameDate = function isSameDate(startDate, endDate) {
+  return getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') === getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
+};
+var cumulativeOffset = function cumulativeOffset(element) {
+  var top = 0;
+  var left = 0;
+
+  do {
+    top += element.offsetTop || 0;
+    left += element.offsetLeft || 0;
+    element = element.offsetParent;
+  } while (element);
+
+  return {
+    top: top,
+    left: left
+  };
+};
 
 /***/ }),
 
@@ -6572,6 +7140,148 @@ var TransitionLeaderboardWrapper = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Wrapper, null, renderChild());
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TransitionLeaderboardWrapper);
+
+/***/ }),
+
+/***/ "./lib/components/VirtualizedList.tsx":
+/*!********************************************!*\
+  !*** ./lib/components/VirtualizedList.tsx ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "VirtualizedList": () => (/* binding */ VirtualizedList),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_window__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-window */ "./node_modules/react-window/dist/index.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _17media_browser_spy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! 17media-browser-spy */ "./node_modules/17media-browser-spy/dist/index.esm.js");
+/* harmony import */ var _17appTrack__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../17appTrack */ "./lib/17appTrack.ts");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils */ "./lib/utils.ts");
+
+
+var _templateObject;
+
+/* eslint-disable react/no-children-prop */
+
+
+
+
+
+
+var StyledVariableSizeList = (0,styled_components__WEBPACK_IMPORTED_MODULE_5__.default)(react_window__WEBPACK_IMPORTED_MODULE_6__.VariableSizeList)(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__.default)(["\n  height: ", "px !important;\n  overflow: hidden !important;\n  .virtualized-item:first-of-type,\n  .virtualized-item:last-of-type {\n    overflow: hidden;\n  }\n"])), function (props) {
+  return props.calculatedHeight;
+});
+
+var TrackChildrenWrapper = function TrackChildrenWrapper(_ref) {
+  var index = _ref.index,
+      style = _ref.style,
+      children = _ref.children,
+      rank = _ref.rank;
+  var ref = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+  (0,_17media_browser_spy__WEBPACK_IMPORTED_MODULE_2__.useRankSectionTracking)(ref, function () {
+    _17appTrack__WEBPACK_IMPORTED_MODULE_3__.trackingSource === null || _17appTrack__WEBPACK_IMPORTED_MODULE_3__.trackingSource === void 0 ? void 0 : _17appTrack__WEBPACK_IMPORTED_MODULE_3__.trackingSource.track((0,_17media_browser_spy__WEBPACK_IMPORTED_MODULE_2__.createLeaderboardSectionViewAction)(rank));
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    ref: ref,
+    style: style,
+    className: "virtualized-item"
+  }, children({
+    index: index
+  }));
+};
+
+var VirtualizedList = function VirtualizedList(_ref2) {
+  var dataset = _ref2.dataset,
+      children = _ref2.children,
+      _ref2$itemHeight = _ref2.itemHeight,
+      itemHeight = _ref2$itemHeight === void 0 ? 80 : _ref2$itemHeight,
+      _ref2$panelSize = _ref2.panelSize,
+      panelSize = _ref2$panelSize === void 0 ? 0 : _ref2$panelSize;
+  var isAlreadyScroll = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(false);
+  var listRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+  var queryString = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.qs)();
+  var getInitScrollOffset = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(function () {
+    if (listRef.current) {
+      // eslint-disable-next-line no-underscore-dangle
+      var boardRect = listRef.current._outerRef.getBoundingClientRect();
+
+      return boardRect.top < 0 ? -boardRect.top : 0;
+    }
+
+    return -1;
+  }, [listRef]);
+  var handleScroll = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(function () {
+    var initialScrollOffset = getInitScrollOffset();
+
+    if (initialScrollOffset >= 0) {
+      listRef.current.scrollTo(initialScrollOffset);
+    }
+  }, [getInitScrollOffset]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    window.addEventListener('scroll', handleScroll, true);
+    return function () {
+      return window.removeEventListener('scroll', handleScroll, true);
+    };
+  }, [handleScroll]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (isAlreadyScroll.current) return;
+
+    if (queryString.streamerUserID) {
+      var fIndex = dataset.findIndex(function (item) {
+        return item.userInfo.userID === queryString.streamerUserID;
+      });
+
+      if (fIndex > -1) {
+        window.scrollTo({
+          top: // eslint-disable-next-line no-underscore-dangle
+          (0,_utils__WEBPACK_IMPORTED_MODULE_4__.cumulativeOffset)(listRef.current._outerRef).top + fIndex * itemHeight
+        });
+        isAlreadyScroll.current = true;
+      }
+    }
+  }, [dataset, itemHeight, queryString.streamerUserID]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    listRef.current.resetAfterIndex(0, true);
+    setTimeout(function () {
+      handleScroll();
+    });
+  }, [handleScroll, dataset]);
+
+  var Row = function Row(_ref3) {
+    var index = _ref3.index,
+        style = _ref3.style;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(TrackChildrenWrapper, {
+      index: index,
+      style: style,
+      children: children,
+      rank: dataset[index].rank
+    });
+  };
+
+  var getItemSize = function getItemSize() {
+    return itemHeight;
+  };
+
+  var getCalculatedHeight = function getCalculatedHeight() {
+    return dataset.length * itemHeight + 2;
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(StyledVariableSizeList, {
+    ref: listRef,
+    height: window.innerHeight,
+    itemCount: dataset.length,
+    itemSize: getItemSize,
+    width: "100%",
+    calculatedHeight: getCalculatedHeight(),
+    initialScrollOffset: getInitScrollOffset()
+  }, Row);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VirtualizedList);
 
 /***/ }),
 
@@ -6756,6 +7466,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _LuckyDraw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LuckyDraw */ "./playground/LuckyDraw.tsx");
 /* harmony import */ var _TypeApi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TypeApi */ "./playground/TypeApi.tsx");
 /* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Filter */ "./playground/Filter.tsx");
+/* harmony import */ var _Follower__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Follower */ "./playground/Follower.tsx");
+/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
+/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
+/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
+
+
+
+
 
 
 
@@ -6779,7 +7497,11 @@ var App = function App() {
     luckyDraw: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_LuckyDraw__WEBPACK_IMPORTED_MODULE_4__.default, null),
     offlineTeamRound: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_OfflineTeamRound__WEBPACK_IMPORTED_MODULE_3__.default, null),
     typeApi: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_TypeApi__WEBPACK_IMPORTED_MODULE_5__.default, null),
-    filter: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Filter__WEBPACK_IMPORTED_MODULE_6__.default, null)
+    filter: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Filter__WEBPACK_IMPORTED_MODULE_6__.default, null),
+    follower: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Follower__WEBPACK_IMPORTED_MODULE_7__.default, null),
+    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Utils__WEBPACK_IMPORTED_MODULE_8__.default, null),
+    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_9__.default, null),
+    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_10__.default, null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "\u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
@@ -6925,6 +7647,113 @@ var Filter = function Filter() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(Filter));
+
+/***/ }),
+
+/***/ "./playground/Follower.tsx":
+/*!*********************************!*\
+  !*** ./playground/Follower.tsx ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_hooks_useFollower__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/hooks/useFollower */ "./lib/hooks/useFollower.ts");
+/* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../lib/utils */ "./lib/utils.ts");
+
+
+
+var _templateObject, _templateObject2, _templateObject3;
+
+
+
+
+
+var FlexContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  display: flex;\n  flex-wrap: wrap;\n  padding: 20px;\n"])));
+var Item = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  flex: 1;\n  border: 1px solid black;\n  margin: 0 20px;\n"])));
+var StyledInput = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.input(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  min-width: 400px;\n"])));
+
+var ErrorSection = function ErrorSection(_ref) {
+  var errorMsg = _ref.errorMsg;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "error: ", errorMsg);
+};
+
+var NoFollowersSection = function NoFollowersSection() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "user hasn't follower any streamers.");
+};
+
+var Follower = function Follower() {
+  var _ref2, _ref3;
+
+  var _qs = (0,_lib_utils__WEBPACK_IMPORTED_MODULE_4__.qs)(),
+      urlAccessToken = _qs.accessToken,
+      urlUserID = _qs.userID;
+
+  var sessionAccessToken = sessionStorage.getItem('accessToken');
+  var sessionUserID = sessionStorage.getItem('userID');
+  var defaultAaccessToken = (_ref2 = urlAccessToken !== null && urlAccessToken !== void 0 ? urlAccessToken : sessionAccessToken) !== null && _ref2 !== void 0 ? _ref2 : 'fe45a40b-962d-44f4-acac-a8f5362fe611';
+  var defaultUserID = (_ref3 = urlUserID !== null && urlUserID !== void 0 ? urlUserID : sessionUserID) !== null && _ref3 !== void 0 ? _ref3 : '3a4464b5-8228-4d96-bd82-c0fe5e8be673';
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(defaultUserID),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      inputUserID = _useState2[0],
+      setInputUserID = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(defaultAaccessToken),
+      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState3, 2),
+      inputAccessToken = _useState4[0],
+      setInputAccessToken = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(defaultUserID),
+      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState5, 2),
+      userID = _useState6[0],
+      setUserID = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(defaultAaccessToken),
+      _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState7, 2),
+      accessToken = _useState8[0],
+      setAccessToken = _useState8[1];
+
+  var _useFollower = (0,_lib_hooks_useFollower__WEBPACK_IMPORTED_MODULE_3__.default)(userID, accessToken),
+      followers = _useFollower.followers,
+      errorMsg = _useFollower.errorMsg;
+
+  var handleChangeUser = function handleChangeUser() {
+    setUserID(inputUserID);
+    setAccessToken(inputAccessToken);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "given user id and accessToken to get user followers.(get it from url or session token or whatever.)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "Note: \u642D\u914D\u699C\u55AE\u4F7F\u7528\u6642\uFF0C\u9808\u6CE8\u610F\u4E0B\u9762\u5E7E\u7A2E\u60C5\u5F62.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("ol", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u4F7F\u7528\u8005\u7121\u4EFB\u4F55\u8FFD\u8E64\u4E3B\u64AD."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u4F7F\u7528\u8005\u8FFD\u8E64\u4E3B\u64AD\u4E0D\u5728\u699C\u55AE\u4E0A."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u6B63\u5E38\u986F\u793A\u4F7F\u8005\u8005\u8FFD\u8E64\u4E3B\u64AD\u5728\u8A72\u699C\u4E0A\u540D\u55AE\u8207\u6392\u540D."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "test user id: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledInput, {
+    type: "text",
+    defaultValue: inputUserID,
+    onChange: function onChange(e) {
+      return setInputUserID(e.target.value);
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "test user accessToken: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledInput, {
+    type: "text",
+    defaultValue: inputAccessToken,
+    onChange: function onChange(e) {
+      return setInputAccessToken(e.target.value);
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("button", {
+    onClick: handleChangeUser
+  }, "\u78BA\u8A8D"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h3", null, "\u8FFD\u8E64\u540D\u55AE"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(FlexContainer, null, errorMsg ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ErrorSection, {
+    errorMsg: errorMsg
+  }) : followers.length > 0 ? followers.map(function (followerID) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Item, {
+      key: followerID
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "ID:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), followerID);
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(NoFollowersSection, null)));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.memo(Follower));
 
 /***/ }),
 
@@ -7218,6 +8047,91 @@ var OfflineTeamRound = function OfflineTeamRound() {
 
 /***/ }),
 
+/***/ "./playground/ScrollToLoading.tsx":
+/*!****************************************!*\
+  !*** ./playground/ScrollToLoading.tsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_hooks_useScrollToLoadingContainer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/hooks/useScrollToLoadingContainer */ "./lib/hooks/useScrollToLoadingContainer.ts");
+
+
+var _templateObject;
+
+
+
+
+var StyledSpace = styled_components__WEBPACK_IMPORTED_MODULE_3__.default.div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__.default)(["\n  padding-top: 800px;\n  background-color: #8585de;\n"])));
+
+var ScrollToLoading = function ScrollToLoading() {
+  (0,_lib_hooks_useScrollToLoadingContainer__WEBPACK_IMPORTED_MODULE_2__.default)(true);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(StyledSpace, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    id: "loading-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, "\u79FB\u52D5\u5230\u9019\u88E1"))));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(ScrollToLoading));
+
+/***/ }),
+
+/***/ "./playground/ScrollToStreamer.tsx":
+/*!*****************************************!*\
+  !*** ./playground/ScrollToStreamer.tsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_components_VirtualizedList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/components/VirtualizedList */ "./lib/components/VirtualizedList.tsx");
+/* harmony import */ var _fakeLeaderBoardData_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fakeLeaderBoardData.json */ "./playground/fakeLeaderBoardData.json");
+
+
+var _templateObject;
+
+
+
+
+
+var StyledSpace = styled_components__WEBPACK_IMPORTED_MODULE_4__.default.div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__.default)(["\n  padding: 20px 0;\n  background-color: #8585de;\n"])));
+
+var ScrollToStreamer = function ScrollToStreamer() {
+  var data = _fakeLeaderBoardData_json__WEBPACK_IMPORTED_MODULE_3__.data;
+
+  var Row = function Row(_ref) {
+    var _data$index, _data$index2;
+
+    var index = _ref.index,
+        style = _ref.style;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      style: style
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("b", null, "Streamer User ID:"), " ", (_data$index = data[index]) === null || _data$index === void 0 ? void 0 : _data$index.userInfo.userID, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), "url\u5F8C\u9762\u76F4\u63A5\u63A5\u4E0A\u4E0B\u9762\u5B57\u4E32\u91CD\u65B0\u6574\u7406\u5F8C\uFF0C\u9EDE\u64CAscrollToStreamer\u5373\u53EF\u770B\u5230\u6548\u679C", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("b", null, "&streamerUserID="), (_data$index2 = data[index]) === null || _data$index2 === void 0 ? void 0 : _data$index2.userInfo.userID, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null));
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(StyledSpace, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "url query streamerUserID\u6C92\u6709\u7D66\u503C\u7684\u8A71\u6703\u756B\u9762\u6703\u5728\u9019\u908A")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_lib_components_VirtualizedList__WEBPACK_IMPORTED_MODULE_2__.VirtualizedList, {
+    dataset: data,
+    itemHeight: 80,
+    panelSize: 85
+  }, Row));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(ScrollToStreamer));
+
+/***/ }),
+
 /***/ "./playground/TypeApi.tsx":
 /*!********************************!*\
   !*** ./playground/TypeApi.tsx ***!
@@ -7372,6 +8286,138 @@ var TypeApi = function TypeApi() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.memo(TypeApi));
+
+/***/ }),
+
+/***/ "./playground/Utils.tsx":
+/*!******************************!*\
+  !*** ./playground/Utils.tsx ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../lib/utils */ "./lib/utils.ts");
+
+
+
+
+var _templateObject, _templateObject2, _templateObject3;
+
+
+
+
+var DisplayResult = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.span(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__.default)(["\n  &:before {\n    content: 'return value:';\n    display: block;\n  }\n  display: inline-block;\n  background-color: #cccccc;\n  padding: 5px 10px;\n"])));
+var Checkbox = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.input(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__.default)(["\n  margin-right: 20px;\n  padding: 5px 10px 5px 0;\n"])));
+var InputText = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.input(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__.default)(["\n  margin-right: 20px;\n  padding: 5px 10px 5px 0;\n  width: 180px;\n"])));
+
+var Utils = function Utils() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([_lib_utils__WEBPACK_IMPORTED_MODULE_4__.RegionLanguage.JAPAN]),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState, 2),
+      supportLangs = _useState2[0],
+      setSupportLangs = _useState2[1];
+
+  var onChangeHandler = function onChangeHandler(e) {
+    var _e$target = e.target,
+        selectedLang = _e$target.value,
+        isChecked = _e$target.checked;
+
+    if (isChecked) {
+      setSupportLangs(function (preValue) {
+        return [selectedLang].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(preValue));
+      });
+    } else {
+      if (supportLangs.length <= 1) {
+        alert('should be keep at least one support language');
+        return;
+      }
+
+      setSupportLangs(function (preValue) {
+        return preValue.filter(function (v) {
+          return v !== selectedLang;
+        });
+      });
+    }
+  };
+
+  var allSupportLanguages = [_lib_utils__WEBPACK_IMPORTED_MODULE_4__.RegionLanguage.TAIWAN, _lib_utils__WEBPACK_IMPORTED_MODULE_4__.RegionLanguage.CHINA, _lib_utils__WEBPACK_IMPORTED_MODULE_4__.RegionLanguage.HONGKONG, _lib_utils__WEBPACK_IMPORTED_MODULE_4__.RegionLanguage.JAPAN, _lib_utils__WEBPACK_IMPORTED_MODULE_4__.RegionLanguage.EUROPE, _lib_utils__WEBPACK_IMPORTED_MODULE_4__.RegionLanguage.ARAB];
+  var currentTransLateLang = (0,_lib_utils__WEBPACK_IMPORTED_MODULE_4__.getCurrentTranslateLang)(supportLangs); // getStringDateByLocalFormat
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('2021-09-25T18:00:00+08:00'),
+      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState3, 2),
+      dateString = _useState4[0],
+      setDateString = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('MM/DD(WN)hh:mm:ss'),
+      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState5, 2),
+      format = _useState6[0],
+      setFormat = _useState6[1];
+
+  var dateStringHandler = function dateStringHandler(e) {
+    return setDateString(e.target.value);
+  };
+
+  var formatHandler = function formatHandler(e) {
+    return setFormat(e.target.value);
+  };
+
+  var resultGetStringDateByLocalFormat = (0,_lib_utils__WEBPACK_IMPORTED_MODULE_4__.getStringDateByLocalFormat)(dateString, format, currentTransLateLang); // getStringDateCountdownByLocalFormat
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('剩餘 D 天 hh:mm:ss'),
+      _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState7, 2),
+      formatText = _useState8[0],
+      setFormatText = _useState8[1];
+
+  var mockTime = {
+    d: 1,
+    h: 0,
+    m: 10,
+    s: 0,
+    ms: 0
+  };
+
+  var formatTextHandler = function formatTextHandler(e) {
+    return setFormatText(e.target.value);
+  };
+
+  var resultGetStringDateCountdownByLocalFormat = (0,_lib_utils__WEBPACK_IMPORTED_MODULE_4__.getStringDateCountdownByLocalFormat)(mockTime, formatText); // convertDateToTime
+
+  var resultConvertDateToTime = (0,_lib_utils__WEBPACK_IMPORTED_MODULE_4__.convertDateToTime)(dateString);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h1", null, "Utils"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h2", null, "i18n"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h3", null, "getUserLangs"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", null, "Get browser languages or manually queryString. e.g. ?lang=ja"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(DisplayResult, null, JSON.stringify((0,_lib_utils__WEBPACK_IMPORTED_MODULE_4__.getUserLangs)())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h3", null, "getCurrentTranslateLang"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", null, "\u9019\u500B\u65B9\u6CD5\u53EF\u4EE5\u62FF\u5230\u524D\u7AEF\u8981\u986F\u793A\u7684\u8A9E\u7CFB"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, "eventory \u652F\u63F4\u8A9E\u7CFB: "), allSupportLanguages.map(function (langCode) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react__WEBPACK_IMPORTED_MODULE_3__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, langCode), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(Checkbox, {
+      type: "checkbox",
+      value: langCode,
+      onChange: onChangeHandler,
+      checked: supportLangs.includes(langCode)
+    }));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(DisplayResult, null, currentTransLateLang), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h3", null, "getStringDateByLocalFormat"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", null, "Get datetime text which shown on countdown date range, its language depends on RegionLanguage"), "dateString: \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(InputText, {
+    type: "text",
+    onChange: dateStringHandler,
+    value: dateString
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "format: \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(InputText, {
+    type: "text",
+    onChange: formatHandler,
+    value: format
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(DisplayResult, null, resultGetStringDateByLocalFormat), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h3", null, "getStringDateCountdownByLocalFormat"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", null, "Get datetime text which shown on countdown remaining time"), "formatText: \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(InputText, {
+    type: "text",
+    onChange: formatTextHandler,
+    value: formatText
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(DisplayResult, null, resultGetStringDateCountdownByLocalFormat), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("h3", null, "convertDateToTime"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("p", null, "Get time text which shown on countdown remaining time. * if remaining time is less than one day."), "dateString: \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(InputText, {
+    type: "text",
+    onChange: dateStringHandler,
+    value: dateString
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(DisplayResult, null, resultConvertDateToTime));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.memo(Utils));
 
 /***/ }),
 
@@ -8731,6 +9777,70 @@ window.IntersectionObserver = IntersectionObserver;
 window.IntersectionObserverEntry = IntersectionObserverEntry;
 
 }());
+
+
+/***/ }),
+
+/***/ "./node_modules/memoize-one/dist/memoize-one.esm.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/memoize-one/dist/memoize-one.esm.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var safeIsNaN = Number.isNaN ||
+    function ponyfill(value) {
+        return typeof value === 'number' && value !== value;
+    };
+function isEqual(first, second) {
+    if (first === second) {
+        return true;
+    }
+    if (safeIsNaN(first) && safeIsNaN(second)) {
+        return true;
+    }
+    return false;
+}
+function areInputsEqual(newInputs, lastInputs) {
+    if (newInputs.length !== lastInputs.length) {
+        return false;
+    }
+    for (var i = 0; i < newInputs.length; i++) {
+        if (!isEqual(newInputs[i], lastInputs[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function memoizeOne(resultFn, isEqual) {
+    if (isEqual === void 0) { isEqual = areInputsEqual; }
+    var lastThis;
+    var lastArgs = [];
+    var lastResult;
+    var calledOnce = false;
+    function memoized() {
+        var newArgs = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            newArgs[_i] = arguments[_i];
+        }
+        if (calledOnce && lastThis === this && isEqual(newArgs, lastArgs)) {
+            return lastResult;
+        }
+        lastResult = resultFn.apply(this, newArgs);
+        calledOnce = true;
+        lastThis = this;
+        lastArgs = newArgs;
+        return lastResult;
+    }
+    return memoized;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (memoizeOne);
 
 
 /***/ }),
@@ -35118,6 +36228,2111 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-window/dist/index.esm.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/react-window/dist/index.esm.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "VariableSizeGrid": () => (/* binding */ VariableSizeGrid),
+/* harmony export */   "VariableSizeList": () => (/* binding */ VariableSizeList),
+/* harmony export */   "FixedSizeGrid": () => (/* binding */ FixedSizeGrid),
+/* harmony export */   "FixedSizeList": () => (/* binding */ FixedSizeList),
+/* harmony export */   "areEqual": () => (/* binding */ areEqual),
+/* harmony export */   "shouldComponentUpdate": () => (/* binding */ shouldComponentUpdate)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var memoize_one__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! memoize-one */ "./node_modules/memoize-one/dist/memoize-one.esm.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+
+
+
+
+
+
+
+// Animation frame based implementation of setTimeout.
+// Inspired by Joe Lambert, https://gist.github.com/joelambert/1002116#file-requesttimeout-js
+var hasNativePerformanceNow = typeof performance === 'object' && typeof performance.now === 'function';
+var now = hasNativePerformanceNow ? function () {
+  return performance.now();
+} : function () {
+  return Date.now();
+};
+function cancelTimeout(timeoutID) {
+  cancelAnimationFrame(timeoutID.id);
+}
+function requestTimeout(callback, delay) {
+  var start = now();
+
+  function tick() {
+    if (now() - start >= delay) {
+      callback.call(null);
+    } else {
+      timeoutID.id = requestAnimationFrame(tick);
+    }
+  }
+
+  var timeoutID = {
+    id: requestAnimationFrame(tick)
+  };
+  return timeoutID;
+}
+
+var size = -1; // This utility copied from "dom-helpers" package.
+
+function getScrollbarSize(recalculate) {
+  if (recalculate === void 0) {
+    recalculate = false;
+  }
+
+  if (size === -1 || recalculate) {
+    var div = document.createElement('div');
+    var style = div.style;
+    style.width = '50px';
+    style.height = '50px';
+    style.overflow = 'scroll';
+    document.body.appendChild(div);
+    size = div.offsetWidth - div.clientWidth;
+    document.body.removeChild(div);
+  }
+
+  return size;
+}
+var cachedRTLResult = null; // TRICKY According to the spec, scrollLeft should be negative for RTL aligned elements.
+// Chrome does not seem to adhere; its scrollLeft values are positive (measured relative to the left).
+// Safari's elastic bounce makes detecting this even more complicated wrt potential false positives.
+// The safest way to check this is to intentionally set a negative offset,
+// and then verify that the subsequent "scroll" event matches the negative offset.
+// If it does not match, then we can assume a non-standard RTL scroll implementation.
+
+function getRTLOffsetType(recalculate) {
+  if (recalculate === void 0) {
+    recalculate = false;
+  }
+
+  if (cachedRTLResult === null || recalculate) {
+    var outerDiv = document.createElement('div');
+    var outerStyle = outerDiv.style;
+    outerStyle.width = '50px';
+    outerStyle.height = '50px';
+    outerStyle.overflow = 'scroll';
+    outerStyle.direction = 'rtl';
+    var innerDiv = document.createElement('div');
+    var innerStyle = innerDiv.style;
+    innerStyle.width = '100px';
+    innerStyle.height = '100px';
+    outerDiv.appendChild(innerDiv);
+    document.body.appendChild(outerDiv);
+
+    if (outerDiv.scrollLeft > 0) {
+      cachedRTLResult = 'positive-descending';
+    } else {
+      outerDiv.scrollLeft = 1;
+
+      if (outerDiv.scrollLeft === 0) {
+        cachedRTLResult = 'negative';
+      } else {
+        cachedRTLResult = 'positive-ascending';
+      }
+    }
+
+    document.body.removeChild(outerDiv);
+    return cachedRTLResult;
+  }
+
+  return cachedRTLResult;
+}
+
+var IS_SCROLLING_DEBOUNCE_INTERVAL = 150;
+
+var defaultItemKey = function defaultItemKey(_ref) {
+  var columnIndex = _ref.columnIndex,
+      data = _ref.data,
+      rowIndex = _ref.rowIndex;
+  return rowIndex + ":" + columnIndex;
+}; // In DEV mode, this Set helps us only log a warning once per component instance.
+// This avoids spamming the console every time a render happens.
+
+
+var devWarningsOverscanCount = null;
+var devWarningsOverscanRowsColumnsCount = null;
+var devWarningsTagName = null;
+
+if (true) {
+  if (typeof window !== 'undefined' && typeof window.WeakSet !== 'undefined') {
+    devWarningsOverscanCount =
+    /*#__PURE__*/
+    new WeakSet();
+    devWarningsOverscanRowsColumnsCount =
+    /*#__PURE__*/
+    new WeakSet();
+    devWarningsTagName =
+    /*#__PURE__*/
+    new WeakSet();
+  }
+}
+
+function createGridComponent(_ref2) {
+  var _class, _temp;
+
+  var getColumnOffset = _ref2.getColumnOffset,
+      getColumnStartIndexForOffset = _ref2.getColumnStartIndexForOffset,
+      getColumnStopIndexForStartIndex = _ref2.getColumnStopIndexForStartIndex,
+      getColumnWidth = _ref2.getColumnWidth,
+      getEstimatedTotalHeight = _ref2.getEstimatedTotalHeight,
+      getEstimatedTotalWidth = _ref2.getEstimatedTotalWidth,
+      getOffsetForColumnAndAlignment = _ref2.getOffsetForColumnAndAlignment,
+      getOffsetForRowAndAlignment = _ref2.getOffsetForRowAndAlignment,
+      getRowHeight = _ref2.getRowHeight,
+      getRowOffset = _ref2.getRowOffset,
+      getRowStartIndexForOffset = _ref2.getRowStartIndexForOffset,
+      getRowStopIndexForStartIndex = _ref2.getRowStopIndexForStartIndex,
+      initInstanceProps = _ref2.initInstanceProps,
+      shouldResetStyleCacheOnItemSizeChange = _ref2.shouldResetStyleCacheOnItemSizeChange,
+      validateProps = _ref2.validateProps;
+  return _temp = _class =
+  /*#__PURE__*/
+  function (_PureComponent) {
+    (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__.default)(Grid, _PureComponent);
+
+    // Always use explicit constructor for React components.
+    // It produces less code after transpilation. (#26)
+    // eslint-disable-next-line no-useless-constructor
+    function Grid(props) {
+      var _this;
+
+      _this = _PureComponent.call(this, props) || this;
+      _this._instanceProps = initInstanceProps(_this.props, (0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this)));
+      _this._resetIsScrollingTimeoutId = null;
+      _this._outerRef = void 0;
+      _this.state = {
+        instance: (0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this)),
+        isScrolling: false,
+        horizontalScrollDirection: 'forward',
+        scrollLeft: typeof _this.props.initialScrollLeft === 'number' ? _this.props.initialScrollLeft : 0,
+        scrollTop: typeof _this.props.initialScrollTop === 'number' ? _this.props.initialScrollTop : 0,
+        scrollUpdateWasRequested: false,
+        verticalScrollDirection: 'forward'
+      };
+      _this._callOnItemsRendered = void 0;
+      _this._callOnItemsRendered = (0,memoize_one__WEBPACK_IMPORTED_MODULE_5__.default)(function (overscanColumnStartIndex, overscanColumnStopIndex, overscanRowStartIndex, overscanRowStopIndex, visibleColumnStartIndex, visibleColumnStopIndex, visibleRowStartIndex, visibleRowStopIndex) {
+        return _this.props.onItemsRendered({
+          overscanColumnStartIndex: overscanColumnStartIndex,
+          overscanColumnStopIndex: overscanColumnStopIndex,
+          overscanRowStartIndex: overscanRowStartIndex,
+          overscanRowStopIndex: overscanRowStopIndex,
+          visibleColumnStartIndex: visibleColumnStartIndex,
+          visibleColumnStopIndex: visibleColumnStopIndex,
+          visibleRowStartIndex: visibleRowStartIndex,
+          visibleRowStopIndex: visibleRowStopIndex
+        });
+      });
+      _this._callOnScroll = void 0;
+      _this._callOnScroll = (0,memoize_one__WEBPACK_IMPORTED_MODULE_5__.default)(function (scrollLeft, scrollTop, horizontalScrollDirection, verticalScrollDirection, scrollUpdateWasRequested) {
+        return _this.props.onScroll({
+          horizontalScrollDirection: horizontalScrollDirection,
+          scrollLeft: scrollLeft,
+          scrollTop: scrollTop,
+          verticalScrollDirection: verticalScrollDirection,
+          scrollUpdateWasRequested: scrollUpdateWasRequested
+        });
+      });
+      _this._getItemStyle = void 0;
+
+      _this._getItemStyle = function (rowIndex, columnIndex) {
+        var _this$props = _this.props,
+            columnWidth = _this$props.columnWidth,
+            direction = _this$props.direction,
+            rowHeight = _this$props.rowHeight;
+
+        var itemStyleCache = _this._getItemStyleCache(shouldResetStyleCacheOnItemSizeChange && columnWidth, shouldResetStyleCacheOnItemSizeChange && direction, shouldResetStyleCacheOnItemSizeChange && rowHeight);
+
+        var key = rowIndex + ":" + columnIndex;
+        var style;
+
+        if (itemStyleCache.hasOwnProperty(key)) {
+          style = itemStyleCache[key];
+        } else {
+          var _offset = getColumnOffset(_this.props, columnIndex, _this._instanceProps);
+
+          var isRtl = direction === 'rtl';
+          itemStyleCache[key] = style = {
+            position: 'absolute',
+            left: isRtl ? undefined : _offset,
+            right: isRtl ? _offset : undefined,
+            top: getRowOffset(_this.props, rowIndex, _this._instanceProps),
+            height: getRowHeight(_this.props, rowIndex, _this._instanceProps),
+            width: getColumnWidth(_this.props, columnIndex, _this._instanceProps)
+          };
+        }
+
+        return style;
+      };
+
+      _this._getItemStyleCache = void 0;
+      _this._getItemStyleCache = (0,memoize_one__WEBPACK_IMPORTED_MODULE_5__.default)(function (_, __, ___) {
+        return {};
+      });
+
+      _this._onScroll = function (event) {
+        var _event$currentTarget = event.currentTarget,
+            clientHeight = _event$currentTarget.clientHeight,
+            clientWidth = _event$currentTarget.clientWidth,
+            scrollLeft = _event$currentTarget.scrollLeft,
+            scrollTop = _event$currentTarget.scrollTop,
+            scrollHeight = _event$currentTarget.scrollHeight,
+            scrollWidth = _event$currentTarget.scrollWidth;
+
+        _this.setState(function (prevState) {
+          if (prevState.scrollLeft === scrollLeft && prevState.scrollTop === scrollTop) {
+            // Scroll position may have been updated by cDM/cDU,
+            // In which case we don't need to trigger another render,
+            // And we don't want to update state.isScrolling.
+            return null;
+          }
+
+          var direction = _this.props.direction; // TRICKY According to the spec, scrollLeft should be negative for RTL aligned elements.
+          // This is not the case for all browsers though (e.g. Chrome reports values as positive, measured relative to the left).
+          // It's also easier for this component if we convert offsets to the same format as they would be in for ltr.
+          // So the simplest solution is to determine which browser behavior we're dealing with, and convert based on it.
+
+          var calculatedScrollLeft = scrollLeft;
+
+          if (direction === 'rtl') {
+            switch (getRTLOffsetType()) {
+              case 'negative':
+                calculatedScrollLeft = -scrollLeft;
+                break;
+
+              case 'positive-descending':
+                calculatedScrollLeft = scrollWidth - clientWidth - scrollLeft;
+                break;
+            }
+          } // Prevent Safari's elastic scrolling from causing visual shaking when scrolling past bounds.
+
+
+          calculatedScrollLeft = Math.max(0, Math.min(calculatedScrollLeft, scrollWidth - clientWidth));
+          var calculatedScrollTop = Math.max(0, Math.min(scrollTop, scrollHeight - clientHeight));
+          return {
+            isScrolling: true,
+            horizontalScrollDirection: prevState.scrollLeft < scrollLeft ? 'forward' : 'backward',
+            scrollLeft: calculatedScrollLeft,
+            scrollTop: calculatedScrollTop,
+            verticalScrollDirection: prevState.scrollTop < scrollTop ? 'forward' : 'backward',
+            scrollUpdateWasRequested: false
+          };
+        }, _this._resetIsScrollingDebounced);
+      };
+
+      _this._outerRefSetter = function (ref) {
+        var outerRef = _this.props.outerRef;
+        _this._outerRef = ref;
+
+        if (typeof outerRef === 'function') {
+          outerRef(ref);
+        } else if (outerRef != null && typeof outerRef === 'object' && outerRef.hasOwnProperty('current')) {
+          outerRef.current = ref;
+        }
+      };
+
+      _this._resetIsScrollingDebounced = function () {
+        if (_this._resetIsScrollingTimeoutId !== null) {
+          cancelTimeout(_this._resetIsScrollingTimeoutId);
+        }
+
+        _this._resetIsScrollingTimeoutId = requestTimeout(_this._resetIsScrolling, IS_SCROLLING_DEBOUNCE_INTERVAL);
+      };
+
+      _this._resetIsScrolling = function () {
+        _this._resetIsScrollingTimeoutId = null;
+
+        _this.setState({
+          isScrolling: false
+        }, function () {
+          // Clear style cache after state update has been committed.
+          // This way we don't break pure sCU for items that don't use isScrolling param.
+          _this._getItemStyleCache(-1);
+        });
+      };
+
+      return _this;
+    }
+
+    Grid.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
+      validateSharedProps(nextProps, prevState);
+      validateProps(nextProps);
+      return null;
+    };
+
+    var _proto = Grid.prototype;
+
+    _proto.scrollTo = function scrollTo(_ref3) {
+      var scrollLeft = _ref3.scrollLeft,
+          scrollTop = _ref3.scrollTop;
+
+      if (scrollLeft !== undefined) {
+        scrollLeft = Math.max(0, scrollLeft);
+      }
+
+      if (scrollTop !== undefined) {
+        scrollTop = Math.max(0, scrollTop);
+      }
+
+      this.setState(function (prevState) {
+        if (scrollLeft === undefined) {
+          scrollLeft = prevState.scrollLeft;
+        }
+
+        if (scrollTop === undefined) {
+          scrollTop = prevState.scrollTop;
+        }
+
+        if (prevState.scrollLeft === scrollLeft && prevState.scrollTop === scrollTop) {
+          return null;
+        }
+
+        return {
+          horizontalScrollDirection: prevState.scrollLeft < scrollLeft ? 'forward' : 'backward',
+          scrollLeft: scrollLeft,
+          scrollTop: scrollTop,
+          scrollUpdateWasRequested: true,
+          verticalScrollDirection: prevState.scrollTop < scrollTop ? 'forward' : 'backward'
+        };
+      }, this._resetIsScrollingDebounced);
+    };
+
+    _proto.scrollToItem = function scrollToItem(_ref4) {
+      var _ref4$align = _ref4.align,
+          align = _ref4$align === void 0 ? 'auto' : _ref4$align,
+          columnIndex = _ref4.columnIndex,
+          rowIndex = _ref4.rowIndex;
+      var _this$props2 = this.props,
+          columnCount = _this$props2.columnCount,
+          height = _this$props2.height,
+          rowCount = _this$props2.rowCount,
+          width = _this$props2.width;
+      var _this$state = this.state,
+          scrollLeft = _this$state.scrollLeft,
+          scrollTop = _this$state.scrollTop;
+      var scrollbarSize = getScrollbarSize();
+
+      if (columnIndex !== undefined) {
+        columnIndex = Math.max(0, Math.min(columnIndex, columnCount - 1));
+      }
+
+      if (rowIndex !== undefined) {
+        rowIndex = Math.max(0, Math.min(rowIndex, rowCount - 1));
+      }
+
+      var estimatedTotalHeight = getEstimatedTotalHeight(this.props, this._instanceProps);
+      var estimatedTotalWidth = getEstimatedTotalWidth(this.props, this._instanceProps); // The scrollbar size should be considered when scrolling an item into view,
+      // to ensure it's fully visible.
+      // But we only need to account for its size when it's actually visible.
+
+      var horizontalScrollbarSize = estimatedTotalWidth > width ? scrollbarSize : 0;
+      var verticalScrollbarSize = estimatedTotalHeight > height ? scrollbarSize : 0;
+      this.scrollTo({
+        scrollLeft: columnIndex !== undefined ? getOffsetForColumnAndAlignment(this.props, columnIndex, align, scrollLeft, this._instanceProps, verticalScrollbarSize) : scrollLeft,
+        scrollTop: rowIndex !== undefined ? getOffsetForRowAndAlignment(this.props, rowIndex, align, scrollTop, this._instanceProps, horizontalScrollbarSize) : scrollTop
+      });
+    };
+
+    _proto.componentDidMount = function componentDidMount() {
+      var _this$props3 = this.props,
+          initialScrollLeft = _this$props3.initialScrollLeft,
+          initialScrollTop = _this$props3.initialScrollTop;
+
+      if (this._outerRef != null) {
+        var outerRef = this._outerRef;
+
+        if (typeof initialScrollLeft === 'number') {
+          outerRef.scrollLeft = initialScrollLeft;
+        }
+
+        if (typeof initialScrollTop === 'number') {
+          outerRef.scrollTop = initialScrollTop;
+        }
+      }
+
+      this._callPropsCallbacks();
+    };
+
+    _proto.componentDidUpdate = function componentDidUpdate() {
+      var direction = this.props.direction;
+      var _this$state2 = this.state,
+          scrollLeft = _this$state2.scrollLeft,
+          scrollTop = _this$state2.scrollTop,
+          scrollUpdateWasRequested = _this$state2.scrollUpdateWasRequested;
+
+      if (scrollUpdateWasRequested && this._outerRef != null) {
+        // TRICKY According to the spec, scrollLeft should be negative for RTL aligned elements.
+        // This is not the case for all browsers though (e.g. Chrome reports values as positive, measured relative to the left).
+        // So we need to determine which browser behavior we're dealing with, and mimic it.
+        var outerRef = this._outerRef;
+
+        if (direction === 'rtl') {
+          switch (getRTLOffsetType()) {
+            case 'negative':
+              outerRef.scrollLeft = -scrollLeft;
+              break;
+
+            case 'positive-ascending':
+              outerRef.scrollLeft = scrollLeft;
+              break;
+
+            default:
+              var clientWidth = outerRef.clientWidth,
+                  scrollWidth = outerRef.scrollWidth;
+              outerRef.scrollLeft = scrollWidth - clientWidth - scrollLeft;
+              break;
+          }
+        } else {
+          outerRef.scrollLeft = Math.max(0, scrollLeft);
+        }
+
+        outerRef.scrollTop = Math.max(0, scrollTop);
+      }
+
+      this._callPropsCallbacks();
+    };
+
+    _proto.componentWillUnmount = function componentWillUnmount() {
+      if (this._resetIsScrollingTimeoutId !== null) {
+        cancelTimeout(this._resetIsScrollingTimeoutId);
+      }
+    };
+
+    _proto.render = function render() {
+      var _this$props4 = this.props,
+          children = _this$props4.children,
+          className = _this$props4.className,
+          columnCount = _this$props4.columnCount,
+          direction = _this$props4.direction,
+          height = _this$props4.height,
+          innerRef = _this$props4.innerRef,
+          innerElementType = _this$props4.innerElementType,
+          innerTagName = _this$props4.innerTagName,
+          itemData = _this$props4.itemData,
+          _this$props4$itemKey = _this$props4.itemKey,
+          itemKey = _this$props4$itemKey === void 0 ? defaultItemKey : _this$props4$itemKey,
+          outerElementType = _this$props4.outerElementType,
+          outerTagName = _this$props4.outerTagName,
+          rowCount = _this$props4.rowCount,
+          style = _this$props4.style,
+          useIsScrolling = _this$props4.useIsScrolling,
+          width = _this$props4.width;
+      var isScrolling = this.state.isScrolling;
+
+      var _this$_getHorizontalR = this._getHorizontalRangeToRender(),
+          columnStartIndex = _this$_getHorizontalR[0],
+          columnStopIndex = _this$_getHorizontalR[1];
+
+      var _this$_getVerticalRan = this._getVerticalRangeToRender(),
+          rowStartIndex = _this$_getVerticalRan[0],
+          rowStopIndex = _this$_getVerticalRan[1];
+
+      var items = [];
+
+      if (columnCount > 0 && rowCount) {
+        for (var _rowIndex = rowStartIndex; _rowIndex <= rowStopIndex; _rowIndex++) {
+          for (var _columnIndex = columnStartIndex; _columnIndex <= columnStopIndex; _columnIndex++) {
+            items.push((0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(children, {
+              columnIndex: _columnIndex,
+              data: itemData,
+              isScrolling: useIsScrolling ? isScrolling : undefined,
+              key: itemKey({
+                columnIndex: _columnIndex,
+                data: itemData,
+                rowIndex: _rowIndex
+              }),
+              rowIndex: _rowIndex,
+              style: this._getItemStyle(_rowIndex, _columnIndex)
+            }));
+          }
+        }
+      } // Read this value AFTER items have been created,
+      // So their actual sizes (if variable) are taken into consideration.
+
+
+      var estimatedTotalHeight = getEstimatedTotalHeight(this.props, this._instanceProps);
+      var estimatedTotalWidth = getEstimatedTotalWidth(this.props, this._instanceProps);
+      return (0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(outerElementType || outerTagName || 'div', {
+        className: className,
+        onScroll: this._onScroll,
+        ref: this._outerRefSetter,
+        style: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+          position: 'relative',
+          height: height,
+          width: width,
+          overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          willChange: 'transform',
+          direction: direction
+        }, style)
+      }, (0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(innerElementType || innerTagName || 'div', {
+        children: items,
+        ref: innerRef,
+        style: {
+          height: estimatedTotalHeight,
+          pointerEvents: isScrolling ? 'none' : undefined,
+          width: estimatedTotalWidth
+        }
+      }));
+    };
+
+    _proto._callPropsCallbacks = function _callPropsCallbacks() {
+      var _this$props5 = this.props,
+          columnCount = _this$props5.columnCount,
+          onItemsRendered = _this$props5.onItemsRendered,
+          onScroll = _this$props5.onScroll,
+          rowCount = _this$props5.rowCount;
+
+      if (typeof onItemsRendered === 'function') {
+        if (columnCount > 0 && rowCount > 0) {
+          var _this$_getHorizontalR2 = this._getHorizontalRangeToRender(),
+              _overscanColumnStartIndex = _this$_getHorizontalR2[0],
+              _overscanColumnStopIndex = _this$_getHorizontalR2[1],
+              _visibleColumnStartIndex = _this$_getHorizontalR2[2],
+              _visibleColumnStopIndex = _this$_getHorizontalR2[3];
+
+          var _this$_getVerticalRan2 = this._getVerticalRangeToRender(),
+              _overscanRowStartIndex = _this$_getVerticalRan2[0],
+              _overscanRowStopIndex = _this$_getVerticalRan2[1],
+              _visibleRowStartIndex = _this$_getVerticalRan2[2],
+              _visibleRowStopIndex = _this$_getVerticalRan2[3];
+
+          this._callOnItemsRendered(_overscanColumnStartIndex, _overscanColumnStopIndex, _overscanRowStartIndex, _overscanRowStopIndex, _visibleColumnStartIndex, _visibleColumnStopIndex, _visibleRowStartIndex, _visibleRowStopIndex);
+        }
+      }
+
+      if (typeof onScroll === 'function') {
+        var _this$state3 = this.state,
+            _horizontalScrollDirection = _this$state3.horizontalScrollDirection,
+            _scrollLeft = _this$state3.scrollLeft,
+            _scrollTop = _this$state3.scrollTop,
+            _scrollUpdateWasRequested = _this$state3.scrollUpdateWasRequested,
+            _verticalScrollDirection = _this$state3.verticalScrollDirection;
+
+        this._callOnScroll(_scrollLeft, _scrollTop, _horizontalScrollDirection, _verticalScrollDirection, _scrollUpdateWasRequested);
+      }
+    }; // Lazily create and cache item styles while scrolling,
+    // So that pure component sCU will prevent re-renders.
+    // We maintain this cache, and pass a style prop rather than index,
+    // So that List can clear cached styles and force item re-render if necessary.
+
+
+    _proto._getHorizontalRangeToRender = function _getHorizontalRangeToRender() {
+      var _this$props6 = this.props,
+          columnCount = _this$props6.columnCount,
+          overscanColumnCount = _this$props6.overscanColumnCount,
+          overscanColumnsCount = _this$props6.overscanColumnsCount,
+          overscanCount = _this$props6.overscanCount,
+          rowCount = _this$props6.rowCount;
+      var _this$state4 = this.state,
+          horizontalScrollDirection = _this$state4.horizontalScrollDirection,
+          isScrolling = _this$state4.isScrolling,
+          scrollLeft = _this$state4.scrollLeft;
+      var overscanCountResolved = overscanColumnCount || overscanColumnsCount || overscanCount || 1;
+
+      if (columnCount === 0 || rowCount === 0) {
+        return [0, 0, 0, 0];
+      }
+
+      var startIndex = getColumnStartIndexForOffset(this.props, scrollLeft, this._instanceProps);
+      var stopIndex = getColumnStopIndexForStartIndex(this.props, startIndex, scrollLeft, this._instanceProps); // Overscan by one item in each direction so that tab/focus works.
+      // If there isn't at least one extra item, tab loops back around.
+
+      var overscanBackward = !isScrolling || horizontalScrollDirection === 'backward' ? Math.max(1, overscanCountResolved) : 1;
+      var overscanForward = !isScrolling || horizontalScrollDirection === 'forward' ? Math.max(1, overscanCountResolved) : 1;
+      return [Math.max(0, startIndex - overscanBackward), Math.max(0, Math.min(columnCount - 1, stopIndex + overscanForward)), startIndex, stopIndex];
+    };
+
+    _proto._getVerticalRangeToRender = function _getVerticalRangeToRender() {
+      var _this$props7 = this.props,
+          columnCount = _this$props7.columnCount,
+          overscanCount = _this$props7.overscanCount,
+          overscanRowCount = _this$props7.overscanRowCount,
+          overscanRowsCount = _this$props7.overscanRowsCount,
+          rowCount = _this$props7.rowCount;
+      var _this$state5 = this.state,
+          isScrolling = _this$state5.isScrolling,
+          verticalScrollDirection = _this$state5.verticalScrollDirection,
+          scrollTop = _this$state5.scrollTop;
+      var overscanCountResolved = overscanRowCount || overscanRowsCount || overscanCount || 1;
+
+      if (columnCount === 0 || rowCount === 0) {
+        return [0, 0, 0, 0];
+      }
+
+      var startIndex = getRowStartIndexForOffset(this.props, scrollTop, this._instanceProps);
+      var stopIndex = getRowStopIndexForStartIndex(this.props, startIndex, scrollTop, this._instanceProps); // Overscan by one item in each direction so that tab/focus works.
+      // If there isn't at least one extra item, tab loops back around.
+
+      var overscanBackward = !isScrolling || verticalScrollDirection === 'backward' ? Math.max(1, overscanCountResolved) : 1;
+      var overscanForward = !isScrolling || verticalScrollDirection === 'forward' ? Math.max(1, overscanCountResolved) : 1;
+      return [Math.max(0, startIndex - overscanBackward), Math.max(0, Math.min(rowCount - 1, stopIndex + overscanForward)), startIndex, stopIndex];
+    };
+
+    return Grid;
+  }(react__WEBPACK_IMPORTED_MODULE_3__.PureComponent), _class.defaultProps = {
+    direction: 'ltr',
+    itemData: undefined,
+    useIsScrolling: false
+  }, _temp;
+}
+
+var validateSharedProps = function validateSharedProps(_ref5, _ref6) {
+  var children = _ref5.children,
+      direction = _ref5.direction,
+      height = _ref5.height,
+      innerTagName = _ref5.innerTagName,
+      outerTagName = _ref5.outerTagName,
+      overscanColumnsCount = _ref5.overscanColumnsCount,
+      overscanCount = _ref5.overscanCount,
+      overscanRowsCount = _ref5.overscanRowsCount,
+      width = _ref5.width;
+  var instance = _ref6.instance;
+
+  if (true) {
+    if (typeof overscanCount === 'number') {
+      if (devWarningsOverscanCount && !devWarningsOverscanCount.has(instance)) {
+        devWarningsOverscanCount.add(instance);
+        console.warn('The overscanCount prop has been deprecated. ' + 'Please use the overscanColumnCount and overscanRowCount props instead.');
+      }
+    }
+
+    if (typeof overscanColumnsCount === 'number' || typeof overscanRowsCount === 'number') {
+      if (devWarningsOverscanRowsColumnsCount && !devWarningsOverscanRowsColumnsCount.has(instance)) {
+        devWarningsOverscanRowsColumnsCount.add(instance);
+        console.warn('The overscanColumnsCount and overscanRowsCount props have been deprecated. ' + 'Please use the overscanColumnCount and overscanRowCount props instead.');
+      }
+    }
+
+    if (innerTagName != null || outerTagName != null) {
+      if (devWarningsTagName && !devWarningsTagName.has(instance)) {
+        devWarningsTagName.add(instance);
+        console.warn('The innerTagName and outerTagName props have been deprecated. ' + 'Please use the innerElementType and outerElementType props instead.');
+      }
+    }
+
+    if (children == null) {
+      throw Error('An invalid "children" prop has been specified. ' + 'Value should be a React component. ' + ("\"" + (children === null ? 'null' : typeof children) + "\" was specified."));
+    }
+
+    switch (direction) {
+      case 'ltr':
+      case 'rtl':
+        // Valid values
+        break;
+
+      default:
+        throw Error('An invalid "direction" prop has been specified. ' + 'Value should be either "ltr" or "rtl". ' + ("\"" + direction + "\" was specified."));
+    }
+
+    if (typeof width !== 'number') {
+      throw Error('An invalid "width" prop has been specified. ' + 'Grids must specify a number for width. ' + ("\"" + (width === null ? 'null' : typeof width) + "\" was specified."));
+    }
+
+    if (typeof height !== 'number') {
+      throw Error('An invalid "height" prop has been specified. ' + 'Grids must specify a number for height. ' + ("\"" + (height === null ? 'null' : typeof height) + "\" was specified."));
+    }
+  }
+};
+
+var DEFAULT_ESTIMATED_ITEM_SIZE = 50;
+
+var getEstimatedTotalHeight = function getEstimatedTotalHeight(_ref, _ref2) {
+  var rowCount = _ref.rowCount;
+  var rowMetadataMap = _ref2.rowMetadataMap,
+      estimatedRowHeight = _ref2.estimatedRowHeight,
+      lastMeasuredRowIndex = _ref2.lastMeasuredRowIndex;
+  var totalSizeOfMeasuredRows = 0; // Edge case check for when the number of items decreases while a scroll is in progress.
+  // https://github.com/bvaughn/react-window/pull/138
+
+  if (lastMeasuredRowIndex >= rowCount) {
+    lastMeasuredRowIndex = rowCount - 1;
+  }
+
+  if (lastMeasuredRowIndex >= 0) {
+    var itemMetadata = rowMetadataMap[lastMeasuredRowIndex];
+    totalSizeOfMeasuredRows = itemMetadata.offset + itemMetadata.size;
+  }
+
+  var numUnmeasuredItems = rowCount - lastMeasuredRowIndex - 1;
+  var totalSizeOfUnmeasuredItems = numUnmeasuredItems * estimatedRowHeight;
+  return totalSizeOfMeasuredRows + totalSizeOfUnmeasuredItems;
+};
+
+var getEstimatedTotalWidth = function getEstimatedTotalWidth(_ref3, _ref4) {
+  var columnCount = _ref3.columnCount;
+  var columnMetadataMap = _ref4.columnMetadataMap,
+      estimatedColumnWidth = _ref4.estimatedColumnWidth,
+      lastMeasuredColumnIndex = _ref4.lastMeasuredColumnIndex;
+  var totalSizeOfMeasuredRows = 0; // Edge case check for when the number of items decreases while a scroll is in progress.
+  // https://github.com/bvaughn/react-window/pull/138
+
+  if (lastMeasuredColumnIndex >= columnCount) {
+    lastMeasuredColumnIndex = columnCount - 1;
+  }
+
+  if (lastMeasuredColumnIndex >= 0) {
+    var itemMetadata = columnMetadataMap[lastMeasuredColumnIndex];
+    totalSizeOfMeasuredRows = itemMetadata.offset + itemMetadata.size;
+  }
+
+  var numUnmeasuredItems = columnCount - lastMeasuredColumnIndex - 1;
+  var totalSizeOfUnmeasuredItems = numUnmeasuredItems * estimatedColumnWidth;
+  return totalSizeOfMeasuredRows + totalSizeOfUnmeasuredItems;
+};
+
+var getItemMetadata = function getItemMetadata(itemType, props, index, instanceProps) {
+  var itemMetadataMap, itemSize, lastMeasuredIndex;
+
+  if (itemType === 'column') {
+    itemMetadataMap = instanceProps.columnMetadataMap;
+    itemSize = props.columnWidth;
+    lastMeasuredIndex = instanceProps.lastMeasuredColumnIndex;
+  } else {
+    itemMetadataMap = instanceProps.rowMetadataMap;
+    itemSize = props.rowHeight;
+    lastMeasuredIndex = instanceProps.lastMeasuredRowIndex;
+  }
+
+  if (index > lastMeasuredIndex) {
+    var offset = 0;
+
+    if (lastMeasuredIndex >= 0) {
+      var itemMetadata = itemMetadataMap[lastMeasuredIndex];
+      offset = itemMetadata.offset + itemMetadata.size;
+    }
+
+    for (var i = lastMeasuredIndex + 1; i <= index; i++) {
+      var size = itemSize(i);
+      itemMetadataMap[i] = {
+        offset: offset,
+        size: size
+      };
+      offset += size;
+    }
+
+    if (itemType === 'column') {
+      instanceProps.lastMeasuredColumnIndex = index;
+    } else {
+      instanceProps.lastMeasuredRowIndex = index;
+    }
+  }
+
+  return itemMetadataMap[index];
+};
+
+var findNearestItem = function findNearestItem(itemType, props, instanceProps, offset) {
+  var itemMetadataMap, lastMeasuredIndex;
+
+  if (itemType === 'column') {
+    itemMetadataMap = instanceProps.columnMetadataMap;
+    lastMeasuredIndex = instanceProps.lastMeasuredColumnIndex;
+  } else {
+    itemMetadataMap = instanceProps.rowMetadataMap;
+    lastMeasuredIndex = instanceProps.lastMeasuredRowIndex;
+  }
+
+  var lastMeasuredItemOffset = lastMeasuredIndex > 0 ? itemMetadataMap[lastMeasuredIndex].offset : 0;
+
+  if (lastMeasuredItemOffset >= offset) {
+    // If we've already measured items within this range just use a binary search as it's faster.
+    return findNearestItemBinarySearch(itemType, props, instanceProps, lastMeasuredIndex, 0, offset);
+  } else {
+    // If we haven't yet measured this high, fallback to an exponential search with an inner binary search.
+    // The exponential search avoids pre-computing sizes for the full set of items as a binary search would.
+    // The overall complexity for this approach is O(log n).
+    return findNearestItemExponentialSearch(itemType, props, instanceProps, Math.max(0, lastMeasuredIndex), offset);
+  }
+};
+
+var findNearestItemBinarySearch = function findNearestItemBinarySearch(itemType, props, instanceProps, high, low, offset) {
+  while (low <= high) {
+    var middle = low + Math.floor((high - low) / 2);
+    var currentOffset = getItemMetadata(itemType, props, middle, instanceProps).offset;
+
+    if (currentOffset === offset) {
+      return middle;
+    } else if (currentOffset < offset) {
+      low = middle + 1;
+    } else if (currentOffset > offset) {
+      high = middle - 1;
+    }
+  }
+
+  if (low > 0) {
+    return low - 1;
+  } else {
+    return 0;
+  }
+};
+
+var findNearestItemExponentialSearch = function findNearestItemExponentialSearch(itemType, props, instanceProps, index, offset) {
+  var itemCount = itemType === 'column' ? props.columnCount : props.rowCount;
+  var interval = 1;
+
+  while (index < itemCount && getItemMetadata(itemType, props, index, instanceProps).offset < offset) {
+    index += interval;
+    interval *= 2;
+  }
+
+  return findNearestItemBinarySearch(itemType, props, instanceProps, Math.min(index, itemCount - 1), Math.floor(index / 2), offset);
+};
+
+var getOffsetForIndexAndAlignment = function getOffsetForIndexAndAlignment(itemType, props, index, align, scrollOffset, instanceProps, scrollbarSize) {
+  var size = itemType === 'column' ? props.width : props.height;
+  var itemMetadata = getItemMetadata(itemType, props, index, instanceProps); // Get estimated total size after ItemMetadata is computed,
+  // To ensure it reflects actual measurements instead of just estimates.
+
+  var estimatedTotalSize = itemType === 'column' ? getEstimatedTotalWidth(props, instanceProps) : getEstimatedTotalHeight(props, instanceProps);
+  var maxOffset = Math.max(0, Math.min(estimatedTotalSize - size, itemMetadata.offset));
+  var minOffset = Math.max(0, itemMetadata.offset - size + scrollbarSize + itemMetadata.size);
+
+  if (align === 'smart') {
+    if (scrollOffset >= minOffset - size && scrollOffset <= maxOffset + size) {
+      align = 'auto';
+    } else {
+      align = 'center';
+    }
+  }
+
+  switch (align) {
+    case 'start':
+      return maxOffset;
+
+    case 'end':
+      return minOffset;
+
+    case 'center':
+      return Math.round(minOffset + (maxOffset - minOffset) / 2);
+
+    case 'auto':
+    default:
+      if (scrollOffset >= minOffset && scrollOffset <= maxOffset) {
+        return scrollOffset;
+      } else if (minOffset > maxOffset) {
+        // Because we only take into account the scrollbar size when calculating minOffset
+        // this value can be larger than maxOffset when at the end of the list
+        return minOffset;
+      } else if (scrollOffset < minOffset) {
+        return minOffset;
+      } else {
+        return maxOffset;
+      }
+
+  }
+};
+
+var VariableSizeGrid =
+/*#__PURE__*/
+createGridComponent({
+  getColumnOffset: function getColumnOffset(props, index, instanceProps) {
+    return getItemMetadata('column', props, index, instanceProps).offset;
+  },
+  getColumnStartIndexForOffset: function getColumnStartIndexForOffset(props, scrollLeft, instanceProps) {
+    return findNearestItem('column', props, instanceProps, scrollLeft);
+  },
+  getColumnStopIndexForStartIndex: function getColumnStopIndexForStartIndex(props, startIndex, scrollLeft, instanceProps) {
+    var columnCount = props.columnCount,
+        width = props.width;
+    var itemMetadata = getItemMetadata('column', props, startIndex, instanceProps);
+    var maxOffset = scrollLeft + width;
+    var offset = itemMetadata.offset + itemMetadata.size;
+    var stopIndex = startIndex;
+
+    while (stopIndex < columnCount - 1 && offset < maxOffset) {
+      stopIndex++;
+      offset += getItemMetadata('column', props, stopIndex, instanceProps).size;
+    }
+
+    return stopIndex;
+  },
+  getColumnWidth: function getColumnWidth(props, index, instanceProps) {
+    return instanceProps.columnMetadataMap[index].size;
+  },
+  getEstimatedTotalHeight: getEstimatedTotalHeight,
+  getEstimatedTotalWidth: getEstimatedTotalWidth,
+  getOffsetForColumnAndAlignment: function getOffsetForColumnAndAlignment(props, index, align, scrollOffset, instanceProps, scrollbarSize) {
+    return getOffsetForIndexAndAlignment('column', props, index, align, scrollOffset, instanceProps, scrollbarSize);
+  },
+  getOffsetForRowAndAlignment: function getOffsetForRowAndAlignment(props, index, align, scrollOffset, instanceProps, scrollbarSize) {
+    return getOffsetForIndexAndAlignment('row', props, index, align, scrollOffset, instanceProps, scrollbarSize);
+  },
+  getRowOffset: function getRowOffset(props, index, instanceProps) {
+    return getItemMetadata('row', props, index, instanceProps).offset;
+  },
+  getRowHeight: function getRowHeight(props, index, instanceProps) {
+    return instanceProps.rowMetadataMap[index].size;
+  },
+  getRowStartIndexForOffset: function getRowStartIndexForOffset(props, scrollTop, instanceProps) {
+    return findNearestItem('row', props, instanceProps, scrollTop);
+  },
+  getRowStopIndexForStartIndex: function getRowStopIndexForStartIndex(props, startIndex, scrollTop, instanceProps) {
+    var rowCount = props.rowCount,
+        height = props.height;
+    var itemMetadata = getItemMetadata('row', props, startIndex, instanceProps);
+    var maxOffset = scrollTop + height;
+    var offset = itemMetadata.offset + itemMetadata.size;
+    var stopIndex = startIndex;
+
+    while (stopIndex < rowCount - 1 && offset < maxOffset) {
+      stopIndex++;
+      offset += getItemMetadata('row', props, stopIndex, instanceProps).size;
+    }
+
+    return stopIndex;
+  },
+  initInstanceProps: function initInstanceProps(props, instance) {
+    var _ref5 = props,
+        estimatedColumnWidth = _ref5.estimatedColumnWidth,
+        estimatedRowHeight = _ref5.estimatedRowHeight;
+    var instanceProps = {
+      columnMetadataMap: {},
+      estimatedColumnWidth: estimatedColumnWidth || DEFAULT_ESTIMATED_ITEM_SIZE,
+      estimatedRowHeight: estimatedRowHeight || DEFAULT_ESTIMATED_ITEM_SIZE,
+      lastMeasuredColumnIndex: -1,
+      lastMeasuredRowIndex: -1,
+      rowMetadataMap: {}
+    };
+
+    instance.resetAfterColumnIndex = function (columnIndex, shouldForceUpdate) {
+      if (shouldForceUpdate === void 0) {
+        shouldForceUpdate = true;
+      }
+
+      instance.resetAfterIndices({
+        columnIndex: columnIndex,
+        shouldForceUpdate: shouldForceUpdate
+      });
+    };
+
+    instance.resetAfterRowIndex = function (rowIndex, shouldForceUpdate) {
+      if (shouldForceUpdate === void 0) {
+        shouldForceUpdate = true;
+      }
+
+      instance.resetAfterIndices({
+        rowIndex: rowIndex,
+        shouldForceUpdate: shouldForceUpdate
+      });
+    };
+
+    instance.resetAfterIndices = function (_ref6) {
+      var columnIndex = _ref6.columnIndex,
+          rowIndex = _ref6.rowIndex,
+          _ref6$shouldForceUpda = _ref6.shouldForceUpdate,
+          shouldForceUpdate = _ref6$shouldForceUpda === void 0 ? true : _ref6$shouldForceUpda;
+
+      if (typeof columnIndex === 'number') {
+        instanceProps.lastMeasuredColumnIndex = Math.min(instanceProps.lastMeasuredColumnIndex, columnIndex - 1);
+      }
+
+      if (typeof rowIndex === 'number') {
+        instanceProps.lastMeasuredRowIndex = Math.min(instanceProps.lastMeasuredRowIndex, rowIndex - 1);
+      } // We could potentially optimize further by only evicting styles after this index,
+      // But since styles are only cached while scrolling is in progress-
+      // It seems an unnecessary optimization.
+      // It's unlikely that resetAfterIndex() will be called while a user is scrolling.
+
+
+      instance._getItemStyleCache(-1);
+
+      if (shouldForceUpdate) {
+        instance.forceUpdate();
+      }
+    };
+
+    return instanceProps;
+  },
+  shouldResetStyleCacheOnItemSizeChange: false,
+  validateProps: function validateProps(_ref7) {
+    var columnWidth = _ref7.columnWidth,
+        rowHeight = _ref7.rowHeight;
+
+    if (true) {
+      if (typeof columnWidth !== 'function') {
+        throw Error('An invalid "columnWidth" prop has been specified. ' + 'Value should be a function. ' + ("\"" + (columnWidth === null ? 'null' : typeof columnWidth) + "\" was specified."));
+      } else if (typeof rowHeight !== 'function') {
+        throw Error('An invalid "rowHeight" prop has been specified. ' + 'Value should be a function. ' + ("\"" + (rowHeight === null ? 'null' : typeof rowHeight) + "\" was specified."));
+      }
+    }
+  }
+});
+
+var IS_SCROLLING_DEBOUNCE_INTERVAL$1 = 150;
+
+var defaultItemKey$1 = function defaultItemKey(index, data) {
+  return index;
+}; // In DEV mode, this Set helps us only log a warning once per component instance.
+// This avoids spamming the console every time a render happens.
+
+
+var devWarningsDirection = null;
+var devWarningsTagName$1 = null;
+
+if (true) {
+  if (typeof window !== 'undefined' && typeof window.WeakSet !== 'undefined') {
+    devWarningsDirection =
+    /*#__PURE__*/
+    new WeakSet();
+    devWarningsTagName$1 =
+    /*#__PURE__*/
+    new WeakSet();
+  }
+}
+
+function createListComponent(_ref) {
+  var _class, _temp;
+
+  var getItemOffset = _ref.getItemOffset,
+      getEstimatedTotalSize = _ref.getEstimatedTotalSize,
+      getItemSize = _ref.getItemSize,
+      getOffsetForIndexAndAlignment = _ref.getOffsetForIndexAndAlignment,
+      getStartIndexForOffset = _ref.getStartIndexForOffset,
+      getStopIndexForStartIndex = _ref.getStopIndexForStartIndex,
+      initInstanceProps = _ref.initInstanceProps,
+      shouldResetStyleCacheOnItemSizeChange = _ref.shouldResetStyleCacheOnItemSizeChange,
+      validateProps = _ref.validateProps;
+  return _temp = _class =
+  /*#__PURE__*/
+  function (_PureComponent) {
+    (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__.default)(List, _PureComponent);
+
+    // Always use explicit constructor for React components.
+    // It produces less code after transpilation. (#26)
+    // eslint-disable-next-line no-useless-constructor
+    function List(props) {
+      var _this;
+
+      _this = _PureComponent.call(this, props) || this;
+      _this._instanceProps = initInstanceProps(_this.props, (0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this)));
+      _this._outerRef = void 0;
+      _this._resetIsScrollingTimeoutId = null;
+      _this.state = {
+        instance: (0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__.default)(_this)),
+        isScrolling: false,
+        scrollDirection: 'forward',
+        scrollOffset: typeof _this.props.initialScrollOffset === 'number' ? _this.props.initialScrollOffset : 0,
+        scrollUpdateWasRequested: false
+      };
+      _this._callOnItemsRendered = void 0;
+      _this._callOnItemsRendered = (0,memoize_one__WEBPACK_IMPORTED_MODULE_5__.default)(function (overscanStartIndex, overscanStopIndex, visibleStartIndex, visibleStopIndex) {
+        return _this.props.onItemsRendered({
+          overscanStartIndex: overscanStartIndex,
+          overscanStopIndex: overscanStopIndex,
+          visibleStartIndex: visibleStartIndex,
+          visibleStopIndex: visibleStopIndex
+        });
+      });
+      _this._callOnScroll = void 0;
+      _this._callOnScroll = (0,memoize_one__WEBPACK_IMPORTED_MODULE_5__.default)(function (scrollDirection, scrollOffset, scrollUpdateWasRequested) {
+        return _this.props.onScroll({
+          scrollDirection: scrollDirection,
+          scrollOffset: scrollOffset,
+          scrollUpdateWasRequested: scrollUpdateWasRequested
+        });
+      });
+      _this._getItemStyle = void 0;
+
+      _this._getItemStyle = function (index) {
+        var _this$props = _this.props,
+            direction = _this$props.direction,
+            itemSize = _this$props.itemSize,
+            layout = _this$props.layout;
+
+        var itemStyleCache = _this._getItemStyleCache(shouldResetStyleCacheOnItemSizeChange && itemSize, shouldResetStyleCacheOnItemSizeChange && layout, shouldResetStyleCacheOnItemSizeChange && direction);
+
+        var style;
+
+        if (itemStyleCache.hasOwnProperty(index)) {
+          style = itemStyleCache[index];
+        } else {
+          var _offset = getItemOffset(_this.props, index, _this._instanceProps);
+
+          var size = getItemSize(_this.props, index, _this._instanceProps); // TODO Deprecate direction "horizontal"
+
+          var isHorizontal = direction === 'horizontal' || layout === 'horizontal';
+          var isRtl = direction === 'rtl';
+          var offsetHorizontal = isHorizontal ? _offset : 0;
+          itemStyleCache[index] = style = {
+            position: 'absolute',
+            left: isRtl ? undefined : offsetHorizontal,
+            right: isRtl ? offsetHorizontal : undefined,
+            top: !isHorizontal ? _offset : 0,
+            height: !isHorizontal ? size : '100%',
+            width: isHorizontal ? size : '100%'
+          };
+        }
+
+        return style;
+      };
+
+      _this._getItemStyleCache = void 0;
+      _this._getItemStyleCache = (0,memoize_one__WEBPACK_IMPORTED_MODULE_5__.default)(function (_, __, ___) {
+        return {};
+      });
+
+      _this._onScrollHorizontal = function (event) {
+        var _event$currentTarget = event.currentTarget,
+            clientWidth = _event$currentTarget.clientWidth,
+            scrollLeft = _event$currentTarget.scrollLeft,
+            scrollWidth = _event$currentTarget.scrollWidth;
+
+        _this.setState(function (prevState) {
+          if (prevState.scrollOffset === scrollLeft) {
+            // Scroll position may have been updated by cDM/cDU,
+            // In which case we don't need to trigger another render,
+            // And we don't want to update state.isScrolling.
+            return null;
+          }
+
+          var direction = _this.props.direction;
+          var scrollOffset = scrollLeft;
+
+          if (direction === 'rtl') {
+            // TRICKY According to the spec, scrollLeft should be negative for RTL aligned elements.
+            // This is not the case for all browsers though (e.g. Chrome reports values as positive, measured relative to the left).
+            // It's also easier for this component if we convert offsets to the same format as they would be in for ltr.
+            // So the simplest solution is to determine which browser behavior we're dealing with, and convert based on it.
+            switch (getRTLOffsetType()) {
+              case 'negative':
+                scrollOffset = -scrollLeft;
+                break;
+
+              case 'positive-descending':
+                scrollOffset = scrollWidth - clientWidth - scrollLeft;
+                break;
+            }
+          } // Prevent Safari's elastic scrolling from causing visual shaking when scrolling past bounds.
+
+
+          scrollOffset = Math.max(0, Math.min(scrollOffset, scrollWidth - clientWidth));
+          return {
+            isScrolling: true,
+            scrollDirection: prevState.scrollOffset < scrollLeft ? 'forward' : 'backward',
+            scrollOffset: scrollOffset,
+            scrollUpdateWasRequested: false
+          };
+        }, _this._resetIsScrollingDebounced);
+      };
+
+      _this._onScrollVertical = function (event) {
+        var _event$currentTarget2 = event.currentTarget,
+            clientHeight = _event$currentTarget2.clientHeight,
+            scrollHeight = _event$currentTarget2.scrollHeight,
+            scrollTop = _event$currentTarget2.scrollTop;
+
+        _this.setState(function (prevState) {
+          if (prevState.scrollOffset === scrollTop) {
+            // Scroll position may have been updated by cDM/cDU,
+            // In which case we don't need to trigger another render,
+            // And we don't want to update state.isScrolling.
+            return null;
+          } // Prevent Safari's elastic scrolling from causing visual shaking when scrolling past bounds.
+
+
+          var scrollOffset = Math.max(0, Math.min(scrollTop, scrollHeight - clientHeight));
+          return {
+            isScrolling: true,
+            scrollDirection: prevState.scrollOffset < scrollOffset ? 'forward' : 'backward',
+            scrollOffset: scrollOffset,
+            scrollUpdateWasRequested: false
+          };
+        }, _this._resetIsScrollingDebounced);
+      };
+
+      _this._outerRefSetter = function (ref) {
+        var outerRef = _this.props.outerRef;
+        _this._outerRef = ref;
+
+        if (typeof outerRef === 'function') {
+          outerRef(ref);
+        } else if (outerRef != null && typeof outerRef === 'object' && outerRef.hasOwnProperty('current')) {
+          outerRef.current = ref;
+        }
+      };
+
+      _this._resetIsScrollingDebounced = function () {
+        if (_this._resetIsScrollingTimeoutId !== null) {
+          cancelTimeout(_this._resetIsScrollingTimeoutId);
+        }
+
+        _this._resetIsScrollingTimeoutId = requestTimeout(_this._resetIsScrolling, IS_SCROLLING_DEBOUNCE_INTERVAL$1);
+      };
+
+      _this._resetIsScrolling = function () {
+        _this._resetIsScrollingTimeoutId = null;
+
+        _this.setState({
+          isScrolling: false
+        }, function () {
+          // Clear style cache after state update has been committed.
+          // This way we don't break pure sCU for items that don't use isScrolling param.
+          _this._getItemStyleCache(-1, null);
+        });
+      };
+
+      return _this;
+    }
+
+    List.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, prevState) {
+      validateSharedProps$1(nextProps, prevState);
+      validateProps(nextProps);
+      return null;
+    };
+
+    var _proto = List.prototype;
+
+    _proto.scrollTo = function scrollTo(scrollOffset) {
+      scrollOffset = Math.max(0, scrollOffset);
+      this.setState(function (prevState) {
+        if (prevState.scrollOffset === scrollOffset) {
+          return null;
+        }
+
+        return {
+          scrollDirection: prevState.scrollOffset < scrollOffset ? 'forward' : 'backward',
+          scrollOffset: scrollOffset,
+          scrollUpdateWasRequested: true
+        };
+      }, this._resetIsScrollingDebounced);
+    };
+
+    _proto.scrollToItem = function scrollToItem(index, align) {
+      if (align === void 0) {
+        align = 'auto';
+      }
+
+      var itemCount = this.props.itemCount;
+      var scrollOffset = this.state.scrollOffset;
+      index = Math.max(0, Math.min(index, itemCount - 1));
+      this.scrollTo(getOffsetForIndexAndAlignment(this.props, index, align, scrollOffset, this._instanceProps));
+    };
+
+    _proto.componentDidMount = function componentDidMount() {
+      var _this$props2 = this.props,
+          direction = _this$props2.direction,
+          initialScrollOffset = _this$props2.initialScrollOffset,
+          layout = _this$props2.layout;
+
+      if (typeof initialScrollOffset === 'number' && this._outerRef != null) {
+        var outerRef = this._outerRef; // TODO Deprecate direction "horizontal"
+
+        if (direction === 'horizontal' || layout === 'horizontal') {
+          outerRef.scrollLeft = initialScrollOffset;
+        } else {
+          outerRef.scrollTop = initialScrollOffset;
+        }
+      }
+
+      this._callPropsCallbacks();
+    };
+
+    _proto.componentDidUpdate = function componentDidUpdate() {
+      var _this$props3 = this.props,
+          direction = _this$props3.direction,
+          layout = _this$props3.layout;
+      var _this$state = this.state,
+          scrollOffset = _this$state.scrollOffset,
+          scrollUpdateWasRequested = _this$state.scrollUpdateWasRequested;
+
+      if (scrollUpdateWasRequested && this._outerRef != null) {
+        var outerRef = this._outerRef; // TODO Deprecate direction "horizontal"
+
+        if (direction === 'horizontal' || layout === 'horizontal') {
+          if (direction === 'rtl') {
+            // TRICKY According to the spec, scrollLeft should be negative for RTL aligned elements.
+            // This is not the case for all browsers though (e.g. Chrome reports values as positive, measured relative to the left).
+            // So we need to determine which browser behavior we're dealing with, and mimic it.
+            switch (getRTLOffsetType()) {
+              case 'negative':
+                outerRef.scrollLeft = -scrollOffset;
+                break;
+
+              case 'positive-ascending':
+                outerRef.scrollLeft = scrollOffset;
+                break;
+
+              default:
+                var clientWidth = outerRef.clientWidth,
+                    scrollWidth = outerRef.scrollWidth;
+                outerRef.scrollLeft = scrollWidth - clientWidth - scrollOffset;
+                break;
+            }
+          } else {
+            outerRef.scrollLeft = scrollOffset;
+          }
+        } else {
+          outerRef.scrollTop = scrollOffset;
+        }
+      }
+
+      this._callPropsCallbacks();
+    };
+
+    _proto.componentWillUnmount = function componentWillUnmount() {
+      if (this._resetIsScrollingTimeoutId !== null) {
+        cancelTimeout(this._resetIsScrollingTimeoutId);
+      }
+    };
+
+    _proto.render = function render() {
+      var _this$props4 = this.props,
+          children = _this$props4.children,
+          className = _this$props4.className,
+          direction = _this$props4.direction,
+          height = _this$props4.height,
+          innerRef = _this$props4.innerRef,
+          innerElementType = _this$props4.innerElementType,
+          innerTagName = _this$props4.innerTagName,
+          itemCount = _this$props4.itemCount,
+          itemData = _this$props4.itemData,
+          _this$props4$itemKey = _this$props4.itemKey,
+          itemKey = _this$props4$itemKey === void 0 ? defaultItemKey$1 : _this$props4$itemKey,
+          layout = _this$props4.layout,
+          outerElementType = _this$props4.outerElementType,
+          outerTagName = _this$props4.outerTagName,
+          style = _this$props4.style,
+          useIsScrolling = _this$props4.useIsScrolling,
+          width = _this$props4.width;
+      var isScrolling = this.state.isScrolling; // TODO Deprecate direction "horizontal"
+
+      var isHorizontal = direction === 'horizontal' || layout === 'horizontal';
+      var onScroll = isHorizontal ? this._onScrollHorizontal : this._onScrollVertical;
+
+      var _this$_getRangeToRend = this._getRangeToRender(),
+          startIndex = _this$_getRangeToRend[0],
+          stopIndex = _this$_getRangeToRend[1];
+
+      var items = [];
+
+      if (itemCount > 0) {
+        for (var _index = startIndex; _index <= stopIndex; _index++) {
+          items.push((0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(children, {
+            data: itemData,
+            key: itemKey(_index, itemData),
+            index: _index,
+            isScrolling: useIsScrolling ? isScrolling : undefined,
+            style: this._getItemStyle(_index)
+          }));
+        }
+      } // Read this value AFTER items have been created,
+      // So their actual sizes (if variable) are taken into consideration.
+
+
+      var estimatedTotalSize = getEstimatedTotalSize(this.props, this._instanceProps);
+      return (0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(outerElementType || outerTagName || 'div', {
+        className: className,
+        onScroll: onScroll,
+        ref: this._outerRefSetter,
+        style: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({
+          position: 'relative',
+          height: height,
+          width: width,
+          overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          willChange: 'transform',
+          direction: direction
+        }, style)
+      }, (0,react__WEBPACK_IMPORTED_MODULE_3__.createElement)(innerElementType || innerTagName || 'div', {
+        children: items,
+        ref: innerRef,
+        style: {
+          height: isHorizontal ? '100%' : estimatedTotalSize,
+          pointerEvents: isScrolling ? 'none' : undefined,
+          width: isHorizontal ? estimatedTotalSize : '100%'
+        }
+      }));
+    };
+
+    _proto._callPropsCallbacks = function _callPropsCallbacks() {
+      if (typeof this.props.onItemsRendered === 'function') {
+        var itemCount = this.props.itemCount;
+
+        if (itemCount > 0) {
+          var _this$_getRangeToRend2 = this._getRangeToRender(),
+              _overscanStartIndex = _this$_getRangeToRend2[0],
+              _overscanStopIndex = _this$_getRangeToRend2[1],
+              _visibleStartIndex = _this$_getRangeToRend2[2],
+              _visibleStopIndex = _this$_getRangeToRend2[3];
+
+          this._callOnItemsRendered(_overscanStartIndex, _overscanStopIndex, _visibleStartIndex, _visibleStopIndex);
+        }
+      }
+
+      if (typeof this.props.onScroll === 'function') {
+        var _this$state2 = this.state,
+            _scrollDirection = _this$state2.scrollDirection,
+            _scrollOffset = _this$state2.scrollOffset,
+            _scrollUpdateWasRequested = _this$state2.scrollUpdateWasRequested;
+
+        this._callOnScroll(_scrollDirection, _scrollOffset, _scrollUpdateWasRequested);
+      }
+    }; // Lazily create and cache item styles while scrolling,
+    // So that pure component sCU will prevent re-renders.
+    // We maintain this cache, and pass a style prop rather than index,
+    // So that List can clear cached styles and force item re-render if necessary.
+
+
+    _proto._getRangeToRender = function _getRangeToRender() {
+      var _this$props5 = this.props,
+          itemCount = _this$props5.itemCount,
+          overscanCount = _this$props5.overscanCount;
+      var _this$state3 = this.state,
+          isScrolling = _this$state3.isScrolling,
+          scrollDirection = _this$state3.scrollDirection,
+          scrollOffset = _this$state3.scrollOffset;
+
+      if (itemCount === 0) {
+        return [0, 0, 0, 0];
+      }
+
+      var startIndex = getStartIndexForOffset(this.props, scrollOffset, this._instanceProps);
+      var stopIndex = getStopIndexForStartIndex(this.props, startIndex, scrollOffset, this._instanceProps); // Overscan by one item in each direction so that tab/focus works.
+      // If there isn't at least one extra item, tab loops back around.
+
+      var overscanBackward = !isScrolling || scrollDirection === 'backward' ? Math.max(1, overscanCount) : 1;
+      var overscanForward = !isScrolling || scrollDirection === 'forward' ? Math.max(1, overscanCount) : 1;
+      return [Math.max(0, startIndex - overscanBackward), Math.max(0, Math.min(itemCount - 1, stopIndex + overscanForward)), startIndex, stopIndex];
+    };
+
+    return List;
+  }(react__WEBPACK_IMPORTED_MODULE_3__.PureComponent), _class.defaultProps = {
+    direction: 'ltr',
+    itemData: undefined,
+    layout: 'vertical',
+    overscanCount: 2,
+    useIsScrolling: false
+  }, _temp;
+} // NOTE: I considered further wrapping individual items with a pure ListItem component.
+// This would avoid ever calling the render function for the same index more than once,
+// But it would also add the overhead of a lot of components/fibers.
+// I assume people already do this (render function returning a class component),
+// So my doing it would just unnecessarily double the wrappers.
+
+var validateSharedProps$1 = function validateSharedProps(_ref2, _ref3) {
+  var children = _ref2.children,
+      direction = _ref2.direction,
+      height = _ref2.height,
+      layout = _ref2.layout,
+      innerTagName = _ref2.innerTagName,
+      outerTagName = _ref2.outerTagName,
+      width = _ref2.width;
+  var instance = _ref3.instance;
+
+  if (true) {
+    if (innerTagName != null || outerTagName != null) {
+      if (devWarningsTagName$1 && !devWarningsTagName$1.has(instance)) {
+        devWarningsTagName$1.add(instance);
+        console.warn('The innerTagName and outerTagName props have been deprecated. ' + 'Please use the innerElementType and outerElementType props instead.');
+      }
+    } // TODO Deprecate direction "horizontal"
+
+
+    var isHorizontal = direction === 'horizontal' || layout === 'horizontal';
+
+    switch (direction) {
+      case 'horizontal':
+      case 'vertical':
+        if (devWarningsDirection && !devWarningsDirection.has(instance)) {
+          devWarningsDirection.add(instance);
+          console.warn('The direction prop should be either "ltr" (default) or "rtl". ' + 'Please use the layout prop to specify "vertical" (default) or "horizontal" orientation.');
+        }
+
+        break;
+
+      case 'ltr':
+      case 'rtl':
+        // Valid values
+        break;
+
+      default:
+        throw Error('An invalid "direction" prop has been specified. ' + 'Value should be either "ltr" or "rtl". ' + ("\"" + direction + "\" was specified."));
+    }
+
+    switch (layout) {
+      case 'horizontal':
+      case 'vertical':
+        // Valid values
+        break;
+
+      default:
+        throw Error('An invalid "layout" prop has been specified. ' + 'Value should be either "horizontal" or "vertical". ' + ("\"" + layout + "\" was specified."));
+    }
+
+    if (children == null) {
+      throw Error('An invalid "children" prop has been specified. ' + 'Value should be a React component. ' + ("\"" + (children === null ? 'null' : typeof children) + "\" was specified."));
+    }
+
+    if (isHorizontal && typeof width !== 'number') {
+      throw Error('An invalid "width" prop has been specified. ' + 'Horizontal lists must specify a number for width. ' + ("\"" + (width === null ? 'null' : typeof width) + "\" was specified."));
+    } else if (!isHorizontal && typeof height !== 'number') {
+      throw Error('An invalid "height" prop has been specified. ' + 'Vertical lists must specify a number for height. ' + ("\"" + (height === null ? 'null' : typeof height) + "\" was specified."));
+    }
+  }
+};
+
+var DEFAULT_ESTIMATED_ITEM_SIZE$1 = 50;
+
+var getItemMetadata$1 = function getItemMetadata(props, index, instanceProps) {
+  var _ref = props,
+      itemSize = _ref.itemSize;
+  var itemMetadataMap = instanceProps.itemMetadataMap,
+      lastMeasuredIndex = instanceProps.lastMeasuredIndex;
+
+  if (index > lastMeasuredIndex) {
+    var offset = 0;
+
+    if (lastMeasuredIndex >= 0) {
+      var itemMetadata = itemMetadataMap[lastMeasuredIndex];
+      offset = itemMetadata.offset + itemMetadata.size;
+    }
+
+    for (var i = lastMeasuredIndex + 1; i <= index; i++) {
+      var size = itemSize(i);
+      itemMetadataMap[i] = {
+        offset: offset,
+        size: size
+      };
+      offset += size;
+    }
+
+    instanceProps.lastMeasuredIndex = index;
+  }
+
+  return itemMetadataMap[index];
+};
+
+var findNearestItem$1 = function findNearestItem(props, instanceProps, offset) {
+  var itemMetadataMap = instanceProps.itemMetadataMap,
+      lastMeasuredIndex = instanceProps.lastMeasuredIndex;
+  var lastMeasuredItemOffset = lastMeasuredIndex > 0 ? itemMetadataMap[lastMeasuredIndex].offset : 0;
+
+  if (lastMeasuredItemOffset >= offset) {
+    // If we've already measured items within this range just use a binary search as it's faster.
+    return findNearestItemBinarySearch$1(props, instanceProps, lastMeasuredIndex, 0, offset);
+  } else {
+    // If we haven't yet measured this high, fallback to an exponential search with an inner binary search.
+    // The exponential search avoids pre-computing sizes for the full set of items as a binary search would.
+    // The overall complexity for this approach is O(log n).
+    return findNearestItemExponentialSearch$1(props, instanceProps, Math.max(0, lastMeasuredIndex), offset);
+  }
+};
+
+var findNearestItemBinarySearch$1 = function findNearestItemBinarySearch(props, instanceProps, high, low, offset) {
+  while (low <= high) {
+    var middle = low + Math.floor((high - low) / 2);
+    var currentOffset = getItemMetadata$1(props, middle, instanceProps).offset;
+
+    if (currentOffset === offset) {
+      return middle;
+    } else if (currentOffset < offset) {
+      low = middle + 1;
+    } else if (currentOffset > offset) {
+      high = middle - 1;
+    }
+  }
+
+  if (low > 0) {
+    return low - 1;
+  } else {
+    return 0;
+  }
+};
+
+var findNearestItemExponentialSearch$1 = function findNearestItemExponentialSearch(props, instanceProps, index, offset) {
+  var itemCount = props.itemCount;
+  var interval = 1;
+
+  while (index < itemCount && getItemMetadata$1(props, index, instanceProps).offset < offset) {
+    index += interval;
+    interval *= 2;
+  }
+
+  return findNearestItemBinarySearch$1(props, instanceProps, Math.min(index, itemCount - 1), Math.floor(index / 2), offset);
+};
+
+var getEstimatedTotalSize = function getEstimatedTotalSize(_ref2, _ref3) {
+  var itemCount = _ref2.itemCount;
+  var itemMetadataMap = _ref3.itemMetadataMap,
+      estimatedItemSize = _ref3.estimatedItemSize,
+      lastMeasuredIndex = _ref3.lastMeasuredIndex;
+  var totalSizeOfMeasuredItems = 0; // Edge case check for when the number of items decreases while a scroll is in progress.
+  // https://github.com/bvaughn/react-window/pull/138
+
+  if (lastMeasuredIndex >= itemCount) {
+    lastMeasuredIndex = itemCount - 1;
+  }
+
+  if (lastMeasuredIndex >= 0) {
+    var itemMetadata = itemMetadataMap[lastMeasuredIndex];
+    totalSizeOfMeasuredItems = itemMetadata.offset + itemMetadata.size;
+  }
+
+  var numUnmeasuredItems = itemCount - lastMeasuredIndex - 1;
+  var totalSizeOfUnmeasuredItems = numUnmeasuredItems * estimatedItemSize;
+  return totalSizeOfMeasuredItems + totalSizeOfUnmeasuredItems;
+};
+
+var VariableSizeList =
+/*#__PURE__*/
+createListComponent({
+  getItemOffset: function getItemOffset(props, index, instanceProps) {
+    return getItemMetadata$1(props, index, instanceProps).offset;
+  },
+  getItemSize: function getItemSize(props, index, instanceProps) {
+    return instanceProps.itemMetadataMap[index].size;
+  },
+  getEstimatedTotalSize: getEstimatedTotalSize,
+  getOffsetForIndexAndAlignment: function getOffsetForIndexAndAlignment(props, index, align, scrollOffset, instanceProps) {
+    var direction = props.direction,
+        height = props.height,
+        layout = props.layout,
+        width = props.width; // TODO Deprecate direction "horizontal"
+
+    var isHorizontal = direction === 'horizontal' || layout === 'horizontal';
+    var size = isHorizontal ? width : height;
+    var itemMetadata = getItemMetadata$1(props, index, instanceProps); // Get estimated total size after ItemMetadata is computed,
+    // To ensure it reflects actual measurements instead of just estimates.
+
+    var estimatedTotalSize = getEstimatedTotalSize(props, instanceProps);
+    var maxOffset = Math.max(0, Math.min(estimatedTotalSize - size, itemMetadata.offset));
+    var minOffset = Math.max(0, itemMetadata.offset - size + itemMetadata.size);
+
+    if (align === 'smart') {
+      if (scrollOffset >= minOffset - size && scrollOffset <= maxOffset + size) {
+        align = 'auto';
+      } else {
+        align = 'center';
+      }
+    }
+
+    switch (align) {
+      case 'start':
+        return maxOffset;
+
+      case 'end':
+        return minOffset;
+
+      case 'center':
+        return Math.round(minOffset + (maxOffset - minOffset) / 2);
+
+      case 'auto':
+      default:
+        if (scrollOffset >= minOffset && scrollOffset <= maxOffset) {
+          return scrollOffset;
+        } else if (scrollOffset < minOffset) {
+          return minOffset;
+        } else {
+          return maxOffset;
+        }
+
+    }
+  },
+  getStartIndexForOffset: function getStartIndexForOffset(props, offset, instanceProps) {
+    return findNearestItem$1(props, instanceProps, offset);
+  },
+  getStopIndexForStartIndex: function getStopIndexForStartIndex(props, startIndex, scrollOffset, instanceProps) {
+    var direction = props.direction,
+        height = props.height,
+        itemCount = props.itemCount,
+        layout = props.layout,
+        width = props.width; // TODO Deprecate direction "horizontal"
+
+    var isHorizontal = direction === 'horizontal' || layout === 'horizontal';
+    var size = isHorizontal ? width : height;
+    var itemMetadata = getItemMetadata$1(props, startIndex, instanceProps);
+    var maxOffset = scrollOffset + size;
+    var offset = itemMetadata.offset + itemMetadata.size;
+    var stopIndex = startIndex;
+
+    while (stopIndex < itemCount - 1 && offset < maxOffset) {
+      stopIndex++;
+      offset += getItemMetadata$1(props, stopIndex, instanceProps).size;
+    }
+
+    return stopIndex;
+  },
+  initInstanceProps: function initInstanceProps(props, instance) {
+    var _ref4 = props,
+        estimatedItemSize = _ref4.estimatedItemSize;
+    var instanceProps = {
+      itemMetadataMap: {},
+      estimatedItemSize: estimatedItemSize || DEFAULT_ESTIMATED_ITEM_SIZE$1,
+      lastMeasuredIndex: -1
+    };
+
+    instance.resetAfterIndex = function (index, shouldForceUpdate) {
+      if (shouldForceUpdate === void 0) {
+        shouldForceUpdate = true;
+      }
+
+      instanceProps.lastMeasuredIndex = Math.min(instanceProps.lastMeasuredIndex, index - 1); // We could potentially optimize further by only evicting styles after this index,
+      // But since styles are only cached while scrolling is in progress-
+      // It seems an unnecessary optimization.
+      // It's unlikely that resetAfterIndex() will be called while a user is scrolling.
+
+      instance._getItemStyleCache(-1);
+
+      if (shouldForceUpdate) {
+        instance.forceUpdate();
+      }
+    };
+
+    return instanceProps;
+  },
+  shouldResetStyleCacheOnItemSizeChange: false,
+  validateProps: function validateProps(_ref5) {
+    var itemSize = _ref5.itemSize;
+
+    if (true) {
+      if (typeof itemSize !== 'function') {
+        throw Error('An invalid "itemSize" prop has been specified. ' + 'Value should be a function. ' + ("\"" + (itemSize === null ? 'null' : typeof itemSize) + "\" was specified."));
+      }
+    }
+  }
+});
+
+var FixedSizeGrid =
+/*#__PURE__*/
+createGridComponent({
+  getColumnOffset: function getColumnOffset(_ref, index) {
+    var columnWidth = _ref.columnWidth;
+    return index * columnWidth;
+  },
+  getColumnWidth: function getColumnWidth(_ref2, index) {
+    var columnWidth = _ref2.columnWidth;
+    return columnWidth;
+  },
+  getRowOffset: function getRowOffset(_ref3, index) {
+    var rowHeight = _ref3.rowHeight;
+    return index * rowHeight;
+  },
+  getRowHeight: function getRowHeight(_ref4, index) {
+    var rowHeight = _ref4.rowHeight;
+    return rowHeight;
+  },
+  getEstimatedTotalHeight: function getEstimatedTotalHeight(_ref5) {
+    var rowCount = _ref5.rowCount,
+        rowHeight = _ref5.rowHeight;
+    return rowHeight * rowCount;
+  },
+  getEstimatedTotalWidth: function getEstimatedTotalWidth(_ref6) {
+    var columnCount = _ref6.columnCount,
+        columnWidth = _ref6.columnWidth;
+    return columnWidth * columnCount;
+  },
+  getOffsetForColumnAndAlignment: function getOffsetForColumnAndAlignment(_ref7, columnIndex, align, scrollLeft, instanceProps, scrollbarSize) {
+    var columnCount = _ref7.columnCount,
+        columnWidth = _ref7.columnWidth,
+        width = _ref7.width;
+    var lastColumnOffset = Math.max(0, columnCount * columnWidth - width);
+    var maxOffset = Math.min(lastColumnOffset, columnIndex * columnWidth);
+    var minOffset = Math.max(0, columnIndex * columnWidth - width + scrollbarSize + columnWidth);
+
+    if (align === 'smart') {
+      if (scrollLeft >= minOffset - width && scrollLeft <= maxOffset + width) {
+        align = 'auto';
+      } else {
+        align = 'center';
+      }
+    }
+
+    switch (align) {
+      case 'start':
+        return maxOffset;
+
+      case 'end':
+        return minOffset;
+
+      case 'center':
+        // "Centered" offset is usually the average of the min and max.
+        // But near the edges of the list, this doesn't hold true.
+        var middleOffset = Math.round(minOffset + (maxOffset - minOffset) / 2);
+
+        if (middleOffset < Math.ceil(width / 2)) {
+          return 0; // near the beginning
+        } else if (middleOffset > lastColumnOffset + Math.floor(width / 2)) {
+          return lastColumnOffset; // near the end
+        } else {
+          return middleOffset;
+        }
+
+      case 'auto':
+      default:
+        if (scrollLeft >= minOffset && scrollLeft <= maxOffset) {
+          return scrollLeft;
+        } else if (minOffset > maxOffset) {
+          // Because we only take into account the scrollbar size when calculating minOffset
+          // this value can be larger than maxOffset when at the end of the list
+          return minOffset;
+        } else if (scrollLeft < minOffset) {
+          return minOffset;
+        } else {
+          return maxOffset;
+        }
+
+    }
+  },
+  getOffsetForRowAndAlignment: function getOffsetForRowAndAlignment(_ref8, rowIndex, align, scrollTop, instanceProps, scrollbarSize) {
+    var rowHeight = _ref8.rowHeight,
+        height = _ref8.height,
+        rowCount = _ref8.rowCount;
+    var lastRowOffset = Math.max(0, rowCount * rowHeight - height);
+    var maxOffset = Math.min(lastRowOffset, rowIndex * rowHeight);
+    var minOffset = Math.max(0, rowIndex * rowHeight - height + scrollbarSize + rowHeight);
+
+    if (align === 'smart') {
+      if (scrollTop >= minOffset - height && scrollTop <= maxOffset + height) {
+        align = 'auto';
+      } else {
+        align = 'center';
+      }
+    }
+
+    switch (align) {
+      case 'start':
+        return maxOffset;
+
+      case 'end':
+        return minOffset;
+
+      case 'center':
+        // "Centered" offset is usually the average of the min and max.
+        // But near the edges of the list, this doesn't hold true.
+        var middleOffset = Math.round(minOffset + (maxOffset - minOffset) / 2);
+
+        if (middleOffset < Math.ceil(height / 2)) {
+          return 0; // near the beginning
+        } else if (middleOffset > lastRowOffset + Math.floor(height / 2)) {
+          return lastRowOffset; // near the end
+        } else {
+          return middleOffset;
+        }
+
+      case 'auto':
+      default:
+        if (scrollTop >= minOffset && scrollTop <= maxOffset) {
+          return scrollTop;
+        } else if (minOffset > maxOffset) {
+          // Because we only take into account the scrollbar size when calculating minOffset
+          // this value can be larger than maxOffset when at the end of the list
+          return minOffset;
+        } else if (scrollTop < minOffset) {
+          return minOffset;
+        } else {
+          return maxOffset;
+        }
+
+    }
+  },
+  getColumnStartIndexForOffset: function getColumnStartIndexForOffset(_ref9, scrollLeft) {
+    var columnWidth = _ref9.columnWidth,
+        columnCount = _ref9.columnCount;
+    return Math.max(0, Math.min(columnCount - 1, Math.floor(scrollLeft / columnWidth)));
+  },
+  getColumnStopIndexForStartIndex: function getColumnStopIndexForStartIndex(_ref10, startIndex, scrollLeft) {
+    var columnWidth = _ref10.columnWidth,
+        columnCount = _ref10.columnCount,
+        width = _ref10.width;
+    var left = startIndex * columnWidth;
+    var numVisibleColumns = Math.ceil((width + scrollLeft - left) / columnWidth);
+    return Math.max(0, Math.min(columnCount - 1, startIndex + numVisibleColumns - 1 // -1 is because stop index is inclusive
+    ));
+  },
+  getRowStartIndexForOffset: function getRowStartIndexForOffset(_ref11, scrollTop) {
+    var rowHeight = _ref11.rowHeight,
+        rowCount = _ref11.rowCount;
+    return Math.max(0, Math.min(rowCount - 1, Math.floor(scrollTop / rowHeight)));
+  },
+  getRowStopIndexForStartIndex: function getRowStopIndexForStartIndex(_ref12, startIndex, scrollTop) {
+    var rowHeight = _ref12.rowHeight,
+        rowCount = _ref12.rowCount,
+        height = _ref12.height;
+    var top = startIndex * rowHeight;
+    var numVisibleRows = Math.ceil((height + scrollTop - top) / rowHeight);
+    return Math.max(0, Math.min(rowCount - 1, startIndex + numVisibleRows - 1 // -1 is because stop index is inclusive
+    ));
+  },
+  initInstanceProps: function initInstanceProps(props) {// Noop
+  },
+  shouldResetStyleCacheOnItemSizeChange: true,
+  validateProps: function validateProps(_ref13) {
+    var columnWidth = _ref13.columnWidth,
+        rowHeight = _ref13.rowHeight;
+
+    if (true) {
+      if (typeof columnWidth !== 'number') {
+        throw Error('An invalid "columnWidth" prop has been specified. ' + 'Value should be a number. ' + ("\"" + (columnWidth === null ? 'null' : typeof columnWidth) + "\" was specified."));
+      }
+
+      if (typeof rowHeight !== 'number') {
+        throw Error('An invalid "rowHeight" prop has been specified. ' + 'Value should be a number. ' + ("\"" + (rowHeight === null ? 'null' : typeof rowHeight) + "\" was specified."));
+      }
+    }
+  }
+});
+
+var FixedSizeList =
+/*#__PURE__*/
+createListComponent({
+  getItemOffset: function getItemOffset(_ref, index) {
+    var itemSize = _ref.itemSize;
+    return index * itemSize;
+  },
+  getItemSize: function getItemSize(_ref2, index) {
+    var itemSize = _ref2.itemSize;
+    return itemSize;
+  },
+  getEstimatedTotalSize: function getEstimatedTotalSize(_ref3) {
+    var itemCount = _ref3.itemCount,
+        itemSize = _ref3.itemSize;
+    return itemSize * itemCount;
+  },
+  getOffsetForIndexAndAlignment: function getOffsetForIndexAndAlignment(_ref4, index, align, scrollOffset) {
+    var direction = _ref4.direction,
+        height = _ref4.height,
+        itemCount = _ref4.itemCount,
+        itemSize = _ref4.itemSize,
+        layout = _ref4.layout,
+        width = _ref4.width;
+    // TODO Deprecate direction "horizontal"
+    var isHorizontal = direction === 'horizontal' || layout === 'horizontal';
+    var size = isHorizontal ? width : height;
+    var lastItemOffset = Math.max(0, itemCount * itemSize - size);
+    var maxOffset = Math.min(lastItemOffset, index * itemSize);
+    var minOffset = Math.max(0, index * itemSize - size + itemSize);
+
+    if (align === 'smart') {
+      if (scrollOffset >= minOffset - size && scrollOffset <= maxOffset + size) {
+        align = 'auto';
+      } else {
+        align = 'center';
+      }
+    }
+
+    switch (align) {
+      case 'start':
+        return maxOffset;
+
+      case 'end':
+        return minOffset;
+
+      case 'center':
+        {
+          // "Centered" offset is usually the average of the min and max.
+          // But near the edges of the list, this doesn't hold true.
+          var middleOffset = Math.round(minOffset + (maxOffset - minOffset) / 2);
+
+          if (middleOffset < Math.ceil(size / 2)) {
+            return 0; // near the beginning
+          } else if (middleOffset > lastItemOffset + Math.floor(size / 2)) {
+            return lastItemOffset; // near the end
+          } else {
+            return middleOffset;
+          }
+        }
+
+      case 'auto':
+      default:
+        if (scrollOffset >= minOffset && scrollOffset <= maxOffset) {
+          return scrollOffset;
+        } else if (scrollOffset < minOffset) {
+          return minOffset;
+        } else {
+          return maxOffset;
+        }
+
+    }
+  },
+  getStartIndexForOffset: function getStartIndexForOffset(_ref5, offset) {
+    var itemCount = _ref5.itemCount,
+        itemSize = _ref5.itemSize;
+    return Math.max(0, Math.min(itemCount - 1, Math.floor(offset / itemSize)));
+  },
+  getStopIndexForStartIndex: function getStopIndexForStartIndex(_ref6, startIndex, scrollOffset) {
+    var direction = _ref6.direction,
+        height = _ref6.height,
+        itemCount = _ref6.itemCount,
+        itemSize = _ref6.itemSize,
+        layout = _ref6.layout,
+        width = _ref6.width;
+    // TODO Deprecate direction "horizontal"
+    var isHorizontal = direction === 'horizontal' || layout === 'horizontal';
+    var offset = startIndex * itemSize;
+    var size = isHorizontal ? width : height;
+    var numVisibleItems = Math.ceil((size + scrollOffset - offset) / itemSize);
+    return Math.max(0, Math.min(itemCount - 1, startIndex + numVisibleItems - 1 // -1 is because stop index is inclusive
+    ));
+  },
+  initInstanceProps: function initInstanceProps(props) {// Noop
+  },
+  shouldResetStyleCacheOnItemSizeChange: true,
+  validateProps: function validateProps(_ref7) {
+    var itemSize = _ref7.itemSize;
+
+    if (true) {
+      if (typeof itemSize !== 'number') {
+        throw Error('An invalid "itemSize" prop has been specified. ' + 'Value should be a number. ' + ("\"" + (itemSize === null ? 'null' : typeof itemSize) + "\" was specified."));
+      }
+    }
+  }
+});
+
+// Pulled from react-compat
+// https://github.com/developit/preact-compat/blob/7c5de00e7c85e2ffd011bf3af02899b63f699d3a/src/index.js#L349
+function shallowDiffers(prev, next) {
+  for (var attribute in prev) {
+    if (!(attribute in next)) {
+      return true;
+    }
+  }
+
+  for (var _attribute in next) {
+    if (prev[_attribute] !== next[_attribute]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// It knows to compare individual style props and ignore the wrapper object.
+// See https://reactjs.org/docs/react-api.html#reactmemo
+
+function areEqual(prevProps, nextProps) {
+  var prevStyle = prevProps.style,
+      prevRest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_4__.default)(prevProps, ["style"]);
+
+  var nextStyle = nextProps.style,
+      nextRest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_4__.default)(nextProps, ["style"]);
+
+  return !shallowDiffers(prevStyle, nextStyle) && !shallowDiffers(prevRest, nextRest);
+}
+
+// It knows to compare individual style props and ignore the wrapper object.
+// See https://reactjs.org/docs/react-component.html#shouldcomponentupdate
+
+function shouldComponentUpdate(nextProps, nextState) {
+  return !areEqual(this.props, nextProps) || shallowDiffers(this.state, nextState);
+}
+
+
+//# sourceMappingURL=index.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/react/cjs/react.development.js":
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
@@ -39332,6 +42547,17 @@ function validate(uuid) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (validate);
+
+/***/ }),
+
+/***/ "./playground/fakeLeaderBoardData.json":
+/*!*********************************************!*\
+  !*** ./playground/fakeLeaderBoardData.json ***!
+  \*********************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"type":"dbda13a5-70b4-445a-95a5-52f0802c4781","nextCursor":"","data":[{"userInfo":{"userID":"4bfcd001-5ff1-4ec7-88fe-e395b05386b0","displayName":"我是柔柔","picture":"24661c0e-a4da-4d34-8d5b-f85ba5bf98bc.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1000000,"rank":1,"meta":{"eventoryKey":"4bfcd001-5ff1-4ec7-88fe-e395b05386b0"}},{"userInfo":{"userID":"d6bcb865-92c7-4e81-9fa2-0f0c9facf081","displayName":"珊珊shanshan","picture":"90246e42-6e13-48d3-995f-097804d4aa48.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1000000,"rank":2,"meta":{"eventoryKey":"d6bcb865-92c7-4e81-9fa2-0f0c9facf081"}},{"userInfo":{"userID":"05ad62f4-0dd2-4afc-aed8-e7841b50d28a","displayName":"ivy_112","picture":"B37A798D-19D6-4D98-8E1C-B58FE0EBA857.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1000000,"rank":3,"meta":{"eventoryKey":"05ad62f4-0dd2-4afc-aed8-e7841b50d28a"}},{"userInfo":{"userID":"857745e9-2259-4826-9ef2-dd67d57aaa19","displayName":"安妞我是JO","picture":"F4CECF04-0F73-41ED-903B-ED03A9A008BA.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":950000,"rank":4,"meta":{"eventoryKey":"857745e9-2259-4826-9ef2-dd67d57aaa19"}},{"userInfo":{"userID":"44ee7d31-1f46-4186-9fb9-2bb845857609","displayName":"17阿妞💋","picture":"1B13BEFE-0C97-4CE7-B699-099D6E8C13CC.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":950000,"rank":5,"meta":{"eventoryKey":"44ee7d31-1f46-4186-9fb9-2bb845857609"}},{"userInfo":{"userID":"196e1fbb-8a45-4d88-9d84-a6366c481c97","displayName":"Q楊元元","picture":"7E0CDB83-4CC0-410F-A550-AC89A1DCF5E4.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":950000,"rank":6,"meta":{"eventoryKey":"196e1fbb-8a45-4d88-9d84-a6366c481c97"}},{"userInfo":{"userID":"660f004c-1df7-4ed7-94b3-8c8519735fe5","displayName":"香香芸☁️","picture":"CA9F28AA-40F7-4525-9C0B-5E957DBEB66A.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":950000,"rank":7,"meta":{"eventoryKey":"660f004c-1df7-4ed7-94b3-8c8519735fe5"}},{"userInfo":{"userID":"322476da-0812-49a9-b3f9-822a96247158","displayName":"甯兒❤️","picture":"B38AF301-766B-4FBF-8904-7CF1F78A838F.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":900000,"rank":8,"meta":{"eventoryKey":"322476da-0812-49a9-b3f9-822a96247158"}},{"userInfo":{"userID":"bcba0c14-26d0-43ee-ac28-adba37fef8c5","displayName":"a232295","picture":"62FEC0C0-7B2D-4487-9796-2E70EE15723C.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":900000,"rank":9,"meta":{"eventoryKey":"bcba0c14-26d0-43ee-ac28-adba37fef8c5"}},{"userInfo":{"userID":"a70532fb-b284-4177-8d56-73e656acfcf2","displayName":"mm巧克力_bb","picture":"5D80F9C1-6DDF-40D9-ABC1-594B911C99B4.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":900000,"rank":10,"meta":{"eventoryKey":"a70532fb-b284-4177-8d56-73e656acfcf2"}},{"userInfo":{"userID":"e7f163f3-21d9-471f-9368-f223a81167c6","displayName":"倪耐斯","picture":"76E67480-7938-4071-85BD-02A687A75AEF.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":900000,"rank":11,"meta":{"eventoryKey":"e7f163f3-21d9-471f-9368-f223a81167c6"}},{"userInfo":{"userID":"27992448-f400-466e-bcb8-8c1a2a1d378f","displayName":"liese1217","picture":"282E050E-632A-4147-A3D6-854E376CF95D.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":850000,"rank":12,"meta":{"eventoryKey":"27992448-f400-466e-bcb8-8c1a2a1d378f"}},{"userInfo":{"userID":"1fc6add3-8580-4f6c-8357-33bd2b4fd5d6","displayName":"陳萱萱萱","picture":"F3F51F55-FED6-499E-91CC-9A2512F2AECB.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":850000,"rank":13,"meta":{"eventoryKey":"1fc6add3-8580-4f6c-8357-33bd2b4fd5d6"}},{"userInfo":{"userID":"d8302048-6c18-4765-946f-7d04da5806dd","displayName":"a940325988","picture":"51861A41-461A-47BE-B1A3-D55BCCF2A6A9.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":850000,"rank":14,"meta":{"eventoryKey":"d8302048-6c18-4765-946f-7d04da5806dd"}},{"userInfo":{"userID":"589ae7a4-b45e-467d-a78a-4cd18485352d","displayName":"花神🍣Flora","picture":"61BB59BC-ADD5-45EF-976D-C1DD12FEDEDC.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":850000,"rank":15,"meta":{"eventoryKey":"589ae7a4-b45e-467d-a78a-4cd18485352d"}},{"userInfo":{"userID":"3f66e7a2-1490-4f23-a45a-0dd852211fb9","displayName":"在下日久","picture":"8c4b20a6-585c-4311-8001-1ed05a7d09c1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":850000,"rank":16,"meta":{"eventoryKey":"3f66e7a2-1490-4f23-a45a-0dd852211fb9"}},{"userInfo":{"userID":"92c3883e-468e-4f84-b61a-9885bfe35e14","displayName":"盧筱比be","picture":"C01C8B9A-5A01-4285-8880-52CFDA94449A.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":802000,"rank":17,"meta":{"eventoryKey":"92c3883e-468e-4f84-b61a-9885bfe35e14"}},{"userInfo":{"userID":"68e9ebde-f39a-4eb9-95c1-e57845737d85","displayName":"菲菲miffy","picture":"7942A0C7-AA31-4C1B-8BD6-0BA31E5E7FAB.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":800000,"rank":18,"meta":{"eventoryKey":"68e9ebde-f39a-4eb9-95c1-e57845737d85"}},{"userInfo":{"userID":"b26c9466-f146-4cdb-af6f-8b78fcc06427","displayName":"飯飯Bunny❤️🐰","picture":"ac2efca9-49da-439e-8eb6-ca577d70ac94.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":800000,"rank":19,"meta":{"eventoryKey":"b26c9466-f146-4cdb-af6f-8b78fcc06427"}},{"userInfo":{"userID":"c79db16b-03ea-45c1-bb04-66d735701ea7","displayName":"puni_baobao","picture":"88802b48-0b1e-47bc-b75d-f8433575e399.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":800000,"rank":20,"meta":{"eventoryKey":"c79db16b-03ea-45c1-bb04-66d735701ea7"}},{"userInfo":{"userID":"7106a387-1b47-4ee9-b786-a84599fd3aea","displayName":"凡凡_FanFan","picture":"5ad597a4-f36f-4e1c-9306-ae1f6761d262.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":800000,"rank":21,"meta":{"eventoryKey":"7106a387-1b47-4ee9-b786-a84599fd3aea"}},{"userInfo":{"userID":"60914c79-d749-471e-9f7b-55e0b5d9eccb","displayName":"小紫Alone💜","picture":"C2821820-BC30-4BE3-81E3-0D09C1965FC1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":800000,"rank":22,"meta":{"eventoryKey":"60914c79-d749-471e-9f7b-55e0b5d9eccb"}},{"userInfo":{"userID":"e4cfa1c2-38b5-488c-bd49-8c553fc02965","displayName":"吃貨a琳達","picture":"D7DA415A-0D35-42D3-B65D-AF7DB8B3BDC3.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":750000,"rank":23,"meta":{"eventoryKey":"e4cfa1c2-38b5-488c-bd49-8c553fc02965"}},{"userInfo":{"userID":"a855a1f2-1d87-448d-9ec7-a11caded4db0","displayName":"nico澄奈","picture":"06328161-CD30-4C15-BC68-EF572E101EE1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":750000,"rank":24,"meta":{"eventoryKey":"a855a1f2-1d87-448d-9ec7-a11caded4db0"}},{"userInfo":{"userID":"adaea63f-b515-4ecc-88f7-b9033dc9f423","displayName":"cat851214girl","picture":"36E3F4F0-5755-439F-AFE2-3E57783089EA.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":750000,"rank":25,"meta":{"eventoryKey":"adaea63f-b515-4ecc-88f7-b9033dc9f423"}},{"userInfo":{"userID":"e5380f27-a5e9-4acd-a529-a6e8f5b5e72e","displayName":"Yona鴿鴿","picture":"8732F7A6-841D-45E7-A17C-FEDBBCF2C503.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":750000,"rank":26,"meta":{"eventoryKey":"e5380f27-a5e9-4acd-a529-a6e8f5b5e72e"}},{"userInfo":{"userID":"5828e673-3ced-48ee-b77a-66103547b0f1","displayName":"風紀股長_","picture":"8F5697B6-F033-4C52-AF1E-A27F1ED2927A.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":700000,"rank":27,"meta":{"eventoryKey":"5828e673-3ced-48ee-b77a-66103547b0f1"}},{"userInfo":{"userID":"7eac4fdf-55d1-4fbd-aa0d-8230507c21a4","displayName":"栗子安_","picture":"63031AFA-45D7-4B84-A546-C317C933AE58.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":700000,"rank":28,"meta":{"eventoryKey":"7eac4fdf-55d1-4fbd-aa0d-8230507c21a4"}},{"userInfo":{"userID":"51b29fd1-b945-44f3-ba7d-1cb184972060","displayName":"夏允芮🍓","picture":"5426CC52-626F-41F7-BCBB-A505709CE3B6.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":650000,"rank":29,"meta":{"eventoryKey":"51b29fd1-b945-44f3-ba7d-1cb184972060"}},{"userInfo":{"userID":"40853b8c-f3d4-4a08-83b4-ad40372357a2","displayName":"柔柔syuan","picture":"0D15AB5C-C69A-454C-AB01-A757FD65E72A.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":650000,"rank":30,"meta":{"eventoryKey":"40853b8c-f3d4-4a08-83b4-ad40372357a2"}},{"userInfo":{"userID":"cdbf8057-2f63-44d2-b98a-caa49413b644","displayName":"ice30678","picture":"19A221AF-EAC6-4F05-8406-A7876B021D25.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":650000,"rank":31,"meta":{"eventoryKey":"cdbf8057-2f63-44d2-b98a-caa49413b644"}},{"userInfo":{"userID":"3e62441b-12b1-4a48-8df7-5404f7562d04","displayName":"包心粉圓","picture":"4B19F120-8216-4184-8C83-36E2B78B00AC.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":650000,"rank":32,"meta":{"eventoryKey":"3e62441b-12b1-4a48-8df7-5404f7562d04"}},{"userInfo":{"userID":"9a0507ab-8cdc-4220-a69a-4ed7b1126b98","displayName":"泡泡111","picture":"A0ACDE84-B01C-4F13-9407-5E1EBCE7AA11.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":650000,"rank":33,"meta":{"eventoryKey":"9a0507ab-8cdc-4220-a69a-4ed7b1126b98"}},{"userInfo":{"userID":"4d1d23c0-fd84-4d78-bf9c-123628902ce1","displayName":"酪梨Avo","picture":"1aa3dff6-4f3c-42ce-a9cc-f8ef08549385.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":650000,"rank":34,"meta":{"eventoryKey":"4d1d23c0-fd84-4d78-bf9c-123628902ce1"}},{"userInfo":{"userID":"eb882915-12de-4177-9e82-603e13f01c2e","displayName":"美伊","picture":"65db7799-8540-4047-ae27-833490b18257.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":600000,"rank":35,"meta":{"eventoryKey":"eb882915-12de-4177-9e82-603e13f01c2e"}},{"userInfo":{"userID":"e4fd7aab-90f4-43e9-a262-24aa99ef3196","displayName":"馨方Waa🌷","picture":"4738BFD0-1681-440B-AA7E-3261C380D4A8.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":600000,"rank":36,"meta":{"eventoryKey":"e4fd7aab-90f4-43e9-a262-24aa99ef3196"}},{"userInfo":{"userID":"a88dd4bf-6161-4254-aa3c-45338ce70324","displayName":"mia麥麥","picture":"3fb17ac5-843a-401d-9e00-bb860d7c5180.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":600000,"rank":37,"meta":{"eventoryKey":"a88dd4bf-6161-4254-aa3c-45338ce70324"}},{"userInfo":{"userID":"204673b2-a236-4bb5-49eb-5f3be7cc5df7","displayName":"啾啾💋Jolie","picture":"4E806C0C-A309-49B6-8A5B-A580ECCBB3F6.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":500000,"rank":38,"meta":{"eventoryKey":"204673b2-a236-4bb5-49eb-5f3be7cc5df7"}},{"userInfo":{"userID":"ecd287c1-de67-4d8c-beb1-5eabd4cebf18","displayName":"足球寶貝明古屋","picture":"91A44B06-D94F-4042-A9AA-C790799D3CC6.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":500000,"rank":39,"meta":{"eventoryKey":"ecd287c1-de67-4d8c-beb1-5eabd4cebf18"}},{"userInfo":{"userID":"9bb5ee6f-b7ed-4693-80d6-8bf49880ad5e","displayName":"芋泥小包","picture":"C65FD4D4-7E92-4B0F-BD17-EA4091A80E94.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":500000,"rank":40,"meta":{"eventoryKey":"9bb5ee6f-b7ed-4693-80d6-8bf49880ad5e"}},{"userInfo":{"userID":"a99111f6-9602-44ac-b175-e26eecc11cb1","displayName":"羽毛兒","picture":"C0638B9E-D8DC-4A0D-9D84-0326C4AAB5A6.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":500000,"rank":41,"meta":{"eventoryKey":"a99111f6-9602-44ac-b175-e26eecc11cb1"}},{"userInfo":{"userID":"91dbb14a-3f81-4f20-a74c-92f4240ace90","displayName":"借物少女vivi","picture":"21C73B37-1100-4712-8CCF-FCDDABB99E16.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":500000,"rank":42,"meta":{"eventoryKey":"91dbb14a-3f81-4f20-a74c-92f4240ace90"}},{"userInfo":{"userID":"c56bb155-452a-4ac6-9863-4e84b03cf2fa","displayName":"泡泡❤️BUBBLE","picture":"1647019D-B46F-40C3-9291-41EF93974BC2.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":500000,"rank":43,"meta":{"eventoryKey":"c56bb155-452a-4ac6-9863-4e84b03cf2fa"}},{"userInfo":{"userID":"62da6bdb-70c9-4b16-b82d-a56db1eecf1b","displayName":"grace雅雅","picture":"49450905-DE14-4A89-B836-B97B9FD3E147.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":450000,"rank":44,"meta":{"eventoryKey":"62da6bdb-70c9-4b16-b82d-a56db1eecf1b"}},{"userInfo":{"userID":"2c3f462a-4ed6-4bad-a0e9-d41e834bd2aa","displayName":"囂張歌神🎧惟翔","picture":"B7619726-9643-42E5-9142-FE2FEBDB366B.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":400000,"rank":45,"meta":{"eventoryKey":"2c3f462a-4ed6-4bad-a0e9-d41e834bd2aa"}},{"userInfo":{"userID":"1609b29a-24fd-45c5-a6ce-5d35dc4eb1d5","displayName":"glad._.gladys","picture":"C86069F1-AF82-451D-88FF-86ECDF00D924.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":400000,"rank":46,"meta":{"eventoryKey":"1609b29a-24fd-45c5-a6ce-5d35dc4eb1d5"}},{"userInfo":{"userID":"52513019-b731-4560-abb2-6a9b7bdc6718","displayName":"小悅悅💉","picture":"8E29759D-C8F2-4C96-A3BB-7BBC14EA7ED2.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":400000,"rank":47,"meta":{"eventoryKey":"52513019-b731-4560-abb2-6a9b7bdc6718"}},{"userInfo":{"userID":"1555d9d8-efcc-4da0-85ae-be2aa7a3be7d","displayName":"許夏天summer","picture":"72A71CFC-19E4-4B2A-ACF2-594C53CC2CE4.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":400000,"rank":48,"meta":{"eventoryKey":"1555d9d8-efcc-4da0-85ae-be2aa7a3be7d"}},{"userInfo":{"userID":"4fbac3fc-8435-45ca-864d-93727af21ceb","displayName":"molly7_7","picture":"7AE96E7A-2FE7-471B-9010-FE01A8786DB3.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":350000,"rank":49,"meta":{"eventoryKey":"4fbac3fc-8435-45ca-864d-93727af21ceb"}},{"userInfo":{"userID":"41e5db8e-7498-4189-a648-db52569c0da2","displayName":"我4森森🍰國民女友","picture":"7B0DCDFF-30E6-4DDE-B71D-266DD69D7BD8.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":350000,"rank":50,"meta":{"eventoryKey":"41e5db8e-7498-4189-a648-db52569c0da2"}},{"userInfo":{"userID":"96baf570-da29-4ed9-bbab-eebbda202e5d","displayName":"潔兒jr","picture":"973152d4-8333-4640-b251-99edecdef8ef.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":350000,"rank":51,"meta":{"eventoryKey":"96baf570-da29-4ed9-bbab-eebbda202e5d"}},{"userInfo":{"userID":"2a5b5296-a15b-4ecf-b658-576c16dcbb67","displayName":"千代_JD","picture":"A30929DC-BBB7-4D4F-9ABE-E856FA5FAA08.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":350000,"rank":52,"meta":{"eventoryKey":"2a5b5296-a15b-4ecf-b658-576c16dcbb67"}},{"userInfo":{"userID":"89e84d1d-aedd-45fe-b007-0e828140f906","displayName":"諾諾娜娜","picture":"CE1C52D4-04F3-426B-AE9A-1A3B57781AC9.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":300000,"rank":53,"meta":{"eventoryKey":"89e84d1d-aedd-45fe-b007-0e828140f906"}},{"userInfo":{"userID":"6b28b064-3ca9-43e5-91b8-758799fb13fc","displayName":"妮妮nini_Baby","picture":"fb667fcc-496c-4e1b-b688-ffdffd238f4f.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":250000,"rank":54,"meta":{"eventoryKey":"6b28b064-3ca9-43e5-91b8-758799fb13fc"}},{"userInfo":{"userID":"c8539893-1f1d-4555-ba90-fcadf72673e8","displayName":"球球__bo⚽","picture":"4347BAA9-2159-41DE-866E-2A09382DB8C6.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":200000,"rank":55,"meta":{"eventoryKey":"c8539893-1f1d-4555-ba90-fcadf72673e8"}},{"userInfo":{"userID":"b0dfa169-6f4f-4fce-b682-e2e275294bdf","displayName":"米勾Migo🖤","picture":"0FD3D148-5B75-4370-BAEF-13034734BBA1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":200000,"rank":56,"meta":{"eventoryKey":"b0dfa169-6f4f-4fce-b682-e2e275294bdf"}},{"userInfo":{"userID":"41a9cc8e-25ad-4793-9ffd-8d1522dbf4f6","displayName":"愛莉絲aries","picture":"d2c31028-0ddd-4466-9ba7-85a63c9c4fdb.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":200000,"rank":57,"meta":{"eventoryKey":"41a9cc8e-25ad-4793-9ffd-8d1522dbf4f6"}},{"userInfo":{"userID":"a3bc93ef-d26f-4b58-b901-a8552d8f635e","displayName":"寶貝靜💖","picture":"94d5309e-f971-4b48-92cd-ab467e4633ee.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":150000,"rank":58,"meta":{"eventoryKey":"a3bc93ef-d26f-4b58-b901-a8552d8f635e"}},{"userInfo":{"userID":"2f1b903a-a122-40d4-92e4-c334730e919d","displayName":"edith_life","picture":"4EF8F3BF-2600-49B9-883E-95575EB4F6EF.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":100000,"rank":59,"meta":{"eventoryKey":"2f1b903a-a122-40d4-92e4-c334730e919d"}},{"userInfo":{"userID":"dcafcb4b-09a8-4453-651a-ddfa93d7fb07","displayName":"易冷Yileng🎤好聲音","picture":"21a56b16-139c-454f-8d61-966b418f9132.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":100000,"rank":60,"meta":{"eventoryKey":"dcafcb4b-09a8-4453-651a-ddfa93d7fb07"}},{"userInfo":{"userID":"c24bb856-e94c-4b9b-842d-816a4579c6bb","displayName":"gogo小火柴","picture":"4115FD31-DF54-4D51-B6FC-72A33C2E06A7.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":50000,"rank":61,"meta":{"eventoryKey":"c24bb856-e94c-4b9b-842d-816a4579c6bb"}},{"userInfo":{"userID":"7a30f46f-91c6-4c01-ab67-31d7d88276e7","displayName":"凌薇🧚‍♀️","picture":"9abde68e-0ef4-49b8-98d9-47de96c1a0d1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":9000,"rank":62,"meta":{"eventoryKey":"7a30f46f-91c6-4c01-ab67-31d7d88276e7"}},{"userInfo":{"userID":"9915da8b-46a3-4c8f-a52a-c9798e677b8f","displayName":"胖妞小姐","picture":"0FAA9960-5487-49BF-ACF7-1A76439C7E29.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":4000,"rank":63,"meta":{"eventoryKey":"9915da8b-46a3-4c8f-a52a-c9798e677b8f"}},{"userInfo":{"userID":"0a69f926-7c77-48de-7133-385b8ef98d3e","displayName":"Kira琪拉","picture":"D70D7ACA-7BFF-4912-88BB-D4F3075FF94C.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":4000,"rank":64,"meta":{"eventoryKey":"0a69f926-7c77-48de-7133-385b8ef98d3e"}},{"userInfo":{"userID":"b825a36b-f1fb-4a00-9ffb-6d84d5fd7c68","displayName":"韻安Ann💗","picture":"C06B6DF6-2A2F-42C8-A9B8-E25A54FB07F1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3800,"rank":65,"meta":{"eventoryKey":"b825a36b-f1fb-4a00-9ffb-6d84d5fd7c68"}},{"userInfo":{"userID":"fc8548af-1a44-4fce-b147-59761d1b8477","displayName":"小敏uuu","picture":"0b3bcf00-0452-469b-b0b6-c759ed24da7b.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3800,"rank":66,"meta":{"eventoryKey":"fc8548af-1a44-4fce-b147-59761d1b8477"}},{"userInfo":{"userID":"ca7381b8-68f7-4ef8-a4b0-f00f0ebf9af1","displayName":"peggyy88","picture":"86DAAA2D-2396-4FE8-8BA4-924341B62290.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3600,"rank":67,"meta":{"eventoryKey":"ca7381b8-68f7-4ef8-a4b0-f00f0ebf9af1"}},{"userInfo":{"userID":"ba94757e-3926-4c81-9c9d-8c4513bb2b7b","displayName":"菲那Verna","picture":"4B668A08-ACEF-418D-BBEC-7714B1742A77.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3600,"rank":68,"meta":{"eventoryKey":"ba94757e-3926-4c81-9c9d-8c4513bb2b7b"}},{"userInfo":{"userID":"b5bdc74f-87b8-4b91-95a3-f1d0aa35e47e","displayName":"COCO彣彣兒","picture":"6364332C-479A-48F1-ACB2-927D0F5B4249.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3600,"rank":69,"meta":{"eventoryKey":"b5bdc74f-87b8-4b91-95a3-f1d0aa35e47e"}},{"userInfo":{"userID":"de328680-c746-41ff-9114-0609260d9a5c","displayName":"傻喵喵Meow","picture":"43F436DC-CEA5-4FE3-8430-3CDDC225F175.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3400,"rank":70,"meta":{"eventoryKey":"de328680-c746-41ff-9114-0609260d9a5c"}},{"userInfo":{"userID":"9e8e63d3-0fdf-4952-b95d-c5a2d3752fe0","displayName":"娜娜子baobao","picture":"9EAE9AB5-F2FA-4C70-AC66-BB8C6C725E14.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3400,"rank":71,"meta":{"eventoryKey":"9e8e63d3-0fdf-4952-b95d-c5a2d3752fe0"}},{"userInfo":{"userID":"46e139a8-612d-4d65-a065-cfef921db740","displayName":"小雨Rainie","picture":"885C199E-24CD-4FBD-8DD2-A3460C68BAA1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3400,"rank":72,"meta":{"eventoryKey":"46e139a8-612d-4d65-a065-cfef921db740"}},{"userInfo":{"userID":"534fbbef-2760-46b7-be8c-4da82bd04253","displayName":"小酷酷cook","picture":"DD1D1936-9533-49C9-9C93-A4C988969193.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3400,"rank":73,"meta":{"eventoryKey":"534fbbef-2760-46b7-be8c-4da82bd04253"}},{"userInfo":{"userID":"f383bd81-db3d-43d1-82d9-4f2bf65e368c","displayName":"李芯","picture":"B441EDC2-38F9-4F6D-9105-29882E6A4ED3.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3400,"rank":74,"meta":{"eventoryKey":"f383bd81-db3d-43d1-82d9-4f2bf65e368c"}},{"userInfo":{"userID":"51d5a21b-01d3-4b0b-b729-186f67fe6079","displayName":"泰俞Laura","picture":"68C06AE3-4B4C-4FDE-B7EE-B715B5307B8A.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3400,"rank":75,"meta":{"eventoryKey":"51d5a21b-01d3-4b0b-b729-186f67fe6079"}},{"userInfo":{"userID":"bb1d986e-8141-4d2e-6699-287b97150b14","displayName":"小護士💉年允允💍","picture":"B57B3CB7-DA70-45C4-A943-30068AD495D9.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3400,"rank":76,"meta":{"eventoryKey":"bb1d986e-8141-4d2e-6699-287b97150b14"}},{"userInfo":{"userID":"479b8bf3-95f2-48da-af3e-5514f7a85866","displayName":"炸彈超人","picture":"95D27EA8-5AAF-40CC-B390-22C3F6177B8D.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3400,"rank":77,"meta":{"eventoryKey":"479b8bf3-95f2-48da-af3e-5514f7a85866"}},{"userInfo":{"userID":"426cbc9a-6cee-41de-9dc7-4519a39b41f4","displayName":"體操甜心💙霖霖","picture":"523EFCEB-F3C3-466A-B693-F7B797684697.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3200,"rank":78,"meta":{"eventoryKey":"426cbc9a-6cee-41de-9dc7-4519a39b41f4"}},{"userInfo":{"userID":"6d7070e7-600a-4a9b-81b3-f360cc7eb56c","displayName":"Phoebe甯甯兒","picture":"1520079b-aff2-42aa-a62d-75a838cb8e4b.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3200,"rank":79,"meta":{"eventoryKey":"6d7070e7-600a-4a9b-81b3-f360cc7eb56c"}},{"userInfo":{"userID":"8abd2212-c62e-4478-4448-377f71481fe4","displayName":"艾瑞思思Aires","picture":"A7E2EC96-F339-4DF4-AECF-6C83D83288A6.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3000,"rank":80,"meta":{"eventoryKey":"8abd2212-c62e-4478-4448-377f71481fe4"}},{"userInfo":{"userID":"8a1cb33e-09c0-431f-8ae3-6a9d2d7a18a8","displayName":"元仔🐈","picture":"4AECA098-2928-4EDB-B97D-4D436D6703AD.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3000,"rank":81,"meta":{"eventoryKey":"8a1cb33e-09c0-431f-8ae3-6a9d2d7a18a8"}},{"userInfo":{"userID":"94600d0a-ab37-4b34-b21c-fc8ad3f1aeb1","displayName":"nini仲兒🌸","picture":"FA331A69-1D67-4E34-BFE3-67A19EED3CE3.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3000,"rank":82,"meta":{"eventoryKey":"94600d0a-ab37-4b34-b21c-fc8ad3f1aeb1"}},{"userInfo":{"userID":"19e17990-2fa8-4243-9c0a-fe70d4d656c6","displayName":"cole星羽","picture":"24EB778F-E01F-4FF4-BCC3-2662F1B24D89.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":3000,"rank":83,"meta":{"eventoryKey":"19e17990-2fa8-4243-9c0a-fe70d4d656c6"}},{"userInfo":{"userID":"33b92014-4da9-4469-981e-c3e4b01efe19","displayName":"林昀Yunyun💋","picture":"606E4DAF-3E58-4B62-B546-8BF8703B0E71.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2800,"rank":84,"meta":{"eventoryKey":"33b92014-4da9-4469-981e-c3e4b01efe19"}},{"userInfo":{"userID":"4c285b80-3a14-4fcf-b561-ce7d027f9fcc","displayName":"愛熊寶寶","picture":"383234B6-4763-4FEE-83EB-BD5AF1D09CDA.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2800,"rank":85,"meta":{"eventoryKey":"4c285b80-3a14-4fcf-b561-ce7d027f9fcc"}},{"userInfo":{"userID":"975939c8-059e-4b3b-ae97-dabd2e7aeb03","displayName":"妮愛唱歌","picture":"e3bef370-c8a3-48bf-9393-69bfc279ee9d.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2800,"rank":86,"meta":{"eventoryKey":"975939c8-059e-4b3b-ae97-dabd2e7aeb03"}},{"userInfo":{"userID":"aabda722-dbb7-46a9-9003-1c8507f8ab08","displayName":"飛天創藝💋溫妮","picture":"5e569e87-a24b-473f-a35c-3aac894bdfa7.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2800,"rank":87,"meta":{"eventoryKey":"aabda722-dbb7-46a9-9003-1c8507f8ab08"}},{"userInfo":{"userID":"158adaf1-fb37-42a9-91d5-b123bbadfad8","displayName":"咪麻糬eva","picture":"3719A495-8E04-4A7F-9F4A-1C9DA4BF1587.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2600,"rank":88,"meta":{"eventoryKey":"158adaf1-fb37-42a9-91d5-b123bbadfad8"}},{"userInfo":{"userID":"ed92273d-f621-481d-88a0-03bf308572ed","displayName":"甜美女聲Dora","picture":"1905C551-C733-4500-A8D1-5B29B859BBD8.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2600,"rank":89,"meta":{"eventoryKey":"ed92273d-f621-481d-88a0-03bf308572ed"}},{"userInfo":{"userID":"3fd4ab7d-2c3c-4378-9edb-66aae214f0d3","displayName":"安狄Andrew🦅","picture":"06ED33B1-3EBF-4B52-844D-0FC53E09FB36.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2400,"rank":90,"meta":{"eventoryKey":"3fd4ab7d-2c3c-4378-9edb-66aae214f0d3"}},{"userInfo":{"userID":"0eca806e-d9d8-4678-bb72-f5b746d38ac8","displayName":"安妮塔Anita🌹💋","picture":"9F7907B9-4CED-4960-87B5-2D2F9E1CA8FD.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2400,"rank":91,"meta":{"eventoryKey":"0eca806e-d9d8-4678-bb72-f5b746d38ac8"}},{"userInfo":{"userID":"4df3dba2-8261-4b83-91a7-f3a57a81b76a","displayName":"貓奴西卡😻jc","picture":"A132F6FC-78F3-4BE3-A944-2161CC05D280.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2400,"rank":92,"meta":{"eventoryKey":"4df3dba2-8261-4b83-91a7-f3a57a81b76a"}},{"userInfo":{"userID":"c92814c7-3d16-40c9-a508-fa979914e816","displayName":"娜娜nana🎀","picture":"D5338D9C-0FE3-4DD5-871F-6D196F5E9BE6.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2400,"rank":93,"meta":{"eventoryKey":"c92814c7-3d16-40c9-a508-fa979914e816"}},{"userInfo":{"userID":"d85e577d-ca49-48c5-92bd-b9d4075b24c9","displayName":"水晶寶貝🌸","picture":"FA77C3BD-0790-4CE1-A7AA-4874A299A128.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2400,"rank":94,"meta":{"eventoryKey":"d85e577d-ca49-48c5-92bd-b9d4075b24c9"}},{"userInfo":{"userID":"7077fef4-2729-4085-96db-0d3aef31c92d","displayName":"安安安安安🐷","picture":"1f2d6b42-a584-4418-a885-9436cacdfe4c.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2400,"rank":95,"meta":{"eventoryKey":"7077fef4-2729-4085-96db-0d3aef31c92d"}},{"userInfo":{"userID":"79ae19c3-69aa-4f28-7e46-b9feb284a4dc","displayName":"沫墨👄雨甯","picture":"50976790-8DF5-4E01-81FB-F11ABE43459E.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2200,"rank":96,"meta":{"eventoryKey":"79ae19c3-69aa-4f28-7e46-b9feb284a4dc"}},{"userInfo":{"userID":"d6a4c2f9-b91d-442f-9623-a7a0bc2febf7","displayName":"台灣直美","picture":"F5831BD6-3DB4-4BBB-9587-5C242462D0B1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2200,"rank":97,"meta":{"eventoryKey":"d6a4c2f9-b91d-442f-9623-a7a0bc2febf7"}},{"userInfo":{"userID":"ad7ec1a1-f54b-4459-af97-d48150becd96","displayName":"_愛麗絲_","picture":"e5a30de1-0e66-476a-a65d-d54fabf03716.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2200,"rank":98,"meta":{"eventoryKey":"ad7ec1a1-f54b-4459-af97-d48150becd96"}},{"userInfo":{"userID":"8b735ee1-75de-4182-aa4f-37c8b7951642","displayName":"飛小橘","picture":"C5BF0458-1B81-4C36-B897-7F098061EFBA.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2000,"rank":99,"meta":{"eventoryKey":"8b735ee1-75de-4182-aa4f-37c8b7951642"}},{"userInfo":{"userID":"68f5cb22-1615-4e82-b534-c1bef1128856","displayName":"水蜜桃🍑小Amy","picture":"F595BED4-874D-4C63-BF42-080C8D1CC6BF.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2000,"rank":100,"meta":{"eventoryKey":"68f5cb22-1615-4e82-b534-c1bef1128856"}},{"userInfo":{"userID":"b212788e-a097-46f9-8c21-a81e3ca9ed1a","displayName":"蘿拉lola","picture":"9D7F0C91-C1FD-430E-85A3-CC6BB4A8F26A.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":2000,"rank":101,"meta":{"eventoryKey":"b212788e-a097-46f9-8c21-a81e3ca9ed1a"}},{"userInfo":{"userID":"57283880-713e-4923-9a1b-14a95cec9b81","displayName":"Peggy冰","picture":"112b996d-af47-4510-a320-f21534c7fedc.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1800,"rank":102,"meta":{"eventoryKey":"57283880-713e-4923-9a1b-14a95cec9b81"}},{"userInfo":{"userID":"1d8bcb0f-48f8-4a63-aa6f-71fba7f5b280","displayName":"cherry櫻桃","picture":"69BCDFAB-738C-4BAA-8731-9D7E75279CBA.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1800,"rank":103,"meta":{"eventoryKey":"1d8bcb0f-48f8-4a63-aa6f-71fba7f5b280"}},{"userInfo":{"userID":"a36a676a-7c0b-4892-b474-2e8e25bdb089","displayName":"羊大美美Cindy🐑","picture":"75E4DCB0-BF51-40A8-906E-169C9E64160C.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1600,"rank":104,"meta":{"eventoryKey":"a36a676a-7c0b-4892-b474-2e8e25bdb089"}},{"userInfo":{"userID":"a6a4ed74-e8ae-4fa0-9682-b20febd3a875","displayName":"開心果樂秀","picture":"7623CBFD-BADA-40D7-A0C5-65139C868D45.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1600,"rank":105,"meta":{"eventoryKey":"a6a4ed74-e8ae-4fa0-9682-b20febd3a875"}},{"userInfo":{"userID":"98ce8d20-c61d-413e-a222-948ce1018bea","displayName":"toby偷比不偷筆","picture":"08EF1818-550E-4DC0-85C1-4A6A257DBC9D.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1400,"rank":106,"meta":{"eventoryKey":"98ce8d20-c61d-413e-a222-948ce1018bea"}},{"userInfo":{"userID":"884a2e6f-2273-43e6-8e7b-8bd466c0206d","displayName":"瑄妞妞🌸Vivian","picture":"DB8FF175-D475-495D-B65F-DA9096F0F46E.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1200,"rank":107,"meta":{"eventoryKey":"884a2e6f-2273-43e6-8e7b-8bd466c0206d"}},{"userInfo":{"userID":"4f40dc7d-3cbe-4ece-83e1-96a34dc71a3d","displayName":"安安_","picture":"358ef986-86c2-416a-9e2f-ccd427f109ba.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1200,"rank":108,"meta":{"eventoryKey":"4f40dc7d-3cbe-4ece-83e1-96a34dc71a3d"}},{"userInfo":{"userID":"d62adc20-9e6f-4a71-b8bf-f68bae7bda86","displayName":"hello羊羊🐑","picture":"d35d876d-4ee6-4eb3-b9c8-c796aa3e5de3.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1000,"rank":109,"meta":{"eventoryKey":"d62adc20-9e6f-4a71-b8bf-f68bae7bda86"}},{"userInfo":{"userID":"16b47806-1b50-41c1-9c5f-b15aee8e3c5f","displayName":"牙套姐姐","picture":"C8623FE6-0DF6-491C-84AD-A7602686B48B.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":1000,"rank":110,"meta":{"eventoryKey":"16b47806-1b50-41c1-9c5f-b15aee8e3c5f"}},{"userInfo":{"userID":"caecca6b-ebf2-4dde-b557-aaee856c84d2","displayName":"凱兒🌟Kerry🎀","picture":"EF4AD103-49FC-400A-9E5E-B9A5028E8DD3.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":800,"rank":111,"meta":{"eventoryKey":"caecca6b-ebf2-4dde-b557-aaee856c84d2"}},{"userInfo":{"userID":"f981adf9-4d15-4c5d-bc69-02b53ef42d8c","displayName":"還珠格格_baby","picture":"50E5A8A8-E878-4935-9481-FBB3F2AFC688.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":800,"rank":112,"meta":{"eventoryKey":"f981adf9-4d15-4c5d-bc69-02b53ef42d8c"}},{"userInfo":{"userID":"839b8088-93cd-40ea-b473-b2cebed5008c","displayName":"唯Qing","picture":"1013B5A2-C63C-4D97-A6B0-6152C9C42556.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":800,"rank":113,"meta":{"eventoryKey":"839b8088-93cd-40ea-b473-b2cebed5008c"}},{"userInfo":{"userID":"bae9fffc-9483-4b87-93a9-840d57b192db","displayName":"青丘淺淺","picture":"8D3FDBEF-19FA-4AC3-A606-CB11D0E1A2B1.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":600,"rank":114,"meta":{"eventoryKey":"bae9fffc-9483-4b87-93a9-840d57b192db"}},{"userInfo":{"userID":"2d665956-1623-4f3a-9f79-899bae1981eb","displayName":"童童Lynn🌟","picture":"FBA50A66-3CE0-4CBB-BD1A-FA5A44BC2075.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":400,"rank":115,"meta":{"eventoryKey":"2d665956-1623-4f3a-9f79-899bae1981eb"}},{"userInfo":{"userID":"6b4881da-3897-4665-a2bc-8f221a6b65f2","displayName":"Jamie_瞳瞳","picture":"3b97f138-3a15-4013-ae20-a0ba06af16f8.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":400,"rank":116,"meta":{"eventoryKey":"6b4881da-3897-4665-a2bc-8f221a6b65f2"}},{"userInfo":{"userID":"335b255c-360a-4cbc-bbab-49506b16606f","displayName":"小瑜angie","picture":"D4BDAE7F-1CF0-4E38-B8F1-6A72B2E5E4AD.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":400,"rank":117,"meta":{"eventoryKey":"335b255c-360a-4cbc-bbab-49506b16606f"}},{"userInfo":{"userID":"a12f4f80-468d-4abc-946c-801465183179","displayName":"boo_1110","picture":"BB2F45ED-2C44-43CD-B44E-17425E08624D.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":200,"rank":118,"meta":{"eventoryKey":"a12f4f80-468d-4abc-946c-801465183179"}},{"userInfo":{"userID":"f42ad793-17ad-4e36-896e-b33e82ca2dfd","displayName":"米奇兒_Mickey姊","picture":"5d1be0de-73dc-41e9-8b89-18ce6a0ee6a0.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":200,"rank":119,"meta":{"eventoryKey":"f42ad793-17ad-4e36-896e-b33e82ca2dfd"}},{"userInfo":{"userID":"b78954b7-32b4-4bf0-9dca-33e30cbfda9e","displayName":"樂樂evon","picture":"f1534a58-4f2e-4848-b0be-e71a00a4b902.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":200,"rank":120,"meta":{"eventoryKey":"b78954b7-32b4-4bf0-9dca-33e30cbfda9e"}},{"userInfo":{"userID":"d1c2c482-75d6-451a-a233-eb89ace07476","displayName":"小岑兒_Sicen","picture":"D6AD7B74-B39E-4876-8E50-EA1E6EC5B524.jpg","name":"","level":0,"openID":"","region":"TW","gloryroadMode":0},"score":200,"rank":121,"meta":{"eventoryKey":"d1c2c482-75d6-451a-a233-eb89ace07476"}}]}');
 
 /***/ })
 
