@@ -63,7 +63,7 @@ export interface IVirtualizedListProps {
 }
 
 /**
- * 在 url 上加上 streamerUserID= 直撥主的id，就會將畫面移動到直撥主的位置
+ * 在 url 上加上 streamerUserID= 直播主的id，就會將畫面移動到直播主的位置
  * @param IVirtualizedListProps 使用方法參考 IVirtualizedListProps 說明
  */
 export const VirtualizedList: React.FC<IVirtualizedListProps> = ({
