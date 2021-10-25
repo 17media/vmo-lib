@@ -6125,6 +6125,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
+/**
+ * 在傳入值 loading=true 時，將畫面移動到 html element id=loading-container 的位置
+ * @param loading boolean
+ */
+
 var useScrollToLoadingContainer = function useScrollToLoadingContainer(loading) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (loading) {
@@ -7194,7 +7199,19 @@ var TrackChildrenWrapper = function TrackChildrenWrapper(_ref) {
     index: index
   }));
 };
+/**
+ * @param dataset leaderboard 榜單資料
+ * @param children 呈現的畫面，包含要顯示的資料或者是版型的style
+ * @param itemHeight data row 高度
+ * @param panelSize data panel 大小 </br> </br>
+ * 其他使用方法參考：https://github.com/bvaughn/react-window
+ */
 
+
+/**
+ * 在 url 上加上 streamerUserID= 直播主的id，就會將畫面移動到直播主的位置
+ * @param IVirtualizedListProps 使用方法參考 IVirtualizedListProps 說明
+ */
 var VirtualizedList = function VirtualizedList(_ref2) {
   var dataset = _ref2.dataset,
       children = _ref2.children,
