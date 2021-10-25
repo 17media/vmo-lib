@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
+exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
 exports.globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 const qs = (search = exports.globalThis.location
     ? exports.globalThis.location.search.slice(1)
@@ -240,4 +240,18 @@ exports.convertDateToTime = convertDateToTime;
 const isSameDate = (startDate, endDate) => exports.getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') ===
     exports.getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
 exports.isSameDate = isSameDate;
+const cumulativeOffset = (element) => {
+    let top = 0;
+    let left = 0;
+    do {
+        top += element.offsetTop || 0;
+        left += element.offsetLeft || 0;
+        element = element.offsetParent;
+    } while (element);
+    return {
+        top,
+        left,
+    };
+};
+exports.cumulativeOffset = cumulativeOffset;
 //# sourceMappingURL=utils.js.map

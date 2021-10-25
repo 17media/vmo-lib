@@ -19,6 +19,7 @@ const useLuckyDraw_1 = require("./useLuckyDraw");
 const useSyncScroll_1 = require("./useSyncScroll");
 const useTypeApi_1 = require("./useTypeApi");
 const useFilter_1 = require("./useFilter");
+const useScrollToLoadingContainer_1 = require("./useScrollToLoadingContainer");
 __exportStar(require("./useCountdown"), exports);
 __exportStar(require("./useItemTransition"), exports);
 __exportStar(require("./usePageData"), exports);
@@ -28,6 +29,7 @@ __exportStar(require("./useLuckyDraw"), exports);
 __exportStar(require("./useSyncScroll"), exports);
 __exportStar(require("./useTypeApi"), exports);
 __exportStar(require("./useFilter"), exports);
+__exportStar(require("./useScrollToLoadingContainer"), exports);
 exports.default = {
     useAutoNext: useAutoNext_1.useAutoNext,
     useCountdown: useCountdown_1.useCountdown,
@@ -38,5 +40,6 @@ exports.default = {
     useSyncScroll: useSyncScroll_1.useSyncScroll,
     useTypeApi: useTypeApi_1.useTypeApi,
     useFilter: useFilter_1.useFilter,
+    useScrollToLoadingContainer: useScrollToLoadingContainer_1.useScrollToLoadingContainer,
 };
 //# sourceMappingURL=index.js.map

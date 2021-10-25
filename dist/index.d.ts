@@ -4,6 +4,7 @@ export * from './components';
 declare const _default: {
     OfflineNormalTemplate: () => JSX.Element;
     TransitionLeaderboardWrapper: import("react").FC<import("./components").Props>;
+    VirtualizedList: import("react").FC<import("./components").IVirtualizedListProps>;
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
         status: import("./hooks").TimeStatus;
@@ -59,5 +60,6 @@ declare const _default: {
         data: import("./types").User[];
         handleOnChange: (value: any) => void;
     };
+    useScrollToLoadingContainer: (loading: boolean) => void;
 };
 export default _default;

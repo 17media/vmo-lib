@@ -73,3 +73,7 @@ export declare const convertDateToTime: (dateString: string) => string;
  * @returns {boolean}
  */
 export declare const isSameDate: (startDate: string, endDate: string) => boolean;
+export declare const cumulativeOffset: (element: any) => {
+    top: number;
+    left: number;
+};

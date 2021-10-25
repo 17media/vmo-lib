@@ -11,6 +11,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const TransitionLeaderboardWrapper_1 = require("./TransitionLeaderboardWrapper");
+const VirtualizedList_1 = require("./VirtualizedList");
 __exportStar(require("./TransitionLeaderboardWrapper"), exports);
-exports.default = { TransitionLeaderboardWrapper: TransitionLeaderboardWrapper_1.TransitionLeaderboardWrapper };
+__exportStar(require("./VirtualizedList"), exports);
+exports.default = { TransitionLeaderboardWrapper: TransitionLeaderboardWrapper_1.TransitionLeaderboardWrapper, VirtualizedList: VirtualizedList_1.VirtualizedList };
 //# sourceMappingURL=index.js.map

@@ -8,6 +8,7 @@ export * from './useLuckyDraw';
 export * from './useSyncScroll';
 export * from './useTypeApi';
 export * from './useFilter';
+export * from './useScrollToLoadingContainer';
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
@@ -64,5 +65,6 @@ declare const _default: {
         data: import("../types").User[];
         handleOnChange: (value: any) => void;
     };
+    useScrollToLoadingContainer: (loading: boolean) => void;
 };
 export default _default;
