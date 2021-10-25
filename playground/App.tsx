@@ -6,6 +6,8 @@ import TypeApi from './TypeApi';
 import Filter from './Filter';
 import Follower from './Follower';
 import Utils from './Utils';
+import ScrollToLoading from './ScrollToLoading';
+import ScrollToStreamer from './ScrollToStreamer';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] =
@@ -21,6 +23,8 @@ const App = () => {
     filter: <Filter />,
     follower: <Follower />,
     utils: <Utils />,
+    ScrollToLoading: <ScrollToLoading />,
+    ScrollToStreamer: <ScrollToStreamer />,
   };
 
   return (

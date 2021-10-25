@@ -317,3 +317,18 @@ export const convertDateToTime = (dateString: string) => {
 export const isSameDate = (startDate: string, endDate: string) =>
   getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') ===
   getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
+
+export const cumulativeOffset = (element: any) => {
+  let top = 0;
+  let left = 0;
+  do {
+    top += element.offsetTop || 0;
+    left += element.offsetLeft || 0;
+    element = element.offsetParent;
+  } while (element);
+
+  return {
+    top,
+    left,
+  };
+};
