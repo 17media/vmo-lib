@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useStartRender from '../lib/hooks/useStartRender';
 
 const StartRender = () => {
-  const startRender = useStartRender();
+  const hookRenderValue = useStartRender();
+  const [startRender, setStartRender] = useState(false);
 
-  if (!startRender) {
-    return <div>not start render</div>;
-  }
+  const onClickStartRender = () => {
+    setStartRender(hookRenderValue);
+  };
 
-  return <div>start render</div>;
+  const renderView = () => {
+    if (!startRender) {
+      return <div>not start render</div>;
+    }
+
+    return <div>start render</div>;
+  };
+
+  return (
+    <div>
+      <button type="button" onClick={onClickStartRender}>
+        Start Render
+      </button>
+      {renderView()}
+    </div>
+  );
 };
 
 export default React.memo(StartRender);
