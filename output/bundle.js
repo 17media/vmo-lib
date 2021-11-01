@@ -6145,6 +6145,42 @@ var useScrollToLoadingContainer = function useScrollToLoadingContainer(loading) 
 
 /***/ }),
 
+/***/ "./lib/hooks/useStartRender.ts":
+/*!*************************************!*\
+  !*** ./lib/hooks/useStartRender.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+/**
+ * 設定 startRender 為 true 並且回傳
+ * @returns startRender
+ */
+
+var useStartRender = function useStartRender() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      startRender = _useState2[0],
+      setStartRender = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setStartRender(true);
+  }, []);
+  return startRender;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useStartRender);
+
+/***/ }),
+
 /***/ "./lib/hooks/useSyncScroll.ts":
 /*!************************************!*\
   !*** ./lib/hooks/useSyncScroll.ts ***!
@@ -7487,6 +7523,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
 /* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
 /* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
+/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
+
 
 
 
@@ -7518,7 +7556,8 @@ var App = function App() {
     follower: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Follower__WEBPACK_IMPORTED_MODULE_7__.default, null),
     utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Utils__WEBPACK_IMPORTED_MODULE_8__.default, null),
     ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_9__.default, null),
-    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_10__.default, null)
+    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_10__.default, null),
+    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_StartRender__WEBPACK_IMPORTED_MODULE_11__.default, null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "\u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
@@ -8146,6 +8185,54 @@ var ScrollToStreamer = function ScrollToStreamer() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(ScrollToStreamer));
+
+/***/ }),
+
+/***/ "./playground/StartRender.tsx":
+/*!************************************!*\
+  !*** ./playground/StartRender.tsx ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib_hooks_useStartRender__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/hooks/useStartRender */ "./lib/hooks/useStartRender.ts");
+
+
+
+
+var StartRender = function StartRender() {
+  var hookRenderValue = (0,_lib_hooks_useStartRender__WEBPACK_IMPORTED_MODULE_2__.default)();
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      startRender = _useState2[0],
+      setStartRender = _useState2[1];
+
+  var onClickStartRender = function onClickStartRender() {
+    setStartRender(hookRenderValue);
+  };
+
+  var renderView = function renderView() {
+    if (!startRender) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "not start render");
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, "start render");
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+    type: "button",
+    onClick: onClickStartRender
+  }, "Start Render"), renderView());
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(StartRender));
 
 /***/ }),
 
