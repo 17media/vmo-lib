@@ -8,6 +8,7 @@ import Follower from './Follower';
 import Utils from './Utils';
 import ScrollToLoading from './ScrollToLoading';
 import ScrollToStreamer from './ScrollToStreamer';
+import StartRender from './StartRender';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] =
@@ -25,6 +26,7 @@ const App = () => {
     utils: <Utils />,
     ScrollToLoading: <ScrollToLoading />,
     ScrollToStreamer: <ScrollToStreamer />,
+    StartRender: <StartRender />,
   };
 
   return (
