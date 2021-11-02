@@ -332,3 +332,11 @@ export const cumulativeOffset = (element: any) => {
     left,
   };
 };
+
+/**
+ * Remove digit number.
+ * @param {number} value digit number, i.e. 1234.56
+ * @returns {number}
+ */
+export const numberFormat = (value: number) =>
+  value.toLocaleString(navigator.language, { minimumFractionDigits: 0 });

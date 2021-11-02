@@ -56,14 +56,12 @@ const Follower = () => {
         given user id and accessToken to get user followers.(get it from url or
         session token or whatever.)
       </h4>
-      <p>
-        Note: 搭配榜單使用時，須注意下面幾種情形.
-        <ol>
-          <li>使用者無任何追蹤主播.</li>
-          <li>使用者追蹤主播不在榜單上.</li>
-          <li>正常顯示使者者追蹤主播在該榜上名單與排名.</li>
-        </ol>
-      </p>
+      <p>Note: 搭配榜單使用時，須注意下面幾種情形.</p>
+      <ol>
+        <li>使用者無任何追蹤主播.</li>
+        <li>使用者追蹤主播不在榜單上.</li>
+        <li>正常顯示使者者追蹤主播在該榜上名單與排名.</li>
+      </ol>
       <p>
         test user id: <br />
         <StyledInput
