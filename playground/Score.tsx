@@ -4,8 +4,8 @@ import { numberFormat } from '../lib/utils';
 
 const Follower = () => {
   const [score, setScore] = useState<number>(0);
-  const newScore = useScore(score);
-  const newFormatScore = numberFormat(newScore ?? 0);
+  const animateScore = useScore(score);
+  const formatScore = numberFormat(animateScore);
 
   return (
     <div>
@@ -18,7 +18,7 @@ const Follower = () => {
         value={score}
         onChange={e => setScore(+e.target.value)}
       />
-      <p>score: {newFormatScore}</p>
+      <p>score: {formatScore}</p>
     </div>
   );
 };

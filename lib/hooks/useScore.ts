@@ -17,15 +17,20 @@ const animation = (duration: number, callback: (percent: number) => void) => {
   });
 };
 
-const useScore = (initialScore: number, duration = 1000) => {
-  const [score, setScore] = useState(initialScore);
+/**
+ * 給 givenScore 跟 duration 來產生能持續動態改變值的 score <br />
+ * @param givenScore 給定的值
+ * @param duration 動態改變值的時間, default 1000
+ */
+const useScore = (givenScore: number, duration = 1000) => {
+  const [score, setScore] = useState(givenScore);
 
   useEffect(() => {
     animation(duration, percent => {
-      const newScore = score + Math.round(percent * (initialScore - score));
+      const newScore = score + Math.round(percent * (givenScore - score));
       setScore(newScore);
     });
-  }, [initialScore]);
+  }, [givenScore]);
 
   return score;
 };
