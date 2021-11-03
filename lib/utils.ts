@@ -332,3 +332,17 @@ export const cumulativeOffset = (element: any) => {
     left,
   };
 };
+
+/**
+ * Format number by toLocaleString and remove digit number.
+ * @param {RegionLanguage} regionLanguage language provide by campaign setting for toLocaleString
+ * @param {number} value digit number, i.e. 1234.56
+ * @returns {string}
+ */
+export const numberFormat = (
+  value: number,
+  regionLanguage?: RegionLanguage,
+): string =>
+  value.toLocaleString(regionLanguage ?? navigator.language, {
+    minimumFractionDigits: 0,
+  });
