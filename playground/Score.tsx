@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import useScore from '../lib/hooks/useScore';
-import { numberFormat } from '../lib/utils';
 
 const Follower = () => {
-  const [score, setScore] = useState<number>(0);
-  const animateScore = useScore(score);
-  const formatScore = numberFormat(animateScore);
+  const [inputScore, setInputScore] = useState<number>(0);
+  const score = useScore(inputScore);
 
   return (
     <div>
@@ -15,10 +13,10 @@ const Follower = () => {
       <p>Please enter a number</p>
       <input
         type="number"
-        value={score}
-        onChange={e => setScore(+e.target.value)}
+        value={inputScore}
+        onChange={e => setInputScore(+e.target.value)}
       />
-      <p>score: {formatScore}</p>
+      <p>score: {score}</p>
     </div>
   );
 };

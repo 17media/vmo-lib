@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { numberFormat, RegionLanguage } from '../utils';
 
 const animation = (duration: number, callback: (percent: number) => void) => {
   const start = performance.now();
@@ -22,8 +23,12 @@ const animation = (duration: number, callback: (percent: number) => void) => {
  * @param givenScore 給定的值
  * @param duration 動態改變值的時間, default 1000
  */
-const useScore = (givenScore: number, duration = 1000) => {
-  const [score, setScore] = useState(givenScore);
+const useScore = (
+  givenScore: number,
+  duration = 1000,
+  regionLanguage?: RegionLanguage,
+) => {
+  const [score, setScore] = useState<number>(givenScore);
 
   useEffect(() => {
     animation(duration, percent => {
@@ -32,7 +37,7 @@ const useScore = (givenScore: number, duration = 1000) => {
     });
   }, [givenScore]);
 
-  return score;
+  return numberFormat(score, regionLanguage);
 };
 
 export default useScore;
