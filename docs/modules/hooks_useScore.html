@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>17appTrack | vmo-lib</title>
+	<title>hooks/useScore | vmo-lib</title>
 	<meta name="description" content="Documentation for vmo-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">vmo-lib</a>
 				</li>
 				<li>
-					<a href="17appTrack.html">17appTrack</a>
+					<a href="hooks_useScore.html">hooks/useScore</a>
 				</li>
 			</ul>
-			<h1>Module 17appTrack</h1>
+			<h1>Module hooks/useScore</h1>
 		</div>
 	</div>
 </header>
@@ -70,25 +70,55 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Variables</h3>
+							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="17appTrack.html#trackingSource" class="tsd-kind-icon">tracking<wbr>Source</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="hooks_useScore.html#default" class="tsd-kind-icon">default</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="trackingSource" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> tracking<wbr>Source</h3>
-					<div class="tsd-signature tsd-kind-icon">tracking<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DefaultSource</span><span class="tsd-signature-symbol"> = ...</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/9a75452/lib/17appTrack.ts#L37">17appTrack.ts:37</a></li>
-						</ul>
-					</aside>
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="default" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> default</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">default<span class="tsd-signature-symbol">(</span>givenScore<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, duration<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, regionLanguage<span class="tsd-signature-symbol">?: </span><a href="../enums/utils.RegionLanguage.html" class="tsd-signature-type" data-tsd-kind="Enumeration">RegionLanguage</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/9a75452/lib/hooks/useScore.ts#L26">hooks/useScore.ts:26</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>給 givenScore 跟 duration 來產生能持續動態改變值的 score <br /></p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>givenScore: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>給定的值</p>
+									</div>
+								</li>
+								<li>
+									<h5>duration: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1000</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>動態改變值的時間, default 1000</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> regionLanguage: <a href="../enums/utils.RegionLanguage.html" class="tsd-signature-type" data-tsd-kind="Enumeration">RegionLanguage</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -99,14 +129,14 @@
 						<a href="../modules.html">Modules</a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="17appTrack.html">17app<wbr>Track</a>
+						<a href="hooks_useScore.html">hooks/use<wbr>Score</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="17appTrack.html#trackingSource" class="tsd-kind-icon">tracking<wbr>Source</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="hooks_useScore.html#default" class="tsd-kind-icon">default</a>
 					</li>
 				</ul>
 			</nav>

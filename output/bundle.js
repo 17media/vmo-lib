@@ -5655,6 +5655,63 @@ var useCountdown = function useCountdown(start, end, timeEndText) {
 
 /***/ }),
 
+/***/ "./lib/hooks/useExpired.ts":
+/*!*********************************!*\
+  !*** ./lib/hooks/useExpired.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _17media_dad__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @17media/dad */ "./node_modules/@17media/dad/src/index.js");
+/* harmony import */ var _17media_dad__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_17media_dad__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/**
+ * 用日期判斷是否過期
+ * @param expiredDate string ex: 2020-04-10T23:59:59+08:00
+ * @returns expired, 是否過期
+ */
+
+var useExpired = function useExpired(expiredDate) {
+  var getExpiredStatus = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(function () {
+    var expiredTime = new Date(expiredDate);
+    var nowTime = (0,_17media_dad__WEBPACK_IMPORTED_MODULE_2__.now)() * 1000;
+    var expiredStatus = nowTime - expiredTime.getTime() >= 0;
+    return expiredStatus;
+  }, [expiredDate]);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(getExpiredStatus()),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      expired = _useState2[0],
+      setExpired = _useState2[1];
+
+  var timeoutKey = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(0);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    timeoutKey.current = window.setInterval(function () {
+      var expiredInterval = getExpiredStatus();
+
+      if (expiredInterval) {
+        setExpired(expiredInterval);
+      }
+    }, 1000);
+    return function () {
+      clearInterval(timeoutKey.current);
+    };
+  }, [getExpiredStatus]);
+  return expired;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useExpired);
+
+/***/ }),
+
 /***/ "./lib/hooks/useFilter.ts":
 /*!********************************!*\
   !*** ./lib/hooks/useFilter.ts ***!
@@ -6108,6 +6165,68 @@ var usePageData = function usePageData(_ref) {
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (usePageData);
+
+/***/ }),
+
+/***/ "./lib/hooks/useScore.ts":
+/*!*******************************!*\
+  !*** ./lib/hooks/useScore.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils */ "./lib/utils.ts");
+
+
+
+
+var animation = function animation(duration, callback) {
+  var start = performance.now();
+  var timer = 0;
+  timer = requestAnimationFrame(function animateFunc(time) {
+    var percent = (time - start) / duration;
+    if (percent > 1) percent = 1;else if (percent < 0) percent = 0;
+    callback(percent);
+
+    if (percent < 1) {
+      timer = requestAnimationFrame(animateFunc);
+    } else {
+      cancelAnimationFrame(timer);
+    }
+  });
+};
+/**
+ * 給 givenScore 跟 duration 來產生能持續動態改變值的 score <br />
+ * @param givenScore 給定的值
+ * @param duration 動態改變值的時間, default 1000
+ */
+
+
+var useScore = function useScore(givenScore) {
+  var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
+  var regionLanguage = arguments.length > 2 ? arguments[2] : undefined;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(givenScore),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      score = _useState2[0],
+      setScore = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    animation(duration, function (percent) {
+      var newScore = score + Math.round(percent * (givenScore - score));
+      setScore(newScore);
+    });
+  }, [givenScore]);
+  return (0,_utils__WEBPACK_IMPORTED_MODULE_2__.numberFormat)(score, regionLanguage);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useScore);
 
 /***/ }),
 
@@ -6814,7 +6933,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getStringDateCountdownByLocalFormat": () => (/* binding */ getStringDateCountdownByLocalFormat),
 /* harmony export */   "convertDateToTime": () => (/* binding */ convertDateToTime),
 /* harmony export */   "isSameDate": () => (/* binding */ isSameDate),
-/* harmony export */   "cumulativeOffset": () => (/* binding */ cumulativeOffset)
+/* harmony export */   "cumulativeOffset": () => (/* binding */ cumulativeOffset),
+/* harmony export */   "numberFormat": () => (/* binding */ numberFormat)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
@@ -7117,6 +7237,18 @@ var cumulativeOffset = function cumulativeOffset(element) {
     top: top,
     left: left
   };
+};
+/**
+ * Format number by toLocaleString and remove digit number.
+ * @param {RegionLanguage} regionLanguage language provide by campaign setting for toLocaleString
+ * @param {number} value digit number, i.e. 1234.56
+ * @returns {string}
+ */
+
+var numberFormat = function numberFormat(value, regionLanguage) {
+  return value.toLocaleString(regionLanguage !== null && regionLanguage !== void 0 ? regionLanguage : navigator.language, {
+    minimumFractionDigits: 0
+  });
 };
 
 /***/ }),
@@ -7520,10 +7652,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TypeApi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TypeApi */ "./playground/TypeApi.tsx");
 /* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Filter */ "./playground/Filter.tsx");
 /* harmony import */ var _Follower__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Follower */ "./playground/Follower.tsx");
-/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
-/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
-/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
-/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
+/* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Score */ "./playground/Score.tsx");
+/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
+/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
+/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
+/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
+/* harmony import */ var _Expired__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Expired */ "./playground/Expired.tsx");
+
+
 
 
 
@@ -7554,10 +7690,12 @@ var App = function App() {
     typeApi: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_TypeApi__WEBPACK_IMPORTED_MODULE_5__.default, null),
     filter: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Filter__WEBPACK_IMPORTED_MODULE_6__.default, null),
     follower: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Follower__WEBPACK_IMPORTED_MODULE_7__.default, null),
-    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Utils__WEBPACK_IMPORTED_MODULE_8__.default, null),
-    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_9__.default, null),
-    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_10__.default, null),
-    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_StartRender__WEBPACK_IMPORTED_MODULE_11__.default, null)
+    score: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Score__WEBPACK_IMPORTED_MODULE_8__.default, null),
+    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Utils__WEBPACK_IMPORTED_MODULE_9__.default, null),
+    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_10__.default, null),
+    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_11__.default, null),
+    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_StartRender__WEBPACK_IMPORTED_MODULE_12__.default, null),
+    Expired: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Expired__WEBPACK_IMPORTED_MODULE_13__.default, null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "\u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
@@ -7571,6 +7709,48 @@ var App = function App() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(App));
+
+/***/ }),
+
+/***/ "./playground/Expired.tsx":
+/*!********************************!*\
+  !*** ./playground/Expired.tsx ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getExpiredDate": () => (/* binding */ getExpiredDate),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib_hooks_useExpired__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/hooks/useExpired */ "./lib/hooks/useExpired.ts");
+
+
+/**
+ * @param sec 欲增加的過期秒數
+ * @returns expiredDate 現在時間 + sec, ex: 2020-04-10T23:59:59+08:00
+ */
+
+var getExpiredDate = function getExpiredDate(sec) {
+  var n = new Date();
+  var offset = -n.getTimezoneOffset() / 60;
+  n.setHours(n.getHours() + offset);
+  n.setSeconds(n.getSeconds() + sec);
+  var offsetString = // eslint-disable-next-line no-nested-ternary
+  offset >= 0 ? offset <= 9 ? "+0".concat(offset.toString(), ":00") : "+".concat(offset.toString(), ":00") : offset >= -9 ? "-0".concat(offset.toString(), ":00") : "-".concat(offset.toString(), ":00");
+  var expiredDate = n.toISOString().split('.')[0] + offsetString;
+  return expiredDate;
+};
+
+var Expired = function Expired() {
+  var expiredDate = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(getExpiredDate(10));
+  var isExpired = (0,_lib_hooks_useExpired__WEBPACK_IMPORTED_MODULE_1__.default)(expiredDate.current);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "\u904E\u671F\u6642\u9593(expiredDate) \u90FD\u662F\u6309\u4E0B\u6B64 playground \u7684\u6642\u9593+10\u79D2\uFF0C\u5230\u9054\u8A2D\u5B9A\u7684\u904E\u671F\u6642\u9593(expiredDate)\u6642\u6703\u5C07\u662F\u5426\u904E\u671F(isExpired)\u72C0\u614B\u5F9E false \u6539\u6210 true", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "\u5BE6\u969B\u4E0A\u904E\u671F\u6642\u9593(expiredDate)\u70BA\u958B\u767C\u8005\u81EA\u884C\u5B9A\u7FA9\u50B3\u5165useExpired\uFF0C\u9019\u908A\u53EA\u662F\u65B9\u4FBF\u505A playground \u9A57\u8B49"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "\u904E\u671F\u6642\u9593(expiredDate): ", expiredDate.current), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "\u662F\u5426\u904E\u671F(isExpired): ", isExpired.toString()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.memo(Expired));
 
 /***/ }),
 
@@ -7786,7 +7966,7 @@ var Follower = function Follower() {
     setAccessToken(inputAccessToken);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "given user id and accessToken to get user followers.(get it from url or session token or whatever.)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "Note: \u642D\u914D\u699C\u55AE\u4F7F\u7528\u6642\uFF0C\u9808\u6CE8\u610F\u4E0B\u9762\u5E7E\u7A2E\u60C5\u5F62.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("ol", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u4F7F\u7528\u8005\u7121\u4EFB\u4F55\u8FFD\u8E64\u4E3B\u64AD."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u4F7F\u7528\u8005\u8FFD\u8E64\u4E3B\u64AD\u4E0D\u5728\u699C\u55AE\u4E0A."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u6B63\u5E38\u986F\u793A\u4F7F\u8005\u8005\u8FFD\u8E64\u4E3B\u64AD\u5728\u8A72\u699C\u4E0A\u540D\u55AE\u8207\u6392\u540D."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "test user id: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledInput, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "given user id and accessToken to get user followers.(get it from url or session token or whatever.)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "Note: \u642D\u914D\u699C\u55AE\u4F7F\u7528\u6642\uFF0C\u9808\u6CE8\u610F\u4E0B\u9762\u5E7E\u7A2E\u60C5\u5F62."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("ol", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u4F7F\u7528\u8005\u7121\u4EFB\u4F55\u8FFD\u8E64\u4E3B\u64AD."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u4F7F\u7528\u8005\u8FFD\u8E64\u4E3B\u64AD\u4E0D\u5728\u699C\u55AE\u4E0A."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("li", null, "\u6B63\u5E38\u986F\u793A\u4F7F\u8005\u8005\u8FFD\u8E64\u4E3B\u64AD\u5728\u8A72\u699C\u4E0A\u540D\u55AE\u8207\u6392\u540D.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "test user id: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledInput, {
     type: "text",
     defaultValue: inputUserID,
     onChange: function onChange(e) {
@@ -8100,6 +8280,44 @@ var OfflineTeamRound = function OfflineTeamRound() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.forwardRef(OfflineTeamRound));
+
+/***/ }),
+
+/***/ "./playground/Score.tsx":
+/*!******************************!*\
+  !*** ./playground/Score.tsx ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib_hooks_useScore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/hooks/useScore */ "./lib/hooks/useScore.ts");
+
+
+
+
+var Follower = function Follower() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      inputScore = _useState2[0],
+      setInputScore = _useState2[1];
+
+  var score = (0,_lib_hooks_useScore__WEBPACK_IMPORTED_MODULE_2__.default)(inputScore);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, "useScore will animate to change the number and remove digit number."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "Please enter a number"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+    type: "number",
+    value: inputScore,
+    onChange: function onChange(e) {
+      return setInputScore(+e.target.value);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "score: ", score));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(Follower));
 
 /***/ }),
 
