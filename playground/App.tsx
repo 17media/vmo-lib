@@ -10,6 +10,7 @@ import Utils from './Utils';
 import ScrollToLoading from './ScrollToLoading';
 import ScrollToStreamer from './ScrollToStreamer';
 import StartRender from './StartRender';
+import Expired from './Expired';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] =
@@ -29,6 +30,7 @@ const App = () => {
     ScrollToLoading: <ScrollToLoading />,
     ScrollToStreamer: <ScrollToStreamer />,
     StartRender: <StartRender />,
+    Expired: <Expired />,
   };
 
   return (
