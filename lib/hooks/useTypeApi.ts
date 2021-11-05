@@ -31,8 +31,8 @@ export type APIType = {
  * 不支援取得 cache, vote 類型資料
  * @param apiList APIType
  * @param method HTTP Method
- * @param realTime 等待發 request 的毫秒数(ms), ex: 1000為一秒發送一次
- * @param initialData leaderboard 起始資料
+ * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
+ * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
  * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
