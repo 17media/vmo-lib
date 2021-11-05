@@ -3,6 +3,7 @@ import OfflineRound from './OfflineRound';
 import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
 import TypeApi from './TypeApi';
+import TypeApi2 from './TypeApi2';
 import Filter from './Filter';
 import Follower from './Follower';
 import Score from './Score';
@@ -23,6 +24,7 @@ const App = () => {
     luckyDraw: <LuckyDraw />,
     offlineTeamRound: <OfflineTeamRound />,
     typeApi: <TypeApi />,
+    typeApi2: <TypeApi2 />,
     filter: <Filter />,
     follower: <Follower />,
     score: <Score />,
