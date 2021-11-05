@@ -8308,12 +8308,21 @@ var Follower = function Follower() {
       setInputScore = _useState2[1];
 
   var score = (0,_lib_hooks_useScore__WEBPACK_IMPORTED_MODULE_2__.default)(inputScore);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, "useScore will animate to change the number and remove digit number."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "Please enter a number"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+
+  var handleChange = function handleChange(e) {
+    var newScore = e.target.value;
+
+    if (newScore.length > 10) {
+      return;
+    }
+
+    setInputScore(+newScore);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, "useScore will animate to change the number and remove digit number."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "Please enter a natural number (max 10 digit)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
     type: "number",
     value: inputScore,
-    onChange: function onChange(e) {
-      return setInputScore(+e.target.value);
-    }
+    onChange: handleChange
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "score: ", score));
 };
 
