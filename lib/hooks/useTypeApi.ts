@@ -101,7 +101,17 @@ export const useTypeApi = (
 
     const promiseList: Promise<User[]>[] = [];
     source.current = axios.CancelToken.source();
-    apiList.forEach((item: APIType) => {
+    const callback = (item: any) => (data: any) => {
+      setLoading(false);
+      const index = apiList.findIndex(value => value.sta === item.sta);
+      setLeaderboardData(prev => {
+        if (prev) {
+          prev[index] = [...data];
+          return [...prev];
+        }
+      });
+    };
+    apiList.forEach((item: APIType, index) => {
       if (item.isEventory) {
         promiseList.push(
           getLeaderboardEventory(
@@ -110,6 +120,7 @@ export const useTypeApi = (
             opt.limit,
             opt.cursor,
             method,
+            callback(item),
           ),
         );
       }
