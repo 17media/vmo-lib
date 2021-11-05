@@ -131,7 +131,7 @@ const TypeApi = () => {
         onChange={eventoryContainerIdHandler}
       />
       <br />
-      <span>Request 間隔時間:</span>
+      <span>Request 自動重發更新間隔時間:</span>
       <Input
         type="number"
         ref={realTimeRef}
