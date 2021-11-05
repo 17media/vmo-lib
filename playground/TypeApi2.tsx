@@ -114,6 +114,10 @@ const TypeApi2 = () => {
 
   return (
     <div>
+      <span>
+        取得單雙榜單資料，主要是考量到有可能會有複數取得榜單資料的情況，例如榜單＋加分榜
+      </span>
+      <br />
       <span>左邊 Eventory Container ID:</span>
       <Input
         type="text"

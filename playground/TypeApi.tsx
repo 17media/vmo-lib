@@ -123,6 +123,8 @@ const TypeApi = () => {
 
   return (
     <div>
+      <span>取得單一榜單資料</span>
+      <br />
       <span>Eventory Container ID:</span>
       <Input
         type="text"
