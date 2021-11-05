@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, memo } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import useTypeApi from '../lib/hooks/useTypeApi';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';

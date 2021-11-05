@@ -1,10 +1,9 @@
-import React, { useState, useRef, useMemo, memo } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import useTypeApi from '../lib/hooks/useTypeApi';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
 import { ItemStyle } from '../lib/hooks/useItemTransition';
 import { User } from '../lib/types';
-import useFilter from '../lib/hooks/useFilter';
 
 const rowCount = 2;
 
@@ -159,11 +158,6 @@ const TypeApi2 = () => {
       <span>is loading: {loading.toString()}</span> <br />
       <span>is polling: {polling.toString()}</span> <br />
       {requestError && <span>Error: {requestError.message}</span>} <br />
-      {final1 === init[0] && (
-        <span>
-          <b>Init Leaderboard</b>
-        </span>
-      )}
       {!requestError && (
         <Wrapper>
           <Left>
