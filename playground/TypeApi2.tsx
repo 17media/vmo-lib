@@ -161,7 +161,7 @@ const TypeApi2 = () => {
       {!requestError && (
         <Wrapper>
           <Left>
-            Eventory Container ID: dbda13a5-70b4-445a-95a5-52f0802c4781
+            Eventory Container ID: {eventoryContainerIdLeft}
             <TransitionLeaderboardWrapper
               itemStyle={itemStyle}
               rowCount={rowCount}
@@ -178,7 +178,7 @@ const TypeApi2 = () => {
             </TransitionLeaderboardWrapper>
           </Left>
           <Right>
-            Eventory Container ID: 4a03f9c8-8c7e-402e-9cca-67dc81abc0b8
+            Eventory Container ID: {eventoryContainerIdRight}
             <TransitionLeaderboardWrapper
               itemStyle={itemStyle}
               rowCount={rowCount}
