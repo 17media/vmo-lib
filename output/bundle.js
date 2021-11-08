@@ -6350,14 +6350,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "useTypeApi": () => (/* binding */ useTypeApi),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../service/leaderboardEventory.service */ "./lib/service/leaderboardEventory.service.ts");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../service/leaderboardEventory.service */ "./lib/service/leaderboardEventory.service.ts");
+
 
 
 
@@ -6371,8 +6373,8 @@ __webpack_require__.r(__webpack_exports__);
  * 不支援取得 cache, vote 類型資料
  * @param apiList APIType
  * @param method HTTP Method
- * @param realTime 等待發 request 的毫秒数(ms), ex: 1000為一秒發送一次
- * @param initialData leaderboard 起始資料
+ * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
+ * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
  * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
@@ -6385,36 +6387,36 @@ var useTypeApi = function useTypeApi() {
     limit: 1000,
     cursor: ''
   };
-  var timeoutKey = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(0);
-  var source = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)();
+  var timeoutKey = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)(0);
+  var source = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)();
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState, 2),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(false),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__.default)(_useState, 2),
       loading = _useState2[0],
       setLoading = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState3, 2),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(false),
+      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__.default)(_useState3, 2),
       polling = _useState4[0],
       setPolling = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null),
-      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState5, 2),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(null),
+      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__.default)(_useState5, 2),
       requestError = _useState6[0],
       setRequestError = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(initialData),
-      _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__.default)(_useState7, 2),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(initialData),
+      _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__.default)(_useState7, 2),
       leaderboardData = _useState8[0],
       setLeaderboardData = _useState8[1];
 
-  var getDataRealTimeAPI = (0,react__WEBPACK_IMPORTED_MODULE_3__.useCallback)(function () {
+  var getDataRealTimeAPI = (0,react__WEBPACK_IMPORTED_MODULE_4__.useCallback)(function () {
     var apis = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var time = arguments.length > 1 ? arguments[1] : undefined;
     var previousData = arguments.length > 2 ? arguments[2] : undefined;
-    timeoutKey.current = window.setTimeout( /*#__PURE__*/(0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
+    timeoutKey.current = window.setTimeout( /*#__PURE__*/(0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
       var apiArr, results;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
@@ -6423,7 +6425,7 @@ var useTypeApi = function useTypeApi() {
               apiArr = [];
               apis.forEach(function (item) {
                 if (item.isEventory) {
-                  apiArr.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_5__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method));
+                  apiArr.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method));
                 }
               });
               _context.prev = 4;
@@ -6454,15 +6456,15 @@ var useTypeApi = function useTypeApi() {
       }, _callee, null, [[4, 11, 14, 17]]);
     })), time);
   }, [method, opt.cursor, opt.limit]);
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     function promiseAll(_x) {
       return _promiseAll.apply(this, arguments);
     }
 
     function _promiseAll() {
-      _promiseAll = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2(promiseList) {
+      _promiseAll = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(promiseList) {
         var results;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
@@ -6499,10 +6501,26 @@ var useTypeApi = function useTypeApi() {
     }
 
     var promiseList = [];
-    source.current = axios__WEBPACK_IMPORTED_MODULE_4___default().CancelToken.source();
+    source.current = axios__WEBPACK_IMPORTED_MODULE_5___default().CancelToken.source();
+
+    var callback = function callback(item) {
+      return function (data) {
+        setLoading(false);
+        var index = apiList.findIndex(function (value) {
+          return value.sta === item.sta;
+        });
+        setLeaderboardData(function (prev) {
+          if (prev) {
+            prev[index] = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(data);
+            return (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(prev);
+          }
+        });
+      };
+    };
+
     apiList.forEach(function (item) {
       if (item.isEventory) {
-        promiseList.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_5__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method));
+        promiseList.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method, callback(item)));
       }
       /**
        * @TODO isCache, isVote, firstRender, 以及預設行為 getLeaderboard 目前不常使用，未完整驗證，將其註解掉
@@ -6561,7 +6579,7 @@ var useTypeApi = function useTypeApi() {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
     };
   }, [apiList, method, opt.cursor, opt.limit]);
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     if (!polling && realTime > 0) {
       clearTimeout(timeoutKey.current);
       timeoutKey.current = 0;
@@ -6725,7 +6743,7 @@ var getUserFollowers = /*#__PURE__*/function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getLeaderboardEventory": () => (/* binding */ getLeaderboardEventory),
-/* harmony export */   "getLeaderboardEventoryBonus": () => (/* binding */ getLeaderboardEventoryBonus)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
@@ -6745,12 +6763,14 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
         cursor,
         method,
         callBack,
+        preData,
         axios,
         body,
         res,
         _res$data,
         nextCursor,
         data,
+        currentData,
         nextData,
         _args = arguments;
 
@@ -6762,6 +6782,7 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
             cursor = _args.length > 3 && _args[3] !== undefined ? _args[3] : '';
             method = _args.length > 4 && _args[4] !== undefined ? _args[4] : 'POST';
             callBack = _args.length > 5 && _args[5] !== undefined ? _args[5] : function (data) {};
+            preData = _args.length > 6 && _args[6] !== undefined ? _args[6] : [];
             axios = (0,_axios__WEBPACK_IMPORTED_MODULE_3__.getInstanceEventory)();
             body = {
               type: (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getType)(type),
@@ -6770,22 +6791,22 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
             };
 
             if (!(method === 'POST')) {
-              _context.next = 12;
+              _context.next = 13;
               break;
             }
 
-            _context.next = 9;
+            _context.next = 10;
             return axios.post(url, body, {
               cancelToken: cancelToken
             });
 
-          case 9:
+          case 10:
             res = _context.sent;
-            _context.next = 15;
+            _context.next = 16;
             break;
 
-          case 12:
-            _context.next = 14;
+          case 13:
+            _context.next = 15;
             return axios.get(url, {
               params: {
                 containerID: (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getType)(type),
@@ -6796,32 +6817,33 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
               cancelToken: cancelToken
             });
 
-          case 14:
+          case 15:
             res = _context.sent;
 
-          case 15:
+          case 16:
             _res$data = res.data, nextCursor = _res$data.nextCursor, data = _res$data.data;
+            currentData = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(preData), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(data));
 
             if (callBack) {
-              callBack(data);
+              callBack(currentData);
             }
 
             if (!nextCursor) {
-              _context.next = 22;
+              _context.next = 24;
               break;
             }
 
-            _context.next = 20;
-            return getLeaderboardEventory(type, cancelToken, limit, nextCursor, method);
+            _context.next = 22;
+            return getLeaderboardEventory(type, cancelToken, limit, nextCursor, method, callBack, currentData);
 
-          case 20:
+          case 22:
             nextData = _context.sent;
             return _context.abrupt("return", [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(data), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(nextData)));
 
-          case 22:
+          case 24:
             return _context.abrupt("return", data);
 
-          case 23:
+          case 25:
           case "end":
             return _context.stop();
         }
@@ -6833,79 +6855,7 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-var getLeaderboardEventoryBonus = /*#__PURE__*/function () {
-  var _ref2 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__.default)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2(type, cancelToken, userId) {
-    var limit,
-        cursor,
-        method,
-        axios,
-        body,
-        res,
-        _res$data2,
-        nextCursor,
-        data,
-        _args2 = arguments;
-
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            limit = _args2.length > 3 && _args2[3] !== undefined ? _args2[3] : 1000;
-            cursor = _args2.length > 4 && _args2[4] !== undefined ? _args2[4] : '';
-            method = _args2.length > 5 && _args2[5] !== undefined ? _args2[5] : 'GET';
-            axios = (0,_axios__WEBPACK_IMPORTED_MODULE_3__.getInstanceEventory)();
-            body = {
-              type: (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getType)(type),
-              count: limit,
-              cursor: cursor
-            };
-
-            if (!(method === 'POST')) {
-              _context2.next = 11;
-              break;
-            }
-
-            _context2.next = 8;
-            return axios.post(url, body, {
-              cancelToken: cancelToken
-            });
-
-          case 8:
-            res = _context2.sent;
-            _context2.next = 14;
-            break;
-
-          case 11:
-            _context2.next = 13;
-            return axios.get(url, {
-              params: {
-                containerID: (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getType)(type),
-                count: limit,
-                cursor: cursor,
-                'subkeys[]': userId
-              },
-              cancelToken: cancelToken
-            });
-
-          case 13:
-            res = _context2.sent;
-
-          case 14:
-            _res$data2 = res.data, nextCursor = _res$data2.nextCursor, data = _res$data2.data;
-            return _context2.abrupt("return", data);
-
-          case 16:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function getLeaderboardEventoryBonus(_x3, _x4, _x5) {
-    return _ref2.apply(this, arguments);
-  };
-}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getLeaderboardEventory);
 
 /***/ }),
 
@@ -7650,14 +7600,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _OfflineTeamRound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OfflineTeamRound */ "./playground/OfflineTeamRound.tsx");
 /* harmony import */ var _LuckyDraw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LuckyDraw */ "./playground/LuckyDraw.tsx");
 /* harmony import */ var _TypeApi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TypeApi */ "./playground/TypeApi.tsx");
-/* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Filter */ "./playground/Filter.tsx");
-/* harmony import */ var _Follower__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Follower */ "./playground/Follower.tsx");
-/* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Score */ "./playground/Score.tsx");
-/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
-/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
-/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
-/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
-/* harmony import */ var _Expired__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Expired */ "./playground/Expired.tsx");
+/* harmony import */ var _TypeApi2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TypeApi2 */ "./playground/TypeApi2.tsx");
+/* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Filter */ "./playground/Filter.tsx");
+/* harmony import */ var _Follower__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Follower */ "./playground/Follower.tsx");
+/* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Score */ "./playground/Score.tsx");
+/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
+/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
+/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
+/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
+/* harmony import */ var _Expired__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Expired */ "./playground/Expired.tsx");
+
 
 
 
@@ -7688,14 +7640,15 @@ var App = function App() {
     luckyDraw: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_LuckyDraw__WEBPACK_IMPORTED_MODULE_4__.default, null),
     offlineTeamRound: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_OfflineTeamRound__WEBPACK_IMPORTED_MODULE_3__.default, null),
     typeApi: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_TypeApi__WEBPACK_IMPORTED_MODULE_5__.default, null),
-    filter: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Filter__WEBPACK_IMPORTED_MODULE_6__.default, null),
-    follower: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Follower__WEBPACK_IMPORTED_MODULE_7__.default, null),
-    score: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Score__WEBPACK_IMPORTED_MODULE_8__.default, null),
-    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Utils__WEBPACK_IMPORTED_MODULE_9__.default, null),
-    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_10__.default, null),
-    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_11__.default, null),
-    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_StartRender__WEBPACK_IMPORTED_MODULE_12__.default, null),
-    Expired: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Expired__WEBPACK_IMPORTED_MODULE_13__.default, null)
+    typeApi2: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_TypeApi2__WEBPACK_IMPORTED_MODULE_6__.default, null),
+    filter: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Filter__WEBPACK_IMPORTED_MODULE_7__.default, null),
+    follower: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Follower__WEBPACK_IMPORTED_MODULE_8__.default, null),
+    score: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Score__WEBPACK_IMPORTED_MODULE_9__.default, null),
+    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Utils__WEBPACK_IMPORTED_MODULE_10__.default, null),
+    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_11__.default, null),
+    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_12__.default, null),
+    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_StartRender__WEBPACK_IMPORTED_MODULE_13__.default, null),
+    Expired: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Expired__WEBPACK_IMPORTED_MODULE_14__.default, null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "\u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
@@ -8514,7 +8467,7 @@ var SearchFilter = function SearchFilter(_ref) {
 };
 
 var TypeApi = function TypeApi() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('dbda13a5-70b4-445a-95a5-52f0802c4781'),
       _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
       eventoryContainerId = _useState2[0],
       setEventoryContainerId = _useState2[1]; // requestMethod 目前都需要設定成 'GET'，所以不開放設定
@@ -8528,20 +8481,29 @@ var TypeApi = function TypeApi() {
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
       _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState5, 2),
       realTime = _useState6[0],
-      setRealTime = _useState6[1]; // isEventory 目前都需要設定成 true，所以不開放設定
+      setRealTime = _useState6[1];
 
-
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1000),
       _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState7, 2),
-      isEventory = _useState8[0],
-      setIsEventory = _useState8[1];
+      limit = _useState8[0],
+      setLimit = _useState8[1]; // isEventory 目前都需要設定成 true，所以不開放設定
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
       _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState9, 2),
-      apiList = _useState10[0],
-      setApiList = _useState10[1];
+      isEventory = _useState10[0],
+      setIsEventory = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+      _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState11, 2),
+      apiList = _useState12[0],
+      setApiList = _useState12[1];
 
   var realTimeRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
+  var optRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)({
+    limit: 1000,
+    cursor: ''
+  });
   var init = [[{
     userInfo: {
       userID: '4bfcd001-5ff1-4ec7-88fe-e395b05386b0',
@@ -8560,7 +8522,7 @@ var TypeApi = function TypeApi() {
     }
   }]];
 
-  var _useTypeApi = (0,_lib_hooks_useTypeApi__WEBPACK_IMPORTED_MODULE_3__.default)(apiList, requestMethod, realTimeRef.current, init),
+  var _useTypeApi = (0,_lib_hooks_useTypeApi__WEBPACK_IMPORTED_MODULE_3__.default)(apiList, requestMethod, realTimeRef.current, init, optRef.current),
       loading = _useTypeApi.loading,
       polling = _useTypeApi.polling,
       requestError = _useTypeApi.requestError,
@@ -8574,8 +8536,13 @@ var TypeApi = function TypeApi() {
     return setRealTime(+e.target.value);
   };
 
+  var limitHandler = function limitHandler(e) {
+    return setLimit(+e.target.value);
+  };
+
   var submitHandler = function submitHandler() {
     realTimeRef.current = realTime;
+    optRef.current.limit = limit;
     setApiList([{
       sta: eventoryContainerId,
       prod: '',
@@ -8590,18 +8557,23 @@ var TypeApi = function TypeApi() {
       data = _useFilter.data,
       handleOnChange = _useFilter.handleOnChange;
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "Eventory Container ID:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "\u53D6\u5F97\u55AE\u4E00\u699C\u55AE\u8CC7\u6599"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "Eventory Container ID:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
     type: "text",
     value: eventoryContainerId,
     placeholder: "\u8ACB\u8F38\u5165 Eventory Container ID",
     onChange: eventoryContainerIdHandler
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "Request \u9593\u9694\u6642\u9593:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "Request \u81EA\u52D5\u91CD\u767C\u66F4\u65B0\u9593\u9694\u6642\u9593:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
     type: "number",
     ref: realTimeRef,
     value: realTime,
     placeholder: "\u8ACB\u8F38\u5165request\u9593\u9694\u6642\u9593",
     onChange: realTimeHandler
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "/\u6BEB\u79D2\u6570(ms)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Button, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "/\u6BEB\u79D2\u6570(ms)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "\b\u5411\u5F8C\u7AEF\u6BCF\u6B21\u62FF\u53D6\u7684\u6578\u91CF:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
+    type: "number",
+    value: limit,
+    placeholder: "\u8ACB\u8F38\u5165\b\u5411\u5F8C\u7AEF\u6BCF\u6B21\u62FF\u53D6\u7684\u6578\u91CF",
+    onChange: limitHandler
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Button, {
     onClick: submitHandler
   }, "\u9001\u51FA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(SearchFilter, {
     handleOnChange: handleOnChange
@@ -8617,6 +8589,176 @@ var TypeApi = function TypeApi() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.memo(TypeApi));
+
+/***/ }),
+
+/***/ "./playground/TypeApi2.tsx":
+/*!*********************************!*\
+  !*** ./playground/TypeApi2.tsx ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_hooks_useTypeApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/hooks/useTypeApi */ "./lib/hooks/useTypeApi.ts");
+/* harmony import */ var _lib_components_TransitionLeaderboardWrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../lib/components/TransitionLeaderboardWrapper */ "./lib/components/TransitionLeaderboardWrapper.tsx");
+
+
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7;
+
+
+
+
+
+var rowCount = 2;
+var itemStyle = {
+  width: 250,
+  height: 100,
+  offsetX: 20,
+  offsetY: 20
+};
+var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  display: flex;\n  flex-wrap: wrap;\n  padding: 10px 20px 20px;\n  border: 1px solid black;\n  height: 640px;\n  overflow-y: auto;\n"])));
+var WrapperSection = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  width: calc(50% - 4px);\n  height: 640px;\n  overflow-y: auto;\n  border-left: 1px solid black;\n  border-right: 1px solid black;\n"])));
+var Left = (0,styled_components__WEBPACK_IMPORTED_MODULE_5__.default)(WrapperSection)(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)([""])));
+var Right = (0,styled_components__WEBPACK_IMPORTED_MODULE_5__.default)(WrapperSection)(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)([""])));
+var Item = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  width: 250px;\n  height: 100px;\n  border: 1px solid black;\n"])));
+var Input = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.input(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  margin: 0 0 20px 20px;\n  padding: 5px 10px;\n  width: 500px;\n"])));
+var Button = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.button(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  margin: 20px 0 20px 20px;\n  padding: 5px 10px;\n"])));
+
+var TypeApi2 = function TypeApi2() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('dbda13a5-70b4-445a-95a5-52f0802c4781'),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      eventoryContainerIdLeft = _useState2[0],
+      setEventoryContainerIdLeft = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('4a03f9c8-8c7e-402e-9cca-67dc81abc0b8'),
+      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState3, 2),
+      eventoryContainerIdRight = _useState4[0],
+      setEventoryContainerIdRight = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState5, 2),
+      apiList = _useState6[0],
+      setApiList = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('GET'),
+      _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState7, 2),
+      requestMethod = _useState8[0],
+      setRequestMethod = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
+      _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState9, 2),
+      realTime = _useState10[0],
+      setRealTime = _useState10[1]; // isEventory 目前都需要設定成 true，所以不開放設定
+
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
+      _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState11, 2),
+      isEventory = _useState12[0],
+      setIsEventory = _useState12[1];
+
+  var realTimeRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1000),
+      _useState14 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState13, 2),
+      limit = _useState14[0],
+      setLimit = _useState14[1];
+
+  var optRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)({
+    limit: 1000,
+    cursor: ''
+  });
+  var init = [[], []];
+
+  var _useTypeApi = (0,_lib_hooks_useTypeApi__WEBPACK_IMPORTED_MODULE_3__.default)(apiList, requestMethod, realTimeRef.current, init, optRef.current),
+      loading = _useTypeApi.loading,
+      polling = _useTypeApi.polling,
+      requestError = _useTypeApi.requestError,
+      leaderboardData = _useTypeApi.leaderboardData;
+
+  var eventoryContainerIdLeftHandler = function eventoryContainerIdLeftHandler(e) {
+    return setEventoryContainerIdLeft(e.target.value);
+  };
+
+  var eventoryContainerIdRightHandler = function eventoryContainerIdRightHandler(e) {
+    return setEventoryContainerIdRight(e.target.value);
+  };
+
+  var realTimeHandler = function realTimeHandler(e) {
+    return setRealTime(+e.target.value);
+  };
+
+  var limitHandler = function limitHandler(e) {
+    return setLimit(+e.target.value);
+  };
+
+  var submitHandler = function submitHandler() {
+    realTimeRef.current = realTime;
+    optRef.current.limit = limit;
+    setApiList([{
+      sta: eventoryContainerIdLeft,
+      prod: '',
+      isEventory: isEventory
+    }, {
+      sta: eventoryContainerIdRight,
+      prod: '',
+      isEventory: isEventory
+    }]);
+  };
+
+  var final1 = leaderboardData.length > 0 ? leaderboardData[0] : [];
+  var final2 = leaderboardData.length > 0 ? leaderboardData[1] : [];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "\u53D6\u5F97\u55AE\u96D9\u699C\u55AE\u8CC7\u6599\uFF0C\u4E3B\u8981\u662F\u8003\u91CF\u5230\u6709\u53EF\u80FD\u6703\u6709\u8907\u6578\u53D6\u5F97\u699C\u55AE\u8CC7\u6599\u7684\u60C5\u6CC1\uFF0C\u4F8B\u5982\u699C\u55AE\uFF0B\u52A0\u5206\u699C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "\u5DE6\u908A Eventory Container ID:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
+    type: "text",
+    value: eventoryContainerIdLeft,
+    placeholder: "\u8ACB\u8F38\u5165 Eventory Container ID",
+    onChange: eventoryContainerIdLeftHandler
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "\u53F3\u908A Eventory Container ID:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
+    type: "text",
+    value: eventoryContainerIdRight,
+    placeholder: "\u8ACB\u8F38\u5165 Eventory Container ID",
+    onChange: eventoryContainerIdRightHandler
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "\b\u5411\u5F8C\u7AEF\u6BCF\u6B21\u62FF\u53D6\u7684\u6578\u91CF:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
+    type: "number",
+    value: limit,
+    placeholder: "\u8ACB\u8F38\u5165\b\u5411\u5F8C\u7AEF\u6BCF\u6B21\u62FF\u53D6\u7684\u6578\u91CF",
+    onChange: limitHandler
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "Request \u81EA\u52D5\u91CD\u767C\u66F4\u65B0\u9593\u9694\u6642\u9593:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Input, {
+    type: "number",
+    ref: realTimeRef,
+    value: realTime,
+    placeholder: "\u8ACB\u8F38\u5165request\u9593\u9694\u6642\u9593",
+    onChange: realTimeHandler
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "/\u6BEB\u79D2\u6570(ms)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "note: \u9019\u908AuseTypeApi\u50B3\u5165\u7684 initialData \u56E0\u70BA\u6709\u5169\u5F35\u699C\u55AE\uFF0C\u6240\u4EE5\u683C\u5F0F\u8981\u662F[[],[]]"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Button, {
+    onClick: submitHandler
+  }, "\u9001\u51FA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "is loading: ", loading.toString()), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "is polling: ", polling.toString()), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), requestError && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("span", null, "Error: ", requestError.message), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), !requestError && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Wrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Left, null, "Eventory Container ID: ", eventoryContainerIdLeft, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_lib_components_TransitionLeaderboardWrapper__WEBPACK_IMPORTED_MODULE_4__.TransitionLeaderboardWrapper, {
+    itemStyle: itemStyle,
+    rowCount: rowCount,
+    user: final1
+  }, final1.map(function (item) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Item, {
+      key: item.userInfo.userID
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "\u4E3B\u64AD\u540D\u7A31:"), " ", item.userInfo.displayName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "id: "), " ", item.userInfo.userID, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "value:"), " ", item.score);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Right, null, "Eventory Container ID: ", eventoryContainerIdRight, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_lib_components_TransitionLeaderboardWrapper__WEBPACK_IMPORTED_MODULE_4__.TransitionLeaderboardWrapper, {
+    itemStyle: itemStyle,
+    rowCount: rowCount,
+    user: final2
+  }, final2.map(function (item) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Item, {
+      key: item.userInfo.userID
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "\u4E3B\u64AD\u540D\u7A31:"), " ", item.userInfo.displayName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "id: "), " ", item.userInfo.userID, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "value:"), " ", item.score);
+  })))));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.memo(TypeApi2));
 
 /***/ }),
 
