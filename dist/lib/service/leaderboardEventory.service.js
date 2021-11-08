@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLeaderboardEventoryBonus = exports.getLeaderboardEventory = void 0;
+exports.getLeaderboardEventory = void 0;
 const axios_1 = require("./axios");
 const utils_1 = require("../utils");
 const url = `/v1/leaderboards/eventory`;
-const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', method = 'POST', callBack = (data) => { }) => __awaiter(void 0, void 0, void 0, function* () {
+const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', method = 'POST', callBack = (data) => { }, preData = []) => __awaiter(void 0, void 0, void 0, function* () {
     const axios = axios_1.getInstanceEventory();
     const body = { type: utils_1.getType(type), count: limit, cursor };
     let res;
@@ -32,36 +32,16 @@ const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', me
         });
     }
     const { nextCursor, data } = res.data;
+    const currentData = [...preData, ...data];
     if (callBack) {
-        callBack(data);
+        callBack(currentData);
     }
     if (nextCursor) {
-        const nextData = yield exports.getLeaderboardEventory(type, cancelToken, limit, nextCursor, method);
+        const nextData = yield exports.getLeaderboardEventory(type, cancelToken, limit, nextCursor, method, callBack, currentData);
         return [...data, ...nextData];
     }
     return data;
 });
 exports.getLeaderboardEventory = getLeaderboardEventory;
-const getLeaderboardEventoryBonus = (type, cancelToken, userId, limit = 1000, cursor = '', method = 'GET') => __awaiter(void 0, void 0, void 0, function* () {
-    const axios = axios_1.getInstanceEventory();
-    const body = { type: utils_1.getType(type), count: limit, cursor };
-    let res;
-    if (method === 'POST') {
-        res = yield axios.post(url, body, { cancelToken });
-    }
-    else {
-        res = yield axios.get(url, {
-            params: {
-                containerID: utils_1.getType(type),
-                count: limit,
-                cursor,
-                'subkeys[]': userId,
-            },
-            cancelToken,
-        });
-    }
-    const { nextCursor, data } = res.data;
-    return data;
-});
-exports.getLeaderboardEventoryBonus = getLeaderboardEventoryBonus;
+exports.default = exports.getLeaderboardEventory;
 //# sourceMappingURL=leaderboardEventory.service.js.map

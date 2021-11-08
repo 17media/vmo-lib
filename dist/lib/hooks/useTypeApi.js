@@ -22,8 +22,8 @@ const leaderboardEventory_service_1 = require("../service/leaderboardEventory.se
  * 不支援取得 cache, vote 類型資料
  * @param apiList APIType
  * @param method HTTP Method
- * @param realTime 等待發 request 的毫秒数(ms), ex: 1000為一秒發送一次
- * @param initialData leaderboard 起始資料
+ * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
+ * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
  * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
@@ -78,9 +78,19 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
         }
         const promiseList = [];
         source.current = axios_1.default.CancelToken.source();
+        const callback = (item) => (data) => {
+            setLoading(false);
+            const index = apiList.findIndex(value => value.sta === item.sta);
+            setLeaderboardData(prev => {
+                if (prev) {
+                    prev[index] = [...data];
+                    return [...prev];
+                }
+            });
+        };
         apiList.forEach((item) => {
             if (item.isEventory) {
-                promiseList.push(leaderboardEventory_service_1.getLeaderboardEventory(item, source.current.token, opt.limit, opt.cursor, method));
+                promiseList.push(leaderboardEventory_service_1.getLeaderboardEventory(item, source.current.token, opt.limit, opt.cursor, method, callback(item)));
             }
             /**
              * @TODO isCache, isVote, firstRender, 以及預設行為 getLeaderboard 目前不常使用，未完整驗證，將其註解掉
