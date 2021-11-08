@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, memo } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import useTypeApi from '../lib/hooks/useTypeApi';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
@@ -51,14 +51,21 @@ const SearchFilter = ({ handleOnChange }: SearchFilterProps) => (
 );
 
 const TypeApi = () => {
-  const [eventoryContainerId, setEventoryContainerId] = useState<string>('');
+  const [eventoryContainerId, setEventoryContainerId] = useState<string>(
+    'dbda13a5-70b4-445a-95a5-52f0802c4781',
+  );
   // requestMethod 目前都需要設定成 'GET'，所以不開放設定
   const [requestMethod, setRequestMethod] = useState<string>('GET');
   const [realTime, setRealTime] = useState<number>(0);
+  const [limit, setLimit] = useState<number>(1000);
   // isEventory 目前都需要設定成 true，所以不開放設定
   const [isEventory, setIsEventory] = useState<boolean>(true);
   const [apiList, setApiList] = useState([]);
   const realTimeRef = useRef(null);
+  const optRef = useRef({
+    limit: 1000,
+    cursor: '',
+  });
 
   const init: User[][] = [
     [
@@ -85,6 +92,7 @@ const TypeApi = () => {
     requestMethod,
     realTimeRef.current,
     init,
+    optRef.current,
   );
 
   const eventoryContainerIdHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -93,8 +101,12 @@ const TypeApi = () => {
   const realTimeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
     setRealTime(+e.target.value);
 
+  const limitHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLimit(+e.target.value);
+
   const submitHandler = () => {
     realTimeRef.current = realTime;
+    optRef.current.limit = limit;
     setApiList([
       {
         sta: eventoryContainerId,
@@ -111,6 +123,8 @@ const TypeApi = () => {
 
   return (
     <div>
+      <span>取得單一榜單資料</span>
+      <br />
       <span>Eventory Container ID:</span>
       <Input
         type="text"
@@ -119,7 +133,7 @@ const TypeApi = () => {
         onChange={eventoryContainerIdHandler}
       />
       <br />
-      <span>Request 間隔時間:</span>
+      <span>Request 自動重發更新間隔時間:</span>
       <Input
         type="number"
         ref={realTimeRef}
@@ -128,6 +142,14 @@ const TypeApi = () => {
         onChange={realTimeHandler}
       />
       <span>/毫秒数(ms)</span>
+      <br />
+      <span>向後端每次拿取的數量:</span>
+      <Input
+        type="number"
+        value={limit}
+        placeholder="請輸入向後端每次拿取的數量"
+        onChange={limitHandler}
+      />
       <br />
       <Button onClick={submitHandler}>送出</Button>
       <br />

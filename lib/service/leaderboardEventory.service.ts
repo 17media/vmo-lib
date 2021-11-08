@@ -15,6 +15,7 @@ export const getLeaderboardEventory = async (
   cursor = '',
   method = 'POST',
   callBack = (data: any) => {},
+  preData: any[] = [],
 ): Promise<User[]> => {
   const axios = getInstanceEventory();
 
@@ -36,8 +37,10 @@ export const getLeaderboardEventory = async (
 
   const { nextCursor, data } = res.data;
 
+  const currentData = [...preData, ...data];
+
   if (callBack) {
-    callBack(data);
+    callBack(currentData);
   }
 
   if (nextCursor) {
@@ -47,6 +50,8 @@ export const getLeaderboardEventory = async (
       limit,
       nextCursor,
       method,
+      callBack,
+      currentData,
     );
 
     return [...data, ...nextData];
@@ -55,35 +60,4 @@ export const getLeaderboardEventory = async (
   return data;
 };
 
-export const getLeaderboardEventoryBonus = async (
-  type: {
-    sta: string;
-    prod: string;
-  },
-  cancelToken: CancelToken,
-  userId: string,
-  limit = 1000,
-  cursor = '',
-  method = 'GET',
-): Promise<User[]> => {
-  const axios = getInstanceEventory();
-
-  const body = { type: getType(type), count: limit, cursor };
-  let res;
-  if (method === 'POST') {
-    res = await axios.post(url, body, { cancelToken });
-  } else {
-    res = await axios.get(url, {
-      params: {
-        containerID: getType(type),
-        count: limit,
-        cursor,
-        'subkeys[]': userId,
-      },
-      cancelToken,
-    });
-  }
-
-  const { nextCursor, data } = res.data;
-  return data;
-};
+export default getLeaderboardEventory;
