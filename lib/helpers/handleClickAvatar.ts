@@ -6,11 +6,11 @@ import * as tunnel from '../17liveMessageTunnel';
 
 declare const java17WebObject: any;
 
-const open = (userID: string, openID: string, roomID = 0) => {
+const open = (userID: string, openID: string, streamID = 0) => {
   if (isMobile) {
     if (isAndroid) {
-      if (roomID > 0) {
-        globalThis.location.href = `http://17.media/share/live/${roomID}`;
+      if (streamID > 0) {
+        globalThis.location.href = `http://17.media/share/live/${streamID}`;
         return;
       }
 
@@ -22,8 +22,8 @@ const open = (userID: string, openID: string, roomID = 0) => {
     }
 
     if (isIOS) {
-      if (roomID > 0) {
-        globalThis.location.href = `media17://live/${roomID}`;
+      if (streamID > 0) {
+        globalThis.location.href = `media17://live/${streamID}`;
         return;
       }
 
@@ -36,15 +36,17 @@ const open = (userID: string, openID: string, roomID = 0) => {
       return;
     }
 
-    if (roomID > 0) {
-      window.open(`http://17.media/share/live/${roomID}`);
+    if (streamID > 0) {
+      window.open(`http://17.media/share/live/${streamID}`);
     }
   }
 };
 
-const handleClickAvatar = (userID: string, openID: string, roomID = 0) => {
-  open(userID, openID, roomID);
-  trackingSource?.track(createProfileClickAction(userID, roomID > 0, 'avatar'));
+const handleClickAvatar = (userID: string, openID: string, streamID = 0) => {
+  open(userID, openID, streamID);
+  trackingSource?.track(
+    createProfileClickAction(userID, streamID > 0, 'avatar'),
+  );
 };
 
 export default handleClickAvatar;
