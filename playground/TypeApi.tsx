@@ -5,6 +5,7 @@ import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeader
 import { ItemStyle } from '../lib/hooks/useItemTransition';
 import { User } from '../lib/types';
 import useFilter from '../lib/hooks/useFilter';
+import handleClickAvatar from '../lib/helpers/handleClickAvatar';
 
 const rowCount = 4;
 
@@ -23,6 +24,7 @@ const Item = styled.div`
   width: 250px;
   height: 100px;
   border: 1px solid black;
+  cursor: pointer;
 `;
 
 const Input = styled.input`
@@ -162,6 +164,10 @@ const TypeApi = () => {
           <b>Init Leaderboard</b>
         </span>
       )}
+      <p>
+        點擊主播行為由 <b>helpers/handleClickAvatar </b>提供（deepLink &
+        有開播情形會連至主播頁面）
+      </p>
       {!requestError && (
         <Wrapper>
           <TransitionLeaderboardWrapper
@@ -170,7 +176,16 @@ const TypeApi = () => {
             user={data}
           >
             {data.map(item => (
-              <Item key={item.userInfo.userID}>
+              <Item
+                key={item.userInfo.userID}
+                onClick={() =>
+                  handleClickAvatar(
+                    item.userInfo.userID,
+                    item.userInfo.openID,
+                    item.userInfo.roomID,
+                  )
+                }
+              >
                 <b>主播名稱:</b> {item.userInfo.displayName}
                 <br />
                 <b>id: </b> {item.userInfo.userID} <br />

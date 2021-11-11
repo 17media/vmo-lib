@@ -6,7 +6,7 @@ interface UserInfo {
   openID: string;
   name: string;
   followerCount?: number;
-  roomID?: number;
+  roomID?: number; // 主播有開播狀態下會有 roomID
   experience?: number;
   picture: string;
   region: string;
