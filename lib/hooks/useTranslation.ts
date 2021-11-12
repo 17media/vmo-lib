@@ -1,20 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { qs, getCurrentTranslateLang, RegionLanguage } from '../utils';
+import { getCurrentTranslateLang, RegionLanguage } from '../utils';
 import {
   getTranslation as getTranslationService,
   Translation as ITranslation,
 } from '../service/translation.service';
 
-const queryString = qs<{
-  lang: string;
-  dateTest: string;
-}>();
-
 const defaultLang = 'zh_TW';
 
 const useTranslation = (eventType: string, supportLangs: RegionLanguage[]) => {
   const supportLangsRef = useRef(supportLangs);
-  supportLangsRef.current = supportLangs;
   const [translation, setTranslation] = useState<Map<string, string>>(
     new Map(),
   );
@@ -48,9 +42,11 @@ const useTranslation = (eventType: string, supportLangs: RegionLanguage[]) => {
   );
 
   useEffect(() => {
-    getTranslation(
-      queryString.lang || getCurrentTranslateLang(supportLangsRef.current),
-    );
+    supportLangsRef.current = supportLangs;
+  }, [supportLangs]);
+
+  useEffect(() => {
+    getTranslation(getCurrentTranslateLang(supportLangsRef.current));
   }, [getTranslation]);
 
   return translation;

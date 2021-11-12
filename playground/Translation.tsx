@@ -19,6 +19,9 @@ const Translation = () => {
     '12822-golden-feather-5',
   );
 
+  const eventType2 = '12822-golden-feather-5';
+  const supportLangs2 = [RegionLanguage.JAPAN];
+
   const allSupportLanguages = [
     RegionLanguage.TAIWAN,
     RegionLanguage.CHINA,
@@ -42,6 +45,8 @@ const Translation = () => {
     useTranslationProps.eventType,
     useTranslationProps.supportLangs,
   );
+
+  // const translations = useTranslation(eventType2, supportLangs2);
 
   const [selectedTranslationKey, setSelectedTranslationKey] =
     useState<string>();
@@ -113,13 +118,17 @@ const Translation = () => {
         1.
         此功能必須在取得eventType的翻譯前先設定好支援語系，取得翻譯後，再去設定支援語系重新送出將不會重新翻譯，除非再次取得其他eventType的翻譯
         <br />
-        2.
-        如果URL帶有翻譯參數，則會以URL參數為主，例如URL有帶&lang=zh_TW，即便是支援語系只設定支援ja，還是會以zh_TW做翻譯
+        2. 如果沒有設定支援語系，則以中文為主
         <br />
-        3. 如果設定多個支援語系，則會以瀏覽器設定的最優先的偏好語言作翻譯
+        3.
+        如果設定多個支援語系，會先看有無URL參數，有的話以URL為主，若無則會以瀏覽器設定的最優先的偏好語言作翻譯
         <br />
-        4.
-        如果設定的支援語系不再瀏覽器設定的偏好語言，則會以中文作為翻譯。例如僅設定支援日文(ja)，但回傳翻譯有中文，且瀏覽器裡沒有把日文設定成偏好語言，則會以中文作為翻譯
+        4. 如果URL參數設定非支援語系，則會以瀏覽器設定的最優先的偏好語言作翻譯
+        <br />
+        5.
+        如果設定的支援語系不在瀏覽器設定的偏好語言且無URL參數，則會以中文作為翻譯
+        <br />
+        6. 以上條件都無法滿足時，則會以中文作為翻譯
       </span>
       <br />
       <br />
