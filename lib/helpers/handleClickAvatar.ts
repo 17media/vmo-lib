@@ -2,17 +2,18 @@ import { createProfileClickAction } from '17media-browser-spy';
 
 import { globalThis, isAndroid, isIOS, isMobile } from '../utils';
 import { trackingSource } from '../17appTrack';
-import * as tunnel from '../17liveMessageTunnel';
+import tunnelOpen from '../17liveMessageTunnel';
 
 declare const java17WebObject: any;
 
 const open = (userID: string, openID: string, streamID = 0) => {
-  if (isMobile) {
-    if (isAndroid) {
+  if (isMobile(globalThis.navigator.userAgent)) {
+    if (isAndroid(globalThis.navigator.userAgent)) {
       if (streamID > 0) {
         globalThis.location.href = `http://17.media/share/live/${streamID}`;
         return;
       }
+      console.log('inn: ', java17WebObject);
 
       if (java17WebObject) {
         const page = 'profile';
@@ -21,7 +22,7 @@ const open = (userID: string, openID: string, streamID = 0) => {
       }
     }
 
-    if (isIOS) {
+    if (isIOS(globalThis.navigator.userAgent)) {
       if (streamID > 0) {
         globalThis.location.href = `media17://live/${streamID}`;
         return;
@@ -30,18 +31,26 @@ const open = (userID: string, openID: string, streamID = 0) => {
       globalThis.location.href = `media17://u/${userID}`;
     }
   } else {
+    console.log('in web: ', streamID);
     if (window.parent !== window) {
       // 17.live
-      tunnel.open(openID);
+      tunnelOpen(openID);
       return;
     }
 
     if (streamID > 0) {
-      window.open(`http://17.media/share/live/${streamID}`);
+      globalThis.open(`http://17.media/share/live/${streamID}`);
     }
   }
 };
 
+/**
+ * 給 userID 跟 openID 來做 deeplink web/ios/android 網址轉換(若正在開播則多傳 streamID, 沒有則無) <br />
+ * @param userID 17 live 上的 account userID
+ * @param openID 17 live 上的 account openID
+ * @param streamID 17 live 上的 account onLiveInfo streamID
+ * @returns 取得 followers 資料以及 errMsg 判斷是否有問題
+ */
 const handleClickAvatar = (userID: string, openID: string, streamID = 0) => {
   open(userID, openID, streamID);
   trackingSource?.track(
