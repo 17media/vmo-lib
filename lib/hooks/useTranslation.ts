@@ -7,6 +7,12 @@ import {
 
 const defaultLang = 'zh_TW';
 
+/**
+ * 取得設定的線上翻譯
+ * @param eventType
+ * @param supportLangs 支援的語言
+ * @returns 取得設定的線上翻譯
+ */
 const useTranslation = (eventType: string, supportLangs: RegionLanguage[]) => {
   const supportLangsRef = useRef(supportLangs);
   const [translation, setTranslation] = useState<Map<string, string>>(
