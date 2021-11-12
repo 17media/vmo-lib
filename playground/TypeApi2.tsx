@@ -4,6 +4,7 @@ import useTypeApi from '../lib/hooks/useTypeApi';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
 import { ItemStyle } from '../lib/hooks/useItemTransition';
 import { User } from '../lib/types';
+import handleClickAvatar from '../lib/helpers/handleClickAvatar';
 
 const rowCount = 2;
 
@@ -156,6 +157,10 @@ const TypeApi2 = () => {
         note: 這邊useTypeApi傳入的 initialData
         因為有兩張榜單，所以格式要是[[],[]]
       </span>
+      <p>
+        點擊主播行為由 <b>helpers/handleClickAvatar </b>提供（deepLink &
+        有開播情形會連至主播頁面）
+      </p>
       <br />
       <Button onClick={submitHandler}>送出</Button>
       <br />
@@ -172,7 +177,16 @@ const TypeApi2 = () => {
               user={final1}
             >
               {final1.map(item => (
-                <Item key={item.userInfo.userID}>
+                <Item
+                  key={item.userInfo.userID}
+                  onClick={() =>
+                    handleClickAvatar(
+                      item.userInfo.userID,
+                      item.userInfo.openID,
+                      item.userInfo?.onliveinfo?.streamID,
+                    )
+                  }
+                >
                   <b>主播名稱:</b> {item.userInfo.displayName}
                   <br />
                   <b>id: </b> {item.userInfo.userID} <br />

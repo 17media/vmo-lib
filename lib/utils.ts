@@ -1,3 +1,5 @@
+declare const java17WebObject: any;
+
 export const globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 
 export const qs = <T extends { [k: string]: string | boolean }>(
@@ -346,3 +348,19 @@ export const numberFormat = (
   value.toLocaleString(regionLanguage ?? navigator.language, {
     minimumFractionDigits: 0,
   });
+
+/**
+ * check isMobile by navigator userAgent.
+ */
+export const isMobile = /Mobile/.test(navigator.userAgent);
+
+/**
+ * check isAndroid by navigator userAgent.
+ */
+export const isAndroid =
+  /Android/.test(navigator.userAgent) && typeof java17WebObject !== 'undefined';
+
+/**
+ * check isIOS by navigator userAgent.
+ */
+export const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
