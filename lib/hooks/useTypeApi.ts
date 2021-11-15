@@ -4,31 +4,16 @@ import axios, { CancelTokenSource } from 'axios';
 import { getLeaderboardEventory } from '../service/leaderboardEventory.service';
 import { User } from '../types';
 
-/**
- * @TODO isCache, isVote, firstRender, needBonus, 以及預設行為 getLeaderboard 目前不常使用，未完整驗證<br />
- * getLeaderboard, getLeaderboardCache, getLeaderboardVote 這三個 service 目前不常使用，未完整驗證，且未將檔案移植<br />
- * 之後驗證完成後將功能逐步釋出
- */
 export type APIType = {
   /** staging site container ID */
   sta: string;
 
   /** production site container ID */
   prod: string;
-
-  /** 是不是 Leaderboard Eventory 類型 */
-  isEventory?: boolean;
-
-  // isCache?: boolean;
-  // isVote?: boolean; 在 vmo-frontend 2108-jp-anniversary4 使用
-  // firstRender?: boolean; 在 vmo-frontend 2108-jp-anniversary4 使用
-  // needBonus?: boolean; 在 vmo-frontend 2008-tw-star-offline 使用，但無實際用途
 };
 
 /**
  * 取得 container 資料<br />
- * 支援取得 eventory 類型資料<br />
- * 不支援取得 cache, vote 類型資料
  * @param apiList APIType
  * @param method HTTP Method
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
@@ -60,17 +45,15 @@ export const useTypeApi = (
         setPolling(true);
         const apiArr: Promise<User[]>[] = [];
         apis.forEach((item: APIType) => {
-          if (item.isEventory) {
-            apiArr.push(
-              getLeaderboardEventory(
-                item,
-                source.current!.token,
-                opt.limit,
-                opt.cursor,
-                method,
-              ),
-            );
-          }
+          apiArr.push(
+            getLeaderboardEventory(
+              item,
+              source.current!.token,
+              opt.limit,
+              opt.cursor,
+              method,
+            ),
+          );
         });
         try {
           const results = await Promise.all(apiArr);
@@ -112,64 +95,16 @@ export const useTypeApi = (
       });
     };
     apiList.forEach((item: APIType) => {
-      if (item.isEventory) {
-        promiseList.push(
-          getLeaderboardEventory(
-            item,
-            source.current!.token,
-            opt.limit,
-            opt.cursor,
-            method,
-            callback(item),
-          ),
-        );
-      }
-
-      /**
-       * @TODO isCache, isVote, firstRender, 以及預設行為 getLeaderboard 目前不常使用，未完整驗證，將其註解掉
-       * 之後驗證完成後將功能逐步釋出
-       */
-      // if (item.isCache) {
-      //   promiseList.push(
-      //     getLeaderboardCache(
-      //       {
-      //         sta: item.sta,
-      //         prod: item.prod,
-      //       },
-      //       source.current!.token,
-      //     ),
-      //   );
-      // } else if (item.isVote) {
-      //   promiseList.push(
-      //     getLeaderboardVote(
-      //       {
-      //         sta: item.sta,
-      //         prod: item.prod,
-      //       },
-      //       source.current!.token,
-      //     ),
-      //   );
-      // } else if (item.isEventory) {
-      //   promiseList.push(
-      //     getLeaderboardEventory(
-      //       item,
-      //       source.current!.token,
-      //       opt.limit,
-      //       opt.cursor,
-      //       method,
-      //     ),
-      //   );
-      // } else {
-      //   promiseList.push(
-      //     getLeaderboard(
-      //       item,
-      //       source.current!.token,
-      //       opt.limit,
-      //       opt.cursor,
-      //       method,
-      //     ),
-      //   );
-      // }
+      promiseList.push(
+        getLeaderboardEventory(
+          item,
+          source.current!.token,
+          opt.limit,
+          opt.cursor,
+          method,
+          callback(item),
+        ),
+      );
     });
     if (apiList && apiList.length > 0 && method) {
       promiseAll(promiseList);

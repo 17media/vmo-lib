@@ -9,7 +9,6 @@ describe('test type api hook', () => {
       {
         sta: 'dbda13a5-70b4-445a-95a5-52f0802c4781', // 夏末
         prod: '',
-        isEventory: true,
       },
     ];
 
