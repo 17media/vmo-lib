@@ -60,8 +60,6 @@ const TypeApi2 = () => {
   const [apiList, setApiList] = useState([]);
   const [requestMethod, setRequestMethod] = useState<string>('GET');
   const [realTime, setRealTime] = useState<number>(0);
-  // isEventory 目前都需要設定成 true，所以不開放設定
-  const [isEventory, setIsEventory] = useState<boolean>(true);
   const realTimeRef = useRef(null);
   const [limit, setLimit] = useState<number>(1000);
   const optRef = useRef({
@@ -100,12 +98,10 @@ const TypeApi2 = () => {
       {
         sta: eventoryContainerIdLeft,
         prod: '',
-        isEventory,
       },
       {
         sta: eventoryContainerIdRight,
         prod: '',
-        isEventory,
       },
     ]);
   };
