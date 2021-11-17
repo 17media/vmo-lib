@@ -25,8 +25,8 @@ describe('test handleClickAvatar helper - web', () => {
   test('should web browser userAgent to correct location href url which has streamID (the streamer is living)', async () => {
     const defaultStreamID = 1;
     const mockUser = mockUsers[0];
-    const { userID, openID, onliveinfo } = mockUser.userInfo;
-    const streamID = onliveinfo?.streamID ?? defaultStreamID;
+    const { userID, openID, onLiveInfo } = mockUser.userInfo;
+    const streamID = onLiveInfo?.streamID || defaultStreamID;
     handleClickAvatar(userID, openID, streamID);
 
     expect(globalThis.open).toHaveBeenCalled();
@@ -51,8 +51,8 @@ describe('test handleClickAvatar helper - ios', () => {
   test('should iOS /iPhone|iPad|iPod/ userAgent to correct location href url which has streamID (the streamer is living)', async () => {
     const defaultStreamID = 1;
     const mockUser = mockUsers[0];
-    const { userID, openID, onliveinfo } = mockUser.userInfo;
-    const streamID = onliveinfo?.streamID ?? defaultStreamID;
+    const { userID, openID, onLiveInfo } = mockUser.userInfo;
+    const streamID = onLiveInfo?.streamID || defaultStreamID;
     handleClickAvatar(userID, openID, streamID);
 
     const expectUrl = `media17://live/${streamID}`;
@@ -61,8 +61,8 @@ describe('test handleClickAvatar helper - ios', () => {
 
   test('should iOS /iPhone|iPad|iPod/ userAgent to correct location href url without streamID (the streamer is not on living)', async () => {
     const mockUser = mockUsers[0];
-    const { userID, openID, onliveinfo } = mockUser.userInfo;
-    const streamID = onliveinfo?.streamID;
+    const { userID, openID, onLiveInfo } = mockUser.userInfo;
+    const streamID = onLiveInfo?.streamID;
     handleClickAvatar(userID, openID, streamID);
 
     const expectUrl = `media17://u/${userID}`;
@@ -93,8 +93,8 @@ describe('test handleClickAvatar helper - android', () => {
   test('should android /Android/ userAgent to correct location href url which has streamID (the streamer is living)', async () => {
     const defaultStreamID = 1;
     const mockUser = mockUsers[0];
-    const { userID, openID, onliveinfo } = mockUser.userInfo;
-    const streamID = onliveinfo?.streamID ?? defaultStreamID;
+    const { userID, openID, onLiveInfo } = mockUser.userInfo;
+    const streamID = onLiveInfo?.streamID || defaultStreamID;
     handleClickAvatar(userID, openID, streamID);
 
     const expectUrl = `http://17.media/share/live/${streamID}`;
@@ -103,8 +103,8 @@ describe('test handleClickAvatar helper - android', () => {
 
   test('should android /Android/ userAgent call java17WebObject.openProfile without streamID (the streamer is not on living)', async () => {
     const mockUser = mockUsers[0];
-    const { userID, openID, onliveinfo } = mockUser.userInfo;
-    const streamID = onliveinfo?.streamID;
+    const { userID, openID, onLiveInfo } = mockUser.userInfo;
+    const streamID = onLiveInfo?.streamID;
     handleClickAvatar(userID, openID, streamID);
 
     expect(java17WebObject.openProfile).toHaveBeenCalled();

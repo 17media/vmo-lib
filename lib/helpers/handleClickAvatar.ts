@@ -13,7 +13,6 @@ const open = (userID: string, openID: string, streamID = 0) => {
         globalThis.location.href = `http://17.media/share/live/${streamID}`;
         return;
       }
-      console.log('inn: ', java17WebObject);
 
       if (java17WebObject) {
         const page = 'profile';
@@ -31,7 +30,6 @@ const open = (userID: string, openID: string, streamID = 0) => {
       globalThis.location.href = `media17://u/${userID}`;
     }
   } else {
-    console.log('in web: ', streamID);
     if (window.parent !== window) {
       // 17.live
       tunnelOpen(openID);
