@@ -16,6 +16,12 @@ const defaultUser = {
     picture: '36a80c61-89d9-40b5-803d-5b0437f293c4.jpg',
     region: 'TW',
     userID: '',
+    onLiveInfo: {
+      liveStreamID: '',
+      premiumType: 0,
+      streamID: 0,
+      streamerType: 0,
+    },
   },
 };
 

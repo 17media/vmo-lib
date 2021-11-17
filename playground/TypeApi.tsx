@@ -182,7 +182,7 @@ const TypeApi = () => {
                   handleClickAvatar(
                     item.userInfo.userID,
                     item.userInfo.openID,
-                    item.userInfo?.onliveinfo?.streamID,
+                    item.userInfo?.onLiveInfo?.streamID,
                   )
                 }
               >

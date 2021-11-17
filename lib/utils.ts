@@ -352,15 +352,22 @@ export const numberFormat = (
 /**
  * check isMobile by navigator userAgent.
  */
-export const isMobile = /Mobile/.test(navigator.userAgent);
+export const isMobile = (userAgent: string): boolean =>
+  /Mobile/.test(userAgent);
 
 /**
  * check isAndroid by navigator userAgent.
  */
-export const isAndroid =
-  /Android/.test(navigator.userAgent) && typeof java17WebObject !== 'undefined';
+export const isAndroid = (userAgent: string): boolean =>
+  /Android/.test(userAgent) && typeof java17WebObject !== 'undefined';
 
 /**
  * check isIOS by navigator userAgent.
  */
-export const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+export const isIOS = (userAgent: string): boolean =>
+  /iPhone|iPad|iPod/.test(userAgent);
+
+/**
+ * check is using in client side.
+ */
+export const isClient = (): boolean => typeof window !== 'undefined';

@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 const hosts = ['https://17.live', 'https://sta.17.live'];
 
 // to store recognized host in sessionStorage
@@ -43,8 +41,10 @@ if (typeof window !== 'undefined') {
 /**
  * Actions
  */
-export const open = (openID: string) =>
+const open = (openID: string) =>
   sendMessage({
     type: '17live/Event/EVENT_SEND_AVATAR_LINK',
     payload: openID,
   });
+
+export default open;

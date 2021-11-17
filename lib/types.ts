@@ -23,10 +23,10 @@ interface UserInfo {
   experience?: number;
   picture: string;
   region: string;
-  onliveinfo?: OnLiveinfo; // 主播有開播狀態下才會有
+  onLiveInfo?: OnLiveInfo; // 主播有開播狀態下才會有
 }
 
-interface OnLiveinfo {
+interface OnLiveInfo {
   liveStreamID: string;
   premiumType: number;
   streamID: number;

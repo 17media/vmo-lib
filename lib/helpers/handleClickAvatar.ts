@@ -1,16 +1,16 @@
 import { createProfileClickAction } from '17media-browser-spy';
 
-import { globalThis, isAndroid, isIOS, isMobile } from '../utils';
+import { isClient, isAndroid, isIOS, isMobile } from '../utils';
 import { trackingSource } from '../17appTrack';
-import * as tunnel from '../17liveMessageTunnel';
+import tunnelOpen from '../17liveMessageTunnel';
 
 declare const java17WebObject: any;
 
 const open = (userID: string, openID: string, streamID = 0) => {
-  if (isMobile) {
-    if (isAndroid) {
+  if (isMobile(window.navigator.userAgent)) {
+    if (isAndroid(window.navigator.userAgent)) {
       if (streamID > 0) {
-        globalThis.location.href = `http://17.media/share/live/${streamID}`;
+        window.location.href = `http://17.media/share/live/${streamID}`;
         return;
       }
 
@@ -21,18 +21,18 @@ const open = (userID: string, openID: string, streamID = 0) => {
       }
     }
 
-    if (isIOS) {
+    if (isIOS(window.navigator.userAgent)) {
       if (streamID > 0) {
-        globalThis.location.href = `media17://live/${streamID}`;
+        window.location.href = `media17://live/${streamID}`;
         return;
       }
 
-      globalThis.location.href = `media17://u/${userID}`;
+      window.location.href = `media17://u/${userID}`;
     }
   } else {
     if (window.parent !== window) {
       // 17.live
-      tunnel.open(openID);
+      tunnelOpen(openID);
       return;
     }
 
@@ -42,7 +42,19 @@ const open = (userID: string, openID: string, streamID = 0) => {
   }
 };
 
+/**
+ * 給 userID 跟 openID 來做 deeplink web/ios/android 網址轉換(若正在開播則多傳 streamID, 沒有則無) <br />
+ * @param userID 17 live 上的 account userID
+ * @param openID 17 live 上的 account openID
+ * @param streamID 17 live 上的 account onLiveInfo streamID
+ * @returns 取得 followers 資料以及 errMsg 判斷是否有問題
+ */
 const handleClickAvatar = (userID: string, openID: string, streamID = 0) => {
+  if (!isClient()) {
+    console.warn('can only use in client side.');
+    return;
+  }
+
   open(userID, openID, streamID);
   trackingSource?.track(
     createProfileClickAction(userID, streamID > 0, 'avatar'),
