@@ -366,3 +366,8 @@ export const isAndroid = (userAgent: string): boolean =>
  */
 export const isIOS = (userAgent: string): boolean =>
   /iPhone|iPad|iPod/.test(userAgent);
+
+/**
+ * check is using in client side.
+ */
+export const isClient = (): boolean => typeof window !== 'undefined';

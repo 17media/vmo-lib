@@ -110,3 +110,32 @@ describe('test handleClickAvatar helper - android', () => {
     expect(java17WebObject.openProfile).toHaveBeenCalled();
   });
 });
+
+describe('test handleClickAvatar helper - server', () => {
+  // beforeAll((): void => {
+  //   delete globalThis.location;
+  //   delete globalThis.navigator;
+  //   delete globalThis.open;
+  //   globalThis.location = {
+  //     pathname: domainUrl,
+  //     href: domainUrl,
+  //     search: '',
+  //   };
+  //   globalThis.navigator = {
+  //     userAgent: 'web/testing/userAgent',
+  //   };
+  //   globalThis.open = jest.fn();
+  // });
+
+  test('should not using in server side.', async () => {
+    const defaultStreamID = 1;
+    const mockUser = mockUsers[0];
+    const { userID, openID, onLiveInfo } = mockUser.userInfo;
+    const streamID = onLiveInfo?.streamID || defaultStreamID;
+    handleClickAvatar(userID, openID, streamID);
+
+    const msg = 'can only use in client side.';
+    const consoleSpy = jest.spyOn(console, 'warn');
+    expect(consoleSpy).toHaveBeenCalledWith(msg);
+  });
+});
