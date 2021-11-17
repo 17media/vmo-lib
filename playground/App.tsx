@@ -12,6 +12,7 @@ import ScrollToLoading from './ScrollToLoading';
 import ScrollToStreamer from './ScrollToStreamer';
 import StartRender from './StartRender';
 import Expired from './Expired';
+import Translation from './Translation';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] =
@@ -33,6 +34,7 @@ const App = () => {
     ScrollToStreamer: <ScrollToStreamer />,
     StartRender: <StartRender />,
     Expired: <Expired />,
+    Translation: <Translation />,
   };
 
   return (
