@@ -67,11 +67,6 @@ const Translation = () => {
     if (isChecked) {
       setSupportLangs(preValue => [selectedLang, ...preValue]);
     } else {
-      if (supportLangs.length <= 1) {
-        // eslint-disable-next-line no-alert
-        alert('should be keep at least one support language');
-        return;
-      }
       setSupportLangs(preValue => preValue.filter(v => v !== selectedLang));
     }
   };
@@ -89,7 +84,7 @@ const Translation = () => {
     <div>
       <span>支援語系: </span>
       {allSupportLanguages.map(langCode => (
-        <>
+        <span key={langCode}>
           <span>{langCode}</span>
           <StyledCheckbox
             type="checkbox"
@@ -97,7 +92,7 @@ const Translation = () => {
             onChange={onChangeHandler}
             checked={supportLangs.includes(langCode)}
           />
-        </>
+        </span>
       ))}
       <br />
       <span>eventType：</span>
@@ -123,12 +118,15 @@ const Translation = () => {
         3.
         如果設定多個支援語系，會先看有無URL參數，有的話以URL為主，若無則會以瀏覽器設定的最優先的偏好語言作翻譯
         <br />
-        4. 如果URL參數設定非支援語系，則會以瀏覽器設定的最優先的偏好語言作翻譯
+        4.
+        如果URL參數非支援語系，則顯示支援語系翻譯，若支援語系不在瀏覽器設定中，則顯示中文
         <br />
         5.
         如果設定的支援語系不在瀏覽器設定的偏好語言且無URL參數，則會以中文作為翻譯
         <br />
-        6. 以上條件都無法滿足時，則會以中文作為翻譯
+        6. URL有帶lang跟支援語系一樣，就算瀏覽器沒有設定，會以URL為主
+        <br />
+        7. 以上條件都無法滿足時，則會以中文作為翻譯
       </span>
       <br />
       <br />
