@@ -5503,10 +5503,10 @@ __webpack_require__.r(__webpack_exports__);
 var open = function open(userID, openID) {
   var streamID = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
-  if (_utils__WEBPACK_IMPORTED_MODULE_1__.isMobile) {
-    if (_utils__WEBPACK_IMPORTED_MODULE_1__.isAndroid) {
+  if ((0,_utils__WEBPACK_IMPORTED_MODULE_1__.isMobile)(window.navigator.userAgent)) {
+    if ((0,_utils__WEBPACK_IMPORTED_MODULE_1__.isAndroid)(window.navigator.userAgent)) {
       if (streamID > 0) {
-        _utils__WEBPACK_IMPORTED_MODULE_1__.globalThis.location.href = "http://17.media/share/live/".concat(streamID);
+        window.location.href = "http://17.media/share/live/".concat(streamID);
         return;
       }
 
@@ -5517,18 +5517,18 @@ var open = function open(userID, openID) {
       }
     }
 
-    if (_utils__WEBPACK_IMPORTED_MODULE_1__.isIOS) {
+    if ((0,_utils__WEBPACK_IMPORTED_MODULE_1__.isIOS)(window.navigator.userAgent)) {
       if (streamID > 0) {
-        _utils__WEBPACK_IMPORTED_MODULE_1__.globalThis.location.href = "media17://live/".concat(streamID);
+        window.location.href = "media17://live/".concat(streamID);
         return;
       }
 
-      _utils__WEBPACK_IMPORTED_MODULE_1__.globalThis.location.href = "media17://u/".concat(userID);
+      window.location.href = "media17://u/".concat(userID);
     }
   } else {
     if (window.parent !== window) {
       // 17.live
-      _17liveMessageTunnel__WEBPACK_IMPORTED_MODULE_3__.open(openID);
+      (0,_17liveMessageTunnel__WEBPACK_IMPORTED_MODULE_3__.default)(openID);
       return;
     }
 
@@ -5537,9 +5537,23 @@ var open = function open(userID, openID) {
     }
   }
 };
+/**
+ * 給 userID 跟 openID 來做 deeplink web/ios/android 網址轉換(若正在開播則多傳 streamID, 沒有則無) <br />
+ * @param userID 17 live 上的 account userID
+ * @param openID 17 live 上的 account openID
+ * @param streamID 17 live 上的 account onLiveInfo streamID
+ * @returns 取得 followers 資料以及 errMsg 判斷是否有問題
+ */
+
 
 var handleClickAvatar = function handleClickAvatar(userID, openID) {
   var streamID = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+  if (!(0,_utils__WEBPACK_IMPORTED_MODULE_1__.isClient)()) {
+    console.warn('can only use in client side.');
+    return;
+  }
+
   open(userID, openID, streamID);
   _17appTrack__WEBPACK_IMPORTED_MODULE_2__.trackingSource === null || _17appTrack__WEBPACK_IMPORTED_MODULE_2__.trackingSource === void 0 ? void 0 : _17appTrack__WEBPACK_IMPORTED_MODULE_2__.trackingSource.track((0,_17media_browser_spy__WEBPACK_IMPORTED_MODULE_0__.createProfileClickAction)(userID, streamID > 0, 'avatar'));
 };
@@ -6066,7 +6080,13 @@ var defaultUser = {
     openID: '',
     picture: '36a80c61-89d9-40b5-803d-5b0437f293c4.jpg',
     region: 'TW',
-    userID: ''
+    userID: '',
+    onLiveInfo: {
+      liveStreamID: '',
+      premiumType: 0,
+      streamID: 0,
+      streamerType: 0
+    }
   }
 };
 var usersID = new Array(100).fill(0).map(function () {
@@ -6546,8 +6566,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /**
  * 取得 container 資料<br />
- * 支援取得 eventory 類型資料<br />
- * 不支援取得 cache, vote 類型資料
  * @param apiList APIType
  * @param method HTTP Method
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
@@ -6601,9 +6619,7 @@ var useTypeApi = function useTypeApi() {
               setPolling(true);
               apiArr = [];
               apis.forEach(function (item) {
-                if (item.isEventory) {
-                  apiArr.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method));
-                }
+                apiArr.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method));
               });
               _context.prev = 4;
               _context.next = 7;
@@ -6696,55 +6712,7 @@ var useTypeApi = function useTypeApi() {
     };
 
     apiList.forEach(function (item) {
-      if (item.isEventory) {
-        promiseList.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method, callback(item)));
-      }
-      /**
-       * @TODO isCache, isVote, firstRender, 以及預設行為 getLeaderboard 目前不常使用，未完整驗證，將其註解掉
-       * 之後驗證完成後將功能逐步釋出
-       */
-      // if (item.isCache) {
-      //   promiseList.push(
-      //     getLeaderboardCache(
-      //       {
-      //         sta: item.sta,
-      //         prod: item.prod,
-      //       },
-      //       source.current!.token,
-      //     ),
-      //   );
-      // } else if (item.isVote) {
-      //   promiseList.push(
-      //     getLeaderboardVote(
-      //       {
-      //         sta: item.sta,
-      //         prod: item.prod,
-      //       },
-      //       source.current!.token,
-      //     ),
-      //   );
-      // } else if (item.isEventory) {
-      //   promiseList.push(
-      //     getLeaderboardEventory(
-      //       item,
-      //       source.current!.token,
-      //       opt.limit,
-      //       opt.cursor,
-      //       method,
-      //     ),
-      //   );
-      // } else {
-      //   promiseList.push(
-      //     getLeaderboard(
-      //       item,
-      //       source.current!.token,
-      //       opt.limit,
-      //       opt.cursor,
-      //       method,
-      //     ),
-      //   );
-      // }
-
+      promiseList.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method, callback(item)));
     });
 
     if (apiList && apiList.length > 0 && method) {
@@ -6989,7 +6957,7 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
                 containerID: (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getType)(type),
                 count: limit,
                 cursor: cursor,
-                onliveInfo: 1
+                onLiveInfo: 1
               },
               cancelToken: cancelToken
             });
@@ -7113,7 +7081,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "numberFormat": () => (/* binding */ numberFormat),
 /* harmony export */   "isMobile": () => (/* binding */ isMobile),
 /* harmony export */   "isAndroid": () => (/* binding */ isAndroid),
-/* harmony export */   "isIOS": () => (/* binding */ isIOS)
+/* harmony export */   "isIOS": () => (/* binding */ isIOS),
+/* harmony export */   "isClient": () => (/* binding */ isClient)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
@@ -7433,17 +7402,30 @@ var numberFormat = function numberFormat(value, regionLanguage) {
  * check isMobile by navigator userAgent.
  */
 
-var isMobile = /Mobile/.test(navigator.userAgent);
+var isMobile = function isMobile(userAgent) {
+  return /Mobile/.test(userAgent);
+};
 /**
  * check isAndroid by navigator userAgent.
  */
 
-var isAndroid = /Android/.test(navigator.userAgent) && typeof java17WebObject !== 'undefined';
+var isAndroid = function isAndroid(userAgent) {
+  return /Android/.test(userAgent) && typeof java17WebObject !== 'undefined';
+};
 /**
  * check isIOS by navigator userAgent.
  */
 
-var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+var isIOS = function isIOS(userAgent) {
+  return /iPhone|iPad|iPod/.test(userAgent);
+};
+/**
+ * check is using in client side.
+ */
+
+var isClient = function isClient() {
+  return typeof window !== 'undefined';
+};
 
 /***/ }),
 
@@ -7456,7 +7438,7 @@ var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "open": () => (/* binding */ open)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var hosts = ['https://17.live', 'https://sta.17.live']; // to store recognized host in sessionStorage
 
@@ -7511,6 +7493,8 @@ var open = function open(openID) {
     payload: openID
   });
 };
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (open);
 
 /***/ }),
 
@@ -8816,12 +8800,6 @@ var Translation = function Translation() {
         return [selectedLang].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(preValue));
       });
     } else {
-      if (supportLangs.length <= 1) {
-        // eslint-disable-next-line no-alert
-        alert('should be keep at least one support language');
-        return;
-      }
-
       setSupportLangs(function (preValue) {
         return preValue.filter(function (v) {
           return v !== selectedLang;
@@ -8840,7 +8818,9 @@ var Translation = function Translation() {
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, "\u652F\u63F4\u8A9E\u7CFB: "), allSupportLanguages.map(function (langCode) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react__WEBPACK_IMPORTED_MODULE_3__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, langCode), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(StyledCheckbox, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", {
+      key: langCode
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, langCode), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(StyledCheckbox, {
       type: "checkbox",
       value: langCode,
       onChange: onChangeHandler,
@@ -8854,7 +8834,7 @@ var Translation = function Translation() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("button", {
     type: "button",
     onClick: submitHandler
-  }, "\u9001\u51FA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, "\u6CE8\u610F\uFF1A", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "1. \u6B64\u529F\u80FD\u5FC5\u9808\u5728\u53D6\u5F97eventType\u7684\u7FFB\u8B6F\u524D\u5148\u8A2D\u5B9A\u597D\u652F\u63F4\u8A9E\u7CFB\uFF0C\u53D6\u5F97\u7FFB\u8B6F\u5F8C\uFF0C\u518D\u53BB\u8A2D\u5B9A\u652F\u63F4\u8A9E\u7CFB\u91CD\u65B0\u9001\u51FA\u5C07\u4E0D\u6703\u91CD\u65B0\u7FFB\u8B6F\uFF0C\u9664\u975E\u518D\u6B21\u53D6\u5F97\u5176\u4ED6eventType\u7684\u7FFB\u8B6F", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "2. \u5982\u679C\u6C92\u6709\u8A2D\u5B9A\u652F\u63F4\u8A9E\u7CFB\uFF0C\u5247\u4EE5\u4E2D\u6587\u70BA\u4E3B", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "3. \u5982\u679C\u8A2D\u5B9A\u591A\u500B\u652F\u63F4\u8A9E\u7CFB\uFF0C\u6703\u5148\u770B\u6709\u7121URL\u53C3\u6578\uFF0C\u6709\u7684\u8A71\u4EE5URL\u70BA\u4E3B\uFF0C\u82E5\u7121\u5247\u6703\u4EE5\u700F\u89BD\u5668\u8A2D\u5B9A\u7684\u6700\u512A\u5148\u7684\u504F\u597D\u8A9E\u8A00\u4F5C\u7FFB\u8B6F", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "4. \u5982\u679CURL\u53C3\u6578\u8A2D\u5B9A\u975E\u652F\u63F4\u8A9E\u7CFB\uFF0C\u5247\u6703\u4EE5\u700F\u89BD\u5668\u8A2D\u5B9A\u7684\u6700\u512A\u5148\u7684\u504F\u597D\u8A9E\u8A00\u4F5C\u7FFB\u8B6F", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "5. \u5982\u679C\u8A2D\u5B9A\u7684\u652F\u63F4\u8A9E\u7CFB\u4E0D\u5728\u700F\u89BD\u5668\u8A2D\u5B9A\u7684\u504F\u597D\u8A9E\u8A00\u4E14\u7121URL\u53C3\u6578\uFF0C\u5247\u6703\u4EE5\u4E2D\u6587\u4F5C\u70BA\u7FFB\u8B6F", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "6. \u4EE5\u4E0A\u689D\u4EF6\u90FD\u7121\u6CD5\u6EFF\u8DB3\u6642\uFF0C\u5247\u6703\u4EE5\u4E2D\u6587\u4F5C\u70BA\u7FFB\u8B6F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, "\u8ACB\u9078\u64C7\u8981\u7FFB\u8B6F\u7684key: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("select", {
+  }, "\u9001\u51FA"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, "\u6CE8\u610F\uFF1A", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "1. \u6B64\u529F\u80FD\u5FC5\u9808\u5728\u53D6\u5F97eventType\u7684\u7FFB\u8B6F\u524D\u5148\u8A2D\u5B9A\u597D\u652F\u63F4\u8A9E\u7CFB\uFF0C\u53D6\u5F97\u7FFB\u8B6F\u5F8C\uFF0C\u518D\u53BB\u8A2D\u5B9A\u652F\u63F4\u8A9E\u7CFB\u91CD\u65B0\u9001\u51FA\u5C07\u4E0D\u6703\u91CD\u65B0\u7FFB\u8B6F\uFF0C\u9664\u975E\u518D\u6B21\u53D6\u5F97\u5176\u4ED6eventType\u7684\u7FFB\u8B6F", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "2. \u5982\u679C\u6C92\u6709\u8A2D\u5B9A\u652F\u63F4\u8A9E\u7CFB\uFF0C\u5247\u4EE5\u4E2D\u6587\u70BA\u4E3B", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "3. \u5982\u679C\u8A2D\u5B9A\u591A\u500B\u652F\u63F4\u8A9E\u7CFB\uFF0C\u6703\u5148\u770B\u6709\u7121URL\u53C3\u6578\uFF0C\u6709\u7684\u8A71\u4EE5URL\u70BA\u4E3B\uFF0C\u82E5\u7121\u5247\u6703\u4EE5\u700F\u89BD\u5668\u8A2D\u5B9A\u7684\u6700\u512A\u5148\u7684\u504F\u597D\u8A9E\u8A00\u4F5C\u7FFB\u8B6F", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "4. \u5982\u679CURL\u53C3\u6578\u975E\u652F\u63F4\u8A9E\u7CFB\uFF0C\u5247\u986F\u793A\u652F\u63F4\u8A9E\u7CFB\u7FFB\u8B6F\uFF0C\u82E5\u652F\u63F4\u8A9E\u7CFB\u4E0D\u5728\u700F\u89BD\u5668\u8A2D\u5B9A\u4E2D\uFF0C\u5247\u986F\u793A\u4E2D\u6587", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "5. \u5982\u679C\u8A2D\u5B9A\u7684\u652F\u63F4\u8A9E\u7CFB\u4E0D\u5728\u700F\u89BD\u5668\u8A2D\u5B9A\u7684\u504F\u597D\u8A9E\u8A00\u4E14\u7121URL\u53C3\u6578\uFF0C\u5247\u6703\u4EE5\u4E2D\u6587\u4F5C\u70BA\u7FFB\u8B6F", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "6. URL\u6709\u5E36lang\u8DDF\u652F\u63F4\u8A9E\u7CFB\u4E00\u6A23\uFF0C\u5C31\u7B97\u700F\u89BD\u5668\u6C92\u6709\u8A2D\u5B9A\uFF0C\u6703\u4EE5URL\u70BA\u4E3B", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), "7. \u4EE5\u4E0A\u689D\u4EF6\u90FD\u7121\u6CD5\u6EFF\u8DB3\u6642\uFF0C\u5247\u6703\u4EE5\u4E2D\u6587\u4F5C\u70BA\u7FFB\u8B6F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("span", null, "\u8ACB\u9078\u64C7\u8981\u7FFB\u8B6F\u7684key: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement("select", {
     name: "translation",
     id: "translation",
     value: selectedTranslationKey,
@@ -8945,18 +8925,12 @@ var TypeApi = function TypeApi() {
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1000),
       _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState7, 2),
       limit = _useState8[0],
-      setLimit = _useState8[1]; // isEventory 目前都需要設定成 true，所以不開放設定
+      setLimit = _useState8[1];
 
-
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
       _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState9, 2),
-      isEventory = _useState10[0],
-      setIsEventory = _useState10[1];
-
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-      _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState11, 2),
-      apiList = _useState12[0],
-      setApiList = _useState12[1];
+      apiList = _useState10[0],
+      setApiList = _useState10[1];
 
   var realTimeRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
   var optRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)({
@@ -9004,8 +8978,7 @@ var TypeApi = function TypeApi() {
     optRef.current.limit = limit;
     setApiList([{
       sta: eventoryContainerId,
-      prod: '',
-      isEventory: isEventory
+      prod: ''
     }]);
   }; // 因為apiList只有一筆，所以使用leaderboardData[0]資料，如果apiList有更多筆資料，後端資料會相對應leaderboardData[]位置
 
@@ -9044,9 +9017,9 @@ var TypeApi = function TypeApi() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Item, {
       key: item.userInfo.userID,
       onClick: function onClick() {
-        var _item$userInfo, _item$userInfo$onlive;
+        var _item$userInfo, _item$userInfo$onLive;
 
-        return (0,_lib_helpers_handleClickAvatar__WEBPACK_IMPORTED_MODULE_6__.default)(item.userInfo.userID, item.userInfo.openID, (_item$userInfo = item.userInfo) === null || _item$userInfo === void 0 ? void 0 : (_item$userInfo$onlive = _item$userInfo.onliveinfo) === null || _item$userInfo$onlive === void 0 ? void 0 : _item$userInfo$onlive.streamID);
+        return (0,_lib_helpers_handleClickAvatar__WEBPACK_IMPORTED_MODULE_6__.default)(item.userInfo.userID, item.userInfo.openID, (_item$userInfo = item.userInfo) === null || _item$userInfo === void 0 ? void 0 : (_item$userInfo$onLive = _item$userInfo.onLiveInfo) === null || _item$userInfo$onLive === void 0 ? void 0 : _item$userInfo$onLive.streamID);
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "\u4E3B\u64AD\u540D\u7A31:"), " ", item.userInfo.displayName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "id: "), " ", item.userInfo.userID, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "value:"), " ", item.score);
   }))));
@@ -9123,20 +9096,14 @@ var TypeApi2 = function TypeApi2() {
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
       _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState9, 2),
       realTime = _useState10[0],
-      setRealTime = _useState10[1]; // isEventory 目前都需要設定成 true，所以不開放設定
-
-
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
-      _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState11, 2),
-      isEventory = _useState12[0],
-      setIsEventory = _useState12[1];
+      setRealTime = _useState10[1];
 
   var realTimeRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1000),
-      _useState14 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState13, 2),
-      limit = _useState14[0],
-      setLimit = _useState14[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1000),
+      _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState11, 2),
+      limit = _useState12[0],
+      setLimit = _useState12[1];
 
   var optRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)({
     limit: 1000,
@@ -9171,12 +9138,10 @@ var TypeApi2 = function TypeApi2() {
     optRef.current.limit = limit;
     setApiList([{
       sta: eventoryContainerIdLeft,
-      prod: '',
-      isEventory: isEventory
+      prod: ''
     }, {
       sta: eventoryContainerIdRight,
-      prod: '',
-      isEventory: isEventory
+      prod: ''
     }]);
   };
 
@@ -9213,9 +9178,9 @@ var TypeApi2 = function TypeApi2() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Item, {
       key: item.userInfo.userID,
       onClick: function onClick() {
-        var _item$userInfo, _item$userInfo$onlive;
+        var _item$userInfo, _item$userInfo$onLive;
 
-        return (0,_lib_helpers_handleClickAvatar__WEBPACK_IMPORTED_MODULE_5__.default)(item.userInfo.userID, item.userInfo.openID, (_item$userInfo = item.userInfo) === null || _item$userInfo === void 0 ? void 0 : (_item$userInfo$onlive = _item$userInfo.onliveinfo) === null || _item$userInfo$onlive === void 0 ? void 0 : _item$userInfo$onlive.streamID);
+        return (0,_lib_helpers_handleClickAvatar__WEBPACK_IMPORTED_MODULE_5__.default)(item.userInfo.userID, item.userInfo.openID, (_item$userInfo = item.userInfo) === null || _item$userInfo === void 0 ? void 0 : (_item$userInfo$onLive = _item$userInfo.onLiveInfo) === null || _item$userInfo$onLive === void 0 ? void 0 : _item$userInfo$onLive.streamID);
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "\u4E3B\u64AD\u540D\u7A31:"), " ", item.userInfo.displayName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "id: "), " ", item.userInfo.userID, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "value:"), " ", item.score);
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Right, null, "Eventory Container ID: ", eventoryContainerIdRight, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_lib_components_TransitionLeaderboardWrapper__WEBPACK_IMPORTED_MODULE_4__.TransitionLeaderboardWrapper, {
