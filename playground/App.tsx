@@ -7,6 +7,7 @@ import TypeApi2 from './TypeApi2';
 import Filter from './Filter';
 import Follower from './Follower';
 import Score from './Score';
+import ScratchOff from './ScratchOff';
 import Utils from './Utils';
 import ScrollToLoading from './ScrollToLoading';
 import ScrollToStreamer from './ScrollToStreamer';
@@ -29,6 +30,7 @@ const App = () => {
     filter: <Filter />,
     follower: <Follower />,
     score: <Score />,
+    scratchOff: <ScratchOff />,
     utils: <Utils />,
     ScrollToLoading: <ScrollToLoading />,
     ScrollToStreamer: <ScrollToStreamer />,
