@@ -374,6 +374,9 @@ export const isIOS = (userAgent: string): boolean =>
  */
 export const isClient = (): boolean => typeof window !== 'undefined';
 
+/**
+ * set default keyboard settings
+ */
 export const getKeyboardSettings = () => [
   {
     type: EVENT_TYPES.KEY_ARROW_LEFT,

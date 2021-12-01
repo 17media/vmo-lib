@@ -3,7 +3,7 @@ import { ISetting } from '../types';
 import { EVENT_TYPES } from '../enums';
 import { qs, globalThis } from '../utils';
 
-export interface Settings extends Array<ISetting> {}
+export interface ISettings extends Array<ISetting> {}
 
 export const getNextLocation = (
   query: { [s: string]: unknown } | ArrayLike<unknown>,
@@ -51,7 +51,7 @@ export const switchKeyArrowRightEvent = () => {
   getNextLocation(query);
 };
 
-export const eventFunc = (event: KeyboardEvent, settings: Settings) => {
+export const eventFunc = (event: KeyboardEvent, settings: ISettings) => {
   const setting = settings.find(item => item.key === event.key);
   if (setting) {
     switch (setting.type) {
@@ -77,7 +77,13 @@ export const eventFunc = (event: KeyboardEvent, settings: Settings) => {
   }
 };
 
-export const useKeyboard = (settings: Settings) => {
+/**
+ * 當使用者用 keyboard 直接鍵入 1~9 或左右方向鍵時，會對應切換到該頁面或前後頁<br />
+ * 開發者也能自行定義 fn 偵測不同的鍵入直，對url query string做改動，並切到改動的網址<br />
+ * @param settings Settings
+ * @returns void
+ */
+export const useKeyboard = (settings: ISettings) => {
   useEffect(() => {
     window.addEventListener('keyup', event => eventFunc(event, settings));
     return () => {
