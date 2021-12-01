@@ -3,7 +3,7 @@ import ScratchOffCard from '../lib/components/ScratchOffCard';
 
 const ScratchOff = () => {
   const [percentage, setPercentage] = useState<number>(50);
-  const [showResultPercentage, setShowResultPercentage] = useState<number>(0);
+  const [revealPercentage, setRevealPercentage] = useState<number>(0);
   const [key, setKey] = useState<number>(0);
 
   const coverImgSrc =
@@ -33,18 +33,18 @@ const ScratchOff = () => {
         value={percentage}
         onChange={e => setPercentage(+e.target.value)}
       />
-      <button type="button" onClick={() => setShowResultPercentage(percentage)}>
+      <button type="button" onClick={() => setRevealPercentage(percentage)}>
         regenerate
       </button>
 
-      {showResultPercentage ? (
+      {revealPercentage ? (
         <ScratchOffCard
           key={key}
           width={737}
           height={480}
           coverImgSrc={coverImgSrc}
           handleReveal={handleReveal}
-          showResultPercentage={showResultPercentage}
+          revealPercentage={revealPercentage}
         >
           <div>
             <h2>Congratulations!</h2>

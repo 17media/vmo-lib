@@ -8,7 +8,7 @@ import {
   getMouse,
 } from './utils';
 
-const DEFAULT_SHOW_RESULT_PERCENTAGE = 50;
+const DEFAULT_REVEAL_PERCENTAGE = 50;
 
 const StyledScratchOffCard = styled.div<{ width: number; height: number }>`
   position: relative;
@@ -42,7 +42,7 @@ const StyledCoverImg = styled.img`
 `;
 
 interface Props {
-  showResultPercentage?: number;
+  revealPercentage?: number;
   width: number;
   height: number;
   coverImgSrc: string;
@@ -51,7 +51,7 @@ interface Props {
 }
 
 const ScratchOffCard: React.FC<Props> = ({
-  showResultPercentage = DEFAULT_SHOW_RESULT_PERCENTAGE,
+  revealPercentage = DEFAULT_REVEAL_PERCENTAGE,
   width,
   height,
   coverImgSrc,
@@ -108,7 +108,7 @@ const ScratchOffCard: React.FC<Props> = ({
       const currentPercentage = getFilledInPixels(32, ctx, width, height);
 
       if (
-        currentPercentage > showResultPercentage &&
+        currentPercentage > revealPercentage &&
         canvasRef.current?.parentNode
       ) {
         handleReveal();
@@ -135,7 +135,7 @@ const ScratchOffCard: React.FC<Props> = ({
       canvas?.removeEventListener('mouseup', handleMouseUp, false);
       canvas?.removeEventListener('touchend', handleMouseUp, false);
     };
-  }, [handleReveal, showResultPercentage, height, width]);
+  }, [handleReveal, revealPercentage, height, width]);
 
   return (
     <StyledScratchOffCard width={width} height={height}>
