@@ -1,3 +1,5 @@
+import { EVENT_TYPES } from './enums';
+
 declare const java17WebObject: any;
 
 export const globalThis = (1, eval)('this'); // eslint-disable-line no-eval
@@ -371,3 +373,59 @@ export const isIOS = (userAgent: string): boolean =>
  * check is using in client side.
  */
 export const isClient = (): boolean => typeof window !== 'undefined';
+
+export const getKeyboardSettings = () => [
+  {
+    type: EVENT_TYPES.KEY_ARROW_LEFT,
+    key: 'ArrowLeft',
+  },
+  {
+    type: EVENT_TYPES.KEY_ARROW_RIGHT,
+    key: 'ArrowRight',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '1', // Key 1
+    page: '1',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '2', // Key 2
+    page: '2',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '3', // Key 3
+    page: '3',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '4', // Key 4
+    page: '4',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '5', // Key 5
+    page: '5',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '6', // Key 6
+    page: '6',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '7', // Key 7
+    page: '7',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '8', // Key 8
+    page: '8',
+  },
+  {
+    type: EVENT_TYPES.PAGE,
+    key: '9', // Key 8
+    page: '9',
+  },
+];

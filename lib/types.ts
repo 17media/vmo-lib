@@ -1,3 +1,5 @@
+import { EVENT_TYPES } from './enums';
+
 export interface User {
   bonus?: number;
   meta?: Record<string, number | string>;
@@ -31,4 +33,10 @@ interface OnLiveInfo {
   premiumType: number;
   streamID: number;
   streamerType: number;
+}
+export interface ISetting {
+  type: EVENT_TYPES;
+  key: string;
+  page?: string;
+  fn?: () => void;
 }
