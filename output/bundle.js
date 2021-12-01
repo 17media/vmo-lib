@@ -5480,6 +5480,85 @@ var trackingSource = source;
 
 /***/ }),
 
+/***/ "./lib/components/ScratchOffCard/utils.ts":
+/*!************************************************!*\
+  !*** ./lib/components/ScratchOffCard/utils.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getFilledInPixels": () => (/* binding */ getFilledInPixels),
+/* harmony export */   "getMouse": () => (/* binding */ getMouse),
+/* harmony export */   "getDistanceBetween": () => (/* binding */ getDistanceBetween),
+/* harmony export */   "getAngleBetween": () => (/* binding */ getAngleBetween),
+/* harmony export */   "isTouchEvent": () => (/* binding */ isTouchEvent),
+/* harmony export */   "isMouseEvent": () => (/* binding */ isMouseEvent)
+/* harmony export */ });
+var getFilledInPixels = function getFilledInPixels(stride, ctx, canvasWidth, canvasHeight) {
+  var _pixels$data, _pdata$length;
+
+  var newStride = !stride || stride < 1 ? 1 : stride;
+  var pixels = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+  var pdata = (_pixels$data = pixels === null || pixels === void 0 ? void 0 : pixels.data) !== null && _pixels$data !== void 0 ? _pixels$data : [];
+  var l = (_pdata$length = pdata === null || pdata === void 0 ? void 0 : pdata.length) !== null && _pdata$length !== void 0 ? _pdata$length : 0;
+  var total = l / newStride;
+  var count = 0;
+
+  for (var i = 0; i < l; i += newStride) {
+    if (+pdata[i] === 0) {
+      count++;
+    }
+  }
+
+  return Math.round(count / total * 100);
+};
+var getMouse = function getMouse(e, canvas) {
+  var offsetX = 0;
+  var offsetY = 0;
+  var mx = 0;
+  var my = 0;
+
+  if (canvas.offsetParent) {
+    // eslint-disable-next-line no-cond-assign, no-param-reassign
+    while (canvas = canvas.offsetParent) {
+      offsetX += canvas.offsetLeft;
+      offsetY += canvas.offsetTop;
+    }
+  }
+
+  if (isMouseEvent(e)) {
+    mx = e.pageX - offsetX;
+    my = e.pageY - offsetY;
+  }
+
+  if (isTouchEvent(e)) {
+    mx = e.touches[0].clientX - offsetX;
+    my = e.touches[0].clientY - offsetY;
+  }
+
+  return {
+    x: mx,
+    y: my
+  };
+};
+var getDistanceBetween = function getDistanceBetween(point1, point2) {
+  return Math.sqrt( // eslint-disable-next-line no-restricted-properties
+  Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+};
+var getAngleBetween = function getAngleBetween(point1, point2) {
+  return Math.atan2(point2.x - point1.x, point2.y - point1.y);
+};
+var isTouchEvent = function isTouchEvent(e) {
+  return e && 'touches' in e;
+};
+var isMouseEvent = function isMouseEvent(e) {
+  return e && 'screenX' in e;
+};
+
+/***/ }),
+
 /***/ "./lib/helpers/handleClickAvatar.ts":
 /*!******************************************!*\
   !*** ./lib/helpers/handleClickAvatar.ts ***!
@@ -7498,6 +7577,155 @@ var open = function open(openID) {
 
 /***/ }),
 
+/***/ "./lib/components/ScratchOffCard/index.tsx":
+/*!*************************************************!*\
+  !*** ./lib/components/ScratchOffCard/index.tsx ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _brush_jpg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./brush.jpg */ "./lib/components/ScratchOffCard/brush.jpg");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./lib/components/ScratchOffCard/utils.ts");
+
+
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
+
+
+
+
+
+var DEFAULT_REVEAL_PERCENTAGE = 50;
+var StyledScratchOffCard = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  position: relative;\n  width: ", ";\n  height: ", ";\n  margin: 0 auto;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  -o-user-select: none;\n  user-select: none;\n"])), function (props) {
+  return "".concat(props.width, "px");
+}, function (props) {
+  return "".concat(props.height, "px");
+});
+var StyledResultContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  visibility: ", ";\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n"])), function (props) {
+  return props.isCoverImageReady ? 'visible' : 'hidden';
+});
+var StyledCanvas = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.canvas(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  position: absolute;\n  top: 0;\n"])));
+var StyledCoverImg = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.img(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  visibility: hidden;\n"])));
+
+var ScratchOffCard = function ScratchOffCard(_ref) {
+  var _ref$revealPercentage = _ref.revealPercentage,
+      revealPercentage = _ref$revealPercentage === void 0 ? DEFAULT_REVEAL_PERCENTAGE : _ref$revealPercentage,
+      width = _ref.width,
+      height = _ref.height,
+      coverImgSrc = _ref.coverImgSrc,
+      children = _ref.children,
+      handleReveal = _ref.handleReveal;
+  var coverImgRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
+  var canvasRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      isCoverImageReady = _useState2[0],
+      setIsCoverImageReady = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    var _canvasRef$current;
+
+    var isDrawing;
+    var lastPoint;
+    var canvas = canvasRef.current;
+    var ctx = (_canvasRef$current = canvasRef.current) === null || _canvasRef$current === void 0 ? void 0 : _canvasRef$current.getContext('2d');
+    var image = coverImgRef.current;
+    var brush = new Image();
+    ctx.drawImage(image, 0, 0, width, height);
+
+    image.onload = function () {
+      ctx.drawImage(image, 0, 0, width, height);
+      setIsCoverImageReady(true);
+    };
+
+    brush.src = _brush_jpg__WEBPACK_IMPORTED_MODULE_3__.default;
+
+    var handleMouseDown = function handleMouseDown(e) {
+      isDrawing = true;
+      lastPoint = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getMouse)(e, canvasRef.current);
+    };
+
+    var handleMouseMove = function handleMouseMove(e) {
+      var _canvasRef$current2;
+
+      if (!isDrawing) {
+        return;
+      }
+
+      e.preventDefault();
+      var currentPoint = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getMouse)(e, canvasRef.current);
+      var dist = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getDistanceBetween)(lastPoint, currentPoint);
+      var angle = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getAngleBetween)(lastPoint, currentPoint);
+      var x;
+      var y;
+
+      for (var i = 0; i < dist; i += 1) {
+        x = lastPoint.x + Math.sin(angle) * i - 25;
+        y = lastPoint.y + Math.cos(angle) * i - 25;
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.drawImage(brush, x, y);
+      }
+
+      lastPoint = currentPoint;
+      var currentPercentage = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getFilledInPixels)(32, ctx, width, height);
+
+      if (currentPercentage > revealPercentage && (_canvasRef$current2 = canvasRef.current) !== null && _canvasRef$current2 !== void 0 && _canvasRef$current2.parentNode) {
+        var _canvasRef$current3;
+
+        handleReveal();
+        (_canvasRef$current3 = canvasRef.current) === null || _canvasRef$current3 === void 0 ? void 0 : _canvasRef$current3.parentNode.removeChild(canvasRef.current);
+      }
+    };
+
+    var handleMouseUp = function handleMouseUp() {
+      isDrawing = false;
+    };
+
+    canvas === null || canvas === void 0 ? void 0 : canvas.addEventListener('mousedown', handleMouseDown, false);
+    canvas === null || canvas === void 0 ? void 0 : canvas.addEventListener('touchstart', handleMouseDown, false);
+    canvas === null || canvas === void 0 ? void 0 : canvas.addEventListener('mousemove', handleMouseMove, false);
+    canvas === null || canvas === void 0 ? void 0 : canvas.addEventListener('touchmove', handleMouseMove, false);
+    canvas === null || canvas === void 0 ? void 0 : canvas.addEventListener('mouseup', handleMouseUp, false);
+    canvas === null || canvas === void 0 ? void 0 : canvas.addEventListener('touchend', handleMouseUp, false);
+    return function () {
+      canvas === null || canvas === void 0 ? void 0 : canvas.removeEventListener('mousedown', handleMouseDown, false);
+      canvas === null || canvas === void 0 ? void 0 : canvas.removeEventListener('touchstart', handleMouseDown, false);
+      canvas === null || canvas === void 0 ? void 0 : canvas.removeEventListener('mousemove', handleMouseMove, false);
+      canvas === null || canvas === void 0 ? void 0 : canvas.removeEventListener('touchmove', handleMouseMove, false);
+      canvas === null || canvas === void 0 ? void 0 : canvas.removeEventListener('mouseup', handleMouseUp, false);
+      canvas === null || canvas === void 0 ? void 0 : canvas.removeEventListener('touchend', handleMouseUp, false);
+    };
+  }, [handleReveal, revealPercentage, height, width]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledScratchOffCard, {
+    width: width,
+    height: height
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledCanvas, {
+    ref: canvasRef,
+    width: width,
+    height: height
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledResultContainer, {
+    isCoverImageReady: isCoverImageReady
+  }, children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledCoverImg, {
+    alt: "",
+    ref: coverImgRef,
+    src: coverImgSrc,
+    crossOrigin: "anonymous"
+  }));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ScratchOffCard);
+
+/***/ }),
+
 /***/ "./lib/components/TransitionLeaderboardWrapper.tsx":
 /*!*********************************************************!*\
   !*** ./lib/components/TransitionLeaderboardWrapper.tsx ***!
@@ -7899,12 +8127,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Filter */ "./playground/Filter.tsx");
 /* harmony import */ var _Follower__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Follower */ "./playground/Follower.tsx");
 /* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Score */ "./playground/Score.tsx");
-/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
-/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
-/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
-/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
-/* harmony import */ var _Expired__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Expired */ "./playground/Expired.tsx");
-/* harmony import */ var _Translation__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Translation */ "./playground/Translation.tsx");
+/* harmony import */ var _ScratchOff__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ScratchOff */ "./playground/ScratchOff.tsx");
+/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
+/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
+/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
+/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
+/* harmony import */ var _Expired__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Expired */ "./playground/Expired.tsx");
+/* harmony import */ var _Translation__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Translation */ "./playground/Translation.tsx");
+
 
 
 
@@ -7941,12 +8171,13 @@ var App = function App() {
     filter: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Filter__WEBPACK_IMPORTED_MODULE_7__.default, null),
     follower: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Follower__WEBPACK_IMPORTED_MODULE_8__.default, null),
     score: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Score__WEBPACK_IMPORTED_MODULE_9__.default, null),
-    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Utils__WEBPACK_IMPORTED_MODULE_10__.default, null),
-    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_11__.default, null),
-    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_12__.default, null),
-    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_StartRender__WEBPACK_IMPORTED_MODULE_13__.default, null),
-    Expired: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Expired__WEBPACK_IMPORTED_MODULE_14__.default, null),
-    Translation: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Translation__WEBPACK_IMPORTED_MODULE_15__.default, null)
+    scratchOff: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScratchOff__WEBPACK_IMPORTED_MODULE_10__.default, null),
+    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Utils__WEBPACK_IMPORTED_MODULE_11__.default, null),
+    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_12__.default, null),
+    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_13__.default, null),
+    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_StartRender__WEBPACK_IMPORTED_MODULE_14__.default, null),
+    Expired: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Expired__WEBPACK_IMPORTED_MODULE_15__.default, null),
+    Translation: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Translation__WEBPACK_IMPORTED_MODULE_16__.default, null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "\u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
@@ -8578,6 +8809,79 @@ var Follower = function Follower() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(Follower));
+
+/***/ }),
+
+/***/ "./playground/ScratchOff.tsx":
+/*!***********************************!*\
+  !*** ./playground/ScratchOff.tsx ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _lib_components_ScratchOffCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/components/ScratchOffCard */ "./lib/components/ScratchOffCard/index.tsx");
+
+
+
+
+var ScratchOff = function ScratchOff() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(50),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      percentage = _useState2[0],
+      setPercentage = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState3, 2),
+      revealPercentage = _useState4[0],
+      setRevealPercentage = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState5, 2),
+      key = _useState6[0],
+      setKey = _useState6[1];
+
+  var coverImgSrc = 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__480.jpg';
+
+  var handleReveal = function handleReveal() {
+    console.log('handle function after reveal.');
+  };
+
+  var rePlay = function rePlay() {
+    var randomKey = Math.floor(Math.random() * 100);
+    setKey(randomKey);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h4", null, "ScratchOff Card"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "Given the scratch card container's width and height and the cover img url(relative or absolute url), the scratch off card will fit the container automatically. Also, custom the result section you want(HTML dom or just image..etc.)."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "Setting the fill percentage to reveal(default 50)."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+    type: "number",
+    value: percentage,
+    onChange: function onChange(e) {
+      return setPercentage(+e.target.value);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+    type: "button",
+    onClick: function onClick() {
+      return setRevealPercentage(percentage);
+    }
+  }, "regenerate"), revealPercentage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_lib_components_ScratchOffCard__WEBPACK_IMPORTED_MODULE_2__.default, {
+    key: key,
+    width: 737,
+    height: 480,
+    coverImgSrc: coverImgSrc,
+    handleReveal: handleReveal,
+    revealPercentage: revealPercentage
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", null, "Congratulations!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h1", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("code", null, "Coupon code : 1651613335")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+    type: "button",
+    onClick: rePlay
+  }, "replay again"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "using chaning key outside to replay.")))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.memo(ScratchOff));
 
 /***/ }),
 
@@ -9327,6 +9631,21 @@ var Utils = function Utils() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.memo(Utils));
+
+/***/ }),
+
+/***/ "./lib/components/ScratchOffCard/brush.jpg":
+/*!*************************************************!*\
+  !*** ./lib/components/ScratchOffCard/brush.jpg ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "0de37717f78842726093ed2c5a83c719.jpg");
 
 /***/ }),
 
@@ -43521,6 +43840,18 @@ module.exports = JSON.parse('{"type":"dbda13a5-70b4-445a-95a5-52f0802c4781","nex
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -43535,6 +43866,26 @@ module.exports = JSON.parse('{"type":"dbda13a5-70b4-445a-95a5-52f0802c4781","nex
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
