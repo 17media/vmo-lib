@@ -10,7 +10,7 @@ import {
 
 const DEFAULT_SHOW_RESULT_PERCENTAGE = 50;
 
-const ScratchOffCardContainer = styled.div<{ width: number; height: number }>`
+const StyledScratchOffCard = styled.div<{ width: number; height: number }>`
   position: relative;
   width: ${props => `${props.width}px`};
   height: ${props => `${props.height}px`};
@@ -22,7 +22,7 @@ const ScratchOffCardContainer = styled.div<{ width: number; height: number }>`
   user-select: none;
 `;
 
-const ResultContainer = styled.div<{ isCoverImageReady: boolean }>`
+const StyledResultContainer = styled.div<{ isCoverImageReady: boolean }>`
   visibility: ${props => (props.isCoverImageReady ? 'visible' : 'hidden')};
   width: 100%;
   height: 100%;
@@ -32,12 +32,12 @@ const ResultContainer = styled.div<{ isCoverImageReady: boolean }>`
   cursor: pointer;
 `;
 
-const Canvas = styled.canvas`
+const StyledCanvas = styled.canvas`
   position: absolute;
   top: 0;
 `;
 
-const CoverImg = styled.img`
+const StyledCoverImg = styled.img`
   visibility: hidden;
 `;
 
@@ -65,6 +65,7 @@ const ScratchOffCard: React.FC<Props> = ({
   useEffect(() => {
     let isDrawing: boolean;
     let lastPoint: { x: number; y: number };
+    const canvas = canvasRef.current;
     const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
     const image = coverImgRef.current as HTMLImageElement;
     const brush = new Image();
@@ -119,7 +120,6 @@ const ScratchOffCard: React.FC<Props> = ({
       isDrawing = false;
     };
 
-    const canvas = canvasRef.current;
     canvas?.addEventListener('mousedown', handleMouseDown, false);
     canvas?.addEventListener('touchstart', handleMouseDown, false);
     canvas?.addEventListener('mousemove', handleMouseMove, false);
@@ -138,18 +138,18 @@ const ScratchOffCard: React.FC<Props> = ({
   }, [handleReveal, showResultPercentage, height, width]);
 
   return (
-    <ScratchOffCardContainer width={width} height={height}>
-      <Canvas ref={canvasRef} width={width} height={height} />
-      <ResultContainer isCoverImageReady={isCoverImageReady}>
+    <StyledScratchOffCard width={width} height={height}>
+      <StyledCanvas ref={canvasRef} width={width} height={height} />
+      <StyledResultContainer isCoverImageReady={isCoverImageReady}>
         {children}
-      </ResultContainer>
-      <CoverImg
+      </StyledResultContainer>
+      <StyledCoverImg
         alt=""
         ref={coverImgRef}
         src={coverImgSrc}
         crossOrigin="anonymous"
       />
-    </ScratchOffCardContainer>
+    </StyledScratchOffCard>
   );
 };
 
