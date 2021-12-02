@@ -14,6 +14,7 @@ import ScrollToStreamer from './ScrollToStreamer';
 import StartRender from './StartRender';
 import Expired from './Expired';
 import Translation from './Translation';
+import Copy from './Copy';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] =
@@ -37,6 +38,7 @@ const App = () => {
     StartRender: <StartRender />,
     Expired: <Expired />,
     Translation: <Translation />,
+    Copy: <Copy />,
   };
 
   return (

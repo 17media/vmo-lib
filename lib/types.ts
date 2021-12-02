@@ -32,3 +32,7 @@ interface OnLiveInfo {
   streamID: number;
   streamerType: number;
 }
+
+export interface LeaderboardItem extends User {
+  roomID?: number;
+}
