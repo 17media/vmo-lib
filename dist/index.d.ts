@@ -61,5 +61,9 @@ declare const _default: {
         handleOnChange: (value: any) => void;
     };
     useScrollToLoadingContainer: (loading: boolean) => void;
+    useFollower: (userID: string, accessToken: string) => {
+        followers: string[];
+        errorMsg?: string | undefined;
+    };
 };
 export default _default;

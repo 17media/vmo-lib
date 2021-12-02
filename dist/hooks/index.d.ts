@@ -9,6 +9,7 @@ export * from './useSyncScroll';
 export * from './useTypeApi';
 export * from './useFilter';
 export * from './useScrollToLoadingContainer';
+export * from './useFollower';
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
@@ -66,5 +67,9 @@ declare const _default: {
         handleOnChange: (value: any) => void;
     };
     useScrollToLoadingContainer: (loading: boolean) => void;
+    useFollower: (userID: string, accessToken: string) => {
+        followers: string[];
+        errorMsg?: string | undefined;
+    };
 };
 export default _default;
