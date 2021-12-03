@@ -8,6 +8,7 @@ import { useSyncScroll } from './useSyncScroll';
 import { useTypeApi } from './useTypeApi';
 import { useFilter } from './useFilter';
 import { useScrollToLoadingContainer } from './useScrollToLoadingContainer';
+import { useKeyboard } from './useKeyboard';
 import { useFollower } from './useFollower';
 
 export * from './useCountdown';
@@ -20,6 +21,7 @@ export * from './useSyncScroll';
 export * from './useTypeApi';
 export * from './useFilter';
 export * from './useScrollToLoadingContainer';
+export * from './useKeyboard';
 export * from './useFollower';
 
 export default {
@@ -33,5 +35,6 @@ export default {
   useTypeApi,
   useFilter,
   useScrollToLoadingContainer,
+  useKeyboard,
   useFollower,
 };

@@ -1,4 +1,5 @@
-import { LeaderboardItem } from './types';
+import { EventTypes } from './enums';
+import { ISetting, LeaderboardItem } from './types';
 
 declare const java17WebObject: any;
 
@@ -374,6 +375,63 @@ export const isIOS = (userAgent: string): boolean =>
  * check is using in client side.
  */
 export const isClient = (): boolean => typeof window !== 'undefined';
+
+/**
+ * go to next page
+ */
+export const getNextLocation = (
+  query: { [s: string]: unknown } | ArrayLike<unknown>,
+) => {
+  const queryPath = Object.entries(query).map(
+    ([key, value]) => `${key}=${value}`,
+  );
+  const nextLocation = `${globalThis.location.pathname}?${queryPath.join('&')}`;
+  globalThis.location.href = nextLocation;
+};
+
+/**
+ * set default keyboard settings
+ */
+export const getKeyboardSettings = (
+  firstPage: number,
+  lastPage: number,
+): ISetting[] => [
+  {
+    type: EventTypes.CUSTOM,
+    key: 'ArrowLeft',
+    fn: () => {
+      const search = qs();
+      window.scrollTo(0, 0);
+      const query = {
+        ...search,
+        page:
+          Number(search.page) > firstPage ? Number(search.page) - 1 : firstPage,
+      };
+      getNextLocation(query);
+    },
+  },
+  {
+    type: EventTypes.CUSTOM,
+    key: 'ArrowRight',
+    fn: () => {
+      const search = qs();
+      window.scrollTo(0, 0);
+      const query = {
+        ...search,
+        page:
+          !search.page || Number(search.page) < lastPage
+            ? Number(search.page || firstPage) + 1
+            : search.page,
+      };
+      getNextLocation(query);
+    },
+  },
+  ...Array.from({ length: lastPage > 9 ? 9 : lastPage }).map((_, index) => ({
+    type: EventTypes.PAGE,
+    key: String(index + 1),
+    page: String(index + 1),
+  })),
+];
 
 /**
  * Copy specific text in browser.

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import OfflineRound from './OfflineRound';
 import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
@@ -14,11 +14,11 @@ import ScrollToStreamer from './ScrollToStreamer';
 import StartRender from './StartRender';
 import Expired from './Expired';
 import Translation from './Translation';
+import Keyboard from './Keyboard';
 import Copy from './Copy';
 
 const App = () => {
-  const [currentComponent, setCurrentComponent] =
-    useState<string>('offlineRound');
+  const [currentComponent, setCurrentComponent] = useState<string>('Keyboard');
   const changeComponent = (componentName: string) =>
     setCurrentComponent(componentName);
 
@@ -38,6 +38,7 @@ const App = () => {
     StartRender: <StartRender />,
     Expired: <Expired />,
     Translation: <Translation />,
+    Keyboard: <Keyboard />,
     Copy: <Copy />,
   };
 
