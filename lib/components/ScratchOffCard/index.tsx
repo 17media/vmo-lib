@@ -26,10 +26,8 @@ const StyledResultContainer = styled.div<{ isCoverImageReady: boolean }>`
   visibility: ${props => (props.isCoverImageReady ? 'visible' : 'hidden')};
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  overflow: hidden;
+  word-break: break-all;
 `;
 
 const StyledCanvas = styled.canvas`
