@@ -1,3 +1,5 @@
+import { LeaderboardItem } from './types';
+
 declare const java17WebObject: any;
 
 export const globalThis = (1, eval)('this'); // eslint-disable-line no-eval
@@ -73,6 +75,7 @@ export const getUserLangs = (): string[] => {
 
 /**
  * languages defined from Eventory
+ * @enum
  */
 export enum RegionLanguage {
   TAIWAN = 'zh_TW',
@@ -371,3 +374,186 @@ export const isIOS = (userAgent: string): boolean =>
  * check is using in client side.
  */
 export const isClient = (): boolean => typeof window !== 'undefined';
+
+/**
+ * Copy specific text in browser.
+ * @param {string} str Specific text which want to be copy.
+ * @returns {boolean} copy result: success/fail
+ */
+export const copyStringToClipboard = (str: string) => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  const selected =
+    document.getSelection()!.rangeCount > 0
+      ? document.getSelection()!.getRangeAt(0)
+      : false;
+  el.select();
+  try {
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    if (selected) {
+      document.getSelection()!.removeAllRanges();
+      document.getSelection()!.addRange(selected);
+    }
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export type ExtraData = {
+  name: string;
+  filterFunction: (item: any) => string;
+};
+
+/**
+ * Copy Leaderboard Data in browser.
+ *
+ * example:
+ * ```typescript
+ * const data: LeaderboardItem[] = [...]
+ *
+ * // will get basic copy property: "Rank, UserID, Name, Score, Region, EventoryKey"
+ * copyLeaderboardDataToClipboard(data)
+ *
+ * // It can extra more column from data to Clipboard
+ * // will get extra copy property: "Rank, UserID, Name, Score, Region, EventoryKey, Lang, Age"
+ * copyLeaderboardDataToClipboard(data, [
+ *   {
+ *     name: 'Lang',
+ *     filterFuntion: item => item.lang?.primary,
+ *   },
+ *   {
+ *     name: 'Age',
+ *     filterFuntion: item => item.age,
+ *   },
+ * ])
+ * ```
+ *
+ * Try it on Playground:
+ * https://17media.github.io/vmo-lib/output/index.html?page=2
+ *
+ * @param {LeaderboardItem[]} data Leaderboard data which will be copy.
+ * @param {ExtraData[]} extraDataList Setting extraData to get more than basic columns
+ * @returns {boolean} copy result: success/fail
+ */
+export const copyLeaderboardDataToClipboard = (
+  data: LeaderboardItem[],
+  extraDataList: ExtraData[],
+): boolean => {
+  // Get mession string
+  const messionStrArr: string[] = [];
+  if (data.length > 0) {
+    const firstMission = data[0].missions;
+    if (firstMission) {
+      Object.keys(firstMission)
+        .sort((a: any, b: any) => Number(a.substr(-1)) - Number(b.substr(-1)))
+        .forEach(item => {
+          messionStrArr.push(
+            `${item.substr(0, 1).toUpperCase()}${item.substr(1)}`,
+          );
+        });
+    }
+  }
+  // Get meta string
+  const metaStrArr: string[] = [];
+  if (data.length > 0) {
+    const firstMeta = data[0].meta;
+    if (firstMeta) {
+      Object.keys(firstMeta).forEach(item => {
+        metaStrArr.push(`${item.substr(0, 1).toUpperCase()}${item.substr(1)}`);
+      });
+    }
+  }
+  // Get member string
+  const memberStrArr: string[] = [];
+  if (data.length > 0) {
+    const firstMember = data[0].member;
+    if (firstMember) {
+      firstMember.forEach((index: number) => {
+        memberStrArr.push(`Member ${index + 1} UserID`);
+        memberStrArr.push(`Member ${index + 1} Name`);
+        memberStrArr.push(`Member ${index + 1} Score`);
+      });
+    }
+  }
+
+  const extraTitle = extraDataList.map(extraItem => extraItem.name);
+
+  const copyArr = [];
+  let firstRow = '';
+
+  if (data[0] && data[0].member) {
+    firstRow = `Rank\tLeagueID\tLeague Name\tLeagueScore\tRegion`;
+  } else {
+    firstRow = `Rank\tUserID\tName\tScore\tRegion`;
+  }
+  if (messionStrArr.length > 0) {
+    firstRow = `${firstRow}\t${messionStrArr.join('\t')}`;
+  }
+  if (metaStrArr.length > 0) {
+    firstRow = `${firstRow}\t${metaStrArr.join('\t')}`;
+  }
+  if (memberStrArr.length > 0) {
+    firstRow = `${firstRow}\t${memberStrArr.join('\t')}`;
+  }
+  if (extraTitle) {
+    firstRow = `${firstRow}\t${extraTitle.join('\t')}`;
+  }
+
+  copyArr.push(firstRow);
+
+  data.forEach((item, index) => {
+    let itemStr = `${item.rank}\t${item.userInfo.userID}\t${
+      item.userInfo.displayName || item.userInfo.openID
+    }\t${item.score}\t${item.userInfo.region}`;
+
+    if (messionStrArr.length > 0) {
+      const messions: string[] = [];
+      Object.keys(item.missions)
+        .sort((a: any, b: any) => Number(a.substr(-1)) - Number(b.substr(-1)))
+        .forEach(mItem => {
+          messions.push(`${item.missions[mItem]}`);
+        });
+      if (messions.length > 0) {
+        itemStr = `${itemStr}\t${messions.join(`\t`)}`;
+      }
+    }
+    if (metaStrArr.length > 0) {
+      const meta: string[] = [];
+
+      if (item.meta) {
+        Object.keys(item.meta).forEach(mItem => {
+          meta.push(`${item.meta?.[mItem]}`);
+        });
+        if (meta.length > 0) {
+          itemStr = `${itemStr}\t${meta.join(`\t`)}`;
+        }
+      }
+    }
+    if (memberStrArr.length > 0) {
+      const member: string[] = [];
+      item.member.forEach((memberItem: any) => {
+        member.push(memberItem.userID);
+        member.push(memberItem.userInfo.displayName);
+        member.push(memberItem.score);
+      });
+      if (member.length > 0) {
+        itemStr = `${itemStr}\t${member.join(`\t`)}`;
+      }
+    }
+
+    extraDataList.forEach(({ filterFunction }) => {
+      const extraItem = filterFunction(item);
+      itemStr = `${itemStr}\t${extraItem ?? ''}`;
+    });
+
+    copyArr.push(itemStr);
+  });
+
+  return copyStringToClipboard(copyArr.join('\n'));
+};
