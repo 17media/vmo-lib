@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import fakeLeaderBoardData from './fakeLeaderBoardData.json';
-import { copyDataToClipboard } from '../lib/utils';
+import { copyLeaderboardDataToClipboard } from '../lib/utils';
 import { LeaderboardItem } from '../lib/types';
 
 const StyledSpace = styled.div`
@@ -58,11 +58,11 @@ const Copy = () => {
       <button
         type="button"
         onClick={() =>
-          copyDataToClipboard(
+          copyLeaderboardDataToClipboard(
             getCopyData(),
             parameters.map(v => ({
               name: v[0],
-              fn: item => item[v[1]],
+              filterFunction: item => item[v[1]],
             })),
           )
         }

@@ -75,6 +75,7 @@ export const getUserLangs = (): string[] => {
 
 /**
  * languages defined from Eventory
+ * @enum
  */
 export enum RegionLanguage {
   TAIWAN = 'zh_TW',
@@ -374,6 +375,11 @@ export const isIOS = (userAgent: string): boolean =>
  */
 export const isClient = (): boolean => typeof window !== 'undefined';
 
+/**
+ * Copy specific text in browser.
+ * @param {String} str Specific text which want to be copy.
+ * @returns {Boolean} copy result: success/fail
+ */
 export const copyStringToClipboard = (str: string) => {
   const el = document.createElement('textarea');
   el.value = str;
@@ -386,23 +392,59 @@ export const copyStringToClipboard = (str: string) => {
       ? document.getSelection()!.getRangeAt(0)
       : false;
   el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
-  if (selected) {
-    document.getSelection()!.removeAllRanges();
-    document.getSelection()!.addRange(selected);
+  try {
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    if (selected) {
+      document.getSelection()!.removeAllRanges();
+      document.getSelection()!.addRange(selected);
+    }
+    return true;
+  } catch (error) {
+    return false;
   }
 };
 
-interface ExtraData {
+export type ExtraData = {
   name: string;
-  fn: (item: any) => string;
-}
+  filterFunction: (item: any) => string;
+};
 
-export const copyDataToClipboard = (
+/**
+ * Copy Leaderboard Data in browser.
+ *
+ * example:
+ * ```typescript
+ * const data: LeaderboardItem[] = [...]
+ *
+ * // will get basic copy property: "Rank, UserID, Name, Score, Region, EventoryKey"
+ * copyLeaderboardDataToClipboard(data)
+ *
+ * // It can extra more column from data to Clipboard
+ * // will get extra copy property: "Rank, UserID, Name, Score, Region, EventoryKey, Lang, Age"
+ * copyLeaderboardDataToClipboard(data, [
+ *   {
+ *     name: 'Lang',
+ *     filterFuntion: item => item.lang?.primary,
+ *   },
+ *   {
+ *     name: 'Age',
+ *     filterFuntion: item => item.age,
+ *   },
+ * ])
+ * ```
+ *
+ * Try it on Playground:
+ * https://17media.github.io/vmo-lib/output/index.html?page=2
+ *
+ * @param {LeaderboardItem[]} data Leaderboard data which will be copy.
+ * @param {ExtraData[]} extraDataList Setting extraData to get more than basic columns
+ * @returns {Boolean} copy result: success/fail
+ */
+export const copyLeaderboardDataToClipboard = (
   data: LeaderboardItem[],
   extraDataList: ExtraData[],
-): void => {
+): Boolean => {
   // Get mession string
   const messionStrArr: string[] = [];
   if (data.length > 0) {
@@ -502,13 +544,13 @@ export const copyDataToClipboard = (
       }
     }
 
-    extraDataList.forEach(({ fn }) => {
-      const extraItem = fn(item);
+    extraDataList.forEach(({ filterFunction }) => {
+      const extraItem = filterFunction(item);
       itemStr = `${itemStr}\t${extraItem ?? ''}`;
     });
 
     copyArr.push(itemStr);
   });
 
-  copyStringToClipboard(copyArr.join('\n'));
+  return copyStringToClipboard(copyArr.join('\n'));
 };
