@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import Router from 'next/router';
 import OfflineRound from './OfflineRound';
 import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
