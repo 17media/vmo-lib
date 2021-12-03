@@ -8,6 +8,7 @@ import TypeApi2 from './TypeApi2';
 import Filter from './Filter';
 import Follower from './Follower';
 import Score from './Score';
+import ScratchOff from './ScratchOff';
 import Utils from './Utils';
 import ScrollToLoading from './ScrollToLoading';
 import ScrollToStreamer from './ScrollToStreamer';
@@ -15,6 +16,7 @@ import StartRender from './StartRender';
 import Expired from './Expired';
 import Translation from './Translation';
 import Keyboard from './Keyboard';
+import Copy from './Copy';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] = useState<string>('Keyboard');
@@ -30,6 +32,7 @@ const App = () => {
     filter: <Filter />,
     follower: <Follower />,
     score: <Score />,
+    scratchOff: <ScratchOff />,
     utils: <Utils />,
     ScrollToLoading: <ScrollToLoading />,
     ScrollToStreamer: <ScrollToStreamer />,
@@ -37,6 +40,7 @@ const App = () => {
     Expired: <Expired />,
     Translation: <Translation />,
     Keyboard: <Keyboard />,
+    Copy: <Copy />,
   };
 
   return (

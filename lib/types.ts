@@ -40,3 +40,6 @@ export interface ISetting {
   page?: string;
   fn?: () => void;
 }
+export interface LeaderboardItem extends User {
+  roomID?: number;
+}

@@ -9,6 +9,7 @@ import { useTypeApi } from './useTypeApi';
 import { useFilter } from './useFilter';
 import { useScrollToLoadingContainer } from './useScrollToLoadingContainer';
 import { useKeyboard } from './useKeyboard';
+import { useFollower } from './useFollower';
 
 export * from './useCountdown';
 export * from './useItemTransition';
@@ -21,6 +22,7 @@ export * from './useTypeApi';
 export * from './useFilter';
 export * from './useScrollToLoadingContainer';
 export * from './useKeyboard';
+export * from './useFollower';
 
 export default {
   useAutoNext,
@@ -34,4 +36,5 @@ export default {
   useFilter,
   useScrollToLoadingContainer,
   useKeyboard,
+  useFollower,
 };
