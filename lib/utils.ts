@@ -377,8 +377,8 @@ export const isClient = (): boolean => typeof window !== 'undefined';
 
 /**
  * Copy specific text in browser.
- * @param {String} str Specific text which want to be copy.
- * @returns {Boolean} copy result: success/fail
+ * @param {string} str Specific text which want to be copy.
+ * @returns {boolean} copy result: success/fail
  */
 export const copyStringToClipboard = (str: string) => {
   const el = document.createElement('textarea');
@@ -439,12 +439,12 @@ export type ExtraData = {
  *
  * @param {LeaderboardItem[]} data Leaderboard data which will be copy.
  * @param {ExtraData[]} extraDataList Setting extraData to get more than basic columns
- * @returns {Boolean} copy result: success/fail
+ * @returns {boolean} copy result: success/fail
  */
 export const copyLeaderboardDataToClipboard = (
   data: LeaderboardItem[],
   extraDataList: ExtraData[],
-): Boolean => {
+): boolean => {
   // Get mession string
   const messionStrArr: string[] = [];
   if (data.length > 0) {
@@ -485,9 +485,12 @@ export const copyLeaderboardDataToClipboard = (
   const extraTitle = extraDataList.map(extraItem => extraItem.name);
 
   const copyArr = [];
-  let firstRow = `Rank\tUserID\tName\tScore\tRegion`;
+  let firstRow = '';
+
   if (data[0] && data[0].member) {
     firstRow = `Rank\tLeagueID\tLeague Name\tLeagueScore\tRegion`;
+  } else {
+    firstRow = `Rank\tUserID\tName\tScore\tRegion`;
   }
   if (messionStrArr.length > 0) {
     firstRow = `${firstRow}\t${messionStrArr.join('\t')}`;
