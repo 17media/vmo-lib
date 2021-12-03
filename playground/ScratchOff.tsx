@@ -2,21 +2,67 @@ import React, { useState } from 'react';
 import ScratchOffCard from '../lib/components/ScratchOffCard';
 
 const ScratchOff = () => {
-  const [percentage, setPercentage] = useState<number>(50);
-  const [revealPercentage, setRevealPercentage] = useState<number>(0);
-  const [key, setKey] = useState<number>(0);
+  const defaultConfig = {
+    coverImgSrc:
+      'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__480.jpg',
+    width: 737,
+    height: 480,
+    revealPercentage: 50,
+  };
+  const {
+    coverImgSrc: defaultCoverImgSrc,
+    width: defaultWidth,
+    height: defaultHeight,
+    revealPercentage: defaultRevealPercentage,
+  } = defaultConfig;
 
-  const coverImgSrc =
-    'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__480.jpg';
+  const [key, setKey] = useState<number>(0);
+  const [inputCoverImgSrc, setInputCoverImgSrc] =
+    useState<string>(defaultCoverImgSrc);
+  const [inputWidth, setInputWdith] = useState<number>(defaultWidth);
+  const [inputHeight, setInputHeight] = useState<number>(defaultHeight);
+  const [inputRevealPercentage, setInputRevealPercentage] = useState<number>(
+    defaultRevealPercentage,
+  );
+  const [coverImgSrc, setCoverImgSrc] = useState<string>(defaultCoverImgSrc);
+  const [width, setWdith] = useState<number>(defaultWidth);
+  const [height, setHeight] = useState<number>(defaultHeight);
+  const [revealPercentage, setRevealPercentage] = useState<number>(
+    defaultRevealPercentage,
+  );
 
   const handleReveal = () => {
     console.log('handle function after reveal.');
   };
 
-  const rePlay = () => {
-    const randomKey = Math.floor(Math.random() * 100);
-    setKey(randomKey);
+  const handleResetDefault = () => {
+    setInputCoverImgSrc(defaultCoverImgSrc);
+    setInputWdith(defaultWidth);
+    setInputHeight(defaultHeight);
+    setInputRevealPercentage(defaultRevealPercentage);
   };
+
+  const handleGenerate = () => {
+    setCoverImgSrc(inputCoverImgSrc);
+    setWdith(inputWidth);
+    setHeight(inputHeight);
+    setRevealPercentage(inputRevealPercentage);
+    generateNewKey();
+  };
+
+  const generateNewKey = () => {
+    const newRandomKey = generateRandomKey();
+    if (key === newRandomKey) {
+      generateNewKey();
+      return;
+    }
+
+    setKey(newRandomKey);
+  };
+  const generateRandomKey = () => Math.floor(Math.random() * 100);
+
+  const getDisabledState = () =>
+    !inputCoverImgSrc || !inputWidth || !inputHeight || !inputRevealPercentage;
 
   return (
     <div>
@@ -28,20 +74,53 @@ const ScratchOff = () => {
         dom or just image..etc.).
       </p>
       <p>Setting the fill percentage to reveal(default 50).</p>
-      <input
-        type="number"
-        value={percentage}
-        onChange={e => setPercentage(+e.target.value)}
-      />
-      <button type="button" onClick={() => setRevealPercentage(percentage)}>
-        regenerate
-      </button>
-
+      <div>
+        image url:{' '}
+        <input
+          type="text"
+          value={inputCoverImgSrc}
+          size={50}
+          onChange={e => setInputCoverImgSrc(e.target.value)}
+        />{' '}
+        width:{' '}
+        <input
+          type="text"
+          value={inputWidth}
+          onChange={e => setInputWdith(+e.target.value)}
+        />{' '}
+        height:{' '}
+        <input
+          type="text"
+          value={inputHeight}
+          onChange={e => setInputHeight(+e.target.value)}
+        />
+      </div>
+      <p>
+        reveal percentage:{' '}
+        <input
+          type="number"
+          min={1}
+          value={inputRevealPercentage}
+          onChange={e => setInputRevealPercentage(+e.target.value)}
+        />{' '}
+        <button
+          type="button"
+          onClick={handleGenerate}
+          disabled={getDisabledState()}
+        >
+          generate
+        </button>{' '}
+      </p>
+      <p>
+        <button type="button" onClick={handleResetDefault}>
+          reset default setting
+        </button>
+      </p>
       {revealPercentage ? (
         <ScratchOffCard
           key={key}
-          width={737}
-          height={480}
+          width={width}
+          height={height}
           coverImgSrc={coverImgSrc}
           handleReveal={handleReveal}
           revealPercentage={revealPercentage}
@@ -52,10 +131,12 @@ const ScratchOff = () => {
               <code>Coupon code : 1651613335</code>
             </h1>
             <div>
-              <button type="button" onClick={rePlay}>
+              <button type="button" onClick={handleGenerate}>
                 replay again
               </button>
-              <p>using chaning key outside to replay.</p>
+              <p>
+                same as generate behavior outside(using changing key to replay.)
+              </p>
             </div>
           </div>
         </ScratchOffCard>
