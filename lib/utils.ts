@@ -402,7 +402,6 @@ export const getKeyboardSettings = (
     fn: () => {
       const search = qs();
       window.scrollTo(0, 0);
-      const pageInt = parseInt(search.page as string, 10);
       const query = {
         ...search,
         page:
