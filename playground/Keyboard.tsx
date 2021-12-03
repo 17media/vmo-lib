@@ -6,9 +6,9 @@ import { qs, getKeyboardSettings, globalThis } from '../lib/utils';
 import useStartRender from '../lib/hooks/useStartRender';
 
 const renderPage = () => {
-  const queryObj = qs();
+  const { page } = qs();
   let PageComponent;
-  switch (queryObj.page) {
+  switch (page) {
     case '9': {
       PageComponent = () => <div>page=9</div>;
       break;
@@ -64,19 +64,17 @@ const renderPage = () => {
 const Keyboard = () => {
   const settings = useMemo(() => {
     const defaultKeyboardSettings: ISetting[] = getKeyboardSettings();
-    const customTypes = [
+    const customKeyboardSettings = [
       {
         type: EVENT_TYPES.CUSTOM,
         key: 'ArrowDown',
         fn: () => {
           const search = qs();
+          const pageInt = parseInt(search.page as string, 10);
           window.scrollTo(0, 0);
           const query = {
             ...search,
-            page:
-              parseInt(search.page as string, 10) > 1
-                ? `${parseInt(search.page as string, 10) - 1}`
-                : '1',
+            page: pageInt > 1 ? `${pageInt - 1}` : '1',
           };
           const queryPath = Object.entries(query).map(
             ([key, value]) => `${key}=${value}`,
@@ -110,17 +108,20 @@ const Keyboard = () => {
         },
       },
     ];
-    customTypes.forEach((customType: ISetting) => {
-      defaultKeyboardSettings.push(customType);
-    });
-    return defaultKeyboardSettings;
+
+    const finalKeyboardSettings = [
+      ...defaultKeyboardSettings,
+      ...customKeyboardSettings,
+    ];
+    return finalKeyboardSettings;
   }, []);
 
   useKeyboard(settings);
   const startRender = useStartRender();
-  if (!startRender) return <div>Loading...</div>;
 
-  return (
+  return !startRender ? (
+    <div>Loading...</div>
+  ) : (
     <div>
       已將預設讀取頁面從offlineRound改成Keyboard
       <br />

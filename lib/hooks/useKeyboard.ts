@@ -28,12 +28,10 @@ export const switchPageEvent = (page: string) => {
 export const switchKeyArrowLeftEvent = () => {
   const search = qs();
   window.scrollTo(0, 0);
+  const pageInt = parseInt(search.page as string, 10);
   const query = {
     ...search,
-    page:
-      parseInt(search.page as string, 10) > 1
-        ? `${parseInt(search.page as string, 10) - 1}`
-        : '1',
+    page: pageInt > 1 ? `${pageInt - 1}` : '1',
   };
   getNextLocation(query);
 };
