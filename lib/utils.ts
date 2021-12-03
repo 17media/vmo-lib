@@ -1,4 +1,5 @@
-import { EVENT_TYPES } from './enums';
+import { EventTypes } from './enums';
+import { ISetting } from './types';
 
 declare const java17WebObject: any;
 
@@ -375,60 +376,59 @@ export const isIOS = (userAgent: string): boolean =>
 export const isClient = (): boolean => typeof window !== 'undefined';
 
 /**
+ * go to next page
+ */
+export const getNextLocation = (
+  query: { [s: string]: unknown } | ArrayLike<unknown>,
+) => {
+  const queryPath = Object.entries(query).map(
+    ([key, value]) => `${key}=${value}`,
+  );
+  const nextLocation = `${globalThis.location.pathname}?${queryPath.join('&')}`;
+  globalThis.location.href = nextLocation;
+};
+
+/**
  * set default keyboard settings
  */
-export const getKeyboardSettings = () => [
+export const getKeyboardSettings = (
+  firstPage: number,
+  lastPage: number,
+): ISetting[] => [
   {
-    type: EVENT_TYPES.KEY_ARROW_LEFT,
+    type: EventTypes.CUSTOM,
     key: 'ArrowLeft',
+    fn: () => {
+      const search = qs();
+      window.scrollTo(0, 0);
+      const pageInt = parseInt(search.page as string, 10);
+      const query = {
+        ...search,
+        page:
+          Number(search.page) > firstPage ? Number(search.page) - 1 : firstPage,
+      };
+      getNextLocation(query);
+    },
   },
   {
-    type: EVENT_TYPES.KEY_ARROW_RIGHT,
+    type: EventTypes.CUSTOM,
     key: 'ArrowRight',
+    fn: () => {
+      const search = qs();
+      window.scrollTo(0, 0);
+      const query = {
+        ...search,
+        page:
+          !search.page || Number(search.page) < lastPage
+            ? Number(search.page || firstPage) + 1
+            : search.page,
+      };
+      getNextLocation(query);
+    },
   },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '1', // Key 1
-    page: '1',
-  },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '2', // Key 2
-    page: '2',
-  },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '3', // Key 3
-    page: '3',
-  },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '4', // Key 4
-    page: '4',
-  },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '5', // Key 5
-    page: '5',
-  },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '6', // Key 6
-    page: '6',
-  },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '7', // Key 7
-    page: '7',
-  },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '8', // Key 8
-    page: '8',
-  },
-  {
-    type: EVENT_TYPES.PAGE,
-    key: '9', // Key 8
-    page: '9',
-  },
+  ...Array.from({ length: lastPage > 9 ? 9 : lastPage }).map((_, index) => ({
+    type: EventTypes.PAGE,
+    key: (index + 1).toString(),
+    page: (index + 1).toString(),
+  })),
 ];

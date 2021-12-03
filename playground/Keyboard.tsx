@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import useKeyboard from '../lib/hooks/useKeyboard';
 import { ISetting } from '../lib/types';
-import { EVENT_TYPES } from '../lib/enums';
+import { EventTypes } from '../lib/enums';
 import { qs, getKeyboardSettings, globalThis } from '../lib/utils';
 import useStartRender from '../lib/hooks/useStartRender';
 
@@ -63,10 +63,10 @@ const renderPage = () => {
 
 const Keyboard = () => {
   const settings = useMemo(() => {
-    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings();
+    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings(1, 9);
     const customKeyboardSettings = [
       {
-        type: EVENT_TYPES.CUSTOM,
+        type: EventTypes.CUSTOM,
         key: 'ArrowDown',
         fn: () => {
           const search = qs();
@@ -86,7 +86,7 @@ const Keyboard = () => {
         },
       },
       {
-        type: EVENT_TYPES.CUSTOM,
+        type: EventTypes.CUSTOM,
         key: 'ArrowUp',
         fn: () => {
           const search = qs();

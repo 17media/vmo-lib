@@ -1,19 +1,9 @@
 import { useEffect } from 'react';
 import { ISetting } from '../types';
-import { EVENT_TYPES } from '../enums';
-import { qs, globalThis } from '../utils';
+import { EventTypes } from '../enums';
+import { qs, getNextLocation } from '../utils';
 
 export interface ISettings extends Array<ISetting> {}
-
-export const getNextLocation = (
-  query: { [s: string]: unknown } | ArrayLike<unknown>,
-) => {
-  const queryPath = Object.entries(query).map(
-    ([key, value]) => `${key}=${value}`,
-  );
-  const nextLocation = `${globalThis.location.pathname}?${queryPath.join('&')}`;
-  globalThis.location.href = nextLocation;
-};
 
 export const switchPageEvent = (page: string) => {
   const search = qs();
@@ -25,47 +15,15 @@ export const switchPageEvent = (page: string) => {
   getNextLocation(query);
 };
 
-export const switchKeyArrowLeftEvent = () => {
-  const search = qs();
-  window.scrollTo(0, 0);
-  const pageInt = parseInt(search.page as string, 10);
-  const query = {
-    ...search,
-    page: pageInt > 1 ? `${pageInt - 1}` : '1',
-  };
-  getNextLocation(query);
-};
-
-export const switchKeyArrowRightEvent = () => {
-  const search = qs();
-  window.scrollTo(0, 0);
-  const query = {
-    ...search,
-    page:
-      !search.page || parseInt(search.page as string, 10) < 9
-        ? `${parseInt((search.page || 1) as string, 10) + 1}`
-        : search.page,
-  };
-  getNextLocation(query);
-};
-
 export const eventFunc = (event: KeyboardEvent, settings: ISettings) => {
   const setting = settings.find(item => item.key === event.key);
   if (setting) {
     switch (setting.type) {
-      case EVENT_TYPES.PAGE: {
+      case EventTypes.PAGE: {
         switchPageEvent(setting.page!);
         break;
       }
-      case EVENT_TYPES.KEY_ARROW_LEFT: {
-        switchKeyArrowLeftEvent();
-        break;
-      }
-      case EVENT_TYPES.KEY_ARROW_RIGHT: {
-        switchKeyArrowRightEvent();
-        break;
-      }
-      case EVENT_TYPES.CUSTOM: {
+      case EventTypes.CUSTOM: {
         setting.fn!();
         break;
       }

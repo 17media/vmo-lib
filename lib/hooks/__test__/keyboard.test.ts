@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import useKeyboard from '../useKeyboard';
 import { ISetting } from '../../types';
 import { qs, getKeyboardSettings, globalThis } from '../../utils';
-import { EVENT_TYPES } from '../../enums';
+import { EventTypes } from '../../enums';
 
 describe('test Keyboard', () => {
   const { location } = globalThis;
@@ -25,7 +25,7 @@ describe('test Keyboard', () => {
 
   test('url should include page=8', async () => {
     const expectedPageUrl = 'http://localhost?page=8';
-    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings();
+    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings(1, 9);
     renderHook(() => useKeyboard(defaultKeyboardSettings));
     const event = new KeyboardEvent('keyup', { key: '8' });
     globalThis.dispatchEvent(event);
@@ -34,7 +34,7 @@ describe('test Keyboard', () => {
 
   test('keyup=ArrowRight, url should include page=2', async () => {
     const expectedPageUrl = 'http://localhost?page=2';
-    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings();
+    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings(1, 9);
     renderHook(() => useKeyboard(defaultKeyboardSettings));
     const event = new KeyboardEvent('keyup', { key: 'ArrowRight' });
     globalThis.dispatchEvent(event);
@@ -43,7 +43,7 @@ describe('test Keyboard', () => {
 
   test('keyup=ArrowRight, url should include page=1', async () => {
     const expectedPageUrl = 'http://localhost?page=1';
-    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings();
+    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings(1, 9);
     renderHook(() => useKeyboard(defaultKeyboardSettings));
     const event = new KeyboardEvent('keyup', { key: 'ArrowLeft' });
     globalThis.dispatchEvent(event);
@@ -52,10 +52,10 @@ describe('test Keyboard', () => {
 
   test('custom function, keyup=ArrowUp, url should include page=2', async () => {
     const expectedPageUrl = 'http://localhost?page=2';
-    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings();
+    const defaultKeyboardSettings: ISetting[] = getKeyboardSettings(1, 9);
     const customTypes = [
       {
-        type: EVENT_TYPES.CUSTOM,
+        type: EventTypes.CUSTOM,
         key: 'ArrowUp',
         fn: () => {
           const search = qs();

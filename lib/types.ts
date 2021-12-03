@@ -1,4 +1,4 @@
-import { EVENT_TYPES } from './enums';
+import { EventTypes } from './enums';
 
 export interface User {
   bonus?: number;
@@ -35,7 +35,7 @@ interface OnLiveInfo {
   streamerType: number;
 }
 export interface ISetting {
-  type: EVENT_TYPES;
+  type: EventTypes;
   key: string;
   page?: string;
   fn?: () => void;
