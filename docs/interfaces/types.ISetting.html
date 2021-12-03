@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Props | vmo-lib</title>
+	<title>ISetting | vmo-lib</title>
 	<meta name="description" content="Documentation for vmo-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,13 +55,13 @@
 					<a href="../modules.html">vmo-lib</a>
 				</li>
 				<li>
-					<a href="../modules/components_TransitionLeaderboardWrapper.html">components/TransitionLeaderboardWrapper</a>
+					<a href="../modules/types.html">types</a>
 				</li>
 				<li>
-					<a href="components_TransitionLeaderboardWrapper.Props.html">Props</a>
+					<a href="types.ISetting.html">ISetting</a>
 				</li>
 			</ul>
-			<h1>Interface Props</h1>
+			<h1>Interface ISetting</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Props</span>
+						<span class="target">ISetting</span>
 					</li>
 				</ul>
 			</section>
@@ -83,9 +83,15 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="components_TransitionLeaderboardWrapper.Props.html#itemStyle" class="tsd-kind-icon">item<wbr>Style</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="components_TransitionLeaderboardWrapper.Props.html#rowCount" class="tsd-kind-icon">row<wbr>Count</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="components_TransitionLeaderboardWrapper.Props.html#user" class="tsd-kind-icon">user</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.ISetting.html#key" class="tsd-kind-icon">key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.ISetting.html#page" class="tsd-kind-icon">page</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.ISetting.html#type" class="tsd-kind-icon">type</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="types.ISetting.html#fn" class="tsd-kind-icon">fn</a></li>
 							</ul>
 						</section>
 					</div>
@@ -94,34 +100,54 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="itemStyle" class="tsd-anchor"></a>
-					<h3>item<wbr>Style</h3>
-					<div class="tsd-signature tsd-kind-icon">item<wbr>Style<span class="tsd-signature-symbol">:</span> <a href="hooks_useItemTransition.ItemStyle.html" class="tsd-signature-type" data-tsd-kind="Interface">ItemStyle</a></div>
+					<a name="key" class="tsd-anchor"></a>
+					<h3>key</h3>
+					<div class="tsd-signature tsd-kind-icon">key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/5704436/lib/components/TransitionLeaderboardWrapper.tsx#L9">lib/components/TransitionLeaderboardWrapper.tsx:9</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/5704436/lib/types.ts#L39">lib/types.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="rowCount" class="tsd-anchor"></a>
-					<h3>row<wbr>Count</h3>
-					<div class="tsd-signature tsd-kind-icon">row<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="page" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> page</h3>
+					<div class="tsd-signature tsd-kind-icon">page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/5704436/lib/components/TransitionLeaderboardWrapper.tsx#L8">lib/components/TransitionLeaderboardWrapper.tsx:8</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/5704436/lib/types.ts#L40">lib/types.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="user" class="tsd-anchor"></a>
-					<h3>user</h3>
-					<div class="tsd-signature tsd-kind-icon">user<span class="tsd-signature-symbol">:</span> <a href="types.User.html" class="tsd-signature-type" data-tsd-kind="Interface">User</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../enums/enums.EventTypes.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EventTypes</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/5704436/lib/components/TransitionLeaderboardWrapper.tsx#L7">lib/components/TransitionLeaderboardWrapper.tsx:7</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/5704436/lib/types.ts#L38">lib/types.ts:38</a></li>
 						</ul>
 					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="fn" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fn</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">fn<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/5704436/lib/types.ts#L41">lib/types.ts:41</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -132,35 +158,38 @@
 						<a href="../modules.html">Modules</a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/components_TransitionLeaderboardWrapper.html">components/<wbr>Transition<wbr>Leaderboard<wbr>Wrapper</a>
+						<a href="../modules/types.html">types</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-reference tsd-parent-kind-module">
-						<a href="../modules/components_TransitionLeaderboardWrapper.html#default" class="tsd-kind-icon">default</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="components_TransitionLeaderboardWrapper.Props.html" class="tsd-kind-icon">Props</a>
+						<a href="types.ISetting.html" class="tsd-kind-icon">ISetting</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="components_TransitionLeaderboardWrapper.Props.html#itemStyle" class="tsd-kind-icon">item<wbr>Style</a>
+								<a href="types.ISetting.html#key" class="tsd-kind-icon">key</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="components_TransitionLeaderboardWrapper.Props.html#rowCount" class="tsd-kind-icon">row<wbr>Count</a>
+								<a href="types.ISetting.html#page" class="tsd-kind-icon">page</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="components_TransitionLeaderboardWrapper.Props.html#user" class="tsd-kind-icon">user</a>
+								<a href="types.ISetting.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="types.ISetting.html#fn" class="tsd-kind-icon">fn</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="../modules/components_TransitionLeaderboardWrapper.html#TransitionLeaderboardWrapper" class="tsd-kind-icon">Transition<wbr>Leaderboard<wbr>Wrapper</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="types.LeaderboardItem.html" class="tsd-kind-icon">Leaderboard<wbr>Item</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="types.User.html" class="tsd-kind-icon">User</a>
 					</li>
 				</ul>
 			</nav>
@@ -180,6 +209,7 @@
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
