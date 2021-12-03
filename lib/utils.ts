@@ -428,8 +428,8 @@ export const getKeyboardSettings = (
   },
   ...Array.from({ length: lastPage > 9 ? 9 : lastPage }).map((_, index) => ({
     type: EventTypes.PAGE,
-    key: (index + 1).toString(),
-    page: (index + 1).toString(),
+    key: String(index + 1),
+    page: String(index + 1),
   })),
 ];
 
