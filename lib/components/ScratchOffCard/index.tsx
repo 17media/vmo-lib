@@ -59,23 +59,30 @@ const ScratchOffCard: React.FC<Props> = ({
   const coverImgRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCoverImageReady, setIsCoverImageReady] = useState<boolean>(false);
+  const [isReadyInit, setIsReadyInit] = useState<Boolean>(false);
 
   useEffect(() => {
+    const coverImg = new Image();
+
+    coverImgRef.current.onload = () => {
+      setIsCoverImageReady(true);
+      setIsReadyInit(true);
+    };
+
+    coverImgRef.current.src = coverImgSrc;
+  }, [coverImgSrc]);
+
+  useEffect(() => {
+    if (!isReadyInit) return;
+
     let isDrawing: boolean;
     let lastPoint: { x: number; y: number };
     const canvas = canvasRef.current;
     const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
-    const image = coverImgRef.current as HTMLImageElement;
     const brush = new Image();
 
-    ctx.drawImage(image, 0, 0, width, height);
-
-    image.onload = () => {
-      ctx.drawImage(image, 0, 0, width, height);
-      setIsCoverImageReady(true);
-    };
-
     brush.src = brushImg;
+    ctx.drawImage(coverImgRef.current, 0, 0, width, height);
 
     const handleMouseDown = (e: MouseEvent | TouchEvent) => {
       isDrawing = true;
@@ -133,7 +140,7 @@ const ScratchOffCard: React.FC<Props> = ({
       canvas?.removeEventListener('mouseup', handleMouseUp, false);
       canvas?.removeEventListener('touchend', handleMouseUp, false);
     };
-  }, [handleReveal, revealPercentage, height, width]);
+  }, [handleReveal, revealPercentage, height, width, isReadyInit]);
 
   return (
     <StyledScratchOffCard width={width} height={height}>
@@ -141,12 +148,7 @@ const ScratchOffCard: React.FC<Props> = ({
       <StyledResultContainer isCoverImageReady={isCoverImageReady}>
         {children}
       </StyledResultContainer>
-      <StyledCoverImg
-        alt=""
-        ref={coverImgRef}
-        src={coverImgSrc}
-        crossOrigin="anonymous"
-      />
+      <StyledCoverImg alt="" ref={coverImgRef} crossOrigin="anonymous" />
     </StyledScratchOffCard>
   );
 };
