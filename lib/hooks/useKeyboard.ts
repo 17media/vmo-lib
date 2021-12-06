@@ -41,9 +41,12 @@ export const eventFunc = (event: KeyboardEvent, settings: ISettings) => {
  */
 export const useKeyboard = (settings: ISettings) => {
   useEffect(() => {
-    window.addEventListener('keyup', event => eventFunc(event, settings));
+    const handleOnKeyup = (event: KeyboardEvent) => eventFunc(event, settings);
+
+    window.addEventListener('keyup', handleOnKeyup);
+
     return () => {
-      window.removeEventListener('keyup', event => eventFunc(event, settings));
+      window.removeEventListener('keyup', handleOnKeyup);
     };
   }, [settings]);
 };
