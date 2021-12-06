@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import ScratchOffCard from '../lib/components/ScratchOffCard';
 
 const ScratchOff = () => {
@@ -19,32 +19,32 @@ const ScratchOff = () => {
   const [key, setKey] = useState<number>(0);
   const [inputCoverImgSrc, setInputCoverImgSrc] =
     useState<string>(defaultCoverImgSrc);
-  const [inputWidth, setInputWdith] = useState<number>(defaultWidth);
+  const [inputWidth, setInputWidth] = useState<number>(defaultWidth);
   const [inputHeight, setInputHeight] = useState<number>(defaultHeight);
   const [inputRevealPercentage, setInputRevealPercentage] = useState<number>(
     defaultRevealPercentage,
   );
   const [coverImgSrc, setCoverImgSrc] = useState<string>(defaultCoverImgSrc);
-  const [width, setWdith] = useState<number>(defaultWidth);
+  const [width, setWidth] = useState<number>(defaultWidth);
   const [height, setHeight] = useState<number>(defaultHeight);
   const [revealPercentage, setRevealPercentage] = useState<number>(
     defaultRevealPercentage,
   );
 
-  const handleReveal = () => {
+  const handleReveal = useCallback(() => {
     console.log('handle function after reveal.');
-  };
+  }, []);
 
   const handleResetDefault = () => {
     setInputCoverImgSrc(defaultCoverImgSrc);
-    setInputWdith(defaultWidth);
+    setInputWidth(defaultWidth);
     setInputHeight(defaultHeight);
     setInputRevealPercentage(defaultRevealPercentage);
   };
 
   const handleGenerate = () => {
     setCoverImgSrc(inputCoverImgSrc);
-    setWdith(inputWidth);
+    setWidth(inputWidth);
     setHeight(inputHeight);
     setRevealPercentage(inputRevealPercentage);
     generateNewKey();
@@ -86,7 +86,7 @@ const ScratchOff = () => {
         <input
           type="text"
           value={inputWidth}
-          onChange={e => setInputWdith(+e.target.value)}
+          onChange={e => setInputWidth(+e.target.value)}
         />{' '}
         height:{' '}
         <input
@@ -116,33 +116,29 @@ const ScratchOff = () => {
           reset default setting
         </button>
       </p>
-      {revealPercentage ? (
-        <ScratchOffCard
-          key={key}
-          width={width}
-          height={height}
-          coverImgSrc={coverImgSrc}
-          handleReveal={handleReveal}
-          revealPercentage={revealPercentage}
-        >
+      <ScratchOffCard
+        key={key}
+        width={width}
+        height={height}
+        coverImgSrc={coverImgSrc}
+        handleReveal={handleReveal}
+        revealPercentage={revealPercentage}
+      >
+        <div>
+          <h2>Congratulations!</h2>
+          <h1>
+            <code>Coupon code : 1651613335</code>
+          </h1>
           <div>
-            <h2>Congratulations!</h2>
-            <h1>
-              <code>Coupon code : 1651613335</code>
-            </h1>
-            <div>
-              <button type="button" onClick={handleGenerate}>
-                replay again
-              </button>
-              <p>
-                same as generate behavior outside(using changing key to replay.)
-              </p>
-            </div>
+            <button type="button" onClick={handleGenerate}>
+              replay again
+            </button>
+            <p>
+              same as generate behavior outside(using changing key to replay.)
+            </p>
           </div>
-        </ScratchOffCard>
-      ) : (
-        <></>
-      )}
+        </div>
+      </ScratchOffCard>
     </div>
   );
 };
