@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 import styled from 'styled-components';
 import brushImg from './brush.jpg';
 import {
@@ -60,10 +60,10 @@ const ScratchOffCard: React.FC<Props> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCoverImageReady, setIsCoverImageReady] = useState<boolean>(false);
 
-  const imgOnloadFn = () => {
-    const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
-    const image = coverImgRef.current as HTMLImageElement;
-    ctx.drawImage(image, 0, 0, width, height);
+  const handleCoverImgOnLoad = () => {
+    canvasRef.current
+      ?.getContext('2d')
+      .drawImage(coverImgRef.current, 0, 0, width, height);
     setIsCoverImageReady(true);
   };
 
@@ -74,16 +74,9 @@ const ScratchOffCard: React.FC<Props> = ({
     const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
     const image = coverImgRef.current as HTMLImageElement;
     const brush = new Image();
+    brush.src = brushImg;
 
     ctx.drawImage(image, 0, 0, width, height);
-
-    // image.onload = () => {
-    //   console.log('image.onload');
-    //   ctx.drawImage(image, 0, 0, width, height);
-    //   setIsCoverImageReady(true);
-    // };
-
-    brush.src = brushImg;
 
     const handleMouseDown = (e: MouseEvent | TouchEvent) => {
       isDrawing = true;
@@ -153,11 +146,11 @@ const ScratchOffCard: React.FC<Props> = ({
         alt=""
         ref={coverImgRef}
         src={coverImgSrc}
-        onLoad={imgOnloadFn}
+        onLoad={handleCoverImgOnLoad}
         crossOrigin="anonymous"
       />
     </StyledScratchOffCard>
   );
 };
 
-export default ScratchOffCard;
+export default memo(ScratchOffCard);
