@@ -6210,13 +6210,13 @@ var eventFunc = function eventFunc(event, settings) {
 
 var useKeyboard = function useKeyboard(settings) {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    window.addEventListener('keyup', function (event) {
+    var handleOnKeyup = function handleOnKeyup(event) {
       return eventFunc(event, settings);
-    });
+    };
+
+    window.addEventListener('keyup', handleOnKeyup);
     return function () {
-      window.removeEventListener('keyup', function (event) {
-        return eventFunc(event, settings);
-      });
+      window.removeEventListener('keyup', handleOnKeyup);
     };
   }, [settings]);
 };
@@ -7973,7 +7973,7 @@ var StyledScratchOffCard = styled_components__WEBPACK_IMPORTED_MODULE_5__.defaul
 }, function (props) {
   return "".concat(props.height, "px");
 });
-var StyledResultContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  visibility: ", ";\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n"])), function (props) {
+var StyledResultContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  visibility: ", ";\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  word-break: break-all;\n"])), function (props) {
   return props.isCoverImageReady ? 'visible' : 'hidden';
 });
 var StyledCanvas = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.canvas(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  position: absolute;\n  top: 0;\n"])));
