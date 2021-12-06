@@ -60,6 +60,13 @@ const ScratchOffCard: React.FC<Props> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCoverImageReady, setIsCoverImageReady] = useState<boolean>(false);
 
+  const imgOnloadFn = () => {
+    const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
+    const image = coverImgRef.current as HTMLImageElement;
+    ctx.drawImage(image, 0, 0, width, height);
+    setIsCoverImageReady(true);
+  };
+
   useEffect(() => {
     let isDrawing: boolean;
     let lastPoint: { x: number; y: number };
@@ -70,10 +77,11 @@ const ScratchOffCard: React.FC<Props> = ({
 
     ctx.drawImage(image, 0, 0, width, height);
 
-    image.onload = () => {
-      ctx.drawImage(image, 0, 0, width, height);
-      setIsCoverImageReady(true);
-    };
+    // image.onload = () => {
+    //   console.log('image.onload');
+    //   ctx.drawImage(image, 0, 0, width, height);
+    //   setIsCoverImageReady(true);
+    // };
 
     brush.src = brushImg;
 
@@ -145,6 +153,7 @@ const ScratchOffCard: React.FC<Props> = ({
         alt=""
         ref={coverImgRef}
         src={coverImgSrc}
+        onLoad={imgOnloadFn}
         crossOrigin="anonymous"
       />
     </StyledScratchOffCard>
