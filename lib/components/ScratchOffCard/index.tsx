@@ -62,8 +62,6 @@ const ScratchOffCard: React.FC<Props> = ({
   const [isReadyInit, setIsReadyInit] = useState<Boolean>(false);
 
   useEffect(() => {
-    const coverImg = new Image();
-
     coverImgRef.current.onload = () => {
       setIsCoverImageReady(true);
       setIsReadyInit(true);
