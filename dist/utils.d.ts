@@ -1,3 +1,4 @@
+import { ISetting, LeaderboardItem } from './types';
 export declare const globalThis: any;
 export declare const qs: <T extends {
     [k: string]: string | boolean;
@@ -24,6 +25,7 @@ export declare function debounce<Params extends any[]>(func: (...args: Params) =
 export declare const getUserLangs: () => string[];
 /**
  * languages defined from Eventory
+ * @enum
  */
 export declare enum RegionLanguage {
     TAIWAN = "zh_TW",
@@ -100,3 +102,55 @@ export declare const isIOS: (userAgent: string) => boolean;
  * check is using in client side.
  */
 export declare const isClient: () => boolean;
+/**
+ * go to next page
+ */
+export declare const getNextLocation: (query: {
+    [s: string]: unknown;
+} | ArrayLike<unknown>) => void;
+/**
+ * set default keyboard settings
+ */
+export declare const getKeyboardSettings: (firstPage: number, lastPage: number) => ISetting[];
+/**
+ * Copy specific text in browser.
+ * @param {string} str Specific text which want to be copy.
+ * @returns {boolean} copy result: success/fail
+ */
+export declare const copyStringToClipboard: (str: string) => boolean;
+export declare type ExtraData = {
+    name: string;
+    filterFunction: (item: any) => string;
+};
+/**
+ * Copy Leaderboard Data in browser.
+ *
+ * example:
+ * ```typescript
+ * const data: LeaderboardItem[] = [...]
+ *
+ * // will get basic copy property: "Rank, UserID, Name, Score, Region, EventoryKey"
+ * copyLeaderboardDataToClipboard(data)
+ *
+ * // It can extra more column from data to Clipboard
+ * // will get extra copy property: "Rank, UserID, Name, Score, Region, EventoryKey, Lang, Age"
+ * copyLeaderboardDataToClipboard(data, [
+ *   {
+ *     name: 'Lang',
+ *     filterFuntion: item => item.lang?.primary,
+ *   },
+ *   {
+ *     name: 'Age',
+ *     filterFuntion: item => item.age,
+ *   },
+ * ])
+ * ```
+ *
+ * Try it on Playground:
+ * https://17media.github.io/vmo-lib/output/index.html?page=2
+ *
+ * @param {LeaderboardItem[]} data Leaderboard data which will be copy.
+ * @param {ExtraData[]} extraDataList Setting extraData to get more than basic columns
+ * @returns {boolean} copy result: success/fail
+ */
+export declare const copyLeaderboardDataToClipboard: (data: LeaderboardItem[], extraDataList: ExtraData[]) => boolean;

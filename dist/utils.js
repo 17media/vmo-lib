@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
+exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
+const enums_1 = require("./enums");
 exports.globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 const qs = (search = exports.globalThis.location
     ? exports.globalThis.location.search.slice(1)
@@ -60,6 +61,7 @@ const getUserLangs = () => {
 exports.getUserLangs = getUserLangs;
 /**
  * languages defined from Eventory
+ * @enum
  */
 var RegionLanguage;
 (function (RegionLanguage) {
@@ -284,4 +286,209 @@ exports.isIOS = isIOS;
  */
 const isClient = () => typeof window !== 'undefined';
 exports.isClient = isClient;
+/**
+ * go to next page
+ */
+const getNextLocation = (query) => {
+    const queryPath = Object.entries(query).map(([key, value]) => `${key}=${value}`);
+    const nextLocation = `${exports.globalThis.location.pathname}?${queryPath.join('&')}`;
+    exports.globalThis.location.href = nextLocation;
+};
+exports.getNextLocation = getNextLocation;
+/**
+ * set default keyboard settings
+ */
+const getKeyboardSettings = (firstPage, lastPage) => [
+    {
+        type: enums_1.EventTypes.CUSTOM,
+        key: 'ArrowLeft',
+        fn: () => {
+            const search = exports.qs();
+            window.scrollTo(0, 0);
+            const query = Object.assign(Object.assign({}, search), { page: Number(search.page) > firstPage ? Number(search.page) - 1 : firstPage });
+            exports.getNextLocation(query);
+        },
+    },
+    {
+        type: enums_1.EventTypes.CUSTOM,
+        key: 'ArrowRight',
+        fn: () => {
+            const search = exports.qs();
+            window.scrollTo(0, 0);
+            const query = Object.assign(Object.assign({}, search), { page: !search.page || Number(search.page) < lastPage
+                    ? Number(search.page || firstPage) + 1
+                    : search.page });
+            exports.getNextLocation(query);
+        },
+    },
+    ...Array.from({ length: lastPage > 9 ? 9 : lastPage }).map((_, index) => ({
+        type: enums_1.EventTypes.PAGE,
+        key: String(index + 1),
+        page: String(index + 1),
+    })),
+];
+exports.getKeyboardSettings = getKeyboardSettings;
+/**
+ * Copy specific text in browser.
+ * @param {string} str Specific text which want to be copy.
+ * @returns {boolean} copy result: success/fail
+ */
+const copyStringToClipboard = (str) => {
+    const el = document.createElement('textarea');
+    el.value = str;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    const selected = document.getSelection().rangeCount > 0
+        ? document.getSelection().getRangeAt(0)
+        : false;
+    el.select();
+    try {
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        if (selected) {
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
+        }
+        return true;
+    }
+    catch (error) {
+        return false;
+    }
+};
+exports.copyStringToClipboard = copyStringToClipboard;
+/**
+ * Copy Leaderboard Data in browser.
+ *
+ * example:
+ * ```typescript
+ * const data: LeaderboardItem[] = [...]
+ *
+ * // will get basic copy property: "Rank, UserID, Name, Score, Region, EventoryKey"
+ * copyLeaderboardDataToClipboard(data)
+ *
+ * // It can extra more column from data to Clipboard
+ * // will get extra copy property: "Rank, UserID, Name, Score, Region, EventoryKey, Lang, Age"
+ * copyLeaderboardDataToClipboard(data, [
+ *   {
+ *     name: 'Lang',
+ *     filterFuntion: item => item.lang?.primary,
+ *   },
+ *   {
+ *     name: 'Age',
+ *     filterFuntion: item => item.age,
+ *   },
+ * ])
+ * ```
+ *
+ * Try it on Playground:
+ * https://17media.github.io/vmo-lib/output/index.html?page=2
+ *
+ * @param {LeaderboardItem[]} data Leaderboard data which will be copy.
+ * @param {ExtraData[]} extraDataList Setting extraData to get more than basic columns
+ * @returns {boolean} copy result: success/fail
+ */
+const copyLeaderboardDataToClipboard = (data, extraDataList) => {
+    // Get mession string
+    const messionStrArr = [];
+    if (data.length > 0) {
+        const firstMission = data[0].missions;
+        if (firstMission) {
+            Object.keys(firstMission)
+                .sort((a, b) => Number(a.substr(-1)) - Number(b.substr(-1)))
+                .forEach(item => {
+                messionStrArr.push(`${item.substr(0, 1).toUpperCase()}${item.substr(1)}`);
+            });
+        }
+    }
+    // Get meta string
+    const metaStrArr = [];
+    if (data.length > 0) {
+        const firstMeta = data[0].meta;
+        if (firstMeta) {
+            Object.keys(firstMeta).forEach(item => {
+                metaStrArr.push(`${item.substr(0, 1).toUpperCase()}${item.substr(1)}`);
+            });
+        }
+    }
+    // Get member string
+    const memberStrArr = [];
+    if (data.length > 0) {
+        const firstMember = data[0].member;
+        if (firstMember) {
+            firstMember.forEach((index) => {
+                memberStrArr.push(`Member ${index + 1} UserID`);
+                memberStrArr.push(`Member ${index + 1} Name`);
+                memberStrArr.push(`Member ${index + 1} Score`);
+            });
+        }
+    }
+    const extraTitle = extraDataList.map(extraItem => extraItem.name);
+    const copyArr = [];
+    let firstRow = '';
+    if (data[0] && data[0].member) {
+        firstRow = `Rank\tLeagueID\tLeague Name\tLeagueScore\tRegion`;
+    }
+    else {
+        firstRow = `Rank\tUserID\tName\tScore\tRegion`;
+    }
+    if (messionStrArr.length > 0) {
+        firstRow = `${firstRow}\t${messionStrArr.join('\t')}`;
+    }
+    if (metaStrArr.length > 0) {
+        firstRow = `${firstRow}\t${metaStrArr.join('\t')}`;
+    }
+    if (memberStrArr.length > 0) {
+        firstRow = `${firstRow}\t${memberStrArr.join('\t')}`;
+    }
+    if (extraTitle) {
+        firstRow = `${firstRow}\t${extraTitle.join('\t')}`;
+    }
+    copyArr.push(firstRow);
+    data.forEach((item, index) => {
+        let itemStr = `${item.rank}\t${item.userInfo.userID}\t${item.userInfo.displayName || item.userInfo.openID}\t${item.score}\t${item.userInfo.region}`;
+        if (messionStrArr.length > 0) {
+            const messions = [];
+            Object.keys(item.missions)
+                .sort((a, b) => Number(a.substr(-1)) - Number(b.substr(-1)))
+                .forEach(mItem => {
+                messions.push(`${item.missions[mItem]}`);
+            });
+            if (messions.length > 0) {
+                itemStr = `${itemStr}\t${messions.join(`\t`)}`;
+            }
+        }
+        if (metaStrArr.length > 0) {
+            const meta = [];
+            if (item.meta) {
+                Object.keys(item.meta).forEach(mItem => {
+                    var _a;
+                    meta.push(`${(_a = item.meta) === null || _a === void 0 ? void 0 : _a[mItem]}`);
+                });
+                if (meta.length > 0) {
+                    itemStr = `${itemStr}\t${meta.join(`\t`)}`;
+                }
+            }
+        }
+        if (memberStrArr.length > 0) {
+            const member = [];
+            item.member.forEach((memberItem) => {
+                member.push(memberItem.userID);
+                member.push(memberItem.userInfo.displayName);
+                member.push(memberItem.score);
+            });
+            if (member.length > 0) {
+                itemStr = `${itemStr}\t${member.join(`\t`)}`;
+            }
+        }
+        extraDataList.forEach(({ filterFunction }) => {
+            const extraItem = filterFunction(item);
+            itemStr = `${itemStr}\t${extraItem !== null && extraItem !== void 0 ? extraItem : ''}`;
+        });
+        copyArr.push(itemStr);
+    });
+    return exports.copyStringToClipboard(copyArr.join('\n'));
+};
+exports.copyLeaderboardDataToClipboard = copyLeaderboardDataToClipboard;
 //# sourceMappingURL=utils.js.map

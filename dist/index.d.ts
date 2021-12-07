@@ -61,6 +61,7 @@ declare const _default: {
         handleOnChange: (value: any) => void;
     };
     useScrollToLoadingContainer: (loading: boolean) => void;
+    useKeyboard: (settings: import("./hooks").ISettings) => void;
     useFollower: (userID: string, accessToken: string) => {
         followers: string[];
         errorMsg?: string | undefined;

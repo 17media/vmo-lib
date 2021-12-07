@@ -20,6 +20,7 @@ const useSyncScroll_1 = require("./useSyncScroll");
 const useTypeApi_1 = require("./useTypeApi");
 const useFilter_1 = require("./useFilter");
 const useScrollToLoadingContainer_1 = require("./useScrollToLoadingContainer");
+const useKeyboard_1 = require("./useKeyboard");
 const useFollower_1 = require("./useFollower");
 __exportStar(require("./useCountdown"), exports);
 __exportStar(require("./useItemTransition"), exports);
@@ -31,6 +32,7 @@ __exportStar(require("./useSyncScroll"), exports);
 __exportStar(require("./useTypeApi"), exports);
 __exportStar(require("./useFilter"), exports);
 __exportStar(require("./useScrollToLoadingContainer"), exports);
+__exportStar(require("./useKeyboard"), exports);
 __exportStar(require("./useFollower"), exports);
 exports.default = {
     useAutoNext: useAutoNext_1.useAutoNext,
@@ -43,6 +45,7 @@ exports.default = {
     useTypeApi: useTypeApi_1.useTypeApi,
     useFilter: useFilter_1.useFilter,
     useScrollToLoadingContainer: useScrollToLoadingContainer_1.useScrollToLoadingContainer,
+    useKeyboard: useKeyboard_1.useKeyboard,
     useFollower: useFollower_1.useFollower,
 };
 //# sourceMappingURL=index.js.map
