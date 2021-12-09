@@ -31,7 +31,8 @@ const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', me
             cancelToken,
         });
     }
-    const { nextCursor, data } = res.data;
+    const { nextCursor } = res.data;
+    const data = res.data.data ? res.data.data : [];
     const currentData = [...preData, ...data];
     if (callBack) {
         callBack(currentData);
