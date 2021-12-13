@@ -35,7 +35,7 @@ export const getLeaderboardEventory = async (
     });
   }
 
-  const { nextCursor, data } = res.data;
+  const { nextCursor, data = [] } = res.data;
 
   const currentData = [...preData, ...data];
 
