@@ -37,7 +37,6 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "17media-browser-spy": "https://github.com/17media/browser-spy.git",
     "@17media/dad": "github:17media/dad#latest",
     "@babel/runtime": "^7.15.4",
     "@testing-library/react-hooks": "^5.1.2",

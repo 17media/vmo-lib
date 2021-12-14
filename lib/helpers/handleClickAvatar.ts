@@ -1,7 +1,4 @@
-import { createProfileClickAction } from '17media-browser-spy';
-
 import { isClient, isAndroid, isIOS, isMobile } from '../utils';
-import { trackingSource } from '../17appTrack';
 import tunnelOpen from '../17liveMessageTunnel';
 
 declare const java17WebObject: any;
@@ -56,9 +53,6 @@ const handleClickAvatar = (userID: string, openID: string, streamID = 0) => {
   }
 
   open(userID, openID, streamID);
-  trackingSource?.track(
-    createProfileClickAction(userID, streamID > 0, 'avatar'),
-  );
 };
 
 export default handleClickAvatar;

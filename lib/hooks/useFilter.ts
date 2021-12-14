@@ -1,9 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
-import { createSearchAction } from '17media-browser-spy';
 
 import { User as LeaderboardItemInterface } from '../types';
 import { debounce } from '../utils';
-import { trackingSource } from '../17appTrack';
 
 /**
  * 篩選 (search filter) leaderboard 資料<br />
@@ -36,8 +34,6 @@ export const useFilter = (initialData: LeaderboardItemInterface[]) => {
 
         const filterData = getFilterData;
         setData(filterData);
-        // Track
-        trackingSource?.track(createSearchAction(value, filterData.length));
       }, 500),
     [initialData, getFilterData],
   );
