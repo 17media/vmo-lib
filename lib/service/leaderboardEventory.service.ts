@@ -14,6 +14,7 @@ export const getLeaderboardEventory = async (
   limit = 1000,
   cursor = '',
   method = 'POST',
+  withoutOnliveInfo?: boolean,
   callBack = (data: any) => {},
   preData: any[] = [],
 ): Promise<User[]> => {
@@ -50,6 +51,7 @@ export const getLeaderboardEventory = async (
       limit,
       nextCursor,
       method,
+      withoutOnliveInfo,
       callBack,
       currentData,
     );

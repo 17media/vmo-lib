@@ -65,6 +65,7 @@ const TypeApi2 = () => {
   const optRef = useRef({
     limit: 1000,
     cursor: '',
+    withoutOnliveInfo: true,
   });
 
   const init: User[][] = [[], []];
