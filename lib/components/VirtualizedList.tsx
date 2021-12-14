@@ -2,13 +2,8 @@
 import React, { useEffect, useRef, useCallback, ReactNode } from 'react';
 import { VariableSizeList } from 'react-window';
 import styled from 'styled-components';
-import {
-  useRankSectionTracking,
-  createLeaderboardSectionViewAction,
-} from '17media-browser-spy';
 
 import { User as LeaderboardItemInterface } from '../types';
-import { trackingSource } from '../17appTrack';
 import { qs, cumulativeOffset } from '../utils';
 
 interface IStyledVariableSizeListProps {
@@ -37,10 +32,6 @@ const TrackChildrenWrapper = ({
   rank: number;
 }) => {
   const ref = useRef(null);
-  useRankSectionTracking(ref, () => {
-    trackingSource?.track(createLeaderboardSectionViewAction(rank));
-  });
-
   return (
     <div ref={ref} style={style} className="virtualized-item">
       {children({ index })}

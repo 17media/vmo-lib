@@ -1,10 +1,8 @@
 // yarn test ./lib/hooks/__test__/filter.test.ts
 import { renderHook } from '@testing-library/react-hooks';
-import { createSearchAction } from '17media-browser-spy';
 import useFilter from '../useFilter';
 import { User } from '../../types';
 
-jest.mock('17media-browser-spy');
 const leaderboardData: User[] = [
   {
     userInfo: {
@@ -77,7 +75,6 @@ describe('test filter hook', () => {
     result.current.handleOnChange('剛');
     await waitForNextUpdate();
 
-    expect(createSearchAction).toHaveBeenCalled();
     expect(result.current.data.length).toEqual(2);
   });
 
@@ -89,7 +86,6 @@ describe('test filter hook', () => {
     result.current.handleOnChange('0');
     await waitForNextUpdate();
 
-    expect(createSearchAction).toHaveBeenCalled();
     expect(result.current.data.length).toEqual(0);
   });
 });

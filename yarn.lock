@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-"17media-browser-spy@https://github.com/17media/browser-spy.git":
-  version "1.0.25"
-  resolved "https://github.com/17media/browser-spy.git#ca7f675f76cc4697a007eebef5675f7c4a05f98e"
-
 "@17media/dad@github:17media/dad#latest":
   version "3.0.1"
   resolved "https://codeload.github.com/17media/dad/tar.gz/ef70315dfa3b737c00e5b11ca608190afee617fd"

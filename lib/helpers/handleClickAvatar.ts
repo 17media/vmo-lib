@@ -56,9 +56,9 @@ const handleClickAvatar = (userID: string, openID: string, streamID = 0) => {
   }
 
   open(userID, openID, streamID);
-  trackingSource?.track(
-    createProfileClickAction(userID, streamID > 0, 'avatar'),
-  );
+  // trackingSource?.track(
+  //   createProfileClickAction(userID, streamID > 0, 'avatar'),
+  // );
 };
 
 export default handleClickAvatar;
