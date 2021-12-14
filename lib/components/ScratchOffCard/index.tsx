@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, memo } from 'react';
 import styled from 'styled-components';
-import brushImg from './brush.jpg';
 import {
   getAngleBetween,
   getDistanceBetween,
@@ -9,6 +8,7 @@ import {
 } from './utils';
 
 const DEFAULT_REVEAL_PERCENTAGE = 50;
+const BRUSH_URL = 'https://vmo.17.media/vmo-frontend/brush.jpg';
 
 const StyledScratchOffCard = styled.div<{ width: number; height: number }>`
   position: relative;
@@ -39,7 +39,7 @@ const StyledCoverImg = styled.img`
   visibility: hidden;
 `;
 
-interface Props {
+export interface ScratchOffCardProps {
   revealPercentage?: number;
   width: number;
   height: number;
@@ -48,7 +48,7 @@ interface Props {
   handleReveal: () => void;
 }
 
-const ScratchOffCard: React.FC<Props> = ({
+export const ScratchOffCard: React.FC<ScratchOffCardProps> = ({
   revealPercentage = DEFAULT_REVEAL_PERCENTAGE,
   width,
   height,
@@ -61,9 +61,9 @@ const ScratchOffCard: React.FC<Props> = ({
   const [isCoverImageReady, setIsCoverImageReady] = useState<boolean>(false);
 
   const handleCoverImgOnLoad = () => {
-    canvasRef.current
-      ?.getContext('2d')
-      .drawImage(coverImgRef.current, 0, 0, width, height);
+    const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
+    const image = coverImgRef.current as HTMLImageElement;
+    ctx.drawImage(image, 0, 0, width, height);
     setIsCoverImageReady(true);
   };
 
@@ -74,7 +74,7 @@ const ScratchOffCard: React.FC<Props> = ({
     const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
     const image = coverImgRef.current as HTMLImageElement;
     const brush = new Image();
-    brush.src = brushImg;
+    brush.src = BRUSH_URL;
 
     ctx.drawImage(image, 0, 0, width, height);
 
@@ -153,4 +153,4 @@ const ScratchOffCard: React.FC<Props> = ({
   );
 };
 
-export default memo(ScratchOffCard);
+export default ScratchOffCard;
