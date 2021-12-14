@@ -27,8 +27,6 @@ exports.VirtualizedList = void 0;
 const react_1 = __importStar(require("react"));
 const react_window_1 = require("react-window");
 const styled_components_1 = __importDefault(require("styled-components"));
-const _17media_browser_spy_1 = require("17media-browser-spy");
-const _17appTrack_1 = require("../17appTrack");
 const utils_1 = require("../utils");
 const StyledVariableSizeList = styled_components_1.default(react_window_1.VariableSizeList) `
   height: ${props => props.calculatedHeight}px !important;
@@ -40,9 +38,6 @@ const StyledVariableSizeList = styled_components_1.default(react_window_1.Variab
 `;
 const TrackChildrenWrapper = ({ index, style, children, rank, }) => {
     const ref = react_1.useRef(null);
-    _17media_browser_spy_1.useRankSectionTracking(ref, () => {
-        _17appTrack_1.trackingSource === null || _17appTrack_1.trackingSource === void 0 ? void 0 : _17appTrack_1.trackingSource.track(_17media_browser_spy_1.createLeaderboardSectionViewAction(rank));
-    });
     return (react_1.default.createElement("div", { ref: ref, style: style, className: "virtualized-item" }, children({ index })));
 };
 /**

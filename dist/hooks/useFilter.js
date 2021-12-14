@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useFilter = void 0;
 const react_1 = require("react");
-const _17media_browser_spy_1 = require("17media-browser-spy");
 const utils_1 = require("../utils");
-const _17appTrack_1 = require("../17appTrack");
 /**
  * 篩選 (search filter) leaderboard 資料<br />
  * 傳送追蹤篩選行為到 firebase
@@ -27,8 +25,6 @@ const useFilter = (initialData) => {
         }
         const filterData = getFilterData;
         setData(filterData);
-        // Track
-        _17appTrack_1.trackingSource === null || _17appTrack_1.trackingSource === void 0 ? void 0 : _17appTrack_1.trackingSource.track(_17media_browser_spy_1.createSearchAction(value, filterData.length));
     }, 500), [initialData, getFilterData]);
     react_1.useEffect(() => {
         if (keyword) {

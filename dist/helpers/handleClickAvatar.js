@@ -3,9 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const _17media_browser_spy_1 = require("17media-browser-spy");
 const utils_1 = require("../utils");
-const _17appTrack_1 = require("../17appTrack");
 const _17liveMessageTunnel_1 = __importDefault(require("../17liveMessageTunnel"));
 const open = (userID, openID, streamID = 0) => {
     if (utils_1.isMobile(window.navigator.userAgent)) {
@@ -52,7 +50,6 @@ const handleClickAvatar = (userID, openID, streamID = 0) => {
         return;
     }
     open(userID, openID, streamID);
-    _17appTrack_1.trackingSource === null || _17appTrack_1.trackingSource === void 0 ? void 0 : _17appTrack_1.trackingSource.track(_17media_browser_spy_1.createProfileClickAction(userID, streamID > 0, 'avatar'));
 };
 exports.default = handleClickAvatar;
 //# sourceMappingURL=handleClickAvatar.js.map
