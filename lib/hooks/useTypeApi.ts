@@ -18,7 +18,8 @@ export type APIType = {
  * @param method HTTP Method
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
  * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
- * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=
+ * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=<br />withoutOnliveInfo: 是否取得 onliveInfo
+ *
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
 export const useTypeApi = (
@@ -29,6 +30,7 @@ export const useTypeApi = (
   opt = {
     limit: 1000,
     cursor: '',
+    withoutOnliveInfo: false,
   },
 ) => {
   const timeoutKey = useRef(0);
@@ -52,6 +54,7 @@ export const useTypeApi = (
               opt.limit,
               opt.cursor,
               method,
+              opt.withoutOnliveInfo,
             ),
           );
         });
@@ -102,6 +105,7 @@ export const useTypeApi = (
           opt.limit,
           opt.cursor,
           method,
+          opt.withoutOnliveInfo,
           callback(item),
         ),
       );
