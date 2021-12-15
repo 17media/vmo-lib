@@ -49,103 +49,105 @@ export interface Props {
   handleReveal: () => void;
 }
 
-const ScratchOffCard: React.FC<Props> = ({
-  revealPercentage = DEFAULT_REVEAL_PERCENTAGE,
-  width,
-  height,
-  coverImgSrc,
-  children,
-  handleReveal,
-}) => {
-  const coverImgRef = useRef<HTMLImageElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isCoverImageReady, setIsCoverImageReady] = useState<boolean>(false);
+export const ScratchOffCard: React.FC<Props> = memo(
+  ({
+    revealPercentage = DEFAULT_REVEAL_PERCENTAGE,
+    width,
+    height,
+    coverImgSrc,
+    children,
+    handleReveal,
+  }) => {
+    const coverImgRef = useRef<HTMLImageElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [isCoverImageReady, setIsCoverImageReady] = useState<boolean>(false);
 
-  useEffect(() => {
-    coverImgRef.current!.src = coverImgSrc;
-    coverImgRef.current!.onload = () => {
-      setIsCoverImageReady(true);
-    };
-  }, [coverImgSrc]);
+    useEffect(() => {
+      coverImgRef.current!.src = coverImgSrc;
+      coverImgRef.current!.onload = () => {
+        setIsCoverImageReady(true);
+      };
+    }, [coverImgSrc]);
 
-  useEffect(() => {
-    if (!isCoverImageReady) {
-      return;
-    }
-
-    let isDrawing: boolean;
-    let lastPoint: { x: number; y: number };
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    const brush = new Image();
-
-    brush.src = BRUSH_IMG;
-    ctx!.drawImage(coverImgRef.current!, 0, 0, width, height);
-
-    const handleMouseDown = (e: MouseEvent | TouchEvent) => {
-      isDrawing = true;
-      lastPoint = getMouse(e, canvas);
-    };
-
-    const handleMouseMove = (e: MouseEvent | TouchEvent) => {
-      if (!isDrawing) {
+    useEffect(() => {
+      if (!isCoverImageReady) {
         return;
       }
 
-      e.preventDefault();
+      let isDrawing: boolean;
+      let lastPoint: { x: number; y: number };
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      const brush = new Image();
 
-      const currentPoint = getMouse(e, canvas);
-      const dist = getDistanceBetween(lastPoint, currentPoint);
-      const angle = getAngleBetween(lastPoint, currentPoint);
-      let x;
-      let y;
+      brush.src = BRUSH_IMG;
+      ctx!.drawImage(coverImgRef.current!, 0, 0, width, height);
 
-      for (let i = 0; i < dist; i += 1) {
-        x = lastPoint.x + Math.sin(angle) * i - 25;
-        y = lastPoint.y + Math.cos(angle) * i - 25;
-        ctx!.globalCompositeOperation = 'destination-out';
-        ctx!.drawImage(brush, x, y);
-      }
+      const handleMouseDown = (e: MouseEvent | TouchEvent) => {
+        isDrawing = true;
+        lastPoint = getMouse(e, canvas);
+      };
 
-      lastPoint = currentPoint;
-      const currentPercentage = getFilledInPixels(32, ctx!, width, height);
+      const handleMouseMove = (e: MouseEvent | TouchEvent) => {
+        if (!isDrawing) {
+          return;
+        }
 
-      if (currentPercentage > revealPercentage && canvas?.parentNode) {
-        handleReveal();
-        canvas?.parentNode.removeChild(canvas);
-      }
-    };
+        e.preventDefault();
 
-    const handleMouseUp = () => {
-      isDrawing = false;
-    };
+        const currentPoint = getMouse(e, canvas);
+        const dist = getDistanceBetween(lastPoint, currentPoint);
+        const angle = getAngleBetween(lastPoint, currentPoint);
+        let x;
+        let y;
 
-    canvas?.addEventListener('mousedown', handleMouseDown, false);
-    canvas?.addEventListener('touchstart', handleMouseDown, false);
-    canvas?.addEventListener('mousemove', handleMouseMove, false);
-    canvas?.addEventListener('touchmove', handleMouseMove, false);
-    canvas?.addEventListener('mouseup', handleMouseUp, false);
-    canvas?.addEventListener('touchend', handleMouseUp, false);
+        for (let i = 0; i < dist; i += 1) {
+          x = lastPoint.x + Math.sin(angle) * i - 25;
+          y = lastPoint.y + Math.cos(angle) * i - 25;
+          ctx!.globalCompositeOperation = 'destination-out';
+          ctx!.drawImage(brush, x, y);
+        }
 
-    return () => {
-      canvas?.removeEventListener('mousedown', handleMouseDown, false);
-      canvas?.removeEventListener('touchstart', handleMouseDown, false);
-      canvas?.removeEventListener('mousemove', handleMouseMove, false);
-      canvas?.removeEventListener('touchmove', handleMouseMove, false);
-      canvas?.removeEventListener('mouseup', handleMouseUp, false);
-      canvas?.removeEventListener('touchend', handleMouseUp, false);
-    };
-  }, [handleReveal, revealPercentage, height, width, isCoverImageReady]);
+        lastPoint = currentPoint;
+        const currentPercentage = getFilledInPixels(32, ctx!, width, height);
 
-  return (
-    <StyledScratchOffCard width={width} height={height}>
-      <StyledCanvas ref={canvasRef} width={width} height={height} />
-      <StyledResultContainer isCoverImageReady={isCoverImageReady}>
-        {children}
-      </StyledResultContainer>
-      <StyledCoverImg alt="" ref={coverImgRef} crossOrigin="anonymous" />
-    </StyledScratchOffCard>
-  );
-};
+        if (currentPercentage > revealPercentage && canvas?.parentNode) {
+          handleReveal();
+          canvas?.parentNode.removeChild(canvas);
+        }
+      };
 
-export default memo(ScratchOffCard);
+      const handleMouseUp = () => {
+        isDrawing = false;
+      };
+
+      canvas?.addEventListener('mousedown', handleMouseDown, false);
+      canvas?.addEventListener('touchstart', handleMouseDown, false);
+      canvas?.addEventListener('mousemove', handleMouseMove, false);
+      canvas?.addEventListener('touchmove', handleMouseMove, false);
+      canvas?.addEventListener('mouseup', handleMouseUp, false);
+      canvas?.addEventListener('touchend', handleMouseUp, false);
+
+      return () => {
+        canvas?.removeEventListener('mousedown', handleMouseDown, false);
+        canvas?.removeEventListener('touchstart', handleMouseDown, false);
+        canvas?.removeEventListener('mousemove', handleMouseMove, false);
+        canvas?.removeEventListener('touchmove', handleMouseMove, false);
+        canvas?.removeEventListener('mouseup', handleMouseUp, false);
+        canvas?.removeEventListener('touchend', handleMouseUp, false);
+      };
+    }, [handleReveal, revealPercentage, height, width, isCoverImageReady]);
+
+    return (
+      <StyledScratchOffCard width={width} height={height}>
+        <StyledCanvas ref={canvasRef} width={width} height={height} />
+        <StyledResultContainer isCoverImageReady={isCoverImageReady}>
+          {children}
+        </StyledResultContainer>
+        <StyledCoverImg alt="" ref={coverImgRef} crossOrigin="anonymous" />
+      </StyledScratchOffCard>
+    );
+  },
+);
+
+export default ScratchOffCard;
