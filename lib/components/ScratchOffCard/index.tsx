@@ -40,7 +40,7 @@ const StyledCoverImg = styled.img`
   visibility: hidden;
 `;
 
-export interface Props {
+export interface ScratchOffCardProps {
   revealPercentage?: number;
   width: number;
   height: number;
@@ -49,7 +49,7 @@ export interface Props {
   handleReveal: () => void;
 }
 
-export const ScratchOffCard: React.FC<Props> = ({
+export const ScratchOffCard: React.FC<ScratchOffCardProps> = ({
   revealPercentage = DEFAULT_REVEAL_PERCENTAGE,
   width,
   height,
@@ -148,4 +148,4 @@ export const ScratchOffCard: React.FC<Props> = ({
   );
 };
 
-export default memo(ScratchOffCard);
+export default ScratchOffCard;
