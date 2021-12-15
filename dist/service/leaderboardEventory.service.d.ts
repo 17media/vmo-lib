@@ -3,5 +3,5 @@ import { User } from '../types';
 export declare const getLeaderboardEventory: (type: {
     sta: string;
     prod: string;
-}, cancelToken: CancelToken, limit?: number, cursor?: string, method?: string, callBack?: (data: any) => void, preData?: any[]) => Promise<User[]>;
+}, cancelToken: CancelToken, limit?: number, cursor?: string, method?: string, withoutOnliveInfo?: boolean | undefined, callBack?: (data: any) => void, preData?: any[]) => Promise<User[]>;
 export default getLeaderboardEventory;

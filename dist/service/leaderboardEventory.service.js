@@ -13,7 +13,7 @@ exports.getLeaderboardEventory = void 0;
 const axios_1 = require("./axios");
 const utils_1 = require("../utils");
 const url = `/v1/leaderboards/eventory`;
-const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', method = 'POST', callBack = (data) => { }, preData = []) => __awaiter(void 0, void 0, void 0, function* () {
+const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', method = 'POST', withoutOnliveInfo, callBack = (data) => { }, preData = []) => __awaiter(void 0, void 0, void 0, function* () {
     const axios = axios_1.getInstanceEventory();
     const body = { type: utils_1.getType(type), count: limit, cursor };
     let res;
@@ -26,7 +26,7 @@ const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', me
                 containerID: utils_1.getType(type),
                 count: limit,
                 cursor,
-                onLiveInfo: 1,
+                withoutOnliveInfo,
             },
             cancelToken,
         });
@@ -37,7 +37,7 @@ const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', me
         callBack(currentData);
     }
     if (nextCursor) {
-        const nextData = yield exports.getLeaderboardEventory(type, cancelToken, limit, nextCursor, method, callBack, currentData);
+        const nextData = yield exports.getLeaderboardEventory(type, cancelToken, limit, nextCursor, method, withoutOnliveInfo, callBack, currentData);
         return [...data, ...nextData];
     }
     return data;

@@ -30,7 +30,7 @@ export const getLeaderboardEventory = async (
         containerID: getType(type),
         count: limit,
         cursor,
-        onLiveInfo: 1,
+        withoutOnliveInfo,
       },
       cancelToken,
     });

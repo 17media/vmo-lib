@@ -50,6 +50,7 @@ declare const _default: {
     useTypeApi: (apiList: import("./hooks").APIType[] | undefined, method: string | undefined, realTime: number, initialData?: import("./types").User[][] | undefined, opt?: {
         limit: number;
         cursor: string;
+        withoutOnliveInfo: boolean;
     }) => {
         loading: boolean;
         polling: boolean;

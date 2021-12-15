@@ -40,6 +40,8 @@ export const useTypeApi = (
   const [requestError, setRequestError] = useState(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
 
+  console.log('you mtfk');
+
   const getDataRealTimeAPI = useCallback(
     (apis = [], time, previousData) => {
       timeoutKey.current = window.setTimeout(async () => {
