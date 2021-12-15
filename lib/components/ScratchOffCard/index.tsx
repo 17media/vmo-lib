@@ -154,4 +154,4 @@ export const ScratchOffCard: React.FC<ScratchOffCardProps> = ({
   );
 };
 
-export default ScratchOffCard;
+export default memo(ScratchOffCard);
