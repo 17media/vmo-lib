@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import usePageData from '../hooks/usePageData';
-import { TransitionLeaderboardWrapper } from '../components/TransitionLeaderboardWrapper';
+import TransitionLeaderboardWrapper from '../components/TransitionLeaderboardWrapper';
 import { ItemStyle } from '../hooks/useItemTransition';
 import { qs } from '../utils';
 

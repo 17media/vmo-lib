@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { VirtualizedList } from '../lib/components/VirtualizedList';
+import VirtualizedList from '../lib/components/VirtualizedList';
 import fakeLeaderBoardData from './fakeLeaderBoardData.json';
 
 const StyledSpace = styled.div`
