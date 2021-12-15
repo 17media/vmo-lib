@@ -59,12 +59,25 @@ export const ScratchOffCard: React.FC<ScratchOffCardProps> = ({
 }) => {
   const coverImgRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<any>(null);
+  const imageRef = useRef<any>(null);
   const [isCoverImageReady, setIsCoverImageReady] = useState<boolean>(false);
 
   const handleCoverImgOnLoad = () => {
-    const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
-    const image = coverImgRef.current as HTMLImageElement;
-    ctx.drawImage(image, 0, 0, width, height);
+    // const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
+    // const image = coverImgRef.current as HTMLImageElement;
+    // ctx.drawImage(image, 0, 0, width, height);
+
+    // (canvasRef.current?.getContext('2d') as CanvasRenderingContext2D).drawImage(
+    //   coverImgRef.current as HTMLImageElement,
+    //   0,
+    //   0,
+    //   width,
+    //   height,
+    // );
+
+    ctxRef.current.drawImage(imageRef.current, 0, 0, width, height);
+
     setIsCoverImageReady(true);
   };
 
@@ -72,12 +85,20 @@ export const ScratchOffCard: React.FC<ScratchOffCardProps> = ({
     let isDrawing: boolean;
     let lastPoint: { x: number; y: number };
     const canvas = canvasRef.current;
-    const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
-    const image = coverImgRef.current as HTMLImageElement;
+    // const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
+    // const image = coverImgRef.current as HTMLImageElement;
+
+    ctxRef.current = canvasRef.current?.getContext(
+      '2d',
+    ) as CanvasRenderingContext2D;
+    imageRef.current = coverImgRef.current as HTMLImageElement;
+
     const brush = new Image();
     brush.src = brushImg;
 
-    ctx.drawImage(image, 0, 0, width, height);
+    // ctx.drawImage(image, 0, 0, width, height);
+
+    ctxRef.current.drawImage(imageRef.current, 0, 0, width, height);
 
     const handleMouseDown = (e: MouseEvent | TouchEvent) => {
       isDrawing = true;
@@ -100,12 +121,20 @@ export const ScratchOffCard: React.FC<ScratchOffCardProps> = ({
       for (let i = 0; i < dist; i += 1) {
         x = lastPoint.x + Math.sin(angle) * i - 25;
         y = lastPoint.y + Math.cos(angle) * i - 25;
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.drawImage(brush, x, y);
+        // ctx.globalCompositeOperation = 'destination-out';
+        // ctx.drawImage(brush, x, y);
+        ctxRef.current.globalCompositeOperation = 'destination-out';
+        ctxRef.current.drawImage(brush, x, y);
       }
 
       lastPoint = currentPoint;
-      const currentPercentage = getFilledInPixels(32, ctx, width, height);
+      // const currentPercentage = getFilledInPixels(32, ctx, width, height);
+      const currentPercentage = getFilledInPixels(
+        32,
+        ctxRef.current,
+        width,
+        height,
+      );
 
       if (
         currentPercentage > revealPercentage &&
