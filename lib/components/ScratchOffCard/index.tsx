@@ -62,9 +62,9 @@ export const ScratchOffCard: React.FC<ScratchOffCardProps> = ({
   const [isCoverImageReady, setIsCoverImageReady] = useState<boolean>(false);
 
   const handleCoverImgOnLoad = () => {
-    const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
-    const image = coverImgRef.current as HTMLImageElement;
-    ctx.drawImage(image, 0, 0, width, height);
+    canvasRef.current
+      ?.getContext('2d')
+      ?.drawImage(coverImgRef.current as HTMLImageElement, 0, 0, width, height);
     setIsCoverImageReady(true);
   };
 
