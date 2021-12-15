@@ -22,12 +22,14 @@ const leaderboardEventory_service_1 = require("../service/leaderboardEventory.se
  * @param method HTTP Method
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
  * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
- * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=
+ * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=<br />withoutOnliveInfo: 是否取得 onliveInfo
+ *
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
 const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
     limit: 1000,
     cursor: '',
+    withoutOnliveInfo: false,
 }) => {
     const timeoutKey = react_1.useRef(0);
     const source = react_1.useRef();
@@ -41,7 +43,7 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
             setPolling(true);
             const apiArr = [];
             apis.forEach((item) => {
-                apiArr.push(leaderboardEventory_service_1.getLeaderboardEventory(item, source.current.token, opt.limit, opt.cursor, method));
+                apiArr.push(leaderboardEventory_service_1.getLeaderboardEventory(item, source.current.token, opt.limit, opt.cursor, method, opt.withoutOnliveInfo));
             });
             try {
                 const results = yield Promise.all(apiArr);
@@ -85,7 +87,7 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
             });
         };
         apiList.forEach((item) => {
-            promiseList.push(leaderboardEventory_service_1.getLeaderboardEventory(item, source.current.token, opt.limit, opt.cursor, method, callback(item)));
+            promiseList.push(leaderboardEventory_service_1.getLeaderboardEventory(item, source.current.token, opt.limit, opt.cursor, method, opt.withoutOnliveInfo, callback(item)));
         });
         if (apiList && apiList.length > 0 && method) {
             promiseAll(promiseList);
