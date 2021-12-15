@@ -7,6 +7,7 @@ export interface Props {
   user: User[];
   rowCount: number;
   itemStyle: ItemStyle;
+  children: string | React.ReactNode;
 }
 
 const Wrapper = styled.div`
