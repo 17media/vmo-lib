@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import React, { useEffect, useRef, useCallback, ReactNode } from 'react';
+import React, { useEffect, useRef, useCallback, ReactNode, memo } from 'react';
 import { VariableSizeList } from 'react-window';
 import styled from 'styled-components';
 
@@ -57,7 +57,7 @@ export interface IVirtualizedListProps {
  * 在 url 上加上 streamerUserID= 直播主的id，就會將畫面移動到直播主的位置
  * @param IVirtualizedListProps 使用方法參考 IVirtualizedListProps 說明
  */
-export const VirtualizedList: React.FC<IVirtualizedListProps> = ({
+const VirtualizedList: React.FC<IVirtualizedListProps> = ({
   dataset,
   children,
   itemHeight = 80,
@@ -142,4 +142,4 @@ export const VirtualizedList: React.FC<IVirtualizedListProps> = ({
   );
 };
 
-export default VirtualizedList;
+export default memo(VirtualizedList);
