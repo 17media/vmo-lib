@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 import styled from 'styled-components';
 import {
   getAngleBetween,
@@ -151,4 +151,4 @@ const ScratchOffCard: React.FC<Props> = ({
   );
 };
 
-export default ScratchOffCard;
+export default memo(ScratchOffCard);
