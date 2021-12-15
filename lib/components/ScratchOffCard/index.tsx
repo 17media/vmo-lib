@@ -79,7 +79,7 @@ const ScratchOffCard: React.FC<Props> = ({
     let isDrawing: boolean;
     let lastPoint: { x: number; y: number };
     const canvas = canvasRef.current;
-    const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
+    const ctx = canvas?.getContext('2d') as CanvasRenderingContext2D;
     const brush = new Image();
 
     brush.src = brushImg;
@@ -87,7 +87,7 @@ const ScratchOffCard: React.FC<Props> = ({
 
     const handleMouseDown = (e: MouseEvent | TouchEvent) => {
       isDrawing = true;
-      lastPoint = getMouse(e, canvasRef.current);
+      lastPoint = getMouse(e, canvas);
     };
 
     const handleMouseMove = (e: MouseEvent | TouchEvent) => {
@@ -97,7 +97,7 @@ const ScratchOffCard: React.FC<Props> = ({
 
       e.preventDefault();
 
-      const currentPoint = getMouse(e, canvasRef.current);
+      const currentPoint = getMouse(e, canvas);
       const dist = getDistanceBetween(lastPoint, currentPoint);
       const angle = getAngleBetween(lastPoint, currentPoint);
       let x;
@@ -113,12 +113,9 @@ const ScratchOffCard: React.FC<Props> = ({
       lastPoint = currentPoint;
       const currentPercentage = getFilledInPixels(32, ctx, width, height);
 
-      if (
-        currentPercentage > revealPercentage &&
-        canvasRef.current?.parentNode
-      ) {
+      if (currentPercentage > revealPercentage && canvas?.parentNode) {
         handleReveal();
-        canvasRef.current?.parentNode.removeChild(canvasRef.current);
+        canvas?.parentNode.removeChild(canvas);
       }
     };
 
