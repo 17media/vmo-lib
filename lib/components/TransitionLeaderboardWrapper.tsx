@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import useItemTransition, { ItemStyle } from '../hooks/useItemTransition';
 import { User } from '../types';
 
-export interface Props {
+export interface ITransitionLeaderboardWrapperProps {
   user: User[];
   rowCount: number;
   itemStyle: ItemStyle;
@@ -19,8 +19,8 @@ const transitionStyle = {
   transition: 'all 0.5s ease 0.3s',
 };
 
-export const TransitionLeaderboardWrapper: React.FC<Props> = React.memo(
-  ({ user, itemStyle, rowCount, children }) => {
+export const TransitionLeaderboardWrapper: React.FC<ITransitionLeaderboardWrapperProps> =
+  React.memo(({ user, itemStyle, rowCount, children }) => {
     const { itemTransitionStyle } = useItemTransition(
       itemStyle,
       transitionStyle,
@@ -45,7 +45,6 @@ export const TransitionLeaderboardWrapper: React.FC<Props> = React.memo(
     }
 
     return <Wrapper>{renderChild()}</Wrapper>;
-  },
-);
+  });
 
 export default TransitionLeaderboardWrapper;
