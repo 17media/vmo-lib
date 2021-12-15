@@ -5,7 +5,6 @@ declare const _default: {
     OfflineNormalTemplate: () => JSX.Element;
     TransitionLeaderboardWrapper: import("react").FC<import("./components").Props>;
     VirtualizedList: import("react").FC<import("./components").IVirtualizedListProps>;
-    ScratchOffCard: import("react").NamedExoticComponent<import("./components/ScratchOffCard").Props>;
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
         status: import("./hooks").TimeStatus;
