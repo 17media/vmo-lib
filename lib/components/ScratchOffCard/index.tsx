@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-// import brushImg from './brush.jpg';
 import {
   getAngleBetween,
   getDistanceBetween,
@@ -64,13 +63,13 @@ const ScratchOffCard: React.FC<Props> = ({
   const [isReadyInit, setIsReadyInit] = useState<Boolean>(false);
 
   useEffect(() => {
-    if (coverImgRef.current) {
-      coverImgRef.current.onload = () => {
-        setIsCoverImageReady(true);
-        setIsReadyInit(true);
-      };
-      coverImgRef.current.src = coverImgSrc;
-    }
+    if (!coverImgRef.current) return;
+
+    coverImgRef.current.onload = () => {
+      setIsCoverImageReady(true);
+      setIsReadyInit(true);
+    };
+    coverImgRef.current.src = coverImgSrc;
   }, [coverImgSrc]);
 
   useEffect(() => {
