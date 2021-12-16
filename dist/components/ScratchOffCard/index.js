@@ -51,7 +51,7 @@ const StyledCanvas = styled_components_1.default.canvas `
   top: 0;
 `;
 const StyledCoverImg = styled_components_1.default.img `
-  visibility: hidden;
+  display: none;
 `;
 const ScratchOffCard = ({ revealPercentage = DEFAULT_REVEAL_PERCENTAGE, width, height, coverImgSrc, children, handleReveal, }) => {
     const coverImgRef = react_1.useRef(null);
