@@ -4681,7 +4681,8 @@ __webpack_require__.r(__webpack_exports__);
  * @param method HTTP Method
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
  * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
- * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=
+ * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=<br />withoutOnliveInfo: 是否取得 onliveInfo
+ *
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
 var useTypeApi = function useTypeApi() {
@@ -4691,7 +4692,8 @@ var useTypeApi = function useTypeApi() {
   var initialData = arguments.length > 3 ? arguments[3] : undefined;
   var opt = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
     limit: 1000,
-    cursor: ''
+    cursor: '',
+    withoutOnliveInfo: false
   };
   var timeoutKey = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)(0);
   var source = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)();
@@ -4730,7 +4732,7 @@ var useTypeApi = function useTypeApi() {
               setPolling(true);
               apiArr = [];
               apis.forEach(function (item) {
-                apiArr.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method));
+                apiArr.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method, opt.withoutOnliveInfo));
               });
               _context.prev = 4;
               _context.next = 7;
@@ -4823,7 +4825,7 @@ var useTypeApi = function useTypeApi() {
     };
 
     apiList.forEach(function (item) {
-      promiseList.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method, callback(item)));
+      promiseList.push((0,_service_leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_6__.getLeaderboardEventory)(item, source.current.token, opt.limit, opt.cursor, method, opt.withoutOnliveInfo, callback(item)));
     });
 
     if (apiList && apiList.length > 0 && method) {
@@ -5018,6 +5020,7 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
     var limit,
         cursor,
         method,
+        withoutOnliveInfo,
         callBack,
         preData,
         axios,
@@ -5038,8 +5041,9 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
             limit = _args.length > 2 && _args[2] !== undefined ? _args[2] : 1000;
             cursor = _args.length > 3 && _args[3] !== undefined ? _args[3] : '';
             method = _args.length > 4 && _args[4] !== undefined ? _args[4] : 'POST';
-            callBack = _args.length > 5 && _args[5] !== undefined ? _args[5] : function (data) {};
-            preData = _args.length > 6 && _args[6] !== undefined ? _args[6] : [];
+            withoutOnliveInfo = _args.length > 5 ? _args[5] : undefined;
+            callBack = _args.length > 6 && _args[6] !== undefined ? _args[6] : function (data) {};
+            preData = _args.length > 7 && _args[7] !== undefined ? _args[7] : [];
             axios = (0,_axios__WEBPACK_IMPORTED_MODULE_3__.getInstanceEventory)();
             body = {
               type: (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getType)(type),
@@ -5048,36 +5052,36 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
             };
 
             if (!(method === 'POST')) {
-              _context.next = 13;
+              _context.next = 14;
               break;
             }
 
-            _context.next = 10;
+            _context.next = 11;
             return axios.post(url, body, {
               cancelToken: cancelToken
             });
 
-          case 10:
+          case 11:
             res = _context.sent;
-            _context.next = 16;
+            _context.next = 17;
             break;
 
-          case 13:
-            _context.next = 15;
+          case 14:
+            _context.next = 16;
             return axios.get(url, {
               params: {
                 containerID: (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getType)(type),
                 count: limit,
                 cursor: cursor,
-                onLiveInfo: 1
+                withoutOnliveInfo: withoutOnliveInfo
               },
               cancelToken: cancelToken
             });
 
-          case 15:
+          case 16:
             res = _context.sent;
 
-          case 16:
+          case 17:
             _res$data = res.data, nextCursor = _res$data.nextCursor, _res$data$data = _res$data.data, data = _res$data$data === void 0 ? [] : _res$data$data;
             currentData = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(preData), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(data));
 
@@ -5086,21 +5090,21 @@ var getLeaderboardEventory = /*#__PURE__*/function () {
             }
 
             if (!nextCursor) {
-              _context.next = 24;
+              _context.next = 25;
               break;
             }
 
-            _context.next = 22;
-            return getLeaderboardEventory(type, cancelToken, limit, nextCursor, method, callBack, currentData);
+            _context.next = 23;
+            return getLeaderboardEventory(type, cancelToken, limit, nextCursor, method, withoutOnliveInfo, callBack, currentData);
 
-          case 22:
+          case 23:
             nextData = _context.sent;
             return _context.abrupt("return", [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(data), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(nextData)));
 
-          case 24:
+          case 25:
             return _context.abrupt("return", data);
 
-          case 25:
+          case 26:
           case "end":
             return _context.stop();
         }
@@ -5876,14 +5880,14 @@ var open = function open(openID) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ScratchOffCard": () => (/* binding */ ScratchOffCard),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _brush_jpg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./brush.jpg */ "./lib/components/ScratchOffCard/brush.jpg");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./lib/components/ScratchOffCard/utils.ts");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils */ "./lib/components/ScratchOffCard/utils.ts");
 
 
 
@@ -5892,19 +5896,18 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 
 
-
 var DEFAULT_REVEAL_PERCENTAGE = 50;
-var StyledScratchOffCard = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  position: relative;\n  width: ", ";\n  height: ", ";\n  margin: 0 auto;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  -o-user-select: none;\n  user-select: none;\n"])), function (props) {
+var BRUSH_IMG = 'data:image/jpeg;base64,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';
+var StyledScratchOffCard = styled_components__WEBPACK_IMPORTED_MODULE_4__.default.div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  position: relative;\n  width: ", ";\n  height: ", ";\n  margin: 0 auto;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  -o-user-select: none;\n  user-select: none;\n"])), function (props) {
   return "".concat(props.width, "px");
 }, function (props) {
   return "".concat(props.height, "px");
 });
-var StyledResultContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  visibility: ", ";\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  word-break: break-all;\n"])), function (props) {
+var StyledResultContainer = styled_components__WEBPACK_IMPORTED_MODULE_4__.default.div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  visibility: ", ";\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  word-break: break-all;\n"])), function (props) {
   return props.isCoverImageReady ? 'visible' : 'hidden';
 });
-var StyledCanvas = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.canvas(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  position: absolute;\n  top: 0;\n"])));
-var StyledCoverImg = styled_components__WEBPACK_IMPORTED_MODULE_5__.default.img(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  visibility: hidden;\n"])));
-
+var StyledCanvas = styled_components__WEBPACK_IMPORTED_MODULE_4__.default.canvas(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  position: absolute;\n  top: 0;\n"])));
+var StyledCoverImg = styled_components__WEBPACK_IMPORTED_MODULE_4__.default.img(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__.default)(["\n  visibility: hidden;\n"])));
 var ScratchOffCard = function ScratchOffCard(_ref) {
   var _ref$revealPercentage = _ref.revealPercentage,
       revealPercentage = _ref$revealPercentage === void 0 ? DEFAULT_REVEAL_PERCENTAGE : _ref$revealPercentage,
@@ -5921,41 +5924,40 @@ var ScratchOffCard = function ScratchOffCard(_ref) {
       isCoverImageReady = _useState2[0],
       setIsCoverImageReady = _useState2[1];
 
-  var handleCoverImgOnLoad = function handleCoverImgOnLoad() {
-    var _canvasRef$current;
-
-    (_canvasRef$current = canvasRef.current) === null || _canvasRef$current === void 0 ? void 0 : _canvasRef$current.getContext('2d').drawImage(coverImgRef.current, 0, 0, width, height);
-    setIsCoverImageReady(true);
-  };
-
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    var _canvasRef$current2;
+    coverImgRef.current.src = coverImgSrc;
+
+    coverImgRef.current.onload = function () {
+      setIsCoverImageReady(true);
+    };
+  }, [coverImgSrc]);
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    if (!isCoverImageReady) {
+      return;
+    }
 
     var isDrawing;
     var lastPoint;
     var canvas = canvasRef.current;
-    var ctx = (_canvasRef$current2 = canvasRef.current) === null || _canvasRef$current2 === void 0 ? void 0 : _canvasRef$current2.getContext('2d');
-    var image = coverImgRef.current;
+    var ctx = canvas === null || canvas === void 0 ? void 0 : canvas.getContext('2d');
     var brush = new Image();
-    brush.src = _brush_jpg__WEBPACK_IMPORTED_MODULE_3__.default;
-    ctx.drawImage(image, 0, 0, width, height);
+    brush.src = BRUSH_IMG;
+    ctx.drawImage(coverImgRef.current, 0, 0, width, height);
 
     var handleMouseDown = function handleMouseDown(e) {
       isDrawing = true;
-      lastPoint = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getMouse)(e, canvasRef.current);
+      lastPoint = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getMouse)(e, canvas);
     };
 
     var handleMouseMove = function handleMouseMove(e) {
-      var _canvasRef$current3;
-
       if (!isDrawing) {
         return;
       }
 
       e.preventDefault();
-      var currentPoint = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getMouse)(e, canvasRef.current);
-      var dist = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getDistanceBetween)(lastPoint, currentPoint);
-      var angle = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getAngleBetween)(lastPoint, currentPoint);
+      var currentPoint = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getMouse)(e, canvas);
+      var dist = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getDistanceBetween)(lastPoint, currentPoint);
+      var angle = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getAngleBetween)(lastPoint, currentPoint);
       var x;
       var y;
 
@@ -5967,13 +5969,11 @@ var ScratchOffCard = function ScratchOffCard(_ref) {
       }
 
       lastPoint = currentPoint;
-      var currentPercentage = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getFilledInPixels)(32, ctx, width, height);
+      var currentPercentage = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getFilledInPixels)(32, ctx, width, height);
 
-      if (currentPercentage > revealPercentage && (_canvasRef$current3 = canvasRef.current) !== null && _canvasRef$current3 !== void 0 && _canvasRef$current3.parentNode) {
-        var _canvasRef$current4;
-
+      if (currentPercentage > revealPercentage && canvas !== null && canvas !== void 0 && canvas.parentNode) {
         handleReveal();
-        (_canvasRef$current4 = canvasRef.current) === null || _canvasRef$current4 === void 0 ? void 0 : _canvasRef$current4.parentNode.removeChild(canvasRef.current);
+        canvas === null || canvas === void 0 ? void 0 : canvas.parentNode.removeChild(canvas);
       }
     };
 
@@ -5995,7 +5995,7 @@ var ScratchOffCard = function ScratchOffCard(_ref) {
       canvas === null || canvas === void 0 ? void 0 : canvas.removeEventListener('mouseup', handleMouseUp, false);
       canvas === null || canvas === void 0 ? void 0 : canvas.removeEventListener('touchend', handleMouseUp, false);
     };
-  }, [handleReveal, revealPercentage, height, width]);
+  }, [handleReveal, revealPercentage, height, width, isCoverImageReady]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledScratchOffCard, {
     width: width,
     height: height
@@ -6008,12 +6008,9 @@ var ScratchOffCard = function ScratchOffCard(_ref) {
   }, children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StyledCoverImg, {
     alt: "",
     ref: coverImgRef,
-    src: coverImgSrc,
-    onLoad: handleCoverImgOnLoad,
     crossOrigin: "anonymous"
   }));
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_2__.memo)(ScratchOffCard));
 
 /***/ }),
@@ -7925,7 +7922,8 @@ var TypeApi = function TypeApi() {
   var realTimeRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
   var optRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)({
     limit: 1000,
-    cursor: ''
+    cursor: '',
+    withoutOnliveInfo: false
   });
   var init = [[{
     userInfo: {
@@ -8097,7 +8095,8 @@ var TypeApi2 = function TypeApi2() {
 
   var optRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)({
     limit: 1000,
-    cursor: ''
+    cursor: '',
+    withoutOnliveInfo: true
   });
   var init = [[], []];
 
@@ -8317,21 +8316,6 @@ var Utils = function Utils() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.memo(Utils));
-
-/***/ }),
-
-/***/ "./lib/components/ScratchOffCard/brush.jpg":
-/*!*************************************************!*\
-  !*** ./lib/components/ScratchOffCard/brush.jpg ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "0de37717f78842726093ed2c5a83c719.jpg");
 
 /***/ }),
 
@@ -40705,18 +40689,6 @@ module.exports = JSON.parse('{"type":"dbda13a5-70b4-445a-95a5-52f0802c4781","nex
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -40731,26 +40703,6 @@ module.exports = JSON.parse('{"type":"dbda13a5-70b4-445a-95a5-52f0802c4781","nex
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/publicPath */
-/******/ 	(() => {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
