@@ -12,7 +12,13 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const TransitionLeaderboardWrapper_1 = require("./TransitionLeaderboardWrapper");
 const VirtualizedList_1 = require("./VirtualizedList");
+const ScratchOffCard_1 = require("./ScratchOffCard");
 __exportStar(require("./TransitionLeaderboardWrapper"), exports);
 __exportStar(require("./VirtualizedList"), exports);
-exports.default = { TransitionLeaderboardWrapper: TransitionLeaderboardWrapper_1.TransitionLeaderboardWrapper, VirtualizedList: VirtualizedList_1.VirtualizedList };
+__exportStar(require("./ScratchOffCard"), exports);
+exports.default = {
+    TransitionLeaderboardWrapper: TransitionLeaderboardWrapper_1.TransitionLeaderboardWrapper,
+    VirtualizedList: VirtualizedList_1.VirtualizedList,
+    ScratchOffCard: ScratchOffCard_1.ScratchOffCard,
+};
 //# sourceMappingURL=index.js.map

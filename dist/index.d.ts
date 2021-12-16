@@ -3,8 +3,9 @@ export * from './hooks';
 export * from './components';
 declare const _default: {
     OfflineNormalTemplate: () => JSX.Element;
-    TransitionLeaderboardWrapper: import("react").FC<import("./components").Props>;
+    TransitionLeaderboardWrapper: import("react").FC<import("./components").ITransitionLeaderboardWrapperProps>;
     VirtualizedList: import("react").FC<import("./components").IVirtualizedListProps>;
+    ScratchOffCard: import("react").FC<import("./components").IScratchOffCardProps>;
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
         status: import("./hooks").TimeStatus;
