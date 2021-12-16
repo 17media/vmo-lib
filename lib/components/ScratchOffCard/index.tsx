@@ -37,7 +37,7 @@ const StyledCanvas = styled.canvas`
 `;
 
 const StyledCoverImg = styled.img`
-  visibility: hidden;
+  display: none;
 `;
 
 export interface IScratchOffCardProps {
