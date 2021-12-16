@@ -40,7 +40,7 @@ export const getMouse = (e: MouseEvent | TouchEvent, canvas: any) => {
   }
 
   if (isTouchEvent(e)) {
-    mx = e.touches[0].clientX - offsetX;
+    mx = e.touches[0].clientX - offsetX + window.scrollX;
     my = e.touches[0].clientY - offsetY + window.scrollY;
   }
 
