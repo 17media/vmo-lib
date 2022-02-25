@@ -74,8 +74,7 @@
     "build:both": "yarn doc && yarn build:playground",
     "copy:both": "rm -rf deploy/docs && rm -rf deploy/output && cp -r docs deploy/docs && cp -r output deploy/output",
     "rm:both": "rm -rf docs && rm -rf output && rm -rf deploy/docs && rm -rf deploy/output",
-    "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both",
-    "prepare": "husky install"
+    "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both"
   },
   "lint-staged": {
     "**/*.ts?(x)": [
