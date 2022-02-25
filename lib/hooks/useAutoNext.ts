@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { qs, globalThis } from '../utils';
+// import { qs, globalThis } from '../utils';
 
 /**
  * 線下階段結束跳轉結果頁面
