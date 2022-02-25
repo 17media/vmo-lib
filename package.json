@@ -27,7 +27,7 @@
     "eslint-plugin-typescript": "^0.14.0",
     "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.3.1",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "jest": "^26.6.3",
     "lint-staged": "^12.3.4",
     "prettier": "^2.3.0",
@@ -74,16 +74,13 @@
     "build:both": "yarn doc && yarn build:playground",
     "copy:both": "rm -rf deploy/docs && rm -rf deploy/output && cp -r docs deploy/docs && cp -r output deploy/output",
     "rm:both": "rm -rf docs && rm -rf output && rm -rf deploy/docs && rm -rf deploy/output",
-    "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "**/*.ts?(x)": [
-      "yarn lint",
+      "eslint",
+      "prettier --write",
       "tsc-files --noEmit"
     ]
   }
