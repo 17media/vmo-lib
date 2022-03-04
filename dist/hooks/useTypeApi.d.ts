@@ -8,7 +8,7 @@ export declare type APIType = {
 /**
  * 取得 container 資料<br />
  * @param apiList APIType
- * @param method HTTP Method
+ * @param method HTTP Method, Legacy 可棄用
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
  * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
  * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=<br />withoutOnliveInfo: 是否取得 onliveInfo
@@ -22,7 +22,7 @@ export declare const useTypeApi: (apiList: APIType[] | undefined, method: string
 }) => {
     loading: boolean;
     polling: boolean;
-    requestError: null;
+    requestError: any;
     leaderboardData: User[][] | undefined;
 };
 export default useTypeApi;

@@ -67,6 +67,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc",
     "start": "webpack server --hot",
+    "watch": "tsc --watch",
     "test": "jest",
     "format": "prettier --write .",
     "doc": "rm -rf docs && typedoc",

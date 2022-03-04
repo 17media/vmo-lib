@@ -61,7 +61,7 @@ declare const _default: {
     }) => {
         loading: boolean;
         polling: boolean;
-        requestError: null;
+        requestError: any;
         leaderboardData: import("../types").User[][] | undefined;
     };
     useFilter: (initialData: import("../types").User[]) => {
