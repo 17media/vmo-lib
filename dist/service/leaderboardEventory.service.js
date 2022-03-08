@@ -12,56 +12,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLeaderboardEventory = void 0;
 const axios_1 = require("./axios");
 const utils_1 = require("../utils");
-const endpoint = `/v1/leaderboards/eventory`;
-var ErrorCode;
-(function (ErrorCode) {
-    ErrorCode["TIMEOUT"] = "ECONNABORTED";
-})(ErrorCode || (ErrorCode = {}));
-const CANCEL_TIME_OUT = 5000;
-const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, callback, preData = [], }) => __awaiter(void 0, void 0, void 0, function* () {
-    const eventoryApi = axios_1.getInstanceEventory();
-    if (!withoutOnliveInfo) {
-        const responseHandler = (response) => response;
-        const errorHandler = (error) => {
-            var _a;
-            if ((error === null || error === void 0 ? void 0 : error.code) === ErrorCode.TIMEOUT) {
-                const payload = (_a = error === null || error === void 0 ? void 0 : error.config) === null || _a === void 0 ? void 0 : _a.params;
-                if (!payload.withoutOnliveInfo) {
-                    return eventoryApi.get(endpoint, {
-                        params: Object.assign(Object.assign({}, payload), { withoutOnliveInfo: true }),
-                        cancelToken,
-                    });
-                }
-            }
-            return Promise.reject(error);
-        };
-        eventoryApi.defaults.timeout = CANCEL_TIME_OUT;
-        eventoryApi.interceptors.response.use(responseHandler, errorHandler);
+const url = `/v1/leaderboards/eventory`;
+const getLeaderboardEventory = (type, cancelToken, limit = 1000, cursor = '', method = 'POST', withoutOnliveInfo, callBack = (data) => { }, preData = []) => __awaiter(void 0, void 0, void 0, function* () {
+    const axios = axios_1.getInstanceEventory();
+    const body = { type: utils_1.getType(type), count: limit, cursor };
+    let res;
+    if (method === 'POST') {
+        res = yield axios.post(url, body, { cancelToken });
     }
-    const { data: resonseData } = yield eventoryApi.get(endpoint, {
-        params: {
-            containerID: utils_1.getType(type),
-            count: limit,
-            cursor,
-            withoutOnliveInfo,
-        },
-        cancelToken,
-    });
-    const { nextCursor, data = [] } = resonseData;
-    const currentData = [...preData, ...data];
-    if (callback)
-        callback(currentData);
-    if (nextCursor) {
-        const nextPayload = {
-            type,
+    else {
+        res = yield axios.get(url, {
+            params: {
+                containerID: utils_1.getType(type),
+                count: limit,
+                cursor,
+                withoutOnliveInfo,
+            },
             cancelToken,
-            limit,
-            cursor: nextCursor,
-            withoutOnliveInfo,
-            callback,
-            preData: currentData,
-        };
-        const nextData = yield exports.getLeaderboardEventory(nextPayload);
+        });
+    }
+    const { nextCursor, data = [] } = res.data;
+    const currentData = [...preData, ...data];
+    if (callBack) {
+        callBack(currentData);
+    }
+    if (nextCursor) {
+        const nextData = yield exports.getLeaderboardEventory(type, cancelToken, limit, nextCursor, method, withoutOnliveInfo, callBack, currentData);
         return [...data, ...nextData];
     }
     return data;

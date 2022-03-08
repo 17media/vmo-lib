@@ -19,7 +19,7 @@ const leaderboardEventory_service_1 = require("../service/leaderboardEventory.se
 /**
  * 取得 container 資料<br />
  * @param apiList APIType
- * @param method HTTP Method, Legacy 可棄用
+ * @param method HTTP Method
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
  * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
  * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=<br />withoutOnliveInfo: 是否取得 onliveInfo
@@ -38,18 +38,15 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
     const [requestError, setRequestError] = react_1.useState(null);
     const [leaderboardData, setLeaderboardData] = react_1.useState(initialData);
     const getDataRealTimeAPI = react_1.useCallback((apis = [], time, previousData) => {
-        const pollingProcess = () => __awaiter(void 0, void 0, void 0, function* () {
+        timeoutKey.current = window.setTimeout(() => __awaiter(void 0, void 0, void 0, function* () {
             setRequestError(null);
             setPolling(true);
-            const apiPromiseList = apis.map((type) => leaderboardEventory_service_1.getLeaderboardEventory({
-                type,
-                cancelToken: source.current.token,
-                limit: opt.limit,
-                cursor: opt.cursor,
-                withoutOnliveInfo: opt.withoutOnliveInfo,
-            }));
+            const apiArr = [];
+            apis.forEach((item) => {
+                apiArr.push(leaderboardEventory_service_1.getLeaderboardEventory(item, source.current.token, opt.limit, opt.cursor, method, opt.withoutOnliveInfo));
+            });
             try {
-                const results = yield Promise.all(apiPromiseList);
+                const results = yield Promise.all(apiArr);
                 setLeaderboardData(results);
             }
             catch (error) {
@@ -58,12 +55,9 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
             finally {
                 setPolling(false);
             }
-        });
-        timeoutKey.current = window.setTimeout(pollingProcess, time);
-    }, [opt.cursor, opt.limit, opt.withoutOnliveInfo]);
+        }), time);
+    }, [method, opt.cursor, opt.limit]);
     react_1.useEffect(() => {
-        if (!apiList.length)
-            return;
         function promiseAll(promiseList) {
             return __awaiter(this, void 0, void 0, function* () {
                 setLoading(true);
@@ -80,6 +74,7 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
                 }
             });
         }
+        const promiseList = [];
         source.current = axios_1.default.CancelToken.source();
         const callback = (item) => (data) => {
             setLoading(false);
@@ -91,22 +86,19 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
                 }
             });
         };
-        const apiPromiseList = apiList.map(type => leaderboardEventory_service_1.getLeaderboardEventory({
-            type,
-            cancelToken: source.current.token,
-            limit: opt.limit,
-            cursor: opt.cursor,
-            withoutOnliveInfo: opt.withoutOnliveInfo,
-            callback: callback(type),
-        }));
-        promiseAll(apiPromiseList);
+        apiList.forEach((item) => {
+            promiseList.push(leaderboardEventory_service_1.getLeaderboardEventory(item, source.current.token, opt.limit, opt.cursor, method, opt.withoutOnliveInfo, callback(item)));
+        });
+        if (apiList && apiList.length > 0 && method) {
+            promiseAll(promiseList);
+        }
         return () => {
             if (source.current)
                 source.current.cancel();
             if (timeoutKey.current)
                 clearTimeout(timeoutKey.current);
         };
-    }, [apiList, opt.cursor, opt.limit, opt.withoutOnliveInfo]);
+    }, [apiList, method, opt.cursor, opt.limit]);
     react_1.useEffect(() => {
         if (!polling && realTime > 0) {
             clearTimeout(timeoutKey.current);
