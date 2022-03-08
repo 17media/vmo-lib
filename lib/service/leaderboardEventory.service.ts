@@ -18,8 +18,10 @@ interface Params {
   preData?: User[];
 }
 
-interface LeaderboardResponse {
-  data: User[];
+type UserNoLiveInfo = Omit<User, 'onliveInfo'>;
+
+interface Response<T> {
+  data: T[];
   nextCursor: string | '';
   type: string;
 }
@@ -43,12 +45,14 @@ export const getLeaderboardEventory = async ({
 
   if (!withoutOnliveInfo) {
     const responseHandler = (response: AxiosResponse) => response;
-    const errorHandler = (error: AxiosError): Promise<AxiosError> => {
+    const errorHandler = (
+      error: AxiosError,
+    ): Promise<AxiosError | AxiosResponse> => {
       if (error?.code === ErrorCode.TIMEOUT) {
         const payload: Params = error?.config?.params;
 
         if (!payload.withoutOnliveInfo) {
-          return eventoryApi.get(endpoint, {
+          return eventoryApi.get<Response<UserNoLiveInfo>>(endpoint, {
             params: {
               ...payload,
               withoutOnliveInfo: true,
@@ -65,7 +69,7 @@ export const getLeaderboardEventory = async ({
     eventoryApi.interceptors.response.use(responseHandler, errorHandler);
   }
 
-  const { data: resonseData } = await eventoryApi.get<LeaderboardResponse>(
+  const { data: resonseData } = await eventoryApi.get<Response<User>>(
     endpoint,
     {
       params: {

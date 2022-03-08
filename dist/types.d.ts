@@ -11,6 +11,7 @@ export interface User {
     lastTimestamp?: number;
     member?: any;
     missions?: any;
+    onliveInfo?: OnliveInfo;
 }
 interface UserInfo {
     displayName?: any;
@@ -23,9 +24,9 @@ interface UserInfo {
     experience?: number;
     picture: string;
     region: string;
-    onLiveInfo?: OnLiveInfo;
+    onLiveInfo?: OnliveInfo;
 }
-interface OnLiveInfo {
+export interface OnliveInfo {
     liveStreamID: string;
     premiumType: number;
     streamID: number;
