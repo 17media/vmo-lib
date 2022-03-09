@@ -69,7 +69,7 @@ export const getLeaderboardEventory = async ({
     eventoryApi.interceptors.response.use(responseHandler, errorHandler);
   }
 
-  const { data: resonseData } = await eventoryApi.get<Response<User>>(
+  const { data: responseData } = await eventoryApi.get<Response<User>>(
     endpoint,
     {
       params: {
@@ -82,7 +82,7 @@ export const getLeaderboardEventory = async ({
     },
   );
 
-  const { nextCursor, data = [] } = resonseData;
+  const { nextCursor, data = [] } = responseData;
   const currentData = [...preData, ...data];
 
   if (callback) callback(currentData);
