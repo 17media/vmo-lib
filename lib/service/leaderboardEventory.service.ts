@@ -52,6 +52,8 @@ export const getLeaderboardEventory = async ({
         const payload: Params = error?.config?.params;
 
         if (!payload.withoutOnliveInfo) {
+          delete eventoryApi.defaults.timeout;
+
           return eventoryApi.get<Response<UserNoLiveInfo>>(endpoint, {
             params: {
               ...payload,
