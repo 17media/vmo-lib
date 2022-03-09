@@ -15,7 +15,7 @@ export type APIType = {
 /**
  * 取得 container 資料<br />
  * @param apiList APIType
- * @param method HTTP Method
+ * @param method HTTP Method, Legacy 可棄用
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
  * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
  * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=<br />withoutOnliveInfo: 是否取得 onliveInfo
@@ -37,42 +37,44 @@ export const useTypeApi = (
   const source = useRef<CancelTokenSource>();
   const [loading, setLoading] = useState(false);
   const [polling, setPolling] = useState(false);
-  const [requestError, setRequestError] = useState(null);
+  const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
 
   const getDataRealTimeAPI = useCallback(
-    (apis = [], time, previousData) => {
-      timeoutKey.current = window.setTimeout(async () => {
+    (apis: APIType[] = [], time, previousData) => {
+      const pollingProcess = async () => {
         setRequestError(null);
         setPolling(true);
-        const apiArr: Promise<User[]>[] = [];
-        apis.forEach((item: APIType) => {
-          apiArr.push(
-            getLeaderboardEventory(
-              item,
-              source.current!.token,
-              opt.limit,
-              opt.cursor,
-              method,
-              opt.withoutOnliveInfo,
-            ),
-          );
-        });
+
+        const apiPromiseList = apis.map((type: APIType) =>
+          getLeaderboardEventory({
+            type,
+            cancelToken: source.current!.token,
+            limit: opt.limit,
+            cursor: opt.cursor,
+            withoutOnliveInfo: opt.withoutOnliveInfo,
+          }),
+        );
+
         try {
-          const results = await Promise.all(apiArr);
+          const results = await Promise.all(apiPromiseList);
           setLeaderboardData(results);
         } catch (error) {
           setRequestError(error);
         } finally {
           setPolling(false);
         }
-      }, time);
+      };
+
+      timeoutKey.current = window.setTimeout(pollingProcess, time);
     },
-    [method, opt.cursor, opt.limit],
+    [opt.cursor, opt.limit, opt.withoutOnliveInfo],
   );
 
   useEffect(() => {
-    async function promiseAll(promiseList: any) {
+    if (!apiList.length) return;
+
+    async function promiseAll(promiseList: Promise<User[]>[]) {
       setLoading(true);
       setRequestError(null);
       try {
@@ -85,8 +87,8 @@ export const useTypeApi = (
       }
     }
 
-    const promiseList: Promise<User[]>[] = [];
     source.current = axios.CancelToken.source();
+
     const callback = (item: APIType) => (data: User[]) => {
       setLoading(false);
       const index = apiList.findIndex(value => value.sta === item.sta);
@@ -97,28 +99,24 @@ export const useTypeApi = (
         }
       });
     };
-    apiList.forEach((item: APIType) => {
-      promiseList.push(
-        getLeaderboardEventory(
-          item,
-          source.current!.token,
-          opt.limit,
-          opt.cursor,
-          method,
-          opt.withoutOnliveInfo,
-          callback(item),
-        ),
-      );
-    });
-    if (apiList && apiList.length > 0 && method) {
-      promiseAll(promiseList);
-    }
+    const apiPromiseList = apiList.map(type =>
+      getLeaderboardEventory({
+        type,
+        cancelToken: source.current!.token,
+        limit: opt.limit,
+        cursor: opt.cursor,
+        withoutOnliveInfo: opt.withoutOnliveInfo,
+        callback: callback(type),
+      }),
+    );
+
+    promiseAll(apiPromiseList);
 
     return () => {
       if (source.current) source.current.cancel();
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
     };
-  }, [apiList, method, opt.cursor, opt.limit]);
+  }, [apiList, opt.cursor, opt.limit, opt.withoutOnliveInfo]);
 
   useEffect(() => {
     if (!polling && realTime > 0) {
@@ -127,6 +125,7 @@ export const useTypeApi = (
       getDataRealTimeAPI(apiList, realTime, leaderboardData);
     }
   }, [polling, leaderboardData, apiList, realTime, getDataRealTimeAPI]);
+
   return { loading, polling, requestError, leaderboardData };
 };
 

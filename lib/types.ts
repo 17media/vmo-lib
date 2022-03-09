@@ -12,6 +12,7 @@ export interface User {
   lastTimestamp?: number;
   member?: any;
   missions?: any;
+  onliveInfo?: OnliveInfo;
 }
 
 interface UserInfo {
@@ -25,21 +26,23 @@ interface UserInfo {
   experience?: number;
   picture: string;
   region: string;
-  onLiveInfo?: OnLiveInfo; // 主播有開播狀態下才會有
+  onLiveInfo?: OnliveInfo; // 主播有開播狀態下才會有
 }
 
-interface OnLiveInfo {
+export interface OnliveInfo {
   liveStreamID: string;
   premiumType: number;
   streamID: number;
   streamerType: number;
 }
+
 export interface ISetting {
   type: EventTypes;
   key: string;
   page?: string;
   fn?: () => void;
 }
+
 export interface LeaderboardItem extends User {
   roomID?: number;
 }
