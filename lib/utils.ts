@@ -615,3 +615,33 @@ export const copyLeaderboardDataToClipboard = (
 
   return copyStringToClipboard(copyArr.join('\n'));
 };
+
+const userInfoStorageName = 'userInfo';
+
+export type UserInfo = Partial<{
+  jwtAccessToken: string;
+  accessToken: string;
+  userID: string;
+}>;
+
+export const getUserInfo = () => {
+  const {
+    jwtAccessToken: urlJwtAccessToken,
+    accessToken: urlAccessToken,
+    userID: urlUserID,
+  } = qs<UserInfo>();
+
+  const storageUserInfo: UserInfo = JSON.parse(
+    localStorage.getItem(userInfoStorageName) ?? '{}',
+  );
+
+  const jwtAccessToken = urlJwtAccessToken ?? storageUserInfo?.jwtAccessToken;
+  const accessToken = urlAccessToken ?? storageUserInfo?.accessToken;
+  const userID = urlUserID ?? storageUserInfo?.userID;
+
+  return {
+    jwtAccessToken,
+    accessToken,
+    userID,
+  };
+};
