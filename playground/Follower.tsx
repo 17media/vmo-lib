@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import useFollower from '../lib/hooks/useFollower';
-import { getUserInfo, storeUserInfo } from '../lib/utils';
+import { storeUserInfo } from '../lib/utils';
 
 const FlexContainer = styled.div`
   display: flex;
@@ -28,12 +28,6 @@ const NoFollowersSection = () => (
 );
 
 const Follower = () => {
-  // const {
-  //   accessToken: storeAccessToken,
-  //   jwtAccessToken: storeJwtAccessToken,
-  //   userID: storeUserID,
-  // } = getUserInfo();
-
   const {
     accessToken: storeAccessToken,
     jwtAccessToken: storeJwtAccessToken,
