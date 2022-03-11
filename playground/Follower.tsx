@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import useFollower from '../lib/hooks/useFollower';
-import { qs } from '../lib/utils';
+import { getUserInfo, storeUserInfo } from '../lib/utils';
 
 const FlexContainer = styled.div`
   display: flex;
@@ -23,31 +23,49 @@ const ErrorSection = ({ errorMsg }: { errorMsg: string }) => (
   <p>error: {errorMsg}</p>
 );
 
-const NoFollowersSection = () => <p>user hasn't follower any streamers.</p>;
+const NoFollowersSection = () => (
+  <p>user hasn`&apos;t follower any streamers.</p>
+);
 
 const Follower = () => {
-  const { accessToken: urlAccessToken, userID: urlUserID } =
-    qs<{ accessToken: string; userID: string }>();
-  const sessionAccessToken = sessionStorage.getItem('accessToken');
-  const sessionUserID = sessionStorage.getItem('userID');
+  // const {
+  //   accessToken: storeAccessToken,
+  //   jwtAccessToken: storeJwtAccessToken,
+  //   userID: storeUserID,
+  // } = getUserInfo();
 
-  const defaultAaccessToken =
-    urlAccessToken ??
-    sessionAccessToken ??
-    'fe45a40b-962d-44f4-acac-a8f5362fe611';
-  const defaultUserID =
-    urlUserID ?? sessionUserID ?? '3a4464b5-8228-4d96-bd82-c0fe5e8be673';
+  const {
+    accessToken: storeAccessToken,
+    jwtAccessToken: storeJwtAccessToken,
+    userID: storeUserID,
+  } = storeUserInfo();
+
+  const defaultAccessToken =
+    storeAccessToken ?? 'fe45a40b-962d-44f4-acac-a8f5362fe611';
+  const defaultJwtAccessToken = storeJwtAccessToken ?? '';
+  const defaultUserID = storeUserID ?? '3a4464b5-8228-4d96-bd82-c0fe5e8be673';
 
   const [inputUserID, setInputUserID] = useState<string>(defaultUserID);
   const [inputAccessToken, setInputAccessToken] =
-    useState<string>(defaultAaccessToken);
+    useState<string>(defaultAccessToken);
+  const [inputJwtAccessToken, setInputJwtAccessToken] = useState<string>(
+    defaultJwtAccessToken,
+  );
   const [userID, setUserID] = useState<string>(defaultUserID);
-  const [accessToken, setAccessToken] = useState<string>(defaultAaccessToken);
-  const { followers, errorMsg } = useFollower(userID, accessToken);
+  const [accessToken, setAccessToken] = useState<string>(defaultAccessToken);
+  const [jwtAccessToken, setJwtAccessToken] = useState<string>(
+    defaultJwtAccessToken,
+  );
+  const { followers, errorMsg } = useFollower(
+    userID,
+    accessToken,
+    jwtAccessToken,
+  );
 
   const handleChangeUser = () => {
     setUserID(inputUserID);
     setAccessToken(inputAccessToken);
+    setJwtAccessToken(inputJwtAccessToken);
   };
 
   return (
@@ -78,22 +96,35 @@ const Follower = () => {
           onChange={e => setInputAccessToken(e.target.value)}
         />
       </p>
-      <button onClick={handleChangeUser}>確認</button>
+      <p>
+        test user JWT: <br />
+        <StyledInput
+          type="text"
+          defaultValue={inputJwtAccessToken}
+          onChange={e => setInputJwtAccessToken(e.target.value)}
+        />
+      </p>
+      <button type="button" onClick={handleChangeUser}>
+        確認
+      </button>
       <h3>追蹤名單</h3>
       <FlexContainer>
-        {errorMsg ? (
-          <ErrorSection errorMsg={errorMsg} />
-        ) : followers.length > 0 ? (
-          followers.map(followerID => (
-            <Item key={followerID}>
-              <b>ID:</b>
-              <br />
-              {followerID}
-            </Item>
-          ))
-        ) : (
-          <NoFollowersSection />
-        )}
+        {
+          // eslint-disable-next-line no-nested-ternary
+          errorMsg ? (
+            <ErrorSection errorMsg={errorMsg} />
+          ) : followers.length > 0 ? (
+            followers.map(followerID => (
+              <Item key={followerID}>
+                <b>ID:</b>
+                <br />
+                {followerID}
+              </Item>
+            ))
+          ) : (
+            <NoFollowersSection />
+          )
+        }
       </FlexContainer>
     </div>
   );
