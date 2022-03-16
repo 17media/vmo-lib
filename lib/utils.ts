@@ -615,3 +615,92 @@ export const copyLeaderboardDataToClipboard = (
 
   return copyStringToClipboard(copyArr.join('\n'));
 };
+
+const userInfoStorageName = 'userInfo';
+
+export type UserInfo = Partial<{
+  jwtAccessToken: string;
+  accessToken: string;
+  userID: string;
+}>;
+
+enum UserInfoParam {
+  jwtAccessToken = 'jwtAccessToken',
+  userID = 'userID',
+  accessToken = 'accessToken',
+}
+
+const getUserInfoFromQuerystring = () => qs<UserInfo>();
+
+export const getUserInfo = () => {
+  const {
+    jwtAccessToken: urlJwtAccessToken,
+    accessToken: urlAccessToken,
+    userID: urlUserID,
+  } = getUserInfoFromQuerystring();
+
+  const storageUserInfo: UserInfo = JSON.parse(
+    localStorage.getItem(userInfoStorageName) ?? '{}',
+  );
+
+  const jwtAccessToken = urlJwtAccessToken ?? storageUserInfo?.jwtAccessToken;
+  const accessToken = urlAccessToken ?? storageUserInfo?.accessToken;
+  const userID = urlUserID ?? storageUserInfo?.userID;
+
+  return {
+    jwtAccessToken,
+    accessToken,
+    userID,
+  };
+};
+
+export const storeUserInfo = () => {
+  const { jwtAccessToken, accessToken, userID } = getUserInfoFromQuerystring();
+
+  const userInfo = JSON.parse(
+    localStorage.getItem(userInfoStorageName) ?? '{}',
+  );
+
+  const isComingToken = !!(jwtAccessToken || accessToken);
+  const isNewToken =
+    jwtAccessToken !== userInfo.jwtAccessToken ||
+    accessToken !== userInfo.accessToken;
+
+  if (isComingToken) {
+    const url = new URL(window.location.href);
+    const { searchParams } = url;
+
+    searchParams.delete(UserInfoParam.jwtAccessToken);
+    searchParams.delete(UserInfoParam.accessToken);
+    searchParams.delete(UserInfoParam.userID);
+
+    window.history.replaceState(
+      {
+        jwtAccessToken,
+        accessToken,
+        userID,
+      },
+      '',
+      url.toString(),
+    );
+
+    if (isNewToken) {
+      localStorage.setItem(
+        userInfoStorageName,
+        JSON.stringify({
+          jwtAccessToken,
+          accessToken,
+          userID,
+          updateTime: Date.now(),
+          referrer: document.referrer,
+        }),
+      );
+    }
+  }
+
+  return {
+    jwtAccessToken,
+    accessToken,
+    userID,
+  };
+};

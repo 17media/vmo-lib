@@ -2,7 +2,8 @@ import { getInstanceEventory } from './axios';
 
 interface Props {
   userID: string;
-  accessToken: string;
+  accessToken?: string;
+  jwtAccessToken?: string;
   cursor?: string;
   count?: number;
   callback?: Function;
@@ -14,6 +15,7 @@ const DEFAULT_EACH_FOLLOWER_COUNT = 100;
 export const getUserFollowers = async ({
   userID,
   accessToken,
+  jwtAccessToken,
   cursor,
   count = DEFAULT_EACH_FOLLOWER_COUNT,
   callback,
@@ -24,7 +26,10 @@ export const getUserFollowers = async ({
   const url = `/v1/users/${userID}/followeeIDs`;
   const res = await axios.get(url, {
     headers: {
-      accessToken,
+      ...(jwtAccessToken && {
+        Authorization: `Bearer ${jwtAccessToken}`,
+      }),
+      ...(accessToken && { accessToken }),
     },
     params: {
       count,
@@ -44,6 +49,7 @@ export const getUserFollowers = async ({
     const nextData = await getUserFollowers({
       userID,
       accessToken,
+      jwtAccessToken,
       cursor: nextCursor,
       callback,
       preData: currentData,
@@ -54,3 +60,5 @@ export const getUserFollowers = async ({
 
   return followeeIDs;
 };
+
+export default getUserFollowers;
