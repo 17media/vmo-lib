@@ -14,23 +14,26 @@ export enum CacheStrategy {
   NETWORK_FIRST = 'networkFirst',
 }
 
+export enum HttpMethod {
+  GET = 'get',
+  POST = 'post',
+  PUT = 'put',
+}
+
 const cacheWhitelists = [
   {
     path: '/leaderboards/eventory',
-    method: 'get',
+    method: HttpMethod.GET,
     cacheStrategy: CacheStrategy.NETWORK_FIRST,
   },
 ];
 
-const formateDate = (date: Date) => {
-  const month =
-    date.getMonth() + 1 > 10
-      ? date.getMonth() + 1
-      : `0${(date.getMonth() + 1).toString()}`;
-  const day =
-    date.getDate() > 10 ? date.getDate() : `0${date.getMonth().toString()}`;
-  const formattedDate = `${date.getFullYear()}-${month}-${day}`;
-  return formattedDate;
+const formatDate = (date: Date) => {
+  const day = date.getDate();
+  const month = date.getMonth();
+  const formatMonth = month + 1 > 10 ? month + 1 : `0${month + 1}`;
+  const formatDay = day > 10 ? day : `0${day}`;
+  return `${date.getFullYear()}-${formatMonth}-${formatDay}`;
 };
 
 const getDateDaysAgo = (numOfDays: number, date = new Date()) => {
@@ -41,7 +44,7 @@ const getDateDaysAgo = (numOfDays: number, date = new Date()) => {
 
 const setAxiosCache = async (url: string, response: any) => {
   const today = new Date();
-  const cacheStorageName = `${CACHE_STORAGE_NAME_PREFIX}-${formateDate(today)}`;
+  const cacheStorageName = `${CACHE_STORAGE_NAME_PREFIX}-${formatDate(today)}`;
   await deleteCache(cacheStorageName);
   try {
     const cacheStorage = await caches.open(cacheStorageName);
@@ -74,7 +77,6 @@ const deleteCache = async (cacheStorageName: string) => {
         cacheKey !== cacheStorageName &&
         isTwoDaysAgoCache(cacheKey, twoDaysAgo)
       ) {
-        console.log('delete');
         // eslint-disable-next-line no-await-in-loop
         await caches.delete(cacheKey);
       }
