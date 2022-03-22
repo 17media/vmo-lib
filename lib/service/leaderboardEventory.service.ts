@@ -4,7 +4,7 @@ import { User } from '../types';
 import { getType } from '../utils';
 import {
   CacheStrategy,
-  checkApiUrlStrategy,
+  getApiUrlStrategy,
   handleCacheStrategy,
 } from './cacheManager.service';
 
@@ -174,7 +174,7 @@ export const getLeaderboardEventory = async ({
     eventoryApi.interceptors.response.use(responseHandler, errorHandler);
   }
 
-  const { cacheStrategy } = checkApiUrlStrategy(endpoint, 'get');
+  const { cacheStrategy } = getApiUrlStrategy(endpoint, 'get');
 
   const { data: responseData } = await cachedApiData({
     cacheStrategy,

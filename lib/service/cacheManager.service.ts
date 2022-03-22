@@ -122,7 +122,7 @@ const getLatestCache = async (url: string, networkErr: any) => {
   return latestCache;
 };
 
-export const checkApiUrlStrategy = (
+export const getApiUrlStrategy = (
   apiUrl: string,
   method = 'get',
 ): { cacheStrategy: CacheStrategy } => {
