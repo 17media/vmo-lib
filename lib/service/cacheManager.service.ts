@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 
 const CACHE_STORAGE_NAME_PREFIX = 'lb-cache-v1';
 
@@ -45,7 +45,7 @@ const getDateDaysAgo = (numOfDays: number, date = new Date()) => {
 const setAxiosCache = async (url: string, response: any) => {
   const today = new Date();
   const cacheStorageName = `${CACHE_STORAGE_NAME_PREFIX}-${formatDate(today)}`;
-  await deleteCache(cacheStorageName);
+  await deleteCache();
   try {
     const cacheStorage = await caches.open(cacheStorageName);
     const options = {
@@ -64,18 +64,16 @@ const setAxiosCache = async (url: string, response: any) => {
   }
 };
 
-const deleteCache = async (cacheStorageName: string) => {
+const deleteCache = async () => {
   try {
     const cacheKeys = await caches.keys();
     // 當天和前一天
-    const twoDaysAgo = getDateDaysAgo(2);
 
     // eslint-disable-next-line no-restricted-syntax
     for (const cacheKey of cacheKeys) {
       if (
         cacheKey.includes(CACHE_STORAGE_NAME_PREFIX) &&
-        cacheKey !== cacheStorageName &&
-        isTwoDaysAgoCache(cacheKey, twoDaysAgo)
+        isTwoDaysAgoCache(cacheKey)
       ) {
         // eslint-disable-next-line no-await-in-loop
         await caches.delete(cacheKey);
@@ -86,48 +84,53 @@ const deleteCache = async (cacheStorageName: string) => {
   }
 };
 
-const isTwoDaysAgoCache = (cacheKey: string, twoDaysAgo: Date) => {
+const isTwoDaysAgoCache = (cacheKey: string) => {
+  const twoDaysAgo = getDateDaysAgo(2);
   const cacheDateString = cacheKey.replace(`${CACHE_STORAGE_NAME_PREFIX}-`, '');
   const cacheDate = new Date(cacheDateString);
   return twoDaysAgo >= cacheDate;
 };
 
-const getCache = async (cacheKey: string, url: string, networkErr: any) => {
+const getCache = async <T = any>(
+  cacheKey: string,
+  url: string,
+): Promise<FulfillFormat<T>> => {
   try {
     const cacheStorage = await caches.open(cacheKey);
     const cachedResponse = await cacheStorage.match(url);
     const cachedBody = await cachedResponse?.json();
-    return cachedBody;
+
+    if (!cachedBody) {
+      return { error: new CacheError('Cannot find any cache.') };
+    }
+
+    return { cache: cachedBody };
   } catch (error) {
-    throw new Error(`Get cache storage ${error}.\nNetwork ${networkErr}`);
+    return { error: new CacheError(error as string) };
   }
 };
 
-const getLatestCache = async (url: string, networkErr: any) => {
+const getLatestCache = async (url: string) => {
   const cacheKeys = await caches.keys();
   const sortedCache = cacheKeys.reverse();
-  if (!sortedCache || sortedCache.length === 0)
-    throw new Error(`Cannot find any cache.\nNetwork ${networkErr}`);
 
-  let latestCache;
+  let latestCache: FulfillFormat;
   // eslint-disable-next-line no-restricted-syntax
   for (const cacheKey of sortedCache) {
     // eslint-disable-next-line no-await-in-loop
-    latestCache = await getCache(cacheKey, url, networkErr);
-    if (latestCache) {
-      break;
-    }
+    latestCache = await getCache(cacheKey, url);
+    if (latestCache) return latestCache;
   }
-  console.error(`Network ${networkErr}.`);
-  return latestCache;
+
+  return { error: new CacheError('Cannot find any cache.') };
 };
 
 export const getApiUrlStrategy = (
   apiUrl: string,
-  method = 'get',
+  method = HttpMethod.GET,
 ): { cacheStrategy: CacheStrategy } => {
   // Because cache api only accept cache get request.
-  if (method !== 'get') {
+  if (method !== HttpMethod.GET) {
     return { cacheStrategy: CacheStrategy.NETWORK_ONLY };
   }
 
@@ -144,43 +147,65 @@ export const getApiUrlStrategy = (
   return { cacheStrategy };
 };
 
-export const handleNetworkFirst = async (
-  apiCallback: Promise<AxiosResponse<any>>,
+class CacheError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'CacheError';
+  }
+}
+
+type CaughtError = null | Error | AxiosError | CacheError;
+
+interface FulfillFormat<T = any> {
+  data?: AxiosResponse<T>;
+  cache?: T;
+  error?: CaughtError;
+}
+
+const handleCallback = <T = any>(
+  apiCallback: Promise<AxiosResponse<T>>,
+): Promise<FulfillFormat<T>> =>
+  apiCallback.then(res => ({ data: res })).catch(error => ({ error }));
+
+export const handleNetworkFirst = async <T = any>(
+  apiCallback: Promise<AxiosResponse<T>>,
   fetchURL: string,
 ) => {
-  let response: AxiosResponse<any>;
-  let networkErr;
-  try {
-    response = await apiCallback;
-  } catch (error) {
-    networkErr = error;
-    response = await getLatestCache(fetchURL, networkErr);
+  const apiRes = await handleCallback(apiCallback);
+  if (apiRes.data) {
+    await setAxiosCache(fetchURL, apiRes.data);
+    return apiRes.data;
   }
-  if (!networkErr) {
-    await setAxiosCache(fetchURL, response);
-  }
-  return response;
-};
 
-export const handleNetworkOnly = async (
-  apiCallback: Promise<AxiosResponse<any>>,
-) => {
-  let response: AxiosResponse<any>;
-  try {
-    response = await apiCallback;
-    return response;
-  } catch (error) {
-    throw new Error(`Network ${error}`);
+  if (apiRes.error) {
+    const cacheRes = await getLatestCache(fetchURL);
+    if (cacheRes.cache) return cacheRes.cache;
+    if (cacheRes.error) console.error(cacheRes.error);
+    if (apiRes.error) throw apiRes.error;
   }
 };
 
-export const handleCacheStrategy = (
-  cacheStrategy: CacheStrategy,
-  apiCallback: Promise<AxiosResponse<any>>,
-  fetchURL: string,
+export const handleNetworkOnly = async <T = any>(
+  apiCallback: Promise<AxiosResponse<T>>,
 ) => {
+  const apiRes = await handleCallback(apiCallback);
+  if (apiRes.data) return apiRes.data;
+  if (apiRes.error) throw apiRes.error;
+};
+
+interface HandleCacheStrategyParams<T> {
+  cacheStrategy: CacheStrategy;
+  apiCallback: Promise<AxiosResponse<T>>;
+  fetchURL: string;
+}
+
+export const handleCacheStrategy = <T = any>({
+  cacheStrategy,
+  apiCallback,
+  fetchURL,
+}: HandleCacheStrategyParams<T>) => {
   if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
-    return handleNetworkFirst(apiCallback, fetchURL);
+    return handleNetworkFirst<T>(apiCallback, fetchURL);
   }
-  return handleNetworkOnly(apiCallback);
+  return handleNetworkOnly<T>(apiCallback);
 };

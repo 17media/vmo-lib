@@ -6,6 +6,7 @@ import {
   CacheStrategy,
   getApiUrlStrategy,
   handleCacheStrategy,
+  HttpMethod,
 } from './cacheManager.service';
 
 const endpoint = `/v1/leaderboards/eventory`;
@@ -120,9 +121,9 @@ const cachedApiData = ({
     withoutOnliveInfo,
   });
 
-  return handleCacheStrategy(
+  return handleCacheStrategy<Response<User>>({
     cacheStrategy,
-    getLBDataCallback({
+    apiCallback: getLBDataCallback({
       apiEndpoint,
       type,
       limit,
@@ -132,7 +133,7 @@ const cachedApiData = ({
       eventoryApi,
     }),
     fetchURL,
-  );
+  });
 };
 
 export const getLeaderboardEventory = async ({
@@ -174,7 +175,7 @@ export const getLeaderboardEventory = async ({
     eventoryApi.interceptors.response.use(responseHandler, errorHandler);
   }
 
-  const { cacheStrategy } = getApiUrlStrategy(endpoint, 'get');
+  const { cacheStrategy } = getApiUrlStrategy(endpoint, HttpMethod.GET);
 
   const { data: responseData } = await cachedApiData({
     cacheStrategy,
