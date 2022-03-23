@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { User } from '../types';
 import { getRandomInteger, isBrowser, globalThis } from '../utils';
@@ -138,6 +138,18 @@ export const useLuckyDraw: Props = (
       localStorage.removeItem(globalThis.location.href);
     }
   };
+
+  useEffect(() => {
+    setCandidates(prev => {
+      if (
+        JSON.stringify(prev) !== JSON.stringify(sortAllCandidates) &&
+        currentRound === 0
+      ) {
+        return sortAllCandidates;
+      }
+      return prev;
+    });
+  }, [sortAllCandidates, currentRound]);
 
   return {
     candidates,
