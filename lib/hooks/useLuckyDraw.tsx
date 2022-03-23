@@ -60,8 +60,7 @@ export const useLuckyDraw: Props = (
   allCandidates,
   willAutoDrawRemainCount = true,
 ) => {
-  const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
-  const [candidates, setCandidates] = useState<User[]>(sortAllCandidates);
+  const [candidates, setCandidates] = useState<User[]>([]);
   const [winners, setWinners] = useState<User[]>([]);
   const [allWinners, setAllWinners] = useState<User[][]>([]);
   const [currentRound, setCurrentRound] = useState<number>(0);
@@ -140,17 +139,21 @@ export const useLuckyDraw: Props = (
   };
 
   useEffect(() => {
-    setCandidates(prev => {
+    if (currentRound !== 0) {
+      return;
+    }
+
+    setCandidates(prevCandidates => {
+      const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
       if (
-        JSON.stringify(prev) !== JSON.stringify(sortAllCandidates) &&
-        currentRound === 0
+        prevCandidates.length === 0 ||
+        JSON.stringify(prevCandidates) !== JSON.stringify(sortAllCandidates)
       ) {
         return sortAllCandidates;
       }
-      return prev;
+      return prevCandidates;
     });
-  }, [sortAllCandidates, currentRound]);
-
+  }, [allCandidates, currentRound]);
   return {
     candidates,
     hasDraw,
