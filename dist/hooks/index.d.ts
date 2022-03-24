@@ -61,7 +61,7 @@ declare const _default: {
     }) => {
         loading: boolean;
         polling: boolean;
-        requestError: null;
+        requestError: any;
         leaderboardData: import("../types").User[][] | undefined;
     };
     useFilter: (initialData: import("../types").User[]) => {
@@ -70,7 +70,7 @@ declare const _default: {
     };
     useScrollToLoadingContainer: (loading: boolean) => void;
     useKeyboard: (settings: import("./useKeyboard").ISettings) => void;
-    useFollower: (userID: string, accessToken: string) => {
+    useFollower: (userID: string, accessToken: string, jwtAccessToken: string) => {
         followers: string[];
         errorMsg?: string | undefined;
     };

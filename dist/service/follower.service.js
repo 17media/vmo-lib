@@ -12,13 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserFollowers = void 0;
 const axios_1 = require("./axios");
 const DEFAULT_EACH_FOLLOWER_COUNT = 100;
-const getUserFollowers = ({ userID, accessToken, cursor, count = DEFAULT_EACH_FOLLOWER_COUNT, callback, preData = [], }) => __awaiter(void 0, void 0, void 0, function* () {
+const getUserFollowers = ({ userID, accessToken, jwtAccessToken, cursor, count = DEFAULT_EACH_FOLLOWER_COUNT, callback, preData = [], }) => __awaiter(void 0, void 0, void 0, function* () {
     const axios = axios_1.getInstanceEventory();
     const url = `/v1/users/${userID}/followeeIDs`;
     const res = yield axios.get(url, {
-        headers: {
-            accessToken,
-        },
+        headers: Object.assign(Object.assign({}, (jwtAccessToken && {
+            Authorization: `Bearer ${jwtAccessToken}`,
+        })), (accessToken && { accessToken })),
         params: {
             count,
             cursor,
@@ -33,6 +33,7 @@ const getUserFollowers = ({ userID, accessToken, cursor, count = DEFAULT_EACH_FO
         const nextData = yield exports.getUserFollowers({
             userID,
             accessToken,
+            jwtAccessToken,
             cursor: nextCursor,
             callback,
             preData: currentData,
@@ -42,4 +43,5 @@ const getUserFollowers = ({ userID, accessToken, cursor, count = DEFAULT_EACH_FO
     return followeeIDs;
 });
 exports.getUserFollowers = getUserFollowers;
+exports.default = exports.getUserFollowers;
 //# sourceMappingURL=follower.service.js.map

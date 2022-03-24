@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
+exports.storeUserInfo = exports.getUserInfo = exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
 const enums_1 = require("./enums");
 exports.globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 const qs = (search = exports.globalThis.location
@@ -491,4 +491,61 @@ const copyLeaderboardDataToClipboard = (data, extraDataList) => {
     return exports.copyStringToClipboard(copyArr.join('\n'));
 };
 exports.copyLeaderboardDataToClipboard = copyLeaderboardDataToClipboard;
+const userInfoStorageName = 'userInfo';
+var UserInfoParam;
+(function (UserInfoParam) {
+    UserInfoParam["jwtAccessToken"] = "jwtAccessToken";
+    UserInfoParam["userID"] = "userID";
+    UserInfoParam["accessToken"] = "accessToken";
+})(UserInfoParam || (UserInfoParam = {}));
+const getUserInfoFromQuerystring = () => exports.qs();
+const getUserInfo = () => {
+    var _a;
+    const { jwtAccessToken: urlJwtAccessToken, accessToken: urlAccessToken, userID: urlUserID, } = getUserInfoFromQuerystring();
+    const storageUserInfo = JSON.parse((_a = localStorage.getItem(userInfoStorageName)) !== null && _a !== void 0 ? _a : '{}');
+    const jwtAccessToken = urlJwtAccessToken !== null && urlJwtAccessToken !== void 0 ? urlJwtAccessToken : storageUserInfo === null || storageUserInfo === void 0 ? void 0 : storageUserInfo.jwtAccessToken;
+    const accessToken = urlAccessToken !== null && urlAccessToken !== void 0 ? urlAccessToken : storageUserInfo === null || storageUserInfo === void 0 ? void 0 : storageUserInfo.accessToken;
+    const userID = urlUserID !== null && urlUserID !== void 0 ? urlUserID : storageUserInfo === null || storageUserInfo === void 0 ? void 0 : storageUserInfo.userID;
+    return {
+        jwtAccessToken,
+        accessToken,
+        userID,
+    };
+};
+exports.getUserInfo = getUserInfo;
+const storeUserInfo = () => {
+    var _a;
+    const { jwtAccessToken, accessToken, userID } = getUserInfoFromQuerystring();
+    const userInfo = JSON.parse((_a = localStorage.getItem(userInfoStorageName)) !== null && _a !== void 0 ? _a : '{}');
+    const isComingToken = !!(jwtAccessToken || accessToken);
+    const isNewToken = jwtAccessToken !== userInfo.jwtAccessToken ||
+        accessToken !== userInfo.accessToken;
+    if (isComingToken) {
+        const url = new URL(window.location.href);
+        const { searchParams } = url;
+        searchParams.delete(UserInfoParam.jwtAccessToken);
+        searchParams.delete(UserInfoParam.accessToken);
+        searchParams.delete(UserInfoParam.userID);
+        window.history.replaceState({
+            jwtAccessToken,
+            accessToken,
+            userID,
+        }, '', url.toString());
+        if (isNewToken) {
+            localStorage.setItem(userInfoStorageName, JSON.stringify({
+                jwtAccessToken,
+                accessToken,
+                userID,
+                updateTime: Date.now(),
+                referrer: document.referrer,
+            }));
+        }
+    }
+    return {
+        jwtAccessToken,
+        accessToken,
+        userID,
+    };
+};
+exports.storeUserInfo = storeUserInfo;
 //# sourceMappingURL=utils.js.map

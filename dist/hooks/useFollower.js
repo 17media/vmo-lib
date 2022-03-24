@@ -16,9 +16,10 @@ const follower_service_1 = require("../service/follower.service");
  * 給 userID 跟 accessToken 來取得 user followers 追蹤名單<br />
  * @param userID 17 live 上的 account userID
  * @param accessToken 17 live 上的 account accessToken
+ * @param jwtAccessToken 17 live 上的 account JWT
  * @returns 取得 followers 資料以及 errMsg 判斷是否有問題
  */
-const useFollower = (userID, accessToken) => {
+const useFollower = (userID, accessToken, jwtAccessToken) => {
     const [followers, setFollowers] = react_1.useState([]);
     const [errorMsg, setErrorMsg] = react_1.useState('');
     react_1.useEffect(() => {
@@ -28,7 +29,12 @@ const useFollower = (userID, accessToken) => {
                 const callback = (data) => {
                     setFollowers(data);
                 };
-                const data = yield follower_service_1.getUserFollowers({ userID, accessToken, callback });
+                const data = yield follower_service_1.getUserFollowers({
+                    userID,
+                    accessToken,
+                    jwtAccessToken,
+                    callback,
+                });
                 setFollowers(data);
                 setErrorMsg('');
             }
@@ -43,7 +49,7 @@ const useFollower = (userID, accessToken) => {
             }
         });
         fetchFollowers();
-    }, [userID, accessToken]);
+    }, [userID, accessToken, jwtAccessToken]);
     return { followers, errorMsg };
 };
 exports.useFollower = useFollower;

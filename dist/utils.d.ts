@@ -154,3 +154,18 @@ export declare type ExtraData = {
  * @returns {boolean} copy result: success/fail
  */
 export declare const copyLeaderboardDataToClipboard: (data: LeaderboardItem[], extraDataList: ExtraData[]) => boolean;
+export declare type UserInfo = Partial<{
+    jwtAccessToken: string;
+    accessToken: string;
+    userID: string;
+}>;
+export declare const getUserInfo: () => {
+    jwtAccessToken: string | undefined;
+    accessToken: string | undefined;
+    userID: string | undefined;
+};
+export declare const storeUserInfo: () => {
+    jwtAccessToken: string | undefined;
+    accessToken: string | undefined;
+    userID: string | undefined;
+};

@@ -58,8 +58,7 @@ const MaskDiv = () => (react_1.default.createElement(react_1.default.Fragment, n
  * - Record by localstorage for custom feature. ex: key: 'http://localhost:9000/?page=2'(location href), value: allWinners<User[][]> (This feature can only use in client side and will not clear.)
  */
 const useLuckyDraw = (allCandidates, willAutoDrawRemainCount = true) => {
-    const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
-    const [candidates, setCandidates] = react_1.useState(sortAllCandidates);
+    const [candidates, setCandidates] = react_1.useState([]);
     const [winners, setWinners] = react_1.useState([]);
     const [allWinners, setAllWinners] = react_1.useState([]);
     const [currentRound, setCurrentRound] = react_1.useState(0);
@@ -123,6 +122,19 @@ const useLuckyDraw = (allCandidates, willAutoDrawRemainCount = true) => {
             localStorage.removeItem(utils_1.globalThis.location.href);
         }
     };
+    react_1.useEffect(() => {
+        if (currentRound !== 0) {
+            return;
+        }
+        setCandidates(prevCandidates => {
+            const sortAllCandidates = allCandidates.sort((a, b) => a.rank - b.rank);
+            if (prevCandidates.length === 0 ||
+                JSON.stringify(prevCandidates) !== JSON.stringify(sortAllCandidates)) {
+                return sortAllCandidates;
+            }
+            return prevCandidates;
+        });
+    }, [allCandidates, currentRound]);
     return {
         candidates,
         hasDraw,

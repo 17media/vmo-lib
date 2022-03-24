@@ -22,12 +22,6 @@ if (typeof window !== 'undefined') {
             }
             sessionStorage.setItem(KEY_17LIVE_HOST, host);
         }
-        // receive auth info
-        if (type === '17live/Event/EVENT_AUTH_INFO') {
-            const { userID, accessToken } = payload;
-            sessionStorage.setItem('userID', userID);
-            sessionStorage.setItem('accessToken', accessToken);
-        }
     }, false);
 }
 /**
