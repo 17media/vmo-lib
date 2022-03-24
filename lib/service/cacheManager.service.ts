@@ -119,7 +119,7 @@ const getLatestCache = async (url: string) => {
   for (const cacheKey of sortedCache) {
     // eslint-disable-next-line no-await-in-loop
     latestCache = await getCache(cacheKey, url);
-    if (latestCache.cache) return latestCache;
+    if (latestCache?.cache) return latestCache;
   }
 
   return { error: new CacheError('Cannot find any cache.') };
