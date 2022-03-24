@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TimeStatus | vmo-lib</title>
+	<title>CacheStrategy | vmo-lib</title>
 	<meta name="description" content="Documentation for vmo-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,13 +55,13 @@
 					<a href="../modules.html">vmo-lib</a>
 				</li>
 				<li>
-					<a href="../modules/hooks_useCountdown.html">hooks/useCountdown</a>
+					<a href="../modules/service_cacheManager_service.html">service/cacheManager.service</a>
 				</li>
 				<li>
-					<a href="hooks_useCountdown.TimeStatus.html">TimeStatus</a>
+					<a href="service_cacheManager_service.CacheStrategy.html">CacheStrategy</a>
 				</li>
 			</ul>
-			<h1>Enumeration TimeStatus</h1>
+			<h1>Enumeration CacheStrategy</h1>
 		</div>
 	</div>
 </header>
@@ -75,9 +75,10 @@
 						<section class="tsd-index-section ">
 							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="hooks_useCountdown.TimeStatus.html#Ended" class="tsd-kind-icon">Ended</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="hooks_useCountdown.TimeStatus.html#NotYet" class="tsd-kind-icon">Not<wbr>Yet</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="hooks_useCountdown.TimeStatus.html#Ongoing" class="tsd-kind-icon">Ongoing</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#CACHE_FIRST" class="tsd-kind-icon">CACHE_<wbr>FIRST</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#CACHE_THEN_NETWORK" class="tsd-kind-icon">CACHE_<wbr>THEN_<wbr>NETWORK</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#NETWORK_FIRST" class="tsd-kind-icon">NETWORK_<wbr>FIRST</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#NETWORK_ONLY" class="tsd-kind-icon">NETWORK_<wbr>ONLY</a></li>
 							</ul>
 						</section>
 					</div>
@@ -86,34 +87,59 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Enumeration members</h2>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="Ended" class="tsd-anchor"></a>
-					<h3>Ended</h3>
-					<div class="tsd-signature tsd-kind-icon">Ended<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 2</span></div>
+					<a name="CACHE_FIRST" class="tsd-anchor"></a>
+					<h3>CACHE_<wbr>FIRST</h3>
+					<div class="tsd-signature tsd-kind-icon">CACHE_<wbr>FIRST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;cacheFirst&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/hooks/useCountdown.ts#L8">lib/hooks/useCountdown.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/service/cacheManager.service.ts#L9">lib/service/cacheManager.service.ts:9</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Read the data from the cache first, if not, then get it from the network.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="CACHE_THEN_NETWORK" class="tsd-anchor"></a>
+					<h3>CACHE_<wbr>THEN_<wbr>NETWORK</h3>
+					<div class="tsd-signature tsd-kind-icon">CACHE_<wbr>THEN_<wbr>NETWORK<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;cacheThenNetwork&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/service/cacheManager.service.ts#L11">lib/service/cacheManager.service.ts:11</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Read the data from the cache first, also update cache by network.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="NETWORK_FIRST" class="tsd-anchor"></a>
+					<h3>NETWORK_<wbr>FIRST</h3>
+					<div class="tsd-signature tsd-kind-icon">NETWORK_<wbr>FIRST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;networkFirst&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/service/cacheManager.service.ts#L14">lib/service/cacheManager.service.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="NotYet" class="tsd-anchor"></a>
-					<h3>Not<wbr>Yet</h3>
-					<div class="tsd-signature tsd-kind-icon">Not<wbr>Yet<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 0</span></div>
+					<a name="NETWORK_ONLY" class="tsd-anchor"></a>
+					<h3>NETWORK_<wbr>ONLY</h3>
+					<div class="tsd-signature tsd-kind-icon">NETWORK_<wbr>ONLY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;networkOnly&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/hooks/useCountdown.ts#L6">lib/hooks/useCountdown.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/service/cacheManager.service.ts#L13">lib/service/cacheManager.service.ts:13</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="Ongoing" class="tsd-anchor"></a>
-					<h3>Ongoing</h3>
-					<div class="tsd-signature tsd-kind-icon">Ongoing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 1</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/hooks/useCountdown.ts#L7">lib/hooks/useCountdown.ts:7</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Only get data from the network, no data will be cached.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -124,44 +150,47 @@
 						<a href="../modules.html">Modules</a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/hooks_useCountdown.html">hooks/use<wbr>Countdown</a>
+						<a href="../modules/service_cacheManager_service.html">service/cache<wbr>Manager.service</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-reference tsd-parent-kind-module">
-						<a href="../modules/hooks_useCountdown.html#default" class="tsd-kind-icon">default</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-enum tsd-parent-kind-module">
-						<a href="hooks_useCountdown.TimeStatus.html" class="tsd-kind-icon">Time<wbr>Status</a>
+						<a href="service_cacheManager_service.CacheStrategy.html" class="tsd-kind-icon">Cache<wbr>Strategy</a>
 						<ul>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="hooks_useCountdown.TimeStatus.html#Ended" class="tsd-kind-icon">Ended</a>
+								<a href="service_cacheManager_service.CacheStrategy.html#CACHE_FIRST" class="tsd-kind-icon">CACHE_<wbr>FIRST</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="hooks_useCountdown.TimeStatus.html#NotYet" class="tsd-kind-icon">Not<wbr>Yet</a>
+								<a href="service_cacheManager_service.CacheStrategy.html#CACHE_THEN_NETWORK" class="tsd-kind-icon">CACHE_<wbr>THEN_<wbr>NETWORK</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="hooks_useCountdown.TimeStatus.html#Ongoing" class="tsd-kind-icon">Ongoing</a>
+								<a href="service_cacheManager_service.CacheStrategy.html#NETWORK_FIRST" class="tsd-kind-icon">NETWORK_<wbr>FIRST</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="service_cacheManager_service.CacheStrategy.html#NETWORK_ONLY" class="tsd-kind-icon">NETWORK_<wbr>ONLY</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/hooks_useCountdown.TimeCount.html" class="tsd-kind-icon">Time<wbr>Count</a>
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="service_cacheManager_service.HttpMethod.html" class="tsd-kind-icon">Http<wbr>Method</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/hooks_useCountdown.html#formatCountdownText" class="tsd-kind-icon">format<wbr>Countdown<wbr>Text</a>
+						<a href="../modules/service_cacheManager_service.html#getApiUrlStrategy" class="tsd-kind-icon">get<wbr>Api<wbr>Url<wbr>Strategy</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/hooks_useCountdown.html#getRelatedDistance" class="tsd-kind-icon">get<wbr>Related<wbr>Distance</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../modules/service_cacheManager_service.html#handleCacheStrategy" class="tsd-kind-icon">handle<wbr>Cache<wbr>Strategy</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/hooks_useCountdown.html#useCountdown" class="tsd-kind-icon">use<wbr>Countdown</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../modules/service_cacheManager_service.html#handleNetworkFirst" class="tsd-kind-icon">handle<wbr>Network<wbr>First</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../modules/service_cacheManager_service.html#handleNetworkOnly" class="tsd-kind-icon">handle<wbr>Network<wbr>Only</a>
 					</li>
 				</ul>
 			</nav>
