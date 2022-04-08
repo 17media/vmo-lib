@@ -22,6 +22,7 @@ export type APIType = {
  *
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
+
 export const useTypeApi = (
   apiList: APIType[] = [],
   method = 'GET',
@@ -39,6 +40,7 @@ export const useTypeApi = (
   const [polling, setPolling] = useState(false);
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
+  const [suspend, setSuspend] = useState(false);
 
   const getDataRealTimeAPI = useCallback(
     (apis: APIType[] = [], time, previousData) => {
@@ -70,6 +72,21 @@ export const useTypeApi = (
     },
     [opt.cursor, opt.limit, opt.withoutOnliveInfo],
   );
+
+  useEffect(() => {
+    const handleVisibilityCange = () => {
+      if (document.visibilityState === 'hidden') {
+        setSuspend(true);
+      } else {
+        setSuspend(false);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityCange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityCange);
+    };
+  }, []);
 
   useEffect(() => {
     if (!apiList.length) return;
@@ -120,11 +137,20 @@ export const useTypeApi = (
 
   useEffect(() => {
     if (!polling && realTime > 0) {
+      if (suspend) return;
+
       clearTimeout(timeoutKey.current);
       timeoutKey.current = 0;
       getDataRealTimeAPI(apiList, realTime, leaderboardData);
     }
-  }, [polling, leaderboardData, apiList, realTime, getDataRealTimeAPI]);
+  }, [
+    polling,
+    leaderboardData,
+    apiList,
+    realTime,
+    getDataRealTimeAPI,
+    suspend,
+  ]);
 
   return { loading, polling, requestError, leaderboardData };
 };
