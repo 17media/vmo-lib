@@ -37,6 +37,7 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
     const [polling, setPolling] = react_1.useState(false);
     const [requestError, setRequestError] = react_1.useState(null);
     const [leaderboardData, setLeaderboardData] = react_1.useState(initialData);
+    const [suspend, setSuspend] = react_1.useState(false);
     const getDataRealTimeAPI = react_1.useCallback((apis = [], time, previousData) => {
         const pollingProcess = () => __awaiter(void 0, void 0, void 0, function* () {
             setRequestError(null);
@@ -61,6 +62,20 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
         });
         timeoutKey.current = window.setTimeout(pollingProcess, time);
     }, [opt.cursor, opt.limit, opt.withoutOnliveInfo]);
+    react_1.useEffect(() => {
+        const handleVisibilityCange = () => {
+            if (document.visibilityState === 'hidden') {
+                setSuspend(true);
+            }
+            else {
+                setSuspend(false);
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibilityCange);
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityCange);
+        };
+    }, []);
     react_1.useEffect(() => {
         if (!apiList.length)
             return;
@@ -109,11 +124,20 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
     }, [apiList, opt.cursor, opt.limit, opt.withoutOnliveInfo]);
     react_1.useEffect(() => {
         if (!polling && realTime > 0) {
+            if (suspend)
+                return;
             clearTimeout(timeoutKey.current);
             timeoutKey.current = 0;
             getDataRealTimeAPI(apiList, realTime, leaderboardData);
         }
-    }, [polling, leaderboardData, apiList, realTime, getDataRealTimeAPI]);
+    }, [
+        polling,
+        leaderboardData,
+        apiList,
+        realTime,
+        getDataRealTimeAPI,
+        suspend,
+    ]);
     return { loading, polling, requestError, leaderboardData };
 };
 exports.useTypeApi = useTypeApi;
