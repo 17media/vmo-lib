@@ -71,5 +71,5 @@
     "resolveJsonModule": true
   },
   "include": ["lib/**/*.ts"],
-  "exclude": ["lib/__test__/**/*.ts", "lib/hooks/__test__/*.ts"]
+  "exclude": ["lib/__test__/**/*.ts", "lib/hooks/__test__/*.ts", "./dist"]
 }

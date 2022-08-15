@@ -11,6 +11,7 @@ export * from './useFilter';
 export * from './useScrollToLoadingContainer';
 export * from './useKeyboard';
 export * from './useFollower';
+export * from './useCheckWebview';
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
@@ -74,5 +75,6 @@ declare const _default: {
         followers: string[];
         errorMsg?: string | undefined;
     };
+    useCheckWebview: () => boolean;
 };
 export default _default;

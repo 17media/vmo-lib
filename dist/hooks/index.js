@@ -22,6 +22,7 @@ const useFilter_1 = require("./useFilter");
 const useScrollToLoadingContainer_1 = require("./useScrollToLoadingContainer");
 const useKeyboard_1 = require("./useKeyboard");
 const useFollower_1 = require("./useFollower");
+const useCheckWebview_1 = require("./useCheckWebview");
 __exportStar(require("./useCountdown"), exports);
 __exportStar(require("./useItemTransition"), exports);
 __exportStar(require("./usePageData"), exports);
@@ -34,6 +35,7 @@ __exportStar(require("./useFilter"), exports);
 __exportStar(require("./useScrollToLoadingContainer"), exports);
 __exportStar(require("./useKeyboard"), exports);
 __exportStar(require("./useFollower"), exports);
+__exportStar(require("./useCheckWebview"), exports);
 exports.default = {
     useAutoNext: useAutoNext_1.useAutoNext,
     useCountdown: useCountdown_1.useCountdown,
@@ -47,5 +49,6 @@ exports.default = {
     useScrollToLoadingContainer: useScrollToLoadingContainer_1.useScrollToLoadingContainer,
     useKeyboard: useKeyboard_1.useKeyboard,
     useFollower: useFollower_1.useFollower,
+    useCheckWebview: useCheckWebview_1.useCheckWebview,
 };
 //# sourceMappingURL=index.js.map

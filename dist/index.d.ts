@@ -68,5 +68,6 @@ declare const _default: {
         followers: string[];
         errorMsg?: string | undefined;
     };
+    useCheckWebview: () => boolean;
 };
 export default _default;
