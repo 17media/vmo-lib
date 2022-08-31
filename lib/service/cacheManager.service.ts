@@ -173,7 +173,7 @@ export const handleNetworkFirst = async <T = any>(
 ) => {
   const apiRes = await handleCallback(apiCallback);
   if (apiRes.data) {
-    await setAxiosCache(fetchURL, apiRes.data);
+    setAxiosCache(fetchURL, apiRes.data);
     return apiRes.data;
   }
 

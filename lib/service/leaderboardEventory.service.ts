@@ -49,25 +49,13 @@ interface FetchURLParams {
   withoutOnliveInfo?: boolean;
 }
 
-const getFetchURL = ({
-  apiEndpoint,
-  type,
-  limit,
-  cursor,
-  withoutOnliveInfo,
-}: FetchURL) => {
+const getFetchURL = (apiEndpoint: string, params: FetchURLParams) => {
   const baseURL =
     window.location.hostname === 'vmo.17.media'
       ? 'https://api.17app.co/api'
       : 'https://sta-api.17app.co/api';
 
   const fetchURL = new URL(baseURL + apiEndpoint);
-  const params: FetchURLParams = {
-    containerID: getType(type),
-    count: limit,
-    cursor,
-    withoutOnliveInfo,
-  };
   Object.keys(params).forEach(key => {
     const value = params[key as keyof FetchURLParams];
     if (value) {
@@ -75,6 +63,35 @@ const getFetchURL = ({
     }
   });
   return fetchURL.toString();
+};
+
+/**
+ * @description
+ * cursor       => {timestamp}:{total count}:{start}:{get amount}-{hash value}
+ *
+ * parsedCursor => {total count}:{start}:{get amount}
+ */
+export const getParsedURL = ({
+  apiEndpoint,
+  type,
+  limit,
+  cursor,
+  withoutOnliveInfo,
+}: FetchURL) => {
+  const params: FetchURLParams = {
+    containerID: getType(type),
+    count: limit,
+    cursor,
+    withoutOnliveInfo,
+  };
+  if (cursor) {
+    const [timestampCursor] = (cursor as string).split('-', 1);
+    const [totalCount, start, getAmount] = timestampCursor.split(':').slice(1);
+    const parsedCursor = `${totalCount}:${start}:${getAmount}`;
+    const parsedParams = { ...params, cursor: parsedCursor };
+    return getFetchURL(apiEndpoint, parsedParams);
+  }
+  return getFetchURL(apiEndpoint, params);
 };
 
 const getLBDataCallback = ({
@@ -113,7 +130,7 @@ const cachedApiData = ({
   apiEndpoint: string;
   eventoryApi: AxiosInstance;
 }) => {
-  const fetchURL = getFetchURL({
+  const fetchURL = getParsedURL({
     apiEndpoint,
     type,
     limit,
