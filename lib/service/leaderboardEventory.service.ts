@@ -67,9 +67,9 @@ const getFetchURL = (apiEndpoint: string, params: FetchURLParams) => {
 
 /**
  * @description
- * cursor       => {timestamp}:{total count}:{start}:{get amount}-{hash value}
+ * cursor       => {timestamp}:{total count}:{start}:{shard size}-{hash value}
  *
- * parsedCursor => {total count}:{start}:{get amount}
+ * parsedCursor => {total count}:{start}:{shard size}
  */
 export const getParsedURL = ({
   apiEndpoint,
@@ -86,8 +86,8 @@ export const getParsedURL = ({
   };
   if (cursor) {
     const [timestampCursor] = (cursor as string).split('-', 1);
-    const [totalCount, start, getAmount] = timestampCursor.split(':').slice(1);
-    const parsedCursor = `${totalCount}:${start}:${getAmount}`;
+    const [totalCount, start, shardSize] = timestampCursor.split(':').slice(1);
+    const parsedCursor = `${totalCount}:${start}:${shardSize}`;
     const parsedParams = { ...params, cursor: parsedCursor };
     return getFetchURL(apiEndpoint, parsedParams);
   }
