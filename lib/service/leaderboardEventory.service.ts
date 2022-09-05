@@ -130,7 +130,7 @@ const cachedApiData = ({
   apiEndpoint: string;
   eventoryApi: AxiosInstance;
 }) => {
-  const fetchURL = getParsedURL({
+  const parsedURL = getParsedURL({
     apiEndpoint,
     type,
     limit,
@@ -149,7 +149,7 @@ const cachedApiData = ({
       cancelToken,
       eventoryApi,
     }),
-    fetchURL,
+    url: parsedURL,
   });
 };
 

@@ -169,16 +169,16 @@ const handleCallback = <T = any>(
 
 export const handleNetworkFirst = async <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
-  fetchURL: string,
+  url: string,
 ) => {
   const apiRes = await handleCallback(apiCallback);
   if (apiRes.data) {
-    setAxiosCache(fetchURL, apiRes.data);
+    setAxiosCache(url, apiRes.data);
     return apiRes.data;
   }
 
   if (apiRes.error) {
-    const cacheRes = await getLatestCache(fetchURL);
+    const cacheRes = await getLatestCache(url);
     if (cacheRes.cache) return cacheRes.cache;
     if (cacheRes.error) console.error(cacheRes.error);
     if (apiRes.error) throw apiRes.error;
@@ -196,16 +196,16 @@ export const handleNetworkOnly = async <T = any>(
 interface HandleCacheStrategyParams<T> {
   cacheStrategy: CacheStrategy;
   apiCallback: Promise<AxiosResponse<T>>;
-  fetchURL: string;
+  url: string;
 }
 
 export const handleCacheStrategy = <T = any>({
   cacheStrategy,
   apiCallback,
-  fetchURL,
+  url,
 }: HandleCacheStrategyParams<T>) => {
   if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
-    return handleNetworkFirst<T>(apiCallback, fetchURL);
+    return handleNetworkFirst<T>(apiCallback, url);
   }
   return handleNetworkOnly<T>(apiCallback);
 };
