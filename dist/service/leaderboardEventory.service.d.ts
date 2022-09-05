@@ -12,5 +12,15 @@ interface Params {
     callback?: Function;
     preData?: User[];
 }
+declare type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
+    apiEndpoint: string;
+};
+/**
+ * @description
+ * cursor       => {timestamp}:{total count}:{start}:{shard size}-{hash value}
+ *
+ * parsedCursor => {total count}:{start}:{shard size}
+ */
+export declare const getParsedURL: ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }: FetchURL) => string;
 export declare const getLeaderboardEventory: ({ type, cancelToken, limit, cursor, withoutOnliveInfo, callback, preData, }: Params) => Promise<User[]>;
 export default getLeaderboardEventory;

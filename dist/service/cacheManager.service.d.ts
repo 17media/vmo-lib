@@ -17,12 +17,12 @@ export declare enum HttpMethod {
 export declare const getApiUrlStrategy: (apiUrl: string, method?: HttpMethod) => {
     cacheStrategy: CacheStrategy;
 };
-export declare const handleNetworkFirst: <T = any>(apiCallback: Promise<AxiosResponse<T>>, fetchURL: string) => Promise<any>;
+export declare const handleNetworkFirst: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<any>;
 export declare const handleNetworkOnly: <T = any>(apiCallback: Promise<AxiosResponse<T>>) => Promise<AxiosResponse<T> | undefined>;
 interface HandleCacheStrategyParams<T> {
     cacheStrategy: CacheStrategy;
     apiCallback: Promise<AxiosResponse<T>>;
-    fetchURL: string;
+    url: string;
 }
-export declare const handleCacheStrategy: <T = any>({ cacheStrategy, apiCallback, fetchURL, }: HandleCacheStrategyParams<T>) => Promise<any>;
+export declare const handleCacheStrategy: <T = any>({ cacheStrategy, apiCallback, url, }: HandleCacheStrategyParams<T>) => Promise<any>;
 export {};

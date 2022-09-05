@@ -141,14 +141,14 @@ class CacheError extends Error {
     }
 }
 const handleCallback = (apiCallback) => apiCallback.then(res => ({ data: res })).catch(error => ({ error }));
-const handleNetworkFirst = (apiCallback, fetchURL) => __awaiter(void 0, void 0, void 0, function* () {
+const handleNetworkFirst = (apiCallback, url) => __awaiter(void 0, void 0, void 0, function* () {
     const apiRes = yield handleCallback(apiCallback);
     if (apiRes.data) {
-        yield setAxiosCache(fetchURL, apiRes.data);
+        setAxiosCache(url, apiRes.data);
         return apiRes.data;
     }
     if (apiRes.error) {
-        const cacheRes = yield getLatestCache(fetchURL);
+        const cacheRes = yield getLatestCache(url);
         if (cacheRes.cache)
             return cacheRes.cache;
         if (cacheRes.error)
@@ -166,9 +166,9 @@ const handleNetworkOnly = (apiCallback) => __awaiter(void 0, void 0, void 0, fun
         throw apiRes.error;
 });
 exports.handleNetworkOnly = handleNetworkOnly;
-const handleCacheStrategy = ({ cacheStrategy, apiCallback, fetchURL, }) => {
+const handleCacheStrategy = ({ cacheStrategy, apiCallback, url, }) => {
     if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
-        return exports.handleNetworkFirst(apiCallback, fetchURL);
+        return exports.handleNetworkFirst(apiCallback, url);
     }
     return exports.handleNetworkOnly(apiCallback);
 };

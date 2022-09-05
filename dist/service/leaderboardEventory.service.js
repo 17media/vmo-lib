@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLeaderboardEventory = void 0;
+exports.getLeaderboardEventory = exports.getParsedURL = void 0;
 const axios_1 = require("./axios");
 const utils_1 = require("../utils");
 const cacheManager_service_1 = require("./cacheManager.service");
@@ -19,17 +19,11 @@ var ErrorCode;
     ErrorCode["TIMEOUT"] = "ECONNABORTED";
 })(ErrorCode || (ErrorCode = {}));
 const CANCEL_TIME_OUT = 5000;
-const getFetchURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) => {
+const getFetchURL = (apiEndpoint, params) => {
     const baseURL = window.location.hostname === 'vmo.17.media'
         ? 'https://api.17app.co/api'
         : 'https://sta-api.17app.co/api';
     const fetchURL = new URL(baseURL + apiEndpoint);
-    const params = {
-        containerID: utils_1.getType(type),
-        count: limit,
-        cursor,
-        withoutOnliveInfo,
-    };
     Object.keys(params).forEach(key => {
         const value = params[key];
         if (value) {
@@ -38,6 +32,29 @@ const getFetchURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) =
     });
     return fetchURL.toString();
 };
+/**
+ * @description
+ * cursor       => {timestamp}:{total count}:{start}:{shard size}-{hash value}
+ *
+ * parsedCursor => {total count}:{start}:{shard size}
+ */
+const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) => {
+    const params = {
+        containerID: utils_1.getType(type),
+        count: limit,
+        cursor,
+        withoutOnliveInfo,
+    };
+    if (cursor) {
+        const [timestampCursor] = cursor.split('-', 1);
+        const [totalCount, start, shardSize] = timestampCursor.split(':').slice(1);
+        const parsedCursor = `${totalCount}:${start}:${shardSize}`;
+        const parsedParams = Object.assign(Object.assign({}, params), { cursor: parsedCursor });
+        return getFetchURL(apiEndpoint, parsedParams);
+    }
+    return getFetchURL(apiEndpoint, params);
+};
+exports.getParsedURL = getParsedURL;
 const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, }) => eventoryApi.get(apiEndpoint, {
     params: {
         containerID: utils_1.getType(type),
@@ -48,7 +65,7 @@ const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, with
     cancelToken,
 });
 const cachedApiData = ({ cacheStrategy, apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, }) => {
-    const fetchURL = getFetchURL({
+    const parsedURL = exports.getParsedURL({
         apiEndpoint,
         type,
         limit,
@@ -66,7 +83,7 @@ const cachedApiData = ({ cacheStrategy, apiEndpoint, eventoryApi, type, limit, c
             cancelToken,
             eventoryApi,
         }),
-        fetchURL,
+        url: parsedURL,
     });
 };
 const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, callback, preData = [], }) => __awaiter(void 0, void 0, void 0, function* () {
