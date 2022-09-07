@@ -12,6 +12,7 @@ export enum CacheStrategy {
   /** Only get data from the network, no data will be cached. */
   NETWORK_ONLY = 'networkOnly',
   NETWORK_FIRST = 'networkFirst',
+  CACHE_ONLY = 'cacheOnly',
 }
 
 export enum HttpMethod {
@@ -163,12 +164,14 @@ interface FulfillFormat<T = any> {
 }
 
 const handleCallback = <T = any>(
-  apiCallback: Promise<AxiosResponse<T>>,
+  apiCallback: () => Promise<AxiosResponse<T>>,
 ): Promise<FulfillFormat<T>> =>
-  apiCallback.then(res => ({ data: res })).catch(error => ({ error }));
+  apiCallback()
+    .then(res => ({ data: res }))
+    .catch(error => ({ error }));
 
 export const handleNetworkFirst = async <T = any>(
-  apiCallback: Promise<AxiosResponse<T>>,
+  apiCallback: () => Promise<AxiosResponse<T>>,
   url: string,
 ) => {
   const apiRes = await handleCallback(apiCallback);
@@ -186,16 +189,22 @@ export const handleNetworkFirst = async <T = any>(
 };
 
 export const handleNetworkOnly = async <T = any>(
-  apiCallback: Promise<AxiosResponse<T>>,
+  apiCallback: () => Promise<AxiosResponse<T>>,
 ) => {
   const apiRes = await handleCallback(apiCallback);
   if (apiRes.data) return apiRes.data;
   if (apiRes.error) throw apiRes.error;
 };
 
+export const handleCacheOnly = async (url: string) => {
+  const cacheRes = await getLatestCache(url);
+  if (cacheRes.cache) return cacheRes.cache;
+  if (cacheRes.error) console.error(cacheRes.error);
+};
+
 interface HandleCacheStrategyParams<T> {
   cacheStrategy: CacheStrategy;
-  apiCallback: Promise<AxiosResponse<T>>;
+  apiCallback: () => Promise<AxiosResponse<T>>;
   url: string;
 }
 
@@ -206,6 +215,12 @@ export const handleCacheStrategy = <T = any>({
 }: HandleCacheStrategyParams<T>) => {
   if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
     return handleNetworkFirst<T>(apiCallback, url);
+  }
+  if (
+    cacheStrategy === CacheStrategy.CACHE_ONLY ||
+    cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK
+  ) {
+    return handleCacheOnly(url);
   }
   return handleNetworkOnly<T>(apiCallback);
 };

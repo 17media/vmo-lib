@@ -3,6 +3,8 @@ import { renderHook } from '@testing-library/react-hooks';
 import useTypeApi from '../useTypeApi';
 import { User } from '../../types';
 
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 describe('test type api hook', () => {
   test('should get eventory leaderboard backend data.', async () => {
     const eventoryLeaderboardApiList = [
@@ -16,7 +18,7 @@ describe('test type api hook', () => {
       useTypeApi(eventoryLeaderboardApiList, 'GET', 0, []),
     );
 
-    await waitForNextUpdate({ timeout: 5000 });
+    await sleep(3000);
     expect(result.current.loading).toBe(false);
     expect(result.current.polling).toBe(false);
     expect(result.current.leaderboardData);

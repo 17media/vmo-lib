@@ -94,27 +94,29 @@ export const getParsedURL = ({
   return getFetchURL(apiEndpoint, params);
 };
 
-const getLBDataCallback = ({
-  apiEndpoint,
-  eventoryApi,
-  type,
-  limit,
-  cursor,
-  withoutOnliveInfo,
-  cancelToken,
-}: Params & {
-  apiEndpoint: string;
-  eventoryApi: AxiosInstance;
-}) =>
-  eventoryApi.get<Response<User>>(apiEndpoint, {
-    params: {
-      containerID: getType(type),
-      count: limit,
-      cursor,
-      withoutOnliveInfo,
-    },
+const getLBDataCallback =
+  ({
+    apiEndpoint,
+    eventoryApi,
+    type,
+    limit,
+    cursor,
+    withoutOnliveInfo,
     cancelToken,
-  });
+  }: Params & {
+    apiEndpoint: string;
+    eventoryApi: AxiosInstance;
+  }) =>
+  () =>
+    eventoryApi.get<Response<User>>(apiEndpoint, {
+      params: {
+        containerID: getType(type),
+        count: limit,
+        cursor,
+        withoutOnliveInfo,
+      },
+      cancelToken,
+    });
 
 const cachedApiData = ({
   cacheStrategy,

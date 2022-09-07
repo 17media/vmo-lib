@@ -35,7 +35,8 @@ export const useTypeApi = (
   },
 ) => {
   const timeoutKey = useRef(0);
-  const source = useRef<CancelTokenSource>();
+  const source = useRef<CancelTokenSource>(axios.CancelToken.source());
+  const firstInit = useRef(true);
   const [loading, setLoading] = useState(false);
   const [polling, setPolling] = useState(false);
   const [requestError, setRequestError] = useState<any | null>(null);
@@ -43,11 +44,14 @@ export const useTypeApi = (
   const [suspend, setSuspend] = useState(false);
 
   const getDataRealTimeAPI = useCallback(
-    (apis: APIType[] = [], time, previousData) => {
-      const pollingProcess = async () => {
+    (apis: APIType[] = []) =>
+      async () => {
         setRequestError(null);
-        setPolling(true);
-
+        if (firstInit.current) {
+          setLoading(true);
+        } else {
+          setPolling(true);
+        }
         const apiPromiseList = apis.map((type: APIType) =>
           getLeaderboardEventory({
             type,
@@ -64,12 +68,14 @@ export const useTypeApi = (
         } catch (error) {
           setRequestError(error);
         } finally {
-          setPolling(false);
+          if (firstInit.current) {
+            setLoading(false);
+          } else {
+            setPolling(false);
+          }
+          firstInit.current = false;
         }
-      };
-
-      timeoutKey.current = window.setTimeout(pollingProcess, time);
-    },
+      },
     [opt.cursor, opt.limit, opt.withoutOnliveInfo],
   );
 
@@ -88,60 +94,15 @@ export const useTypeApi = (
     };
   }, []);
 
+  // 重複取得LB資料
   useEffect(() => {
-    if (!apiList.length) return;
-
-    async function promiseAll(promiseList: Promise<User[]>[]) {
-      setLoading(true);
-      setRequestError(null);
-      try {
-        const results: User[][] = await Promise.all(promiseList);
-        setLeaderboardData(results);
-      } catch (error) {
-        setRequestError(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    source.current = axios.CancelToken.source();
-
-    const callback = (item: APIType) => (data: User[]) => {
-      setLoading(false);
-      const index = apiList.findIndex(value => value.sta === item.sta);
-      setLeaderboardData(prev => {
-        if (prev) {
-          prev[index] = [...data];
-          return [...prev];
-        }
-      });
-    };
-    const apiPromiseList = apiList.map(type =>
-      getLeaderboardEventory({
-        type,
-        cancelToken: source.current!.token,
-        limit: opt.limit,
-        cursor: opt.cursor,
-        withoutOnliveInfo: opt.withoutOnliveInfo,
-        callback: callback(type),
-      }),
-    );
-
-    promiseAll(apiPromiseList);
-
-    return () => {
-      if (source.current) source.current.cancel();
+    if (suspend) return;
+    if ((!loading && firstInit.current) || (!polling && realTime > 0)) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
-    };
-  }, [apiList, opt.cursor, opt.limit, opt.withoutOnliveInfo]);
-
-  useEffect(() => {
-    if (!polling && realTime > 0) {
-      if (suspend) return;
-
-      clearTimeout(timeoutKey.current);
-      timeoutKey.current = 0;
-      getDataRealTimeAPI(apiList, realTime, leaderboardData);
+      timeoutKey.current = window.setTimeout(
+        getDataRealTimeAPI(apiList),
+        realTime,
+      );
     }
   }, [
     polling,
@@ -150,6 +111,7 @@ export const useTypeApi = (
     realTime,
     getDataRealTimeAPI,
     suspend,
+    loading,
   ]);
 
   return { loading, polling, requestError, leaderboardData };
