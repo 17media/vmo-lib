@@ -113,43 +113,6 @@ const getLBDataCallback =
       cancelToken,
     });
 
-const cachedApiData = ({
-  cacheStrategy,
-  apiEndpoint,
-  eventoryApi,
-  type,
-  limit,
-  cursor,
-  withoutOnliveInfo,
-  cancelToken,
-}: Params & {
-  cacheStrategy: CacheStrategy;
-  apiEndpoint: string;
-  eventoryApi: AxiosInstance;
-}) => {
-  const parsedURL = getParsedURL({
-    apiEndpoint,
-    type,
-    limit,
-    cursor,
-    withoutOnliveInfo,
-  });
-
-  return handleCacheStrategy<Response<User>>({
-    cacheStrategy,
-    apiCallback: getLBDataCallback({
-      apiEndpoint,
-      type,
-      limit,
-      cursor,
-      withoutOnliveInfo,
-      cancelToken,
-      eventoryApi,
-    }),
-    url: parsedURL,
-  });
-};
-
 export const getLeaderboardEventory = async ({
   type,
   cancelToken,
@@ -192,15 +155,26 @@ export const getLeaderboardEventory = async ({
     eventoryApi.interceptors.response.use(responseHandler, errorHandler);
   }
 
-  const { data: responseData } = await cachedApiData({
-    cacheStrategy: strategy,
+  const parsedURL = getParsedURL({
     apiEndpoint: endpoint,
     type,
     limit,
     cursor,
     withoutOnliveInfo,
-    cancelToken,
-    eventoryApi,
+  });
+
+  const { data: responseData } = await handleCacheStrategy<Response<User>>({
+    cacheStrategy: strategy,
+    apiCallback: getLBDataCallback({
+      apiEndpoint: endpoint,
+      type,
+      limit,
+      cursor,
+      withoutOnliveInfo,
+      cancelToken,
+      eventoryApi,
+    }),
+    url: parsedURL,
   });
 
   const { nextCursor, data = [] } = responseData;
