@@ -13,6 +13,8 @@ export enum CacheStrategy {
   NETWORK_ONLY = 'networkOnly',
   NETWORK_FIRST = 'networkFirst',
   CACHE_ONLY = 'cacheOnly',
+  /** Get data from the network, data will be cached, but will not return cache. */
+  NETWORK_THEN_SET_CACHE = 'networkThenSetCache',
 }
 
 export enum HttpMethod {
@@ -25,7 +27,7 @@ const cacheWhitelists = [
   {
     path: '/leaderboards/eventory',
     method: HttpMethod.GET,
-    cacheStrategy: CacheStrategy.NETWORK_FIRST,
+    cacheStrategy: CacheStrategy.CACHE_THEN_NETWORK,
   },
 ];
 
@@ -188,6 +190,19 @@ export const handleNetworkFirst = async <T = any>(
   }
 };
 
+export const handleNetworkThenSetCache = async <T = any>(
+  apiCallback: () => Promise<AxiosResponse<T>>,
+  url: string,
+) => {
+  const apiRes = await handleCallback(apiCallback);
+  if (apiRes.data) {
+    setAxiosCache(url, apiRes.data);
+    return apiRes.data;
+  }
+
+  if (apiRes.error) throw apiRes.error;
+};
+
 export const handleNetworkOnly = async <T = any>(
   apiCallback: () => Promise<AxiosResponse<T>>,
 ) => {
@@ -215,6 +230,9 @@ export const handleCacheStrategy = <T = any>({
 }: HandleCacheStrategyParams<T>) => {
   if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
     return handleNetworkFirst<T>(apiCallback, url);
+  }
+  if (cacheStrategy === CacheStrategy.NETWORK_THEN_SET_CACHE) {
+    return handleNetworkThenSetCache<T>(apiCallback, url);
   }
   if (
     cacheStrategy === CacheStrategy.CACHE_ONLY ||

@@ -1,8 +1,15 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import axios, { CancelTokenSource } from 'axios';
 
 import { getLeaderboardEventory } from '../service/leaderboardEventory.service';
+import {
+  CacheStrategy,
+  getApiUrlStrategy,
+  HttpMethod,
+} from '../service/cacheManager.service';
 import { User } from '../types';
+
+const endpoint = `/v1/leaderboards/eventory`;
 
 export type APIType = {
   /** staging site container ID */
@@ -35,6 +42,7 @@ export const useTypeApi = (
   },
 ) => {
   const timeoutKey = useRef(0);
+  const timeoutKeyForFetch = useRef(0);
   const source = useRef<CancelTokenSource>(axios.CancelToken.source());
   const firstInit = useRef(true);
   const [loading, setLoading] = useState(false);
@@ -42,9 +50,13 @@ export const useTypeApi = (
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
   const [suspend, setSuspend] = useState(false);
+  const { cacheStrategy } = useMemo(
+    () => getApiUrlStrategy(endpoint, HttpMethod.GET),
+    [],
+  );
 
   const getDataRealTimeAPI = useCallback(
-    (apis: APIType[] = []) =>
+    (apis: APIType[] = [], strategy: CacheStrategy) =>
       async () => {
         setRequestError(null);
         if (firstInit.current) {
@@ -59,6 +71,7 @@ export const useTypeApi = (
             limit: opt.limit,
             cursor: opt.cursor,
             withoutOnliveInfo: opt.withoutOnliveInfo,
+            strategy,
           }),
         );
 
@@ -80,38 +93,57 @@ export const useTypeApi = (
   );
 
   useEffect(() => {
-    const handleVisibilityCange = () => {
+    const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
         setSuspend(true);
       } else {
         setSuspend(false);
       }
     };
-    document.addEventListener('visibilitychange', handleVisibilityCange);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityCange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 
-  // 重複取得LB資料
+  // 取得LB資料
   useEffect(() => {
     if (suspend) return;
-    if ((!loading && firstInit.current) || (!polling && realTime > 0)) {
+    if (loading) return;
+    if (polling) return;
+    // 第一次取得LB資料
+    if (!loading && firstInit.current) {
+      getDataRealTimeAPI(apiList, cacheStrategy)();
+      if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
+        getDataRealTimeAPI(apiList, CacheStrategy.NETWORK_THEN_SET_CACHE)();
+      }
+    }
+
+    // 重複取得LB資料
+    if (!polling && realTime > 0) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
       timeoutKey.current = window.setTimeout(
-        getDataRealTimeAPI(apiList),
+        getDataRealTimeAPI(apiList, cacheStrategy),
         realTime,
       );
+      if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
+        if (timeoutKeyForFetch.current)
+          clearTimeout(timeoutKeyForFetch.current);
+        timeoutKeyForFetch.current = window.setTimeout(
+          getDataRealTimeAPI(apiList, CacheStrategy.NETWORK_THEN_SET_CACHE),
+          realTime,
+        );
+      }
     }
   }, [
-    polling,
-    leaderboardData,
     apiList,
-    realTime,
+    cacheStrategy,
     getDataRealTimeAPI,
-    suspend,
     loading,
+    polling,
+    realTime,
+    suspend,
   ]);
 
   return { loading, polling, requestError, leaderboardData };

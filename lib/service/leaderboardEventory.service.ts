@@ -2,12 +2,7 @@ import { CancelToken, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { getInstanceEventory } from './axios';
 import { User } from '../types';
 import { getType } from '../utils';
-import {
-  CacheStrategy,
-  getApiUrlStrategy,
-  handleCacheStrategy,
-  HttpMethod,
-} from './cacheManager.service';
+import { CacheStrategy, handleCacheStrategy } from './cacheManager.service';
 
 const endpoint = `/v1/leaderboards/eventory`;
 
@@ -163,7 +158,10 @@ export const getLeaderboardEventory = async ({
   withoutOnliveInfo,
   callback,
   preData = [],
-}: Params): Promise<User[]> => {
+  strategy,
+}: Params & {
+  strategy: CacheStrategy;
+}): Promise<User[]> => {
   const eventoryApi = getInstanceEventory();
 
   if (!withoutOnliveInfo) {
@@ -194,10 +192,8 @@ export const getLeaderboardEventory = async ({
     eventoryApi.interceptors.response.use(responseHandler, errorHandler);
   }
 
-  const { cacheStrategy } = getApiUrlStrategy(endpoint, HttpMethod.GET);
-
   const { data: responseData } = await cachedApiData({
-    cacheStrategy,
+    cacheStrategy: strategy,
     apiEndpoint: endpoint,
     type,
     limit,
@@ -221,6 +217,7 @@ export const getLeaderboardEventory = async ({
       withoutOnliveInfo,
       callback,
       preData: currentData,
+      strategy,
     };
     const nextData = await getLeaderboardEventory(nextPayload);
 
