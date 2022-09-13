@@ -9,7 +9,7 @@ describe('test type api hook', () => {
   test('should get eventory leaderboard backend data.', async () => {
     const eventoryLeaderboardApiList = [
       {
-        sta: 'dbda13a5-70b4-445a-95a5-52f0802c4781', // 夏末
+        sta: 'f2132c2f-67e7-419e-a235-d7e514d13050', // 夏末
         prod: '',
       },
     ];

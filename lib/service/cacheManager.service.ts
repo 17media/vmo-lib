@@ -234,10 +234,7 @@ export const handleCacheStrategy = <T = any>({
   if (cacheStrategy === CacheStrategy.NETWORK_THEN_SET_CACHE) {
     return handleNetworkThenSetCache<T>(apiCallback, url);
   }
-  if (
-    cacheStrategy === CacheStrategy.CACHE_ONLY ||
-    cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK
-  ) {
+  if (cacheStrategy === CacheStrategy.CACHE_ONLY) {
     return handleCacheOnly(url);
   }
   return handleNetworkOnly<T>(apiCallback);

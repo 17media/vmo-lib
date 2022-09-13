@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios, { CancelTokenSource } from 'axios';
+import axios, { CancelTokenSource, AxiosResponse } from 'axios';
 
 import { getLeaderboardEventory } from '../service/leaderboardEventory.service';
 import {
@@ -92,6 +92,22 @@ export const useTypeApi = (
     [opt.cursor, opt.limit, opt.withoutOnliveInfo],
   );
 
+  const handleCacheStrategy = useCallback(() => {
+    if (cacheStrategy !== CacheStrategy.CACHE_THEN_NETWORK) {
+      const cacheStrategyFn = getDataRealTimeAPI(apiList, cacheStrategy);
+      cacheStrategyFn();
+    }
+    if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
+      const cacheOnlyFn = getDataRealTimeAPI(apiList, CacheStrategy.CACHE_ONLY);
+      const networkThenSetCacheFn = getDataRealTimeAPI(
+        apiList,
+        CacheStrategy.NETWORK_THEN_SET_CACHE,
+      );
+      cacheOnlyFn();
+      networkThenSetCacheFn();
+    }
+  }, [apiList, cacheStrategy, getDataRealTimeAPI]);
+
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
@@ -114,32 +130,19 @@ export const useTypeApi = (
     if (polling) return;
     // 第一次取得LB資料
     if (!loading && firstInit.current) {
-      getDataRealTimeAPI(apiList, cacheStrategy)();
-      if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
-        getDataRealTimeAPI(apiList, CacheStrategy.NETWORK_THEN_SET_CACHE)();
-      }
+      handleCacheStrategy();
     }
 
     // 重複取得LB資料
     if (!polling && realTime > 0) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
-      timeoutKey.current = window.setTimeout(
-        getDataRealTimeAPI(apiList, cacheStrategy),
-        realTime,
-      );
-      if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
-        if (timeoutKeyForFetch.current)
-          clearTimeout(timeoutKeyForFetch.current);
-        timeoutKeyForFetch.current = window.setTimeout(
-          getDataRealTimeAPI(apiList, CacheStrategy.NETWORK_THEN_SET_CACHE),
-          realTime,
-        );
-      }
+      timeoutKey.current = window.setTimeout(handleCacheStrategy, realTime);
     }
   }, [
     apiList,
     cacheStrategy,
     getDataRealTimeAPI,
+    handleCacheStrategy,
     loading,
     polling,
     realTime,
