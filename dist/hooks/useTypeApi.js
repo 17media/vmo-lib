@@ -16,6 +16,8 @@ exports.useTypeApi = void 0;
 const react_1 = require("react");
 const axios_1 = __importDefault(require("axios"));
 const leaderboardEventory_service_1 = require("../service/leaderboardEventory.service");
+const cacheManager_service_1 = require("../service/cacheManager.service");
+const endpoint = `/v1/leaderboards/eventory`;
 /**
  * 取得 container 資料<br />
  * @param apiList APIType
@@ -32,38 +34,62 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
     withoutOnliveInfo: false,
 }) => {
     const timeoutKey = react_1.useRef(0);
-    const source = react_1.useRef();
+    const timeoutKeyForFetch = react_1.useRef(0);
+    const source = react_1.useRef(axios_1.default.CancelToken.source());
+    const firstInit = react_1.useRef(true);
     const [loading, setLoading] = react_1.useState(false);
     const [polling, setPolling] = react_1.useState(false);
     const [requestError, setRequestError] = react_1.useState(null);
     const [leaderboardData, setLeaderboardData] = react_1.useState(initialData);
     const [suspend, setSuspend] = react_1.useState(false);
-    const getDataRealTimeAPI = react_1.useCallback((apis = [], time, previousData) => {
-        const pollingProcess = () => __awaiter(void 0, void 0, void 0, function* () {
-            setRequestError(null);
+    const { cacheStrategy } = react_1.useMemo(() => cacheManager_service_1.getApiUrlStrategy(endpoint, cacheManager_service_1.HttpMethod.GET), []);
+    const getDataRealTimeAPI = react_1.useCallback((apis = [], strategy) => () => __awaiter(void 0, void 0, void 0, function* () {
+        setRequestError(null);
+        if (firstInit.current) {
+            setLoading(true);
+        }
+        else {
             setPolling(true);
-            const apiPromiseList = apis.map((type) => leaderboardEventory_service_1.getLeaderboardEventory({
-                type,
-                cancelToken: source.current.token,
-                limit: opt.limit,
-                cursor: opt.cursor,
-                withoutOnliveInfo: opt.withoutOnliveInfo,
-            }));
-            try {
-                const results = yield Promise.all(apiPromiseList);
-                setLeaderboardData(results);
+        }
+        const apiPromiseList = apis.map((type) => leaderboardEventory_service_1.getLeaderboardEventory({
+            type,
+            cancelToken: source.current.token,
+            limit: opt.limit,
+            cursor: opt.cursor,
+            withoutOnliveInfo: opt.withoutOnliveInfo,
+            strategy,
+        }));
+        try {
+            const results = yield Promise.all(apiPromiseList);
+            setLeaderboardData(results);
+        }
+        catch (error) {
+            setRequestError(error);
+        }
+        finally {
+            if (firstInit.current) {
+                setLoading(false);
             }
-            catch (error) {
-                setRequestError(error);
-            }
-            finally {
+            else {
                 setPolling(false);
             }
-        });
-        timeoutKey.current = window.setTimeout(pollingProcess, time);
-    }, [opt.cursor, opt.limit, opt.withoutOnliveInfo]);
+            firstInit.current = false;
+        }
+    }), [opt.cursor, opt.limit, opt.withoutOnliveInfo]);
+    const handleCacheStrategy = react_1.useCallback(() => {
+        if (cacheStrategy !== cacheManager_service_1.CacheStrategy.CACHE_THEN_NETWORK) {
+            const cacheStrategyFn = getDataRealTimeAPI(apiList, cacheStrategy);
+            cacheStrategyFn();
+        }
+        if (cacheStrategy === cacheManager_service_1.CacheStrategy.CACHE_THEN_NETWORK) {
+            const cacheOnlyFn = getDataRealTimeAPI(apiList, cacheManager_service_1.CacheStrategy.CACHE_ONLY);
+            const networkThenSetCacheFn = getDataRealTimeAPI(apiList, cacheManager_service_1.CacheStrategy.NETWORK_THEN_SET_CACHE);
+            cacheOnlyFn();
+            networkThenSetCacheFn();
+        }
+    }, [apiList, cacheStrategy, getDataRealTimeAPI]);
     react_1.useEffect(() => {
-        const handleVisibilityCange = () => {
+        const handleVisibilityChange = () => {
             if (document.visibilityState === 'hidden') {
                 setSuspend(true);
             }
@@ -71,71 +97,37 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
                 setSuspend(false);
             }
         };
-        document.addEventListener('visibilitychange', handleVisibilityCange);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
         return () => {
-            document.removeEventListener('visibilitychange', handleVisibilityCange);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
     }, []);
+    // 取得LB資料
     react_1.useEffect(() => {
-        if (!apiList.length)
+        if (suspend)
             return;
-        function promiseAll(promiseList) {
-            return __awaiter(this, void 0, void 0, function* () {
-                setLoading(true);
-                setRequestError(null);
-                try {
-                    const results = yield Promise.all(promiseList);
-                    setLeaderboardData(results);
-                }
-                catch (error) {
-                    setRequestError(error);
-                }
-                finally {
-                    setLoading(false);
-                }
-            });
+        if (loading)
+            return;
+        if (polling)
+            return;
+        // 第一次取得LB資料
+        if (!loading && firstInit.current) {
+            handleCacheStrategy();
         }
-        source.current = axios_1.default.CancelToken.source();
-        const callback = (item) => (data) => {
-            setLoading(false);
-            const index = apiList.findIndex(value => value.sta === item.sta);
-            setLeaderboardData(prev => {
-                if (prev) {
-                    prev[index] = [...data];
-                    return [...prev];
-                }
-            });
-        };
-        const apiPromiseList = apiList.map(type => leaderboardEventory_service_1.getLeaderboardEventory({
-            type,
-            cancelToken: source.current.token,
-            limit: opt.limit,
-            cursor: opt.cursor,
-            withoutOnliveInfo: opt.withoutOnliveInfo,
-            callback: callback(type),
-        }));
-        promiseAll(apiPromiseList);
-        return () => {
-            if (source.current)
-                source.current.cancel();
+        // 重複取得LB資料
+        if (!polling && realTime > 0) {
             if (timeoutKey.current)
                 clearTimeout(timeoutKey.current);
-        };
-    }, [apiList, opt.cursor, opt.limit, opt.withoutOnliveInfo]);
-    react_1.useEffect(() => {
-        if (!polling && realTime > 0) {
-            if (suspend)
-                return;
-            clearTimeout(timeoutKey.current);
-            timeoutKey.current = 0;
-            getDataRealTimeAPI(apiList, realTime, leaderboardData);
+            timeoutKey.current = window.setTimeout(handleCacheStrategy, realTime);
         }
     }, [
-        polling,
-        leaderboardData,
         apiList,
-        realTime,
+        cacheStrategy,
         getDataRealTimeAPI,
+        handleCacheStrategy,
+        loading,
+        polling,
+        realTime,
         suspend,
     ]);
     return { loading, polling, requestError, leaderboardData };

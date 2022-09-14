@@ -1,5 +1,6 @@
 import { CancelToken } from 'axios';
 import { User } from '../types';
+import { CacheStrategy } from './cacheManager.service';
 interface Params {
     type: {
         sta: string;
@@ -22,5 +23,7 @@ declare type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
  * parsedCursor => {total count}:{start}:{shard size}
  */
 export declare const getParsedURL: ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }: FetchURL) => string;
-export declare const getLeaderboardEventory: ({ type, cancelToken, limit, cursor, withoutOnliveInfo, callback, preData, }: Params) => Promise<User[]>;
+export declare const getLeaderboardEventory: ({ type, cancelToken, limit, cursor, withoutOnliveInfo, callback, preData, strategy, }: Params & {
+    strategy: CacheStrategy;
+}) => Promise<User[]>;
 export default getLeaderboardEventory;

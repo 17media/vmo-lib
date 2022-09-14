@@ -55,7 +55,7 @@ const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) 
     return getFetchURL(apiEndpoint, params);
 };
 exports.getParsedURL = getParsedURL;
-const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, }) => eventoryApi.get(apiEndpoint, {
+const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, }) => () => eventoryApi.get(apiEndpoint, {
     params: {
         containerID: utils_1.getType(type),
         count: limit,
@@ -64,29 +64,7 @@ const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, with
     },
     cancelToken,
 });
-const cachedApiData = ({ cacheStrategy, apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, }) => {
-    const parsedURL = exports.getParsedURL({
-        apiEndpoint,
-        type,
-        limit,
-        cursor,
-        withoutOnliveInfo,
-    });
-    return cacheManager_service_1.handleCacheStrategy({
-        cacheStrategy,
-        apiCallback: getLBDataCallback({
-            apiEndpoint,
-            type,
-            limit,
-            cursor,
-            withoutOnliveInfo,
-            cancelToken,
-            eventoryApi,
-        }),
-        url: parsedURL,
-    });
-};
-const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, callback, preData = [], }) => __awaiter(void 0, void 0, void 0, function* () {
+const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, callback, preData = [], strategy, }) => __awaiter(void 0, void 0, void 0, function* () {
     const eventoryApi = axios_1.getInstanceEventory();
     if (!withoutOnliveInfo) {
         const responseHandler = (response) => response;
@@ -107,16 +85,25 @@ const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', 
         eventoryApi.defaults.timeout = CANCEL_TIME_OUT;
         eventoryApi.interceptors.response.use(responseHandler, errorHandler);
     }
-    const { cacheStrategy } = cacheManager_service_1.getApiUrlStrategy(endpoint, cacheManager_service_1.HttpMethod.GET);
-    const { data: responseData } = yield cachedApiData({
-        cacheStrategy,
+    const parsedURL = exports.getParsedURL({
         apiEndpoint: endpoint,
         type,
         limit,
         cursor,
         withoutOnliveInfo,
-        cancelToken,
-        eventoryApi,
+    });
+    const { data: responseData } = yield cacheManager_service_1.handleCacheStrategy({
+        cacheStrategy: strategy,
+        apiCallback: getLBDataCallback({
+            apiEndpoint: endpoint,
+            type,
+            limit,
+            cursor,
+            withoutOnliveInfo,
+            cancelToken,
+            eventoryApi,
+        }),
+        url: parsedURL,
     });
     const { nextCursor, data = [] } = responseData;
     const currentData = [...preData, ...data];
@@ -131,6 +118,7 @@ const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', 
             withoutOnliveInfo,
             callback,
             preData: currentData,
+            strategy,
         };
         const nextData = yield exports.getLeaderboardEventory(nextPayload);
         return [...data, ...nextData];
