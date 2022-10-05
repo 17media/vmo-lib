@@ -12,6 +12,9 @@ export enum CacheStrategy {
   /** Only get data from the network, no data will be cached. */
   NETWORK_ONLY = 'networkOnly',
   NETWORK_FIRST = 'networkFirst',
+  CACHE_ONLY = 'cacheOnly',
+  /** Get data from the network, data will be cached, but will not return cache. */
+  NETWORK_THEN_SET_CACHE = 'networkThenSetCache',
 }
 
 export enum HttpMethod {
@@ -24,7 +27,7 @@ const cacheWhitelists = [
   {
     path: '/leaderboards/eventory',
     method: HttpMethod.GET,
-    cacheStrategy: CacheStrategy.NETWORK_FIRST,
+    cacheStrategy: CacheStrategy.CACHE_THEN_NETWORK,
   },
 ];
 
@@ -185,6 +188,19 @@ export const handleNetworkFirst = async <T = any>(
   }
 };
 
+export const handleNetworkThenSetCache = async <T = any>(
+  apiCallback: Promise<AxiosResponse<T>>,
+  url: string,
+) => {
+  const apiRes = await handleCallback(apiCallback);
+  if (apiRes.data) {
+    setAxiosCache(url, apiRes.data);
+    return apiRes.data;
+  }
+
+  if (apiRes.error) throw apiRes.error;
+};
+
 export const handleNetworkOnly = async <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
 ) => {
@@ -192,6 +208,45 @@ export const handleNetworkOnly = async <T = any>(
   if (apiRes.data) return apiRes.data;
   if (apiRes.error) throw apiRes.error;
 };
+
+export const handleCacheOnly = async (url: string) => {
+  const cacheRes = await getLatestCache(url);
+  if (cacheRes.cache) return cacheRes.cache;
+  if (cacheRes.error) console.error(cacheRes.error);
+};
+
+export const handleCacheThenNetwork = async <T = any>(
+  apiCallback: Promise<AxiosResponse<T>>,
+  url: string,
+) => {
+  const cacheRes = await getLatestCache(url);
+  const callback = new Promise<FulfillFormat<T>>((resolve, reject) => {
+    (async () => {
+      const apiRes = await handleCallback(apiCallback);
+      if (apiRes.data) {
+        setAxiosCache(url, apiRes.data);
+        resolve({ data: apiRes.data, cache: cacheRes.cache });
+      }
+      if (apiRes.error && cacheRes.cache) {
+        resolve({ cache: cacheRes.cache, error: apiRes.error });
+      }
+      reject(apiRes.error);
+    })();
+  });
+  return handleResponse(cacheRes.cache, callback);
+};
+export interface HandleCacheStrategyResponse<T = any> {
+  data: T;
+  callback?: Promise<FulfillFormat<T>>;
+}
+
+const handleResponse = <T = any>(
+  data: T,
+  callback?: Promise<FulfillFormat<T>>,
+): HandleCacheStrategyResponse<T> => ({
+  data,
+  callback,
+});
 
 interface HandleCacheStrategyParams<T> {
   cacheStrategy: CacheStrategy;
@@ -206,6 +261,9 @@ export const handleCacheStrategy = <T = any>({
 }: HandleCacheStrategyParams<T>) => {
   if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
     return handleNetworkFirst<T>(apiCallback, url);
+  }
+  if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
+    return handleCacheThenNetwork<T>(apiCallback, url);
   }
   return handleNetworkOnly<T>(apiCallback);
 };
