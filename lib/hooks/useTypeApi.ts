@@ -49,8 +49,7 @@ export const useTypeApi = (
     apiList.map(() => axios.CancelToken.source()),
   );
   const isFirstInit = useRef(true);
-  const [loading, setLoading] = useState(false);
-  const [polling, setPolling] = useState(false);
+
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
   const [cacheData, setCacheData] = useState<User[][]>([]);
@@ -71,6 +70,10 @@ export const useTypeApi = (
   const shouldDelayRef = useRef(false);
 
   const hasInitCacheRef = useRef(false);
+
+  const loadingRef = useRef(false);
+
+  const pollingRef = useRef(false);
 
   const { cacheStrategy } = useMemo(
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
@@ -95,9 +98,9 @@ export const useTypeApi = (
         .filter(Boolean);
       if (apiPromiseList.length > 0) {
         if (isFirstInit.current) {
-          setLoading(true);
+          loadingRef.current = true;
         } else {
-          setPolling(true);
+          pollingRef.current = true;
         }
         let nextOptions: any[] = [];
         try {
@@ -122,7 +125,7 @@ export const useTypeApi = (
             );
 
             if (isFirstInit.current && hasInitCacheRef.current) {
-              setLoading(false);
+              loadingRef.current = false;
             }
 
             // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
@@ -211,8 +214,8 @@ export const useTypeApi = (
         } catch (error) {
           setRequestError(error);
         } finally {
-          setPolling(false);
-          setLoading(false);
+          loadingRef.current = false;
+          pollingRef.current = false;
           isFirstInit.current = false;
           if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
             setOptions(nextOptions);
@@ -273,42 +276,30 @@ export const useTypeApi = (
 
   // 當需要取得更多資料時，使用最新的options重新執行getLeaderboardData
   useEffect(() => {
-    if (loading || polling || suspend) return;
+    if (loadingRef.current || pollingRef.current || suspend) return;
     const hasMore = options.find(option => option.cursor);
-    if (!polling && !loading && hasMore) {
+    if (hasMore) {
       getLeaderboardData(apiList, cacheStrategy);
     }
-  }, [
-    apiList,
-    cacheStrategy,
-    getLeaderboardData,
-    loading,
-    options,
-    polling,
-    suspend,
-  ]);
+  }, [options, apiList, cacheStrategy, getLeaderboardData, suspend]);
 
   // 重複取得LB資料
   useEffect(() => {
-    if (loading || polling || suspend) return;
-    if (!polling && realTime > 0) {
+    if (loadingRef.current || pollingRef.current || suspend) return;
+    if (!pollingRef.current && realTime > 0) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
       timeoutKey.current = window.setTimeout(
         () => getLeaderboardData(apiList, cacheStrategy),
         realTime,
       );
     }
-  }, [
-    apiList,
-    cacheStrategy,
-    getLeaderboardData,
-    loading,
-    polling,
-    realTime,
-    suspend,
-    options,
-  ]);
-  return { loading, polling, requestError, leaderboardData };
+  }, [apiList, cacheStrategy, getLeaderboardData, realTime, suspend, options]);
+  return {
+    loading: loadingRef.current,
+    polling: pollingRef.current,
+    requestError,
+    leaderboardData,
+  };
 };
 
 export default useTypeApi;
