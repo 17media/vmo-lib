@@ -70,6 +70,8 @@ export const useTypeApi = (
 
   const shouldDelayRef = useRef(false);
 
+  const hasInitCacheRef = useRef(false);
+
   const { cacheStrategy } = useMemo(
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
     [],
@@ -98,6 +100,7 @@ export const useTypeApi = (
         .filter(Boolean);
 
       if (apiPromiseList.length > 0) {
+        let nextOptions: any[] = [];
         try {
           const results = await Promise.all(apiPromiseList);
 
@@ -112,16 +115,15 @@ export const useTypeApi = (
                   if (pre[index]) {
                     return [...pre[index], ...nextCache];
                   }
+                  hasInitCacheRef.current = true;
                   return nextCache;
                 }
                 return [];
               }),
             );
 
-            if (isFirstInit.current) {
+            if (isFirstInit.current && hasInitCacheRef.current) {
               setLoading(false);
-            } else {
-              setPolling(false);
             }
 
             // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
@@ -192,7 +194,7 @@ export const useTypeApi = (
               );
             }
 
-            const nextOptions = callbackResponses.map(callbackRes => {
+            nextOptions = callbackResponses.map(callbackRes => {
               const cursor = isFirstInitErrorRef.current
                 ? callbackRes.cache.data.nextCursor
                 : callbackRes.data.data.nextCursor;
@@ -204,10 +206,6 @@ export const useTypeApi = (
                 noMore: !cursor,
               };
             });
-
-            if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
-              setOptions(nextOptions);
-            }
           } else {
             setLeaderboardData(results.map(result => result.data.data.data));
           }
@@ -217,6 +215,9 @@ export const useTypeApi = (
           setPolling(false);
           setLoading(false);
           isFirstInit.current = false;
+          if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
+            setOptions(nextOptions);
+          }
         }
       }
     },
@@ -224,7 +225,6 @@ export const useTypeApi = (
   );
 
   const cancelAll = () => {
-    console.log('cancel all');
     source.current.map(s => s.cancel());
   };
 
@@ -251,14 +251,18 @@ export const useTypeApi = (
     }
   }, [networkData, cacheData]);
 
+  // init load
   useEffect(() => {
-    if (!polling && !loading) {
+    getLeaderboardData(apiList, cacheStrategy);
+  }, []);
+
+  useEffect(() => {
+    if (loading && polling) return;
+    const hasMore = options.find(option => option.cursor);
+    if (!polling && !loading && hasMore) {
       getLeaderboardData(apiList, cacheStrategy);
-      return () => {
-        if (polling || loading) cancelAll();
-      };
     }
-  }, [options]);
+  }, [apiList, cacheStrategy, getLeaderboardData, loading, options, polling]);
 
   useEffect(() => {
     if (reload) {
