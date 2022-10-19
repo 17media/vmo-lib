@@ -80,14 +80,9 @@ export const useTypeApi = (
   const getLeaderboardData = useCallback(
     async (apis: APIType[] = [], strategy: CacheStrategy) => {
       setRequestError(null);
-      if (isFirstInit.current) {
-        setLoading(true);
-      } else {
-        setPolling(true);
-      }
       const apiPromiseList = apis
         .map((type: APIType, index) => {
-          if (options[index].noMore) return null;
+          if (options[index].noMore && realTime <= 0) return null;
           return getLeaderboardEventory({
             type,
             cancelToken: source.current[index]!.token,
@@ -98,8 +93,12 @@ export const useTypeApi = (
           });
         })
         .filter(Boolean);
-
       if (apiPromiseList.length > 0) {
+        if (isFirstInit.current) {
+          setLoading(true);
+        } else {
+          setPolling(true);
+        }
         let nextOptions: any[] = [];
         try {
           const results = await Promise.all(apiPromiseList);
@@ -221,12 +220,28 @@ export const useTypeApi = (
         }
       }
     },
-    [apiList.length, cacheStrategy, opt.limit, opt.withoutOnliveInfo, options],
+    [
+      apiList.length,
+      cacheStrategy,
+      opt.limit,
+      opt.withoutOnliveInfo,
+      options,
+      realTime,
+    ],
   );
 
   const cancelAll = () => {
     source.current.map(s => s.cancel());
   };
+
+  /**
+   * 讀到一半斷網：重新執行 geLeaderboardData
+   * */
+  useEffect(() => {
+    if (reload) {
+      getLeaderboardData(apiList, cacheStrategy);
+    }
+  }, [apiList, cacheStrategy, getLeaderboardData, reload]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -251,30 +266,31 @@ export const useTypeApi = (
     }
   }, [networkData, cacheData]);
 
-  // init load
+  // init getLeaderboardData
   useEffect(() => {
     getLeaderboardData(apiList, cacheStrategy);
   }, []);
 
+  // 當需要取得更多資料時，使用最新的options重新執行getLeaderboardData
   useEffect(() => {
-    if (loading && polling) return;
+    if (loading || polling || suspend) return;
     const hasMore = options.find(option => option.cursor);
     if (!polling && !loading && hasMore) {
       getLeaderboardData(apiList, cacheStrategy);
     }
-  }, [apiList, cacheStrategy, getLeaderboardData, loading, options, polling]);
+  }, [
+    apiList,
+    cacheStrategy,
+    getLeaderboardData,
+    loading,
+    options,
+    polling,
+    suspend,
+  ]);
 
+  // 重複取得LB資料
   useEffect(() => {
-    if (reload) {
-      getLeaderboardData(apiList, cacheStrategy);
-    }
-  }, [apiList, cacheStrategy, getLeaderboardData, reload]);
-
-  // 取得LB資料
-  useEffect(() => {
-    if (suspend) return;
-    if (loading) return;
-    if (polling) return;
+    if (loading || polling || suspend) return;
     if (!polling && realTime > 0) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
       timeoutKey.current = window.setTimeout(
