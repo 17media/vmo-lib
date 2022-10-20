@@ -112,7 +112,7 @@ export const useTypeApi = (
              * */
             setCacheData(pre =>
               results.map((result, index) => {
-                if (result.data) {
+                if (result.data?.data?.data) {
                   const nextCache = [...result.data.data.data];
                   if (pre[index]) {
                     return [...pre[index], ...nextCache];
@@ -165,7 +165,7 @@ export const useTypeApi = (
             ) {
               setNetworkData(pre =>
                 callbackResponses.map((callbackRes, index) => {
-                  if (callbackRes.data) {
+                  if (callbackRes.data?.data?.data) {
                     const nextData = [...callbackRes.data.data.data];
                     if (pre[index]) {
                       return [...pre[index], ...nextData];
@@ -184,7 +184,7 @@ export const useTypeApi = (
             if (isFirstInitErrorRef.current) {
               setNetworkData(pre =>
                 callbackResponses.map((callbackRes, index) => {
-                  if (callbackRes.cache) {
+                  if (callbackRes.cache?.data?.data) {
                     const nextCache = [...callbackRes.cache.data.data];
                     if (pre[index]) {
                       return [...pre[index], ...nextCache];
