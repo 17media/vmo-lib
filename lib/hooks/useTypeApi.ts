@@ -75,6 +75,8 @@ export const useTypeApi = (
 
   const pollingRef = useRef(false);
 
+  const shouldSetRefreshCacheRef = useRef(true);
+
   const { cacheStrategy } = useMemo(
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
     [],
@@ -92,19 +94,20 @@ export const useTypeApi = (
            * 3. 重複讀取(realTime >0): 不管上次回傳結果為何，都需要再一次的使用同一次api promise
            * 其他情況都不需要api promise，回傳null，最後會filter掉
            * */
-          if (isFirstInit.current || options[index].cursor || realTime > 0) {
+          if (isFirstInit.current || options[index]?.cursor || realTime > 0) {
             return getLeaderboardEventory({
               type,
               cancelToken: source.current[index]!.token,
-              limit: options[index].limit,
-              cursor: options[index].cursor,
-              withoutOnliveInfo: options[index].withoutOnliveInfo,
+              limit: options[index]?.limit,
+              cursor: options[index]?.cursor,
+              withoutOnliveInfo: options[index]?.withoutOnliveInfo,
               strategy,
             });
           }
           return null;
         })
         .filter(Boolean);
+
       if (apiPromiseList.length > 0) {
         if (isFirstInit.current) {
           loadingRef.current = true;
@@ -241,14 +244,9 @@ export const useTypeApi = (
     ],
   );
 
-  const cancelAll = () => {
-    source.current.map(s => s.cancel());
-  };
-
   const refresh = useCallback(() => {
     setCacheData([]);
     setNetworkData([]);
-    // setLeaderboardData([]);
     getLeaderboardData(apiList, cacheStrategy);
   }, [apiList, cacheStrategy, getLeaderboardData]);
 
@@ -277,12 +275,28 @@ export const useTypeApi = (
   }, []);
 
   useEffect(() => {
-    if (networkData && networkData.length) {
-      setLeaderboardData(networkData);
+    const canSetNetworkData = networkData.some(data => data.length > 0);
+
+    if (realTime <= 0) {
+      if (canSetNetworkData) {
+        setLeaderboardData(networkData);
+      } else {
+        setLeaderboardData(cacheData);
+      }
     } else {
-      setLeaderboardData(cacheData);
+      const finishedAll = options.every(option => !option.cursor);
+      const canSetCacheData = cacheData.some(data => data.length > 0);
+      if (canSetCacheData && shouldSetRefreshCacheRef.current) {
+        setLeaderboardData(cacheData);
+        shouldSetRefreshCacheRef.current = false;
+      }
+
+      if (finishedAll && !pollingRef.current && canSetNetworkData) {
+        setLeaderboardData(networkData);
+        shouldSetRefreshCacheRef.current = false;
+      }
     }
-  }, [networkData, cacheData]);
+  }, [networkData, cacheData, options, realTime, apiList]);
 
   // init getLeaderboardData
   useEffect(() => {
@@ -314,6 +328,7 @@ export const useTypeApi = (
     options,
     refresh,
   ]);
+
   return {
     loading: loadingRef.current,
     polling: pollingRef.current,
