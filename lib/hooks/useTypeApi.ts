@@ -75,6 +75,10 @@ export const useTypeApi = (
 
   const pollingRef = useRef(false);
 
+  const finishedRef = useRef(false);
+
+  const reloadCount = useRef(0);
+
   const shouldSetRefreshCacheRef = useRef(true);
 
   const { cacheStrategy } = useMemo(
@@ -109,6 +113,8 @@ export const useTypeApi = (
         .filter(Boolean);
 
       if (apiPromiseList.length > 0) {
+        finishedRef.current = false;
+
         if (isFirstInit.current) {
           loadingRef.current = true;
         } else {
@@ -231,6 +237,7 @@ export const useTypeApi = (
           if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
             setOptions(nextOptions);
           }
+          finishedRef.current = true;
         }
       }
     },
@@ -275,6 +282,21 @@ export const useTypeApi = (
   }, []);
 
   useEffect(() => {
+    const canSetLeaderboardData = networkData?.every((data, index) => {
+      const cursor = options[index]?.cursor;
+      if (cursor) {
+        const [timestampCursor] = (cursor as string).split('-', 1);
+        const [totalCount, start, shardSize] = timestampCursor
+          .split(':')
+          .slice(1);
+        return data.length === +totalCount;
+      }
+      return data.length === 0;
+    });
+    if (canSetLeaderboardData) reloadCount.current += 1;
+  }, [networkData, options]);
+
+  useEffect(() => {
     const canSetNetworkData = networkData.some(data => data.length > 0);
 
     if (realTime <= 0) {
@@ -285,15 +307,20 @@ export const useTypeApi = (
       }
     } else {
       const finishedAll = options.every(option => !option.cursor);
-      const canSetCacheData = cacheData.some(data => data.length > 0);
-      if (canSetCacheData && shouldSetRefreshCacheRef.current) {
-        setLeaderboardData(cacheData);
-        shouldSetRefreshCacheRef.current = false;
+      if (reloadCount.current === 1) {
+        if (canSetNetworkData) {
+          setLeaderboardData(networkData);
+        } else {
+          setLeaderboardData(cacheData);
+        }
       }
-
-      if (finishedAll && !pollingRef.current && canSetNetworkData) {
+      if (
+        reloadCount.current > 1 &&
+        finishedAll &&
+        finishedRef.current &&
+        canSetNetworkData
+      ) {
         setLeaderboardData(networkData);
-        shouldSetRefreshCacheRef.current = false;
       }
     }
   }, [networkData, cacheData, options, realTime, apiList]);
