@@ -85,15 +85,24 @@ export const useTypeApi = (
       setRequestError(null);
       const apiPromiseList = apis
         .map((type: APIType, index) => {
-          if (options[index].noMore && realTime <= 0) return null;
-          return getLeaderboardEventory({
-            type,
-            cancelToken: source.current[index]!.token,
-            limit: options[index].limit,
-            cursor: options[index].cursor,
-            withoutOnliveInfo: options[index].withoutOnliveInfo,
-            strategy,
-          });
+          /**
+           * 有3種情況會有下一次的 api promise
+           * 1. 第一次讀取
+           * 2. 還未讀取完成，有回傳cursor
+           * 3. 重複讀取(realTime >0): 不管上次回傳結果為何，都需要再一次的使用同一次api promise
+           * 其他情況都不需要api promise，回傳null，最後會filter掉
+           * */
+          if (isFirstInit.current || options[index].cursor || realTime > 0) {
+            return getLeaderboardEventory({
+              type,
+              cancelToken: source.current[index]!.token,
+              limit: options[index].limit,
+              cursor: options[index].cursor,
+              withoutOnliveInfo: options[index].withoutOnliveInfo,
+              strategy,
+            });
+          }
+          return null;
         })
         .filter(Boolean);
       if (apiPromiseList.length > 0) {
@@ -205,7 +214,6 @@ export const useTypeApi = (
                 limit: opt.limit,
                 cursor,
                 withoutOnliveInfo: opt.withoutOnliveInfo,
-                noMore: !cursor,
               };
             });
           } else {
@@ -236,6 +244,13 @@ export const useTypeApi = (
   const cancelAll = () => {
     source.current.map(s => s.cancel());
   };
+
+  const refresh = useCallback(() => {
+    setCacheData([]);
+    setNetworkData([]);
+    // setLeaderboardData([]);
+    getLeaderboardData(apiList, cacheStrategy);
+  }, [apiList, cacheStrategy, getLeaderboardData]);
 
   /**
    * 讀到一半斷網：重新執行 geLeaderboardData
@@ -288,12 +303,17 @@ export const useTypeApi = (
     if (loadingRef.current || pollingRef.current || suspend) return;
     if (!pollingRef.current && realTime > 0) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
-      timeoutKey.current = window.setTimeout(
-        () => getLeaderboardData(apiList, cacheStrategy),
-        realTime,
-      );
+      timeoutKey.current = window.setTimeout(refresh, realTime);
     }
-  }, [apiList, cacheStrategy, getLeaderboardData, realTime, suspend, options]);
+  }, [
+    apiList,
+    cacheStrategy,
+    getLeaderboardData,
+    realTime,
+    suspend,
+    options,
+    refresh,
+  ]);
   return {
     loading: loadingRef.current,
     polling: pollingRef.current,
