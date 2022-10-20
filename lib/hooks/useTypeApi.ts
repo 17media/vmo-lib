@@ -282,18 +282,18 @@ export const useTypeApi = (
   }, []);
 
   useEffect(() => {
-    const canSetLeaderboardData = networkData?.every((data, index) => {
-      const cursor = options[index]?.cursor;
-      if (cursor) {
-        const [timestampCursor] = (cursor as string).split('-', 1);
-        const [totalCount, start, shardSize] = timestampCursor
-          .split(':')
-          .slice(1);
-        return data.length === +totalCount;
-      }
-      return data.length === 0;
-    });
-    if (canSetLeaderboardData) reloadCount.current += 1;
+    const finishedRetrievedAllNetworkData = networkData?.every(
+      (data, index) => {
+        const cursor = options[index]?.cursor;
+        if (cursor) {
+          const [timestampCursor] = (cursor as string).split('-', 1);
+          const totalCount = timestampCursor.split(':').slice(1)[0];
+          return data.length === +totalCount;
+        }
+        return data.length === 0;
+      },
+    );
+    if (finishedRetrievedAllNetworkData) reloadCount.current += 1;
   }, [networkData, options]);
 
   useEffect(() => {
