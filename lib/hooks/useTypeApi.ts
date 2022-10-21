@@ -7,7 +7,7 @@ import {
   getApiUrlStrategy,
   HttpMethod,
 } from '../service/cacheManager.service';
-import { User } from '../types';
+import { User, Option } from '../types';
 
 const endpoint = `/v1/leaderboards/eventory`;
 
@@ -49,7 +49,7 @@ export const useTypeApi = (
   const [networkData, setNetworkData] = useState<User[][]>([]);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
-  const [options, setOptions] = useState<any[]>(
+  const [options, setOptions] = useState<Option[]>(
     apiList.map(() => ({
       limit: opt.limit,
       cursor: opt.cursor,
@@ -113,7 +113,7 @@ export const useTypeApi = (
         } else {
           pollingRef.current = true;
         }
-        let nextOptions: any[] = [];
+        let nextOptions: Option[] = [];
         try {
           const results = await Promise.all(apiPromiseList);
 
