@@ -48,7 +48,7 @@ export const useTypeApi = (
   const source = useRef<CancelTokenSource[]>(
     apiList.map(() => axios.CancelToken.source()),
   );
-  const isFirstInit = useRef(true);
+  const isFirstInitRef = useRef(true);
 
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
@@ -75,11 +75,9 @@ export const useTypeApi = (
 
   const pollingRef = useRef(false);
 
-  const finishedRef = useRef(false);
+  const finishedGetLBProcessRef = useRef(false);
 
   const reloadCount = useRef(0);
-
-  const shouldSetRefreshCacheRef = useRef(true);
 
   const { cacheStrategy } = useMemo(
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
@@ -98,7 +96,11 @@ export const useTypeApi = (
            * 3. 重複讀取(realTime >0): 不管上次回傳結果為何，都需要再一次的使用同一次api promise
            * 其他情況都不需要api promise，回傳null，最後會filter掉
            * */
-          if (isFirstInit.current || options[index]?.cursor || realTime > 0) {
+          if (
+            isFirstInitRef.current ||
+            options[index]?.cursor ||
+            realTime > 0
+          ) {
             return getLeaderboardEventory({
               type,
               cancelToken: source.current[index]!.token,
@@ -113,9 +115,9 @@ export const useTypeApi = (
         .filter(Boolean);
 
       if (apiPromiseList.length > 0) {
-        finishedRef.current = false;
+        finishedGetLBProcessRef.current = false;
 
-        if (isFirstInit.current) {
+        if (isFirstInitRef.current) {
           loadingRef.current = true;
         } else {
           pollingRef.current = true;
@@ -142,7 +144,7 @@ export const useTypeApi = (
               }),
             );
 
-            if (isFirstInit.current && hasInitCacheRef.current) {
+            if (isFirstInitRef.current && hasInitCacheRef.current) {
               loadingRef.current = false;
             }
 
@@ -159,7 +161,7 @@ export const useTypeApi = (
             const callbacksError = callbackResponses.some(
               callbackRes => callbackRes.error,
             );
-            if (callbacksError && isFirstInit.current) {
+            if (callbacksError && isFirstInitRef.current) {
               isFirstInitErrorRef.current = true;
             }
 
@@ -233,11 +235,11 @@ export const useTypeApi = (
         } finally {
           loadingRef.current = false;
           pollingRef.current = false;
-          isFirstInit.current = false;
+          isFirstInitRef.current = false;
           if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
             setOptions(nextOptions);
           }
-          finishedRef.current = true;
+          finishedGetLBProcessRef.current = true;
         }
       }
     },
@@ -284,16 +286,23 @@ export const useTypeApi = (
   useEffect(() => {
     const finishedRetrievedAllNetworkData = networkData?.every(
       (data, index) => {
-        const cursor = options[index]?.cursor;
-        if (cursor) {
-          const [timestampCursor] = (cursor as string).split('-', 1);
-          const totalCount = timestampCursor.split(':').slice(1)[0];
-          return data.length === +totalCount;
+        // 需要確保option已經被設定完成
+        if (finishedGetLBProcessRef.current) {
+          const cursor = options[index]?.cursor;
+          // 有cursor時，看回傳的network資料長度是不是已經達到total count，達到代表以經將此次的資料讀取完成
+          if (cursor) {
+            const [timestampCursor] = (cursor as string).split('-', 1);
+            const totalCount = timestampCursor.split(':').slice(1)[0];
+            return networkData[index].length === +totalCount;
+          }
+          // 沒有cursor時，表示單次api就可以取得完成，直接回傳true
+          return true;
         }
-        return data.length === 0;
+        return false;
       },
     );
-    if (finishedRetrievedAllNetworkData) reloadCount.current += 1;
+    if (finishedRetrievedAllNetworkData && networkData.length > 0)
+      reloadCount.current += 1;
   }, [networkData, options]);
 
   useEffect(() => {
@@ -307,7 +316,7 @@ export const useTypeApi = (
       }
     } else {
       const finishedAll = options.every(option => !option.cursor);
-      if (reloadCount.current === 1) {
+      if (reloadCount.current === 0) {
         if (canSetNetworkData) {
           setLeaderboardData(networkData);
         } else {
@@ -315,9 +324,9 @@ export const useTypeApi = (
         }
       }
       if (
-        reloadCount.current > 1 &&
+        reloadCount.current > 0 &&
         finishedAll &&
-        finishedRef.current &&
+        finishedGetLBProcessRef.current &&
         canSetNetworkData
       ) {
         setLeaderboardData(networkData);
