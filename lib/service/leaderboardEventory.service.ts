@@ -172,42 +172,7 @@ export const getLeaderboardEventory = async ({
     }),
     url: parsedURL,
   });
-
-  // const { nextCursor, data = [] } = responseData;
-  // const currentData = [...preData, ...data];
-
-  // if (callback) callback(currentData);
-
-  // if (nextCursor) {
-  //   const nextPayload = {
-  //     type,
-  //     cancelToken,
-  //     limit,
-  //     cursor: nextCursor,
-  //     withoutOnliveInfo,
-  //     callback,
-  //     preData: currentData,
-  //     strategy,
-  //   };
-  //   const nextData = await getLeaderboardEventory(nextPayload);
-
-  //   return [...data, ...nextData];
-  // }
-
   return responseData;
 };
-
-interface Payload {
-  containerID: string;
-  count: string;
-  cursor: string;
-  withoutOnliveInfo: boolean;
-}
-
-interface ServiceParams {
-  cancelToken: CancelToken;
-  params: Payload;
-  headers: Record<string, any>;
-}
 
 export default getLeaderboardEventory;
