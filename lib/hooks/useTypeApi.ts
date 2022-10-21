@@ -43,18 +43,12 @@ export const useTypeApi = (
     withoutOnliveInfo: false,
   },
 ) => {
-  const timeoutKey = useRef(0);
-  const timeoutKeyForFetch = useRef(0);
-  const source = useRef<CancelTokenSource[]>(
-    apiList.map(() => axios.CancelToken.source()),
-  );
-  const isFirstInitRef = useRef(true);
-
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
   const [cacheData, setCacheData] = useState<User[][]>([]);
   const [networkData, setNetworkData] = useState<User[][]>([]);
   const [suspend, setSuspend] = useState(false);
+  const [reload, setReload] = useState(false);
   const [options, setOptions] = useState<any[]>(
     apiList.map(() => ({
       limit: opt.limit,
@@ -63,21 +57,18 @@ export const useTypeApi = (
     })),
   );
 
-  const [reload, setReload] = useState(false);
-
+  const timeoutKey = useRef(0);
+  const source = useRef<CancelTokenSource[]>(
+    apiList.map(() => axios.CancelToken.source()),
+  );
+  const isFirstInitRef = useRef(true);
   const isFirstInitErrorRef = useRef(false);
-
   const shouldDelayRef = useRef(false);
-
   const hasInitCacheRef = useRef(false);
-
   const loadingRef = useRef(false);
-
   const pollingRef = useRef(false);
-
   const finishedGetLBProcessRef = useRef(false);
-
-  const reloadCount = useRef(0);
+  const reacquireCount = useRef(0);
 
   const { cacheStrategy } = useMemo(
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
@@ -283,6 +274,7 @@ export const useTypeApi = (
     };
   }, []);
 
+  // 計數每次重新取得全部資料
   useEffect(() => {
     const finishedRetrievedAllNetworkData = networkData?.every(
       (data, index) => {
@@ -302,12 +294,13 @@ export const useTypeApi = (
       },
     );
     if (finishedRetrievedAllNetworkData && networkData.length > 0)
-      reloadCount.current += 1;
+      reacquireCount.current += 1;
   }, [networkData, options]);
 
   useEffect(() => {
     const canSetNetworkData = networkData.some(data => data.length > 0);
 
+    // 全部資料只取1次(不需自動重發api更新資料)
     if (realTime <= 0) {
       if (canSetNetworkData) {
         setLeaderboardData(networkData);
@@ -315,16 +308,19 @@ export const useTypeApi = (
         setLeaderboardData(cacheData);
       }
     } else {
+      // 全部資料按時間重新取得(需自動重發api更新資料)
       const finishedAll = options.every(option => !option.cursor);
-      if (reloadCount.current === 0) {
+      // 當首次還未取得全部資料時，讓資料慢慢更新上畫面
+      if (reacquireCount.current === 0) {
         if (canSetNetworkData) {
           setLeaderboardData(networkData);
         } else {
           setLeaderboardData(cacheData);
         }
       }
+      // 當已經取得全部資料時，等資料全部拿完之後再一起更新
       if (
-        reloadCount.current > 0 &&
+        reacquireCount.current > 0 &&
         finishedAll &&
         finishedGetLBProcessRef.current &&
         canSetNetworkData
