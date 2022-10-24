@@ -113,7 +113,7 @@ export const useTypeApi = (
       if (apiPromiseList.length > 0) {
         finishedGetLBProcessRef.current = false;
 
-        if (isFirstInitRef.current) {
+        if (isFirstInitRef.current && reacquireCount.current < 1) {
           loadingRef.current = true;
         } else {
           pollingRef.current = true;
@@ -268,6 +268,8 @@ export const useTypeApi = (
   const refresh = useCallback(() => {
     setCacheData(apiList.map(() => []));
     setNetworkData(apiList.map(() => []));
+    isFirstInitRef.current = true;
+    isFirstInitErrorRef.current = false;
     getLeaderboardData(apiList, cacheStrategy);
   }, [apiList, cacheStrategy, getLeaderboardData]);
 
