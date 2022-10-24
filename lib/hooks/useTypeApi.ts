@@ -128,7 +128,9 @@ export const useTypeApi = (
              * */
             setCacheData(pre =>
               pre.map((preResult, index) => {
-                const findIndex = requestApiIndex.findIndex(i => i === index);
+                const findIndex = requestApiIndex.findIndex(
+                  targetIndex => index === targetIndex,
+                );
                 if (findIndex >= 0 && results[findIndex].data?.data?.data) {
                   hasInitCacheRef.current = true;
                   const nextCache = [...results[findIndex].data.data.data];
@@ -179,7 +181,9 @@ export const useTypeApi = (
             ) {
               setNetworkData(pre =>
                 pre.map((preResult, index) => {
-                  const findIndex = requestApiIndex.findIndex(i => i === index);
+                  const findIndex = requestApiIndex.findIndex(
+                    targetIndex => index === targetIndex,
+                  );
                   if (
                     findIndex >= 0 &&
                     callbackResponses[findIndex].data?.data?.data
@@ -201,7 +205,9 @@ export const useTypeApi = (
             if (isFirstInitErrorRef.current) {
               setNetworkData(pre =>
                 pre.map((preResult, index) => {
-                  const findIndex = requestApiIndex.findIndex(i => i === index);
+                  const findIndex = requestApiIndex.findIndex(
+                    targetIndex => index === targetIndex,
+                  );
                   if (
                     findIndex >= 0 &&
                     callbackResponses[findIndex].cache?.data?.data
@@ -217,7 +223,9 @@ export const useTypeApi = (
             }
 
             nextOptions = options.map((option, index) => {
-              const findIndex = requestApiIndex.findIndex(i => i === index);
+              const findIndex = requestApiIndex.findIndex(
+                targetIndex => index === targetIndex,
+              );
               if (findIndex >= 0) {
                 const cursor = isFirstInitErrorRef.current
                   ? callbackResponses[findIndex].cache.data.nextCursor
