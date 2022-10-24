@@ -45,8 +45,10 @@ export const useTypeApi = (
 ) => {
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
-  const [cacheData, setCacheData] = useState<User[][]>([]);
-  const [networkData, setNetworkData] = useState<User[][]>([]);
+  const [cacheData, setCacheData] = useState<User[][]>(apiList.map(() => []));
+  const [networkData, setNetworkData] = useState<User[][]>(
+    apiList.map(() => []),
+  );
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
   const [options, setOptions] = useState<Option[]>(
@@ -78,6 +80,8 @@ export const useTypeApi = (
   const getLeaderboardData = useCallback(
     async (apis: APIType[] = [], strategy: CacheStrategy) => {
       setRequestError(null);
+
+      let requestApiIndex: number[] = [];
       const apiPromiseList = apis
         .map((type: APIType, index) => {
           /**
@@ -92,6 +96,7 @@ export const useTypeApi = (
             options[index]?.cursor ||
             realTime > 0
           ) {
+            requestApiIndex = [...requestApiIndex, index];
             return getLeaderboardEventory({
               type,
               cancelToken: source.current[index]!.token,
@@ -122,14 +127,12 @@ export const useTypeApi = (
              * 首筆資料一定是先使用 cache，之後的資料是看 callbackResponses 回應模式
              * */
             setCacheData(pre =>
-              results.map((result, index) => {
-                if (result.data?.data?.data) {
-                  const nextCache = [...result.data.data.data];
-                  if (pre[index]) {
-                    return [...pre[index], ...nextCache];
-                  }
+              pre.map((preResult, index) => {
+                const findIndex = requestApiIndex.findIndex(i => i === index);
+                if (findIndex >= 0 && results[findIndex].data?.data?.data) {
                   hasInitCacheRef.current = true;
-                  return nextCache;
+                  const nextCache = [...results[findIndex].data.data.data];
+                  return [...preResult, ...nextCache];
                 }
                 return [];
               }),
@@ -175,13 +178,16 @@ export const useTypeApi = (
               !isFirstInitErrorRef.current
             ) {
               setNetworkData(pre =>
-                callbackResponses.map((callbackRes, index) => {
-                  if (callbackRes.data?.data?.data) {
-                    const nextData = [...callbackRes.data.data.data];
-                    if (pre[index]) {
-                      return [...pre[index], ...nextData];
-                    }
-                    return nextData;
+                pre.map((preResult, index) => {
+                  const findIndex = requestApiIndex.findIndex(i => i === index);
+                  if (
+                    findIndex >= 0 &&
+                    callbackResponses[findIndex].data?.data?.data
+                  ) {
+                    const nextData = [
+                      ...callbackResponses[findIndex].data.data.data,
+                    ];
+                    return [...preResult, ...nextData];
                   }
                   return [];
                 }),
@@ -194,29 +200,36 @@ export const useTypeApi = (
              * */
             if (isFirstInitErrorRef.current) {
               setNetworkData(pre =>
-                callbackResponses.map((callbackRes, index) => {
-                  if (callbackRes.cache?.data?.data) {
-                    const nextCache = [...callbackRes.cache.data.data];
-                    if (pre[index]) {
-                      return [...pre[index], ...nextCache];
-                    }
-                    return nextCache;
+                pre.map((preResult, index) => {
+                  const findIndex = requestApiIndex.findIndex(i => i === index);
+                  if (
+                    findIndex >= 0 &&
+                    callbackResponses[findIndex].cache?.data?.data
+                  ) {
+                    const nextCache = [
+                      ...callbackResponses[findIndex].cache.data.data,
+                    ];
+                    return [...preResult, ...nextCache];
                   }
                   return [];
                 }),
               );
             }
 
-            nextOptions = callbackResponses.map(callbackRes => {
-              const cursor = isFirstInitErrorRef.current
-                ? callbackRes.cache.data.nextCursor
-                : callbackRes.data.data.nextCursor;
+            nextOptions = options.map((option, index) => {
+              const findIndex = requestApiIndex.findIndex(i => i === index);
+              if (findIndex >= 0) {
+                const cursor = isFirstInitErrorRef.current
+                  ? callbackResponses[findIndex].cache.data.nextCursor
+                  : callbackResponses[findIndex].data.data.nextCursor;
 
-              return {
-                limit: opt.limit,
-                cursor,
-                withoutOnliveInfo: opt.withoutOnliveInfo,
-              };
+                return {
+                  limit: opt.limit,
+                  cursor,
+                  withoutOnliveInfo: opt.withoutOnliveInfo,
+                };
+              }
+              return option;
             });
           } else {
             setLeaderboardData(results.map(result => result.data.data.data));
@@ -245,8 +258,8 @@ export const useTypeApi = (
   );
 
   const refresh = useCallback(() => {
-    setCacheData([]);
-    setNetworkData([]);
+    setCacheData(apiList.map(() => []));
+    setNetworkData(apiList.map(() => []));
     getLeaderboardData(apiList, cacheStrategy);
   }, [apiList, cacheStrategy, getLeaderboardData]);
 
