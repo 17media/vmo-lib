@@ -88,14 +88,9 @@ export const useTypeApi = (
            * 有3種情況會有下一次的 api promise
            * 1. 第一次讀取
            * 2. 還未讀取完成，有回傳cursor
-           * 3. 重複讀取(realTime >0): 不管上次回傳結果為何，都需要再一次的使用同一次api promise
            * 其他情況都不需要api promise，回傳null，最後會filter掉
            * */
-          if (
-            isFirstInitRef.current ||
-            options[index]?.cursor ||
-            realTime > 0
-          ) {
+          if (isFirstInitRef.current || options[index]?.cursor) {
             requestApiIndex = [...requestApiIndex, index];
             return getLeaderboardEventory({
               type,
@@ -172,13 +167,7 @@ export const useTypeApi = (
              * 讀到一半斷網：同理想情況, api 沒回來就不處理 例如顯示到500筆就是500筆
              * 如果有其中一個api error沒有回傳data，就完全不更新資料，等到下一次callback成功才更新
              * */
-            const callbacksData = callbackResponses.filter(
-              callbackRes => callbackRes.data,
-            );
-            if (
-              callbacksData.length === apiList.length &&
-              !isFirstInitErrorRef.current
-            ) {
+            if (!isFirstInitErrorRef.current) {
               setNetworkData(pre =>
                 pre.map((preResult, index) => {
                   const findIndex = requestApiIndex.findIndex(
@@ -255,14 +244,7 @@ export const useTypeApi = (
         }
       }
     },
-    [
-      apiList.length,
-      cacheStrategy,
-      opt.limit,
-      opt.withoutOnliveInfo,
-      options,
-      realTime,
-    ],
+    [cacheStrategy, opt.limit, opt.withoutOnliveInfo, options],
   );
 
   const refresh = useCallback(() => {
