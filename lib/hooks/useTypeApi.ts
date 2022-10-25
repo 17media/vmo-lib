@@ -86,7 +86,7 @@ export const useTypeApi = (
         .map((type: APIType, index) => {
           /**
            * 有 2 種情況會有下一次的 api promise
-           * 1. 第一次讀取 (包含因為 realtime > 0 reload() 時 first load 重設)
+           * 1. 第一次讀取 (包含因為 realtime > 0 refresh() 時 first load 重設)
            * 2. 還未讀取完成，有回傳cursor
            * 其他情況都不需要api promise，回傳null，最後會filter掉
            * */
