@@ -7,7 +7,7 @@ import {
   getApiUrlStrategy,
   HttpMethod,
 } from '../service/cacheManager.service';
-import { User, Option } from '../types';
+import { User, EventoryApiOption } from '../types';
 import { sleep } from '../utils';
 
 const endpoint = `/v1/leaderboards/eventory`;
@@ -15,7 +15,7 @@ const endpoint = `/v1/leaderboards/eventory`;
 interface Config {
   cacheData: User[][];
   networkData: User[][];
-  options: Option[];
+  options: EventoryApiOption[];
   sources: CancelTokenSource[];
 }
 
@@ -84,8 +84,10 @@ export const useTypeApi = (
   const [networkData, setNetworkData] = useState<User[][]>(
     initialConfig.networkData,
   );
-  const [options, setOptions] = useState<Option[]>(initialConfig.options);
-  const source = useRef<CancelTokenSource[]>(initialConfig.sources);
+  const [options, setOptions] = useState<EventoryApiOption[]>(
+    initialConfig.options,
+  );
+  const sourceRef = useRef<CancelTokenSource[]>(initialConfig.sources);
 
   const isFirstInitRef = useRef(true);
   const isFirstInitErrorRef = useRef(false);
@@ -94,7 +96,7 @@ export const useTypeApi = (
   const loadingRef = useRef(false);
   const pollingRef = useRef(false);
   const finishedGetLBProcessRef = useRef(false);
-  const reacquireCount = useRef(0);
+  const reacquireCountRef = useRef(0);
 
   const { cacheStrategy } = useMemo(
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
@@ -118,7 +120,7 @@ export const useTypeApi = (
             requestApiIndex = [...requestApiIndex, index];
             return getLeaderboardEventory({
               type,
-              cancelToken: source.current[index]!.token,
+              cancelToken: sourceRef.current[index]!.token,
               limit: options[index]?.limit,
               cursor: options[index]?.cursor,
               withoutOnliveInfo: options[index]?.withoutOnliveInfo,
@@ -129,141 +131,142 @@ export const useTypeApi = (
         })
         .filter(Boolean);
 
-      if (apiPromiseList.length > 0) {
-        finishedGetLBProcessRef.current = false;
-        loadingRef.current =
-          isFirstInitRef.current && reacquireCount.current < 1;
-        pollingRef.current = true;
+      if (!apiPromiseList.length) return;
+      finishedGetLBProcessRef.current = false;
+      loadingRef.current =
+        isFirstInitRef.current && reacquireCountRef.current < 1;
+      pollingRef.current = true;
 
-        let nextOptions: Option[] = [];
-        try {
-          const results = await Promise.all(apiPromiseList);
+      let nextOptions: EventoryApiOption[] = [];
+      try {
+        const results = await Promise.all(apiPromiseList);
 
-          if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
-            /**
-             * 首筆資料一定是先使用 cache，之後的資料是看 callbackResponses 回應模式
-             * */
-            setCacheData(pre =>
-              pre.map((preResult, index) => {
-                const findIndex = requestApiIndex.findIndex(
-                  targetIndex => index === targetIndex,
-                );
-                if (findIndex >= 0 && results[findIndex].data?.data?.data) {
-                  hasInitCacheRef.current = true;
-                  const nextCache = [...results[findIndex].data.data.data];
-                  return [...preResult, ...nextCache];
-                }
-                return [];
-              }),
+        if (cacheStrategy !== CacheStrategy.CACHE_THEN_NETWORK) {
+          setLeaderboardData(results.map(result => result.data.data));
+          return;
+        }
+
+        /**
+         * CacheStrategy === CACHE_THEN_NETWORK
+         * 首筆資料一定是先使用 cache，之後的資料是看 callbackResponses 回應模式
+         * */
+        setCacheData(pre =>
+          pre.map((preResult, index) => {
+            const findIndex = requestApiIndex.findIndex(
+              targetIndex => index === targetIndex,
             );
-
-            if (isFirstInitRef.current && hasInitCacheRef.current) {
-              loadingRef.current = false;
+            if (findIndex >= 0 && results[findIndex].data?.data?.data) {
+              hasInitCacheRef.current = true;
+              const nextCache = [...results[findIndex].data.data.data];
+              return [...preResult, ...nextCache];
             }
+            return [];
+          }),
+        );
 
-            // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
-            if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
-              await sleep(1000);
-              setReload(false);
-            }
+        if (isFirstInitRef.current && hasInitCacheRef.current) {
+          loadingRef.current = false;
+        }
 
-            const networkCallbacks = results.map(result => result.callback);
-            const callbackResponses = await Promise.all(networkCallbacks);
+        // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
+        if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
+          await sleep(1000);
+          setReload(false);
+        }
 
-            // 紀錄是否一開始就斷網, 只要其中一個出錯就當作全部有問題
-            const callbacksError = callbackResponses.some(
-              callbackRes => callbackRes.error,
-            );
-            if (callbacksError && isFirstInitRef.current) {
-              isFirstInitErrorRef.current = true;
-            }
+        const networkCallbacks = results.map(result => result.callback);
+        const callbackResponses = await Promise.all(networkCallbacks);
 
-            // 紀錄是否需要 delay 下一次的 request
-            shouldDelayRef.current = callbacksError;
-            if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
-              setReload(true);
-            }
+        // 紀錄是否一開始就斷網, 只要其中一個出錯就當作全部有問題
+        const callbacksError = callbackResponses.some(
+          callbackRes => callbackRes.error,
+        );
+        if (callbacksError && isFirstInitRef.current) {
+          isFirstInitErrorRef.current = true;
+        }
 
-            /**
-             * 理想情況：一開始立即顯示 cache data(100筆), 然後 network api 每一百筆更新畫面一次, 整個取代
-             * 讀到一半斷網：同理想情況, api 沒回來就不處理 例如顯示到500筆就是500筆
-             * 如果有其中一個api error沒有回傳data，就完全不更新資料，等到下一次callback成功才更新
-             * */
-            if (!isFirstInitErrorRef.current) {
-              setNetworkData(pre =>
-                pre.map((preResult, index) => {
-                  const findIndex = requestApiIndex.findIndex(
-                    targetIndex => index === targetIndex,
-                  );
-                  if (
-                    findIndex >= 0 &&
-                    callbackResponses[findIndex].data?.data?.data
-                  ) {
-                    const nextData = [
-                      ...callbackResponses[findIndex].data.data.data,
-                    ];
-                    return [...preResult, ...nextData];
-                  }
-                  return [];
-                }),
-              );
-            }
+        // 紀錄是否需要 delay 下一次的 request
+        shouldDelayRef.current = callbacksError;
+        if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
+          setReload(true);
+        }
 
-            /**
-             * 一開始就斷網: 立即顯示 cache data(all) 全部，只有一開始就斷網會使用 cache 剩餘的資料
-             * 讀到一半斷網雖然也會回傳 callbackResponses?.error，但不是一開始就斷網，所以不會set cache data，會一直重新觸發load()
-             * */
-            if (isFirstInitErrorRef.current) {
-              setNetworkData(pre =>
-                pre.map((preResult, index) => {
-                  const findIndex = requestApiIndex.findIndex(
-                    targetIndex => index === targetIndex,
-                  );
-                  if (
-                    findIndex >= 0 &&
-                    callbackResponses[findIndex].cache?.data?.data
-                  ) {
-                    const nextCache = [
-                      ...callbackResponses[findIndex].cache.data.data,
-                    ];
-                    return [...preResult, ...nextCache];
-                  }
-                  return [];
-                }),
-              );
-            }
-
-            nextOptions = options.map((option, index) => {
+        /**
+         * 理想情況：一開始立即顯示 cache data(100筆), 然後 network api 每一百筆更新畫面一次, 整個取代
+         * 讀到一半斷網：同理想情況, api 沒回來就不處理 例如顯示到500筆就是500筆
+         * 如果有其中一個api error沒有回傳data，就完全不更新資料，等到下一次callback成功才更新
+         * */
+        if (!isFirstInitErrorRef.current) {
+          setNetworkData(pre =>
+            pre.map((preResult, index) => {
               const findIndex = requestApiIndex.findIndex(
                 targetIndex => index === targetIndex,
               );
-              if (findIndex >= 0) {
-                const nextCursor = isFirstInitErrorRef.current
-                  ? callbackResponses[findIndex].cache.data.nextCursor
-                  : callbackResponses[findIndex].data.data.nextCursor;
-
-                return {
-                  limit: opt.limit,
-                  cursor: nextCursor,
-                  withoutOnliveInfo: opt.withoutOnliveInfo,
-                };
+              if (
+                findIndex >= 0 &&
+                callbackResponses[findIndex].data?.data?.data
+              ) {
+                const nextData = [
+                  ...callbackResponses[findIndex].data.data.data,
+                ];
+                return [...preResult, ...nextData];
               }
-              return option;
-            });
-          } else {
-            setLeaderboardData(results.map(result => result.data.data.data));
-          }
-        } catch (error) {
-          setRequestError(error);
-        } finally {
-          loadingRef.current = false;
-          pollingRef.current = false;
-          isFirstInitRef.current = false;
-          if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
-            setOptions(nextOptions);
-          }
-          finishedGetLBProcessRef.current = true;
+              return [];
+            }),
+          );
         }
+
+        /**
+         * 一開始就斷網: 立即顯示 cache data(all) 全部，只有一開始就斷網會使用 cache 剩餘的資料
+         * 讀到一半斷網雖然也會回傳 callbackResponses?.error，但不是一開始就斷網，所以不會set cache data，會一直重新觸發load()
+         * */
+        if (isFirstInitErrorRef.current) {
+          setNetworkData(pre =>
+            pre.map((preResult, index) => {
+              const findIndex = requestApiIndex.findIndex(
+                targetIndex => index === targetIndex,
+              );
+              if (
+                findIndex >= 0 &&
+                callbackResponses[findIndex].cache?.data?.data
+              ) {
+                const nextCache = [
+                  ...callbackResponses[findIndex].cache.data.data,
+                ];
+                return [...preResult, ...nextCache];
+              }
+              return [];
+            }),
+          );
+        }
+
+        nextOptions = options.map((option, index) => {
+          const findIndex = requestApiIndex.findIndex(
+            targetIndex => index === targetIndex,
+          );
+          if (findIndex >= 0) {
+            const nextCursor = isFirstInitErrorRef.current
+              ? callbackResponses[findIndex].cache.data.nextCursor
+              : callbackResponses[findIndex].data.data.nextCursor;
+
+            return {
+              limit: opt.limit,
+              cursor: nextCursor,
+              withoutOnliveInfo: opt.withoutOnliveInfo,
+            };
+          }
+          return option;
+        });
+      } catch (error) {
+        setRequestError(error);
+      } finally {
+        loadingRef.current = false;
+        pollingRef.current = false;
+        isFirstInitRef.current = false;
+        if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
+          setOptions(nextOptions);
+        }
+        finishedGetLBProcessRef.current = true;
       }
     },
     [cacheStrategy, opt.limit, opt.withoutOnliveInfo, options],
@@ -319,24 +322,26 @@ export const useTypeApi = (
       },
     );
     if (finishedRetrievedAllNetworkData && networkData.length > 0)
-      reacquireCount.current += 1;
+      reacquireCountRef.current += 1;
   }, [networkData, options]);
 
   useEffect(() => {
-    const canSetNetworkData = networkData.some(data => data.length > 0);
+    if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
+      const canSetNetworkData = networkData.some(data => data.length > 0);
 
-    // 全部資料只取1次(不需自動重發api更新資料)
-    if (realTime <= 0) {
-      if (canSetNetworkData) {
-        setLeaderboardData(networkData);
-      } else {
-        setLeaderboardData(cacheData);
+      // 全部資料只取1次(不需自動重發api更新資料)
+      if (realTime <= 0) {
+        if (canSetNetworkData) {
+          setLeaderboardData(networkData);
+        } else {
+          setLeaderboardData(cacheData);
+        }
+        return;
       }
-    } else {
       // 全部資料按時間重新取得(需自動重發api更新資料)
       const finishedAll = options.every(option => !option.cursor);
       // 當首次還未取得全部資料時，讓資料慢慢更新上畫面
-      if (reacquireCount.current === 0) {
+      if (reacquireCountRef.current === 0) {
         if (canSetNetworkData) {
           setLeaderboardData(networkData);
         } else {
@@ -345,7 +350,7 @@ export const useTypeApi = (
       }
       // 當已經取得全部資料時，等資料全部拿完之後再一起更新
       if (
-        reacquireCount.current > 0 &&
+        reacquireCountRef.current > 0 &&
         finishedAll &&
         finishedGetLBProcessRef.current &&
         canSetNetworkData
@@ -353,7 +358,7 @@ export const useTypeApi = (
         setLeaderboardData(networkData);
       }
     }
-  }, [networkData, cacheData, options, realTime, apiList]);
+  }, [networkData, cacheData, options, realTime, apiList, cacheStrategy]);
 
   useEffect(() => {
     if (loadingRef.current || pollingRef.current || suspend) return;

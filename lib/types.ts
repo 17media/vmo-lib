@@ -47,7 +47,7 @@ export interface LeaderboardItem extends User {
   roomID?: number;
 }
 
-export interface Option {
+export interface EventoryApiOption {
   limit: number;
   cursor: string;
   withoutOnliveInfo: boolean;
