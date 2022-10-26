@@ -107,7 +107,6 @@ export const useTypeApi = (
     async (apis: APIType[] = [], strategy: CacheStrategy) => {
       setRequestError(null);
 
-      let requestApiIndex: number[] = [];
       const apiPromiseList = apis
         .map((type: APIType, index) => {
           /**
@@ -117,7 +116,6 @@ export const useTypeApi = (
            * 其他情況都不需要api promise，回傳null，最後會filter掉
            * */
           if (isFirstInitRef.current || options[index]?.cursor) {
-            requestApiIndex = [...requestApiIndex, index];
             return getLeaderboardEventory({
               type,
               cancelToken: sourceRef.current[index]!.token,
@@ -130,6 +128,15 @@ export const useTypeApi = (
           return null;
         })
         .filter(Boolean);
+
+      const requestApiIndex = apis
+        .map((_, index) => {
+          if (isFirstInitRef.current || options[index]?.cursor) {
+            return index;
+          }
+          return -1;
+        })
+        .filter(index => index >= 0);
 
       if (!apiPromiseList.length) return;
       finishedGetLBProcessRef.current = false;
