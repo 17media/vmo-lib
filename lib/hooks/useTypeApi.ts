@@ -199,53 +199,33 @@ export const useTypeApi = (
         }
 
         /**
-         * 理想情況：一開始立即顯示 cache data(100筆), 然後 network api 每一百筆更新畫面一次, 整個取代
+         * 理想情況：dataSource = 'data'
+         * 一開始立即顯示 cache data(100筆), 然後 network api 每一百筆更新畫面一次, 整個取代
          * 讀到一半斷網：同理想情況, api 沒回來就不處理 例如顯示到500筆就是500筆
          * 如果有其中一個api error沒有回傳data，就完全不更新資料，等到下一次callback成功才更新
-         * */
-        if (!isFirstInitErrorRef.current) {
-          setNetworkData(pre =>
-            pre.map((preResult, index) => {
-              const foundIndex = requestApiIndex.findIndex(
-                targetIndex => index === targetIndex,
-              );
-              if (
-                foundIndex >= 0 &&
-                callbackResponses[foundIndex].data?.data?.data
-              ) {
-                const nextData = [
-                  ...callbackResponses[foundIndex].data.data.data,
-                ];
-                return [...preResult, ...nextData];
-              }
-              return [];
-            }),
-          );
-        }
-
-        /**
-         * 一開始就斷網: 立即顯示 cache data(all) 全部，只有一開始就斷網會使用 cache 剩餘的資料
+         *
+         * 一開始就斷網: dataSource = 'cache'
+         * 立即顯示 cache data(all) 全部，只有一開始就斷網會使用 cache 剩餘的資料
          * 讀到一半斷網雖然也會回傳 callbackResponses?.error，但不是一開始就斷網，所以不會set cache data，會一直重新觸發load()
          * */
-        if (isFirstInitErrorRef.current) {
-          setNetworkData(pre =>
-            pre.map((preResult, index) => {
-              const foundIndex = requestApiIndex.findIndex(
-                targetIndex => index === targetIndex,
-              );
-              if (
-                foundIndex >= 0 &&
-                callbackResponses[foundIndex].cache?.data?.data
-              ) {
-                const nextCache = [
-                  ...callbackResponses[foundIndex].cache.data.data,
-                ];
-                return [...preResult, ...nextCache];
-              }
-              return [];
-            }),
-          );
-        }
+        const dataSource = isFirstInitErrorRef.current ? 'cache' : 'data';
+        setNetworkData(pre =>
+          pre.map((preResult, index) => {
+            const foundIndex = requestApiIndex.findIndex(
+              targetIndex => index === targetIndex,
+            );
+            if (
+              foundIndex >= 0 &&
+              callbackResponses[foundIndex][dataSource]?.data?.data
+            ) {
+              const nextData = [
+                ...callbackResponses[foundIndex][dataSource]?.data.data,
+              ];
+              return [...preResult, ...nextData];
+            }
+            return [];
+          }),
+        );
 
         nextOptions = options.map((option, index) => {
           const foundIndex = requestApiIndex.findIndex(
