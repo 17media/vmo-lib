@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios, { CancelTokenSource, AxiosResponse } from 'axios';
+import axios, { CancelTokenSource } from 'axios';
 
 import { getLeaderboardEventory } from '../service/leaderboardEventory.service';
 import {
@@ -11,6 +11,13 @@ import { User, Option } from '../types';
 import { sleep } from '../utils';
 
 const endpoint = `/v1/leaderboards/eventory`;
+
+interface Config {
+  cacheData: User[][];
+  networkData: User[][];
+  options: Option[];
+  sources: CancelTokenSource[];
+}
 
 export type APIType = {
   /** staging site container ID */
@@ -44,32 +51,41 @@ export const useTypeApi = (
 ) => {
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
-  const emptyInitialData = useMemo(
-    () => Array.from({ length: apiList.length }, () => []),
-    [apiList.length],
-  );
-  const [cacheData, setCacheData] = useState<User[][]>(emptyInitialData);
-  const [networkData, setNetworkData] = useState<User[][]>(emptyInitialData);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
+  const timeoutKey = useRef(0);
   const { limit, cursor, withoutOnliveInfo } = opt;
-  const initialOptions = useMemo(
-    () =>
-      Array.from({ length: apiList.length }, () => ({
+  const initialConfig: Config = useMemo(
+    () => ({
+      cacheData: [],
+      networkData: [],
+      options: [],
+      sources: [],
+    }),
+    [],
+  );
+  apiList.forEach(() => {
+    initialConfig.cacheData = [...initialConfig.cacheData, []];
+    initialConfig.networkData = [...initialConfig.networkData, []];
+    initialConfig.options = [
+      ...initialConfig.options,
+      {
         limit,
         cursor,
         withoutOnliveInfo,
-      })),
-    [apiList.length, cursor, limit, withoutOnliveInfo],
+      },
+    ];
+    initialConfig.sources = [
+      ...initialConfig.sources,
+      axios.CancelToken.source(),
+    ];
+  });
+  const [cacheData, setCacheData] = useState<User[][]>(initialConfig.cacheData);
+  const [networkData, setNetworkData] = useState<User[][]>(
+    initialConfig.networkData,
   );
-  const [options, setOptions] = useState<Option[]>(initialOptions);
-  const timeoutKey = useRef(0);
-  const initialSources = useMemo(
-    () =>
-      Array.from({ length: apiList.length }, () => axios.CancelToken.source()),
-    [apiList.length],
-  );
-  const source = useRef<CancelTokenSource[]>(initialSources);
+  const [options, setOptions] = useState<Option[]>(initialConfig.options);
+  const source = useRef<CancelTokenSource[]>(initialConfig.sources);
 
   const isFirstInitRef = useRef(true);
   const isFirstInitErrorRef = useRef(false);
@@ -254,12 +270,12 @@ export const useTypeApi = (
   );
 
   const refresh = useCallback(() => {
-    setCacheData(emptyInitialData);
-    setNetworkData(emptyInitialData);
+    setCacheData(initialConfig.cacheData);
+    setNetworkData(initialConfig.networkData);
     isFirstInitRef.current = true;
     isFirstInitErrorRef.current = false;
     getLeaderboardData(apiList, cacheStrategy);
-  }, [apiList, cacheStrategy, getLeaderboardData, emptyInitialData]);
+  }, [apiList, cacheStrategy, getLeaderboardData, initialConfig]);
 
   /**
    * 讀到一半斷網：重新執行 geLeaderboardData
