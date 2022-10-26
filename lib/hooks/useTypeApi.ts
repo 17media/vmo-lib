@@ -8,10 +8,9 @@ import {
   HttpMethod,
 } from '../service/cacheManager.service';
 import { User, Option } from '../types';
+import { sleep } from '../utils';
 
 const endpoint = `/v1/leaderboards/eventory`;
-
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export type APIType = {
   /** staging site container ID */
@@ -45,24 +44,24 @@ export const useTypeApi = (
 ) => {
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
-  const [cacheData, setCacheData] = useState<User[][]>(apiList.map(() => []));
-  const [networkData, setNetworkData] = useState<User[][]>(
-    apiList.map(() => []),
-  );
+  const emptyInitialData = Array.from({ length: apiList.length }, () => []);
+  const [cacheData, setCacheData] = useState<User[][]>(emptyInitialData);
+  const [networkData, setNetworkData] = useState<User[][]>(emptyInitialData);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
-  const [options, setOptions] = useState<Option[]>(
-    apiList.map(() => ({
-      limit: opt.limit,
-      cursor: opt.cursor,
-      withoutOnliveInfo: opt.withoutOnliveInfo,
-    })),
-  );
-
+  const { limit, cursor, withoutOnliveInfo } = opt;
+  const initialOptions = Array.from({ length: apiList.length }, () => ({
+    limit,
+    cursor,
+    withoutOnliveInfo,
+  }));
+  const [options, setOptions] = useState<Option[]>(initialOptions);
   const timeoutKey = useRef(0);
-  const source = useRef<CancelTokenSource[]>(
-    apiList.map(() => axios.CancelToken.source()),
+  const initialSources = Array.from({ length: apiList.length }, () =>
+    axios.CancelToken.source(),
   );
+  const source = useRef<CancelTokenSource[]>(initialSources);
+
   const isFirstInitRef = useRef(true);
   const isFirstInitErrorRef = useRef(false);
   const shouldDelayRef = useRef(false);
@@ -107,12 +106,10 @@ export const useTypeApi = (
 
       if (apiPromiseList.length > 0) {
         finishedGetLBProcessRef.current = false;
+        loadingRef.current =
+          isFirstInitRef.current && reacquireCount.current < 1;
+        pollingRef.current = true;
 
-        if (isFirstInitRef.current && reacquireCount.current < 1) {
-          loadingRef.current = true;
-        } else {
-          pollingRef.current = true;
-        }
         let nextOptions: Option[] = [];
         try {
           const results = await Promise.all(apiPromiseList);
@@ -216,13 +213,13 @@ export const useTypeApi = (
                 targetIndex => index === targetIndex,
               );
               if (findIndex >= 0) {
-                const cursor = isFirstInitErrorRef.current
+                const nextCursor = isFirstInitErrorRef.current
                   ? callbackResponses[findIndex].cache.data.nextCursor
                   : callbackResponses[findIndex].data.data.nextCursor;
 
                 return {
                   limit: opt.limit,
-                  cursor,
+                  cursor: nextCursor,
                   withoutOnliveInfo: opt.withoutOnliveInfo,
                 };
               }
@@ -284,18 +281,16 @@ export const useTypeApi = (
     const finishedRetrievedAllNetworkData = networkData?.every(
       (data, index) => {
         // 需要確保option已經被設定完成
-        if (finishedGetLBProcessRef.current) {
-          const cursor = options[index]?.cursor;
-          // 有cursor時，看回傳的network資料長度是不是已經達到total count，達到代表以經將此次的資料讀取完成
-          if (cursor) {
-            const [timestampCursor] = (cursor as string).split('-', 1);
-            const totalCount = timestampCursor.split(':').slice(1)[0];
-            return networkData[index].length === +totalCount;
-          }
-          // 沒有cursor時，表示單次api就可以取得完成，直接回傳true
-          return true;
+        if (!finishedGetLBProcessRef.current) return false;
+        const nextCursor = options[index]?.cursor;
+        // 有cursor時，看回傳的network資料長度是不是已經達到total count，達到代表以經將此次的資料讀取完成
+        if (nextCursor) {
+          const [timestampCursor] = nextCursor.split('-', 1);
+          const totalCount = timestampCursor.split(':').slice(1)[0];
+          return networkData[index].length === +totalCount;
         }
-        return false;
+        // 沒有cursor時，表示單次api就可以取得完成，直接回傳true
+        return true;
       },
     );
     if (finishedRetrievedAllNetworkData && networkData.length > 0)
@@ -335,34 +330,30 @@ export const useTypeApi = (
     }
   }, [networkData, cacheData, options, realTime, apiList]);
 
-  // init getLeaderboardData
-  useEffect(() => {
-    getLeaderboardData(apiList, cacheStrategy);
-  }, []);
-
-  // 當需要取得更多資料時，使用最新的options重新執行getLeaderboardData
   useEffect(() => {
     if (loadingRef.current || pollingRef.current || suspend) return;
+
+    // init getLeaderboardData
+    if (isFirstInitRef.current) getLeaderboardData(apiList, cacheStrategy);
+
+    // 當需要取得更多資料時，使用最新的options重新執行getLeaderboardData
     const hasMore = options.find(option => option.cursor);
     if (hasMore) {
       getLeaderboardData(apiList, cacheStrategy);
     }
-  }, [options, apiList, cacheStrategy, getLeaderboardData, suspend]);
 
-  // 重複取得LB資料
-  useEffect(() => {
-    if (loadingRef.current || pollingRef.current || suspend) return;
+    // 重複取得LB資料
     if (!pollingRef.current && realTime > 0) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
       timeoutKey.current = window.setTimeout(refresh, realTime);
     }
   }, [
+    options,
     apiList,
     cacheStrategy,
     getLeaderboardData,
-    realTime,
     suspend,
-    options,
+    realTime,
     refresh,
   ]);
 
