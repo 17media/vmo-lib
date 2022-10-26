@@ -44,21 +44,30 @@ export const useTypeApi = (
 ) => {
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
-  const emptyInitialData = Array.from({ length: apiList.length }, () => []);
+  const emptyInitialData = useMemo(
+    () => Array.from({ length: apiList.length }, () => []),
+    [apiList.length],
+  );
   const [cacheData, setCacheData] = useState<User[][]>(emptyInitialData);
   const [networkData, setNetworkData] = useState<User[][]>(emptyInitialData);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
   const { limit, cursor, withoutOnliveInfo } = opt;
-  const initialOptions = Array.from({ length: apiList.length }, () => ({
-    limit,
-    cursor,
-    withoutOnliveInfo,
-  }));
+  const initialOptions = useMemo(
+    () =>
+      Array.from({ length: apiList.length }, () => ({
+        limit,
+        cursor,
+        withoutOnliveInfo,
+      })),
+    [apiList.length, cursor, limit, withoutOnliveInfo],
+  );
   const [options, setOptions] = useState<Option[]>(initialOptions);
   const timeoutKey = useRef(0);
-  const initialSources = Array.from({ length: apiList.length }, () =>
-    axios.CancelToken.source(),
+  const initialSources = useMemo(
+    () =>
+      Array.from({ length: apiList.length }, () => axios.CancelToken.source()),
+    [apiList.length],
   );
   const source = useRef<CancelTokenSource[]>(initialSources);
 
@@ -245,12 +254,12 @@ export const useTypeApi = (
   );
 
   const refresh = useCallback(() => {
-    setCacheData(apiList.map(() => []));
-    setNetworkData(apiList.map(() => []));
+    setCacheData(emptyInitialData);
+    setNetworkData(emptyInitialData);
     isFirstInitRef.current = true;
     isFirstInitErrorRef.current = false;
     getLeaderboardData(apiList, cacheStrategy);
-  }, [apiList, cacheStrategy, getLeaderboardData]);
+  }, [apiList, cacheStrategy, getLeaderboardData, emptyInitialData]);
 
   /**
    * 讀到一半斷網：重新執行 geLeaderboardData
