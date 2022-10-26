@@ -134,9 +134,9 @@ export const useTypeApi = (
           if (isFirstInitRef.current || options[index]?.cursor) {
             return index;
           }
-          return -1;
+          return null;
         })
-        .filter(index => index >= 0);
+        .filter(Number.isFinite);
 
       if (!apiPromiseList.length) return;
       finishedGetLBProcessRef.current = false;
@@ -159,12 +159,12 @@ export const useTypeApi = (
          * */
         setCacheData(pre =>
           pre.map((preResult, index) => {
-            const findIndex = requestApiIndex.findIndex(
+            const foundIndex = requestApiIndex.findIndex(
               targetIndex => index === targetIndex,
             );
-            if (findIndex >= 0 && results[findIndex].data?.data?.data) {
+            if (foundIndex >= 0 && results[foundIndex].data?.data?.data) {
               hasInitCacheRef.current = true;
-              const nextCache = [...results[findIndex].data.data.data];
+              const nextCache = [...results[foundIndex].data.data.data];
               return [...preResult, ...nextCache];
             }
             return [];
@@ -206,15 +206,15 @@ export const useTypeApi = (
         if (!isFirstInitErrorRef.current) {
           setNetworkData(pre =>
             pre.map((preResult, index) => {
-              const findIndex = requestApiIndex.findIndex(
+              const foundIndex = requestApiIndex.findIndex(
                 targetIndex => index === targetIndex,
               );
               if (
-                findIndex >= 0 &&
-                callbackResponses[findIndex].data?.data?.data
+                foundIndex >= 0 &&
+                callbackResponses[foundIndex].data?.data?.data
               ) {
                 const nextData = [
-                  ...callbackResponses[findIndex].data.data.data,
+                  ...callbackResponses[foundIndex].data.data.data,
                 ];
                 return [...preResult, ...nextData];
               }
@@ -230,15 +230,15 @@ export const useTypeApi = (
         if (isFirstInitErrorRef.current) {
           setNetworkData(pre =>
             pre.map((preResult, index) => {
-              const findIndex = requestApiIndex.findIndex(
+              const foundIndex = requestApiIndex.findIndex(
                 targetIndex => index === targetIndex,
               );
               if (
-                findIndex >= 0 &&
-                callbackResponses[findIndex].cache?.data?.data
+                foundIndex >= 0 &&
+                callbackResponses[foundIndex].cache?.data?.data
               ) {
                 const nextCache = [
-                  ...callbackResponses[findIndex].cache.data.data,
+                  ...callbackResponses[foundIndex].cache.data.data,
                 ];
                 return [...preResult, ...nextCache];
               }
@@ -248,13 +248,13 @@ export const useTypeApi = (
         }
 
         nextOptions = options.map((option, index) => {
-          const findIndex = requestApiIndex.findIndex(
+          const foundIndex = requestApiIndex.findIndex(
             targetIndex => index === targetIndex,
           );
-          if (findIndex >= 0) {
+          if (foundIndex >= 0) {
             const nextCursor = isFirstInitErrorRef.current
-              ? callbackResponses[findIndex].cache.data.nextCursor
-              : callbackResponses[findIndex].data.data.nextCursor;
+              ? callbackResponses[foundIndex].cache.data.nextCursor
+              : callbackResponses[foundIndex].data.data.nextCursor;
 
             return {
               limit: opt.limit,
@@ -279,22 +279,33 @@ export const useTypeApi = (
     [cacheStrategy, opt.limit, opt.withoutOnliveInfo, options],
   );
 
+  const getLeaderboardDataStrategy = useCallback(
+    () => getLeaderboardData(apiList, cacheStrategy),
+    [apiList, cacheStrategy, getLeaderboardData],
+  );
+
   const refresh = useCallback(() => {
     setCacheData(initialConfig.cacheData);
     setNetworkData(initialConfig.networkData);
     isFirstInitRef.current = true;
     isFirstInitErrorRef.current = false;
-    getLeaderboardData(apiList, cacheStrategy);
-  }, [apiList, cacheStrategy, getLeaderboardData, initialConfig]);
+    getLeaderboardDataStrategy();
+  }, [getLeaderboardDataStrategy, initialConfig]);
 
   /**
    * 讀到一半斷網：重新執行 geLeaderboardData
    * */
   useEffect(() => {
     if (reload) {
-      getLeaderboardData(apiList, cacheStrategy);
+      getLeaderboardDataStrategy();
     }
-  }, [apiList, cacheStrategy, getLeaderboardData, reload]);
+  }, [
+    apiList,
+    cacheStrategy,
+    getLeaderboardData,
+    getLeaderboardDataStrategy,
+    reload,
+  ]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -328,41 +339,30 @@ export const useTypeApi = (
         return true;
       },
     );
-    if (finishedRetrievedAllNetworkData && networkData.length > 0)
+    if (finishedRetrievedAllNetworkData && networkData.length > 0) {
       reacquireCountRef.current += 1;
+    }
   }, [networkData, options]);
 
   useEffect(() => {
     if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
       const canSetNetworkData = networkData.some(data => data.length > 0);
+      const dataSource = canSetNetworkData ? networkData : cacheData;
 
       // 全部資料只取1次(不需自動重發api更新資料)
       if (realTime <= 0) {
-        if (canSetNetworkData) {
-          setLeaderboardData(networkData);
-        } else {
-          setLeaderboardData(cacheData);
-        }
+        setLeaderboardData(dataSource);
         return;
       }
       // 全部資料按時間重新取得(需自動重發api更新資料)
       const finishedAll = options.every(option => !option.cursor);
       // 當首次還未取得全部資料時，讓資料慢慢更新上畫面
       if (reacquireCountRef.current === 0) {
-        if (canSetNetworkData) {
+        setLeaderboardData(dataSource);
+      } else if (reacquireCountRef.current > 0) {
+        // 當已經取得全部資料時，等資料全部拿完之後再一起更新
+        if (finishedAll && finishedGetLBProcessRef.current && canSetNetworkData)
           setLeaderboardData(networkData);
-        } else {
-          setLeaderboardData(cacheData);
-        }
-      }
-      // 當已經取得全部資料時，等資料全部拿完之後再一起更新
-      if (
-        reacquireCountRef.current > 0 &&
-        finishedAll &&
-        finishedGetLBProcessRef.current &&
-        canSetNetworkData
-      ) {
-        setLeaderboardData(networkData);
       }
     }
   }, [networkData, cacheData, options, realTime, apiList, cacheStrategy]);
@@ -371,12 +371,15 @@ export const useTypeApi = (
     if (loadingRef.current || pollingRef.current || suspend) return;
 
     // init getLeaderboardData
-    if (isFirstInitRef.current) getLeaderboardData(apiList, cacheStrategy);
+    if (isFirstInitRef.current) {
+      getLeaderboardDataStrategy();
+      return;
+    }
 
     // 當需要取得更多資料時，使用最新的options重新執行getLeaderboardData
     const hasMore = options.find(option => option.cursor);
     if (hasMore) {
-      getLeaderboardData(apiList, cacheStrategy);
+      getLeaderboardDataStrategy();
     }
 
     // 重複取得LB資料
@@ -392,6 +395,7 @@ export const useTypeApi = (
     suspend,
     realTime,
     refresh,
+    getLeaderboardDataStrategy,
   ]);
 
   return {
