@@ -46,22 +46,24 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
         options: [],
         sources: [],
     }), []);
-    apiList.forEach(() => {
-        initialConfig.cacheData = [...initialConfig.cacheData, []];
-        initialConfig.networkData = [...initialConfig.networkData, []];
-        initialConfig.options = [
-            ...initialConfig.options,
-            {
-                limit,
-                cursor,
-                withoutOnliveInfo,
-            },
-        ];
-        initialConfig.sources = [
-            ...initialConfig.sources,
-            axios_1.default.CancelToken.source(),
-        ];
-    });
+    if (initialConfig.options.length !== apiList.length) {
+        apiList.forEach(() => {
+            initialConfig.cacheData = [...initialConfig.cacheData, []];
+            initialConfig.networkData = [...initialConfig.networkData, []];
+            initialConfig.options = [
+                ...initialConfig.options,
+                {
+                    limit,
+                    cursor,
+                    withoutOnliveInfo,
+                },
+            ];
+            initialConfig.sources = [
+                ...initialConfig.sources,
+                axios_1.default.CancelToken.source(),
+            ];
+        });
+    }
     const [cacheData, setCacheData] = react_1.useState(initialConfig.cacheData);
     const [networkData, setNetworkData] = react_1.useState(initialConfig.networkData);
     const [options, setOptions] = react_1.useState(initialConfig.options);
@@ -105,9 +107,9 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
             if (isFirstInitRef.current || ((_a = options[index]) === null || _a === void 0 ? void 0 : _a.cursor)) {
                 return index;
             }
-            return -1;
+            return null;
         })
-            .filter(index => index >= 0);
+            .filter(Number.isFinite);
         if (!apiPromiseList.length)
             return;
         finishedGetLBProcessRef.current = false;
@@ -125,16 +127,21 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
              * CacheStrategy === CACHE_THEN_NETWORK
              * 首筆資料一定是先使用 cache，之後的資料是看 callbackResponses 回應模式
              * */
-            setCacheData(pre => pre.map((preResult, index) => {
-                var _a, _b;
-                const findIndex = requestApiIndex.findIndex(targetIndex => index === targetIndex);
-                if (findIndex >= 0 && ((_b = (_a = results[findIndex].data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.data)) {
-                    hasInitCacheRef.current = true;
-                    const nextCache = [...results[findIndex].data.data.data];
-                    return [...preResult, ...nextCache];
-                }
-                return [];
-            }));
+            setCacheData(pre => {
+                const newData = pre.map((preResult, index) => {
+                    var _a, _b;
+                    const foundIndex = requestApiIndex.findIndex(targetIndex => index === targetIndex);
+                    if (foundIndex >= 0 &&
+                        ((_b = (_a = results[foundIndex].data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.data) &&
+                        preResult) {
+                        hasInitCacheRef.current = true;
+                        const nextCache = [...results[foundIndex].data.data.data];
+                        return [...preResult, ...nextCache];
+                    }
+                    return preResult;
+                });
+                return newData;
+            });
             if (isFirstInitRef.current && hasInitCacheRef.current) {
                 loadingRef.current = false;
             }
@@ -156,48 +163,38 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
                 setReload(true);
             }
             /**
-             * 理想情況：一開始立即顯示 cache data(100筆), 然後 network api 每一百筆更新畫面一次, 整個取代
+             * 理想情況：dataSource = 'data'
+             * 一開始立即顯示 cache data(100筆), 然後 network api 每一百筆更新畫面一次, 整個取代
              * 讀到一半斷網：同理想情況, api 沒回來就不處理 例如顯示到500筆就是500筆
              * 如果有其中一個api error沒有回傳data，就完全不更新資料，等到下一次callback成功才更新
+             *
+             * 一開始就斷網: dataSource = 'cache'
+             * 立即顯示 cache data(all) 全部，只有一開始就斷網會使用 cache 剩餘的資料
+             * 讀到一半斷網雖然也會回傳 callbackResponses?.error，但不是一開始就斷網，所以不會set cache data，會一直重新觸發load()
              * */
-            if (!isFirstInitErrorRef.current) {
-                setNetworkData(pre => pre.map((preResult, index) => {
-                    var _a, _b;
-                    const findIndex = requestApiIndex.findIndex(targetIndex => index === targetIndex);
-                    if (findIndex >= 0 &&
-                        ((_b = (_a = callbackResponses[findIndex].data) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.data)) {
+            const dataSource = isFirstInitErrorRef.current ? 'cache' : 'data';
+            setNetworkData(pre => {
+                const newData = pre.map((preResult, index) => {
+                    var _a, _b, _c;
+                    const foundIndex = requestApiIndex.findIndex(targetIndex => index === targetIndex);
+                    if (foundIndex >= 0 &&
+                        ((_b = (_a = callbackResponses[foundIndex][dataSource]) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.data) &&
+                        preResult) {
                         const nextData = [
-                            ...callbackResponses[findIndex].data.data.data,
+                            ...(_c = callbackResponses[foundIndex][dataSource]) === null || _c === void 0 ? void 0 : _c.data.data,
                         ];
                         return [...preResult, ...nextData];
                     }
-                    return [];
-                }));
-            }
-            /**
-             * 一開始就斷網: 立即顯示 cache data(all) 全部，只有一開始就斷網會使用 cache 剩餘的資料
-             * 讀到一半斷網雖然也會回傳 callbackResponses?.error，但不是一開始就斷網，所以不會set cache data，會一直重新觸發load()
-             * */
-            if (isFirstInitErrorRef.current) {
-                setNetworkData(pre => pre.map((preResult, index) => {
-                    var _a, _b;
-                    const findIndex = requestApiIndex.findIndex(targetIndex => index === targetIndex);
-                    if (findIndex >= 0 &&
-                        ((_b = (_a = callbackResponses[findIndex].cache) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.data)) {
-                        const nextCache = [
-                            ...callbackResponses[findIndex].cache.data.data,
-                        ];
-                        return [...preResult, ...nextCache];
-                    }
-                    return [];
-                }));
-            }
+                    return preResult;
+                });
+                return newData;
+            });
             nextOptions = options.map((option, index) => {
-                const findIndex = requestApiIndex.findIndex(targetIndex => index === targetIndex);
-                if (findIndex >= 0) {
+                const foundIndex = requestApiIndex.findIndex(targetIndex => index === targetIndex);
+                if (foundIndex >= 0) {
                     const nextCursor = isFirstInitErrorRef.current
-                        ? callbackResponses[findIndex].cache.data.nextCursor
-                        : callbackResponses[findIndex].data.data.nextCursor;
+                        ? callbackResponses[foundIndex].cache.data.nextCursor
+                        : callbackResponses[foundIndex].data.data.nextCursor;
                     return {
                         limit: opt.limit,
                         cursor: nextCursor,
@@ -220,21 +217,28 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
             finishedGetLBProcessRef.current = true;
         }
     }), [cacheStrategy, opt.limit, opt.withoutOnliveInfo, options]);
+    const getLeaderboardDataStrategy = react_1.useCallback(() => getLeaderboardData(apiList, cacheStrategy), [apiList, cacheStrategy, getLeaderboardData]);
     const refresh = react_1.useCallback(() => {
         setCacheData(initialConfig.cacheData);
         setNetworkData(initialConfig.networkData);
         isFirstInitRef.current = true;
         isFirstInitErrorRef.current = false;
-        getLeaderboardData(apiList, cacheStrategy);
-    }, [apiList, cacheStrategy, getLeaderboardData, initialConfig]);
+        getLeaderboardDataStrategy();
+    }, [getLeaderboardDataStrategy, initialConfig]);
     /**
      * 讀到一半斷網：重新執行 geLeaderboardData
      * */
     react_1.useEffect(() => {
         if (reload) {
-            getLeaderboardData(apiList, cacheStrategy);
+            getLeaderboardDataStrategy();
         }
-    }, [apiList, cacheStrategy, getLeaderboardData, reload]);
+    }, [
+        apiList,
+        cacheStrategy,
+        getLeaderboardData,
+        getLeaderboardDataStrategy,
+        reload,
+    ]);
     react_1.useEffect(() => {
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'hidden') {
@@ -266,39 +270,29 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
             // 沒有cursor時，表示單次api就可以取得完成，直接回傳true
             return true;
         });
-        if (finishedRetrievedAllNetworkData && networkData.length > 0)
+        if (finishedRetrievedAllNetworkData && networkData.length > 0) {
             reacquireCountRef.current += 1;
+        }
     }, [networkData, options]);
     react_1.useEffect(() => {
         if (cacheStrategy === cacheManager_service_1.CacheStrategy.CACHE_THEN_NETWORK) {
             const canSetNetworkData = networkData.some(data => data.length > 0);
+            const dataSource = canSetNetworkData ? networkData : cacheData;
             // 全部資料只取1次(不需自動重發api更新資料)
             if (realTime <= 0) {
-                if (canSetNetworkData) {
-                    setLeaderboardData(networkData);
-                }
-                else {
-                    setLeaderboardData(cacheData);
-                }
+                setLeaderboardData(dataSource);
                 return;
             }
             // 全部資料按時間重新取得(需自動重發api更新資料)
             const finishedAll = options.every(option => !option.cursor);
             // 當首次還未取得全部資料時，讓資料慢慢更新上畫面
             if (reacquireCountRef.current === 0) {
-                if (canSetNetworkData) {
-                    setLeaderboardData(networkData);
-                }
-                else {
-                    setLeaderboardData(cacheData);
-                }
+                setLeaderboardData(dataSource);
             }
-            // 當已經取得全部資料時，等資料全部拿完之後再一起更新
-            if (reacquireCountRef.current > 0 &&
-                finishedAll &&
-                finishedGetLBProcessRef.current &&
-                canSetNetworkData) {
-                setLeaderboardData(networkData);
+            else if (reacquireCountRef.current > 0) {
+                // 當已經取得全部資料時，等資料全部拿完之後再一起更新
+                if (finishedAll && finishedGetLBProcessRef.current && canSetNetworkData)
+                    setLeaderboardData(networkData);
             }
         }
     }, [networkData, cacheData, options, realTime, apiList, cacheStrategy]);
@@ -306,12 +300,14 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
         if (loadingRef.current || pollingRef.current || suspend)
             return;
         // init getLeaderboardData
-        if (isFirstInitRef.current)
-            getLeaderboardData(apiList, cacheStrategy);
+        if (isFirstInitRef.current) {
+            getLeaderboardDataStrategy();
+            return;
+        }
         // 當需要取得更多資料時，使用最新的options重新執行getLeaderboardData
         const hasMore = options.find(option => option.cursor);
         if (hasMore) {
-            getLeaderboardData(apiList, cacheStrategy);
+            getLeaderboardDataStrategy();
         }
         // 重複取得LB資料
         if (!pollingRef.current && realTime > 0) {
@@ -327,7 +323,9 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
         suspend,
         realTime,
         refresh,
+        getLeaderboardDataStrategy,
     ]);
+    console.log('leaderboardData', leaderboardData);
     return {
         loading: loadingRef.current,
         polling: pollingRef.current,
