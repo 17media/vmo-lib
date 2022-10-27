@@ -64,22 +64,25 @@ export const useTypeApi = (
     }),
     [],
   );
-  apiList.forEach(() => {
-    initialConfig.cacheData = [...initialConfig.cacheData, []];
-    initialConfig.networkData = [...initialConfig.networkData, []];
-    initialConfig.options = [
-      ...initialConfig.options,
-      {
-        limit,
-        cursor,
-        withoutOnliveInfo,
-      },
-    ];
-    initialConfig.sources = [
-      ...initialConfig.sources,
-      axios.CancelToken.source(),
-    ];
-  });
+  if (initialConfig.options.length !== apiList.length) {
+    apiList.forEach(() => {
+      initialConfig.cacheData = [...initialConfig.cacheData, []];
+      initialConfig.networkData = [...initialConfig.networkData, []];
+      initialConfig.options = [
+        ...initialConfig.options,
+        {
+          limit,
+          cursor,
+          withoutOnliveInfo,
+        },
+      ];
+      initialConfig.sources = [
+        ...initialConfig.sources,
+        axios.CancelToken.source(),
+      ];
+    });
+  }
+
   const [cacheData, setCacheData] = useState<User[][]>(initialConfig.cacheData);
   const [networkData, setNetworkData] = useState<User[][]>(
     initialConfig.networkData,
@@ -158,25 +161,22 @@ export const useTypeApi = (
          * 首筆資料一定是先使用 cache，之後的資料是看 callbackResponses 回應模式
          * */
         setCacheData(pre => {
-          const newData = pre
-            .map((preResult, index) => {
-              const foundIndex = requestApiIndex.findIndex(
-                targetIndex => index === targetIndex,
-              );
-              if (
-                foundIndex >= 0 &&
-                results[foundIndex].data?.data?.data &&
-                preResult
-              ) {
-                hasInitCacheRef.current = true;
-                const nextCache = [...results[foundIndex].data.data.data];
-                return [...preResult, ...nextCache];
-              }
-              if (preResult && preResult.length > 0) return preResult;
-              return null;
-            })
-            .filter(Boolean);
-          return newData as User[][];
+          const newData = pre.map((preResult, index) => {
+            const foundIndex = requestApiIndex.findIndex(
+              targetIndex => index === targetIndex,
+            );
+            if (
+              foundIndex >= 0 &&
+              results[foundIndex].data?.data?.data &&
+              preResult
+            ) {
+              hasInitCacheRef.current = true;
+              const nextCache = [...results[foundIndex].data.data.data];
+              return [...preResult, ...nextCache];
+            }
+            return preResult;
+          });
+          return newData;
         });
 
         if (isFirstInitRef.current && hasInitCacheRef.current) {
@@ -218,26 +218,23 @@ export const useTypeApi = (
          * */
         const dataSource = isFirstInitErrorRef.current ? 'cache' : 'data';
         setNetworkData(pre => {
-          const newData = pre
-            .map((preResult, index) => {
-              const foundIndex = requestApiIndex.findIndex(
-                targetIndex => index === targetIndex,
-              );
-              if (
-                foundIndex >= 0 &&
-                callbackResponses[foundIndex][dataSource]?.data?.data &&
-                preResult
-              ) {
-                const nextData = [
-                  ...callbackResponses[foundIndex][dataSource]?.data.data,
-                ];
-                return [...preResult, ...nextData];
-              }
-              if (preResult && preResult.length > 0) return preResult;
-              return null;
-            })
-            .filter(Boolean);
-          return newData as User[][];
+          const newData = pre.map((preResult, index) => {
+            const foundIndex = requestApiIndex.findIndex(
+              targetIndex => index === targetIndex,
+            );
+            if (
+              foundIndex >= 0 &&
+              callbackResponses[foundIndex][dataSource]?.data?.data &&
+              preResult
+            ) {
+              const nextData = [
+                ...callbackResponses[foundIndex][dataSource]?.data.data,
+              ];
+              return [...preResult, ...nextData];
+            }
+            return preResult;
+          });
+          return newData;
         });
 
         nextOptions = options.map((option, index) => {
@@ -390,6 +387,8 @@ export const useTypeApi = (
     refresh,
     getLeaderboardDataStrategy,
   ]);
+
+  console.log('leaderboardData', leaderboardData);
 
   return {
     loading: loadingRef.current,
