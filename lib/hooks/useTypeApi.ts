@@ -388,8 +388,6 @@ export const useTypeApi = (
     getLeaderboardDataStrategy,
   ]);
 
-  console.log('leaderboardData', leaderboardData);
-
   return {
     loading: loadingRef.current,
     polling: pollingRef.current,
