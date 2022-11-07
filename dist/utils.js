@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.storeUserInfo = exports.getUserInfo = exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
+exports.sleep = exports.storeUserInfo = exports.getUserInfo = exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
 const enums_1 = require("./enums");
 exports.globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 const qs = (search = exports.globalThis.location
@@ -548,4 +548,6 @@ const storeUserInfo = () => {
     };
 };
 exports.storeUserInfo = storeUserInfo;
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+exports.sleep = sleep;
 //# sourceMappingURL=utils.js.map

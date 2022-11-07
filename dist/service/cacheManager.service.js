@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleCacheStrategy = exports.handleNetworkOnly = exports.handleNetworkFirst = exports.getApiUrlStrategy = exports.HttpMethod = exports.CacheStrategy = void 0;
+exports.handleCacheStrategy = exports.handleCacheThenNetwork = exports.handleCacheOnly = exports.handleNetworkOnly = exports.handleNetworkThenSetCache = exports.handleNetworkFirst = exports.getApiUrlStrategy = exports.HttpMethod = exports.CacheStrategy = void 0;
 const CACHE_STORAGE_NAME_PREFIX = 'lb-cache-v1';
 // eslint-disable-next-line no-shadow
 var CacheStrategy;
@@ -22,6 +22,9 @@ var CacheStrategy;
     /** Only get data from the network, no data will be cached. */
     CacheStrategy["NETWORK_ONLY"] = "networkOnly";
     CacheStrategy["NETWORK_FIRST"] = "networkFirst";
+    CacheStrategy["CACHE_ONLY"] = "cacheOnly";
+    /** Get data from the network, data will be cached, but will not return cache. */
+    CacheStrategy["NETWORK_THEN_SET_CACHE"] = "networkThenSetCache";
 })(CacheStrategy = exports.CacheStrategy || (exports.CacheStrategy = {}));
 var HttpMethod;
 (function (HttpMethod) {
@@ -33,7 +36,7 @@ const cacheWhitelists = [
     {
         path: '/leaderboards/eventory',
         method: HttpMethod.GET,
-        cacheStrategy: CacheStrategy.NETWORK_FIRST,
+        cacheStrategy: CacheStrategy.CACHE_THEN_NETWORK,
     },
 ];
 const formatDate = (date) => {
@@ -158,6 +161,16 @@ const handleNetworkFirst = (apiCallback, url) => __awaiter(void 0, void 0, void 
     }
 });
 exports.handleNetworkFirst = handleNetworkFirst;
+const handleNetworkThenSetCache = (apiCallback, url) => __awaiter(void 0, void 0, void 0, function* () {
+    const apiRes = yield handleCallback(apiCallback);
+    if (apiRes.data) {
+        setAxiosCache(url, apiRes.data);
+        return apiRes.data;
+    }
+    if (apiRes.error)
+        throw apiRes.error;
+});
+exports.handleNetworkThenSetCache = handleNetworkThenSetCache;
 const handleNetworkOnly = (apiCallback) => __awaiter(void 0, void 0, void 0, function* () {
     const apiRes = yield handleCallback(apiCallback);
     if (apiRes.data)
@@ -166,9 +179,42 @@ const handleNetworkOnly = (apiCallback) => __awaiter(void 0, void 0, void 0, fun
         throw apiRes.error;
 });
 exports.handleNetworkOnly = handleNetworkOnly;
+const handleCacheOnly = (url) => __awaiter(void 0, void 0, void 0, function* () {
+    const cacheRes = yield getLatestCache(url);
+    if (cacheRes.cache)
+        return cacheRes.cache;
+    if (cacheRes.error)
+        console.error(cacheRes.error);
+});
+exports.handleCacheOnly = handleCacheOnly;
+const handleCacheThenNetwork = (apiCallback, url) => __awaiter(void 0, void 0, void 0, function* () {
+    const cacheRes = yield getLatestCache(url);
+    const callback = new Promise((resolve, reject) => {
+        (() => __awaiter(void 0, void 0, void 0, function* () {
+            const apiRes = yield handleCallback(apiCallback);
+            if (apiRes.data) {
+                setAxiosCache(url, apiRes.data);
+                resolve({ data: apiRes.data, cache: cacheRes.cache });
+            }
+            if (apiRes.error && cacheRes.cache) {
+                resolve({ cache: cacheRes.cache, error: apiRes.error });
+            }
+            reject(apiRes.error);
+        }))();
+    });
+    return handleResponse(cacheRes.cache, callback);
+});
+exports.handleCacheThenNetwork = handleCacheThenNetwork;
+const handleResponse = (data, callback) => ({
+    data,
+    callback,
+});
 const handleCacheStrategy = ({ cacheStrategy, apiCallback, url, }) => {
     if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
         return exports.handleNetworkFirst(apiCallback, url);
+    }
+    if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
+        return exports.handleCacheThenNetwork(apiCallback, url);
     }
     return exports.handleNetworkOnly(apiCallback);
 };

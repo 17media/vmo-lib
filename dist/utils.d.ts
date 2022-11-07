@@ -169,3 +169,4 @@ export declare const storeUserInfo: () => {
     accessToken: string | undefined;
     userID: string | undefined;
 };
+export declare const sleep: (ms: number) => Promise<unknown>;

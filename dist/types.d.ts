@@ -41,4 +41,9 @@ export interface ISetting {
 export interface LeaderboardItem extends User {
     roomID?: number;
 }
+export interface EventoryApiOption {
+    limit: number;
+    cursor: string;
+    withoutOnliveInfo: boolean;
+}
 export {};

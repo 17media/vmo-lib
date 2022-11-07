@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 export declare enum CacheStrategy {
     /** alias Cache, falling back to network. */
     /** Read the data from the cache first, if not, then get it from the network.  */
@@ -7,7 +7,10 @@ export declare enum CacheStrategy {
     CACHE_THEN_NETWORK = "cacheThenNetwork",
     /** Only get data from the network, no data will be cached. */
     NETWORK_ONLY = "networkOnly",
-    NETWORK_FIRST = "networkFirst"
+    NETWORK_FIRST = "networkFirst",
+    CACHE_ONLY = "cacheOnly",
+    /** Get data from the network, data will be cached, but will not return cache. */
+    NETWORK_THEN_SET_CACHE = "networkThenSetCache"
 }
 export declare enum HttpMethod {
     GET = "get",
@@ -17,8 +20,24 @@ export declare enum HttpMethod {
 export declare const getApiUrlStrategy: (apiUrl: string, method?: HttpMethod) => {
     cacheStrategy: CacheStrategy;
 };
+declare class CacheError extends Error {
+    constructor(message: string);
+}
+declare type CaughtError = null | Error | AxiosError | CacheError;
+interface FulfillFormat<T = any> {
+    data?: AxiosResponse<T>;
+    cache?: T;
+    error?: CaughtError;
+}
 export declare const handleNetworkFirst: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<any>;
+export declare const handleNetworkThenSetCache: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<AxiosResponse<T> | undefined>;
 export declare const handleNetworkOnly: <T = any>(apiCallback: Promise<AxiosResponse<T>>) => Promise<AxiosResponse<T> | undefined>;
+export declare const handleCacheOnly: (url: string) => Promise<any>;
+export declare const handleCacheThenNetwork: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<HandleCacheStrategyResponse<any>>;
+export interface HandleCacheStrategyResponse<T = any> {
+    data: T;
+    callback?: Promise<FulfillFormat<T>>;
+}
 interface HandleCacheStrategyParams<T> {
     cacheStrategy: CacheStrategy;
     apiCallback: Promise<AxiosResponse<T>>;
