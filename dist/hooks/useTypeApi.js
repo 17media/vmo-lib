@@ -325,7 +325,6 @@ const useTypeApi = (apiList = [], method = 'GET', realTime, initialData, opt = {
         refresh,
         getLeaderboardDataStrategy,
     ]);
-    console.log('leaderboardData', leaderboardData);
     return {
         loading: loadingRef.current,
         polling: pollingRef.current,
