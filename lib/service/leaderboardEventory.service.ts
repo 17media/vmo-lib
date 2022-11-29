@@ -1,7 +1,7 @@
 import { CancelToken, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { getInstanceEventory } from './axios';
 import { User } from '../types';
-import { getType } from '../utils';
+import { getType, isProdVmo17Media } from '../utils';
 import { CacheStrategy, handleCacheStrategy } from './cacheManager.service';
 
 const endpoint = `/v1/leaderboards/eventory`;
@@ -45,10 +45,9 @@ interface FetchURLParams {
 }
 
 const getFetchURL = (apiEndpoint: string, params: FetchURLParams) => {
-  const baseURL =
-    window.location.hostname === 'vmo.17.media'
-      ? 'https://api.17app.co/api'
-      : 'https://sta-api.17app.co/api';
+  const baseURL = isProdVmo17Media()
+    ? 'https://api.17app.co/api'
+    : 'https://sta-api.17app.co/api';
 
   const fetchURL = new URL(baseURL + apiEndpoint);
   Object.keys(params).forEach(key => {
