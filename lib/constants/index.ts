@@ -58,3 +58,9 @@ export const DEFAULT_AVATAR_IMAGE = `https://${GCP_CDN_DOMAIN}/17live/ig-default
  * if streamer is streaming, use this image wrap around streamer's avatar.
  */
 export const ONLINE_RIM_IMAGE = `https://${GCP_CDN_DOMAIN}/campaign/assets/igOfficialCircle.png`;
+
+/**
+ * sentry production dns url.
+ */
+export const SENTRY_DSN_URL =
+  'https://8526f3bd6d3a4abcac1b3fdcbc06b416@o998499.ingest.sentry.io/6547346';

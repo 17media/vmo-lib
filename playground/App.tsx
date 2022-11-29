@@ -16,6 +16,7 @@ import Expired from './Expired';
 import Translation from './Translation';
 import Keyboard from './Keyboard';
 import Copy from './Copy';
+import Sentry from './Sentry';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] = useState<string>('Keyboard');
@@ -40,6 +41,7 @@ const App = () => {
     Translation: <Translation />,
     Keyboard: <Keyboard />,
     Copy: <Copy />,
+    Sentry: <Sentry />,
   };
 
   return (
