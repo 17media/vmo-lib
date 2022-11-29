@@ -7,7 +7,7 @@ exports.getInstanceVote = exports.getInstanceEventory = exports.getInstanceCache
 const axios_1 = __importDefault(require("axios"));
 const utils_1 = require("../utils");
 const getInstance = () => axios_1.default.create({
-    baseURL: window.location.hostname === 'vmo.17.media'
+    baseURL: utils_1.isProdVmo17Media()
         ? 'https://api.17app.co/api'
         : 'https://sta-api.17app.co/api',
 });
@@ -26,13 +26,13 @@ const getInstanceCache = () => {
 };
 exports.getInstanceCache = getInstanceCache;
 const getInstanceEventory = () => axios_1.default.create({
-    baseURL: window.location.hostname === 'vmo.17.media'
+    baseURL: utils_1.isProdVmo17Media()
         ? 'https://api-dsa.17app.co/api'
         : 'https://sta-api.17app.co/api',
 });
 exports.getInstanceEventory = getInstanceEventory;
 const getInstanceVote = () => axios_1.default.create({
-    baseURL: window.location.hostname === 'vmo.17.media'
+    baseURL: utils_1.isProdVmo17Media()
         ? 'https://api.17app.co/api'
         : 'https://sta-api.17app.co/api',
 });

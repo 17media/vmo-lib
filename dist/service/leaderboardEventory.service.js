@@ -20,7 +20,7 @@ var ErrorCode;
 })(ErrorCode || (ErrorCode = {}));
 const CANCEL_TIME_OUT = 5000;
 const getFetchURL = (apiEndpoint, params) => {
-    const baseURL = window.location.hostname === 'vmo.17.media'
+    const baseURL = utils_1.isProdVmo17Media()
         ? 'https://api.17app.co/api'
         : 'https://sta-api.17app.co/api';
     const fetchURL = new URL(baseURL + apiEndpoint);
