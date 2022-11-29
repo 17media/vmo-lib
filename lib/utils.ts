@@ -44,7 +44,7 @@ export const getRandomInteger = (min: number, max: number): number => {
 };
 
 export const isProdVmo17Media = () =>
-  window.location.hostname === 'vmo.17.media';
+  window.location.hostname === 'vmo.17.media' || 'gcscdn-event-cn.17.media';
 
 export const getType = (api: { sta: string; prod: string }) =>
   isProdVmo17Media() ? api.prod : api.sta;
