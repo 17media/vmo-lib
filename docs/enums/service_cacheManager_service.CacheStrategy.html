@@ -76,9 +76,11 @@
 							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#CACHE_FIRST" class="tsd-kind-icon">CACHE_<wbr>FIRST</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#CACHE_ONLY" class="tsd-kind-icon">CACHE_<wbr>ONLY</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#CACHE_THEN_NETWORK" class="tsd-kind-icon">CACHE_<wbr>THEN_<wbr>NETWORK</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#NETWORK_FIRST" class="tsd-kind-icon">NETWORK_<wbr>FIRST</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#NETWORK_ONLY" class="tsd-kind-icon">NETWORK_<wbr>ONLY</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="service_cacheManager_service.CacheStrategy.html#NETWORK_THEN_SET_CACHE" class="tsd-kind-icon">NETWORK_<wbr>THEN_<wbr>SET_<wbr>CACHE</a></li>
 							</ul>
 						</section>
 					</div>
@@ -92,7 +94,7 @@
 					<div class="tsd-signature tsd-kind-icon">CACHE_<wbr>FIRST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;cacheFirst&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/service/cacheManager.service.ts#L9">lib/service/cacheManager.service.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/d4959ca/lib/service/cacheManager.service.ts#L9">lib/service/cacheManager.service.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -102,12 +104,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="CACHE_ONLY" class="tsd-anchor"></a>
+					<h3>CACHE_<wbr>ONLY</h3>
+					<div class="tsd-signature tsd-kind-icon">CACHE_<wbr>ONLY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;cacheOnly&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/d4959ca/lib/service/cacheManager.service.ts#L15">lib/service/cacheManager.service.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
 					<a name="CACHE_THEN_NETWORK" class="tsd-anchor"></a>
 					<h3>CACHE_<wbr>THEN_<wbr>NETWORK</h3>
 					<div class="tsd-signature tsd-kind-icon">CACHE_<wbr>THEN_<wbr>NETWORK<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;cacheThenNetwork&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/service/cacheManager.service.ts#L11">lib/service/cacheManager.service.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/d4959ca/lib/service/cacheManager.service.ts#L11">lib/service/cacheManager.service.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -122,7 +134,7 @@
 					<div class="tsd-signature tsd-kind-icon">NETWORK_<wbr>FIRST<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;networkFirst&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/service/cacheManager.service.ts#L14">lib/service/cacheManager.service.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/d4959ca/lib/service/cacheManager.service.ts#L14">lib/service/cacheManager.service.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -132,12 +144,27 @@
 					<div class="tsd-signature tsd-kind-icon">NETWORK_<wbr>ONLY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;networkOnly&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/ff1c783/lib/service/cacheManager.service.ts#L13">lib/service/cacheManager.service.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/d4959ca/lib/service/cacheManager.service.ts#L13">lib/service/cacheManager.service.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Only get data from the network, no data will be cached.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="NETWORK_THEN_SET_CACHE" class="tsd-anchor"></a>
+					<h3>NETWORK_<wbr>THEN_<wbr>SET_<wbr>CACHE</h3>
+					<div class="tsd-signature tsd-kind-icon">NETWORK_<wbr>THEN_<wbr>SET_<wbr>CACHE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;networkThenSetCache&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/d4959ca/lib/service/cacheManager.service.ts#L17">lib/service/cacheManager.service.ts:17</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Get data from the network, data will be cached, but will not return cache.</p>
 						</div>
 					</div>
 				</section>
@@ -165,6 +192,9 @@
 								<a href="service_cacheManager_service.CacheStrategy.html#CACHE_FIRST" class="tsd-kind-icon">CACHE_<wbr>FIRST</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="service_cacheManager_service.CacheStrategy.html#CACHE_ONLY" class="tsd-kind-icon">CACHE_<wbr>ONLY</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
 								<a href="service_cacheManager_service.CacheStrategy.html#CACHE_THEN_NETWORK" class="tsd-kind-icon">CACHE_<wbr>THEN_<wbr>NETWORK</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
@@ -173,6 +203,9 @@
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
 								<a href="service_cacheManager_service.CacheStrategy.html#NETWORK_ONLY" class="tsd-kind-icon">NETWORK_<wbr>ONLY</a>
 							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="service_cacheManager_service.CacheStrategy.html#NETWORK_THEN_SET_CACHE" class="tsd-kind-icon">NETWORK_<wbr>THEN_<wbr>SET_<wbr>CACHE</a>
+							</li>
 						</ul>
 					</li>
 				</ul>
@@ -180,17 +213,29 @@
 					<li class=" tsd-kind-enum tsd-parent-kind-module">
 						<a href="service_cacheManager_service.HttpMethod.html" class="tsd-kind-icon">Http<wbr>Method</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../interfaces/service_cacheManager_service.HandleCacheStrategyResponse.html" class="tsd-kind-icon">Handle<wbr>Cache<wbr>Strategy<wbr>Response</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/service_cacheManager_service.html#getApiUrlStrategy" class="tsd-kind-icon">get<wbr>Api<wbr>Url<wbr>Strategy</a>
 					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/service_cacheManager_service.html#handleCacheOnly" class="tsd-kind-icon">handle<wbr>Cache<wbr>Only</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../modules/service_cacheManager_service.html#handleCacheStrategy" class="tsd-kind-icon">handle<wbr>Cache<wbr>Strategy</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../modules/service_cacheManager_service.html#handleCacheThenNetwork" class="tsd-kind-icon">handle<wbr>Cache<wbr>Then<wbr>Network</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../modules/service_cacheManager_service.html#handleNetworkFirst" class="tsd-kind-icon">handle<wbr>Network<wbr>First</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../modules/service_cacheManager_service.html#handleNetworkOnly" class="tsd-kind-icon">handle<wbr>Network<wbr>Only</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../modules/service_cacheManager_service.html#handleNetworkThenSetCache" class="tsd-kind-icon">handle<wbr>Network<wbr>Then<wbr>Set<wbr>Cache</a>
 					</li>
 				</ul>
 			</nav>
@@ -208,10 +253,11 @@
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
