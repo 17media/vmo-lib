@@ -121,9 +121,8 @@ const getLatestCache = async (url: string) => {
   for (const cacheKey of sortedCache) {
     // eslint-disable-next-line no-await-in-loop
     latestCache = await getCache(cacheKey, url);
-    if (latestCache?.cache || latestCache?.error) {
-      return latestCache;
-    }
+    if (latestCache?.cache) return latestCache;
+    if (latestCache?.error) console.error(latestCache?.error);
   }
 
   console.warn('Cannot find any cache.');
@@ -185,7 +184,6 @@ export const handleNetworkFirst = async <T = any>(
   if (apiRes.error) {
     const cacheRes = await getLatestCache(url);
     if (cacheRes.cache) return cacheRes.cache;
-    if (cacheRes.error) console.error(cacheRes.error);
     if (apiRes.error) throw apiRes.error;
   }
 };
