@@ -108,7 +108,7 @@ const getCache = async <T = any>(
     }
     return { cache: cachedBody };
   } catch (error) {
-    return { error };
+    return { error: new CacheError(error as string) };
   }
 };
 
