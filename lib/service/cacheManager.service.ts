@@ -176,7 +176,7 @@ export const handleNetworkFirst = async <T = any>(
   if (apiRes.error) {
     const cacheRes = await getLatestCache(url);
     if (cacheRes) return cacheRes;
-    if (apiRes.error) throw apiRes.error;
+    throw apiRes.error;
   }
 };
 
