@@ -27,36 +27,28 @@ export type APIType = {
   prod: string;
 };
 
-export { CacheStrategy } from '../service/cacheManager.service';
-
 /**
  * 取得 container 資料<br />
  * @param apiList APIType
+ * @param method HTTP Method, Legacy 可棄用
  * @param realTime Request 自動重發更新間隔時間(ms), ex: 1000為一秒發送一次
  * @param initialData leaderboard 起始資料, 如果有1個containerID => [[]], 2個=> [[],[]]
  * @param opt limit: 一次取得多少筆資料<br />cursor: 上次資料的 offset, ex: 1627489719629532322:23:6:10-yCUQM_rqdi3kW6tu8p2uBgMcIJY=<br />withoutOnliveInfo: 是否取得 onliveInfo
- * @param cacheStrategy cacheStrategy: cache 策略
  *
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
 
-export const useTypeApi = ({
-  apiList = [],
-  realTime,
-  initialData,
-  cacheStrategy,
+export const useTypeApi = (
+  apiList: APIType[] = [],
+  method = 'GET',
+  realTime: number,
+  initialData?: User[][],
   opt = {
     limit: 1000,
     cursor: '',
     withoutOnliveInfo: false,
   },
-}: {
-  apiList: APIType[];
-  realTime: number;
-  initialData?: User[][];
-  cacheStrategy?: CacheStrategy;
-  opt?: EventoryApiOption;
-}) => {
+) => {
   const [requestError, setRequestError] = useState<any | null>(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
   const [suspend, setSuspend] = useState(false);
@@ -109,12 +101,10 @@ export const useTypeApi = ({
   const finishedGetLBProcessRef = useRef(false);
   const reacquireCountRef = useRef(0);
 
-  const { cacheStrategy: defaultCacheStrategy } = useMemo(
+  const { cacheStrategy } = useMemo(
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
     [],
   );
-
-  const finalCacheStrategy = cacheStrategy ?? defaultCacheStrategy;
 
   const getLeaderboardData = useCallback(
     async (apis: APIType[] = [], strategy: CacheStrategy) => {
@@ -161,7 +151,7 @@ export const useTypeApi = ({
       try {
         const results = await Promise.all(apiPromiseList);
 
-        if (finalCacheStrategy !== CacheStrategy.CACHE_THEN_NETWORK) {
+        if (cacheStrategy !== CacheStrategy.CACHE_THEN_NETWORK) {
           setLeaderboardData(results.map(result => result.data.data));
           return;
         }
@@ -276,12 +266,12 @@ export const useTypeApi = ({
         finishedGetLBProcessRef.current = true;
       }
     },
-    [finalCacheStrategy, opt.limit, opt.withoutOnliveInfo, options],
+    [cacheStrategy, opt.limit, opt.withoutOnliveInfo, options],
   );
 
   const getLeaderboardDataStrategy = useCallback(
-    () => getLeaderboardData(apiList, finalCacheStrategy),
-    [apiList, finalCacheStrategy, getLeaderboardData],
+    () => getLeaderboardData(apiList, cacheStrategy),
+    [apiList, cacheStrategy, getLeaderboardData],
   );
 
   const refresh = useCallback(() => {
@@ -301,7 +291,7 @@ export const useTypeApi = ({
     }
   }, [
     apiList,
-    finalCacheStrategy,
+    cacheStrategy,
     getLeaderboardData,
     getLeaderboardDataStrategy,
     reload,
@@ -345,7 +335,7 @@ export const useTypeApi = ({
   }, [networkData, options]);
 
   useEffect(() => {
-    if (finalCacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
+    if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
       const canSetNetworkData = networkData.some(data => data.length > 0);
       const dataSource = canSetNetworkData ? networkData : cacheData;
 
@@ -365,7 +355,7 @@ export const useTypeApi = ({
           setLeaderboardData(networkData);
       }
     }
-  }, [networkData, cacheData, options, realTime, apiList, finalCacheStrategy]);
+  }, [networkData, cacheData, options, realTime, apiList, cacheStrategy]);
 
   useEffect(() => {
     if (loadingRef.current || pollingRef.current || suspend) return;
@@ -390,7 +380,7 @@ export const useTypeApi = ({
   }, [
     options,
     apiList,
-    finalCacheStrategy,
+    cacheStrategy,
     getLeaderboardData,
     suspend,
     realTime,
