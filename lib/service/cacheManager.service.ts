@@ -12,6 +12,9 @@ export enum CacheStrategy {
   /** Only get data from the network, no data will be cached. */
   NETWORK_ONLY = 'networkOnly',
   NETWORK_FIRST = 'networkFirst',
+  CACHE_ONLY = 'cacheOnly',
+  /** Get data from the network, data will be cached, but will not return cache. */
+  NETWORK_THEN_SET_CACHE = 'networkThenSetCache',
 }
 
 export enum HttpMethod {
@@ -99,6 +102,11 @@ const getCache = async <T = any>(
     const cacheStorage = await caches.open(cacheKey);
     const cachedResponse = await cacheStorage.match(url);
     const cachedBody = await cachedResponse?.json();
+
+    if (!cachedBody) {
+      return { error: new CacheError('Cannot find any cache.') };
+    }
+
     return { cache: cachedBody };
   } catch (error) {
     return { error: new CacheError(error as string) };
@@ -114,11 +122,10 @@ const getLatestCache = async (url: string) => {
   for (const cacheKey of sortedCache) {
     // eslint-disable-next-line no-await-in-loop
     latestCache = await getCache(cacheKey, url);
-    if (latestCache?.error) console.error(latestCache?.error);
-    if (latestCache?.cache) return latestCache.cache;
+    if (latestCache?.cache) return latestCache;
   }
 
-  console.warn('Cannot find any cache.');
+  return { error: new CacheError('Cannot find any cache.') };
 };
 
 export const getApiUrlStrategy = (
@@ -175,9 +182,23 @@ export const handleNetworkFirst = async <T = any>(
 
   if (apiRes.error) {
     const cacheRes = await getLatestCache(url);
-    if (cacheRes) return cacheRes;
-    throw apiRes.error;
+    if (cacheRes.cache) return cacheRes.cache;
+    if (cacheRes.error) console.error(cacheRes.error);
+    if (apiRes.error) throw apiRes.error;
   }
+};
+
+export const handleNetworkThenSetCache = async <T = any>(
+  apiCallback: Promise<AxiosResponse<T>>,
+  url: string,
+) => {
+  const apiRes = await handleCallback(apiCallback);
+  if (apiRes.data) {
+    setAxiosCache(url, apiRes.data);
+    return apiRes.data;
+  }
+
+  if (apiRes.error) throw apiRes.error;
 };
 
 export const handleNetworkOnly = async <T = any>(
@@ -186,6 +207,12 @@ export const handleNetworkOnly = async <T = any>(
   const apiRes = await handleCallback(apiCallback);
   if (apiRes.data) return apiRes.data;
   if (apiRes.error) throw apiRes.error;
+};
+
+export const handleCacheOnly = async (url: string) => {
+  const cacheRes = await getLatestCache(url);
+  if (cacheRes.cache) return cacheRes.cache;
+  if (cacheRes.error) console.error(cacheRes.error);
 };
 
 export const handleCacheThenNetwork = async <T = any>(
@@ -198,15 +225,15 @@ export const handleCacheThenNetwork = async <T = any>(
       const apiRes = await handleCallback(apiCallback);
       if (apiRes.data) {
         setAxiosCache(url, apiRes.data);
-        resolve({ data: apiRes.data, cache: cacheRes });
+        resolve({ data: apiRes.data, cache: cacheRes.cache });
       }
-      if (apiRes.error && cacheRes) {
-        resolve({ cache: cacheRes, error: apiRes.error });
+      if (apiRes.error && cacheRes.cache) {
+        resolve({ cache: cacheRes.cache, error: apiRes.error });
       }
       reject(apiRes.error);
     })();
   });
-  return handleResponse(cacheRes, callback);
+  return handleResponse(cacheRes.cache, callback);
 };
 export interface HandleCacheStrategyResponse<T = any> {
   data: T;
