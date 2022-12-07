@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios, { CancelTokenSource } from 'axios';
+import axios, { CancelTokenSource, AxiosResponse } from 'axios';
 import {
   getLeaderboardEventory,
   Response,
@@ -61,9 +61,7 @@ export const useTypeApi = ({
   opt?: EventoryApiOption;
 }) => {
   const [requestError, setRequestError] = useState<any | null>(null);
-  const [leaderboardData, setLeaderboardData] = useState<
-    (User[] | undefined)[] | undefined
-  >(initialData);
+  const [leaderboardData, setLeaderboardData] = useState(initialData);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
   const timeoutKey = useRef(0);
@@ -141,9 +139,12 @@ export const useTypeApi = ({
               strategy,
             });
           }
-          return null;
+          return undefined;
         })
-        .filter(Boolean),
+        .filter(
+          (i): i is Promise<HandleCacheStrategyResponse<Response<User>>> =>
+            Boolean(i),
+        ),
     [options],
   );
 
@@ -154,20 +155,20 @@ export const useTypeApi = ({
           if (isFirstInitRef.current || options[index]?.cursor) {
             return index;
           }
-          return null;
+          return undefined;
         })
-        .filter(Number.isFinite),
+        .filter((i): i is number => Boolean(i)),
     [options],
   );
 
   const setOthersStrategyData = useCallback(
     (
       results: HandleCacheStrategyResponse<Response<User>>[],
-      requestApiIndex: (number | null)[],
+      requestApiIndex: number[],
     ) => {
       setLeaderboardData(pre => {
-        if (!pre) return results.map(result => result.data?.data.data);
-        const newData = pre?.map((preResult, index) => {
+        if (!pre) return results.map(result => result.data!.data.data);
+        const newData = pre.map((preResult, index) => {
           const foundIndex = requestApiIndex.findIndex(
             targetIndex => index === targetIndex,
           );
@@ -187,7 +188,7 @@ export const useTypeApi = ({
   const setCacheThenNetworkData = useCallback(
     async (
       results: HandleCacheStrategyResponse<Response<User>>[],
-      requestApiIndex: (number | null)[],
+      requestApiIndex: number[],
     ) => {
       /**
        * CacheStrategy === CACHE_THEN_NETWORK
