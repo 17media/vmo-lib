@@ -162,7 +162,39 @@ export const useTypeApi = ({
         const results = await Promise.all(apiPromiseList);
 
         if (finalCacheStrategy !== CacheStrategy.CACHE_THEN_NETWORK) {
-          setLeaderboardData(results.map(result => result.data.data));
+          setLeaderboardData(pre => {
+            if (!pre) return results.map(result => result.data.data);
+            const newData = pre.map((preResult, index) => {
+              const foundIndex = requestApiIndex.findIndex(
+                targetIndex => index === targetIndex,
+              );
+              if (
+                foundIndex >= 0 &&
+                results[foundIndex]?.data?.data &&
+                preResult
+              ) {
+                const nextData = [...results[foundIndex]?.data.data];
+                return [...preResult, ...nextData];
+              }
+              return preResult;
+            });
+            return newData;
+          });
+
+          nextOptions = options.map((option, index) => {
+            const foundIndex = requestApiIndex.findIndex(
+              targetIndex => index === targetIndex,
+            );
+            if (foundIndex >= 0) {
+              const { nextCursor } = results[foundIndex].data;
+              return {
+                limit: opt.limit,
+                cursor: nextCursor,
+                withoutOnliveInfo: opt.withoutOnliveInfo,
+              };
+            }
+            return option;
+          });
           return;
         }
 
