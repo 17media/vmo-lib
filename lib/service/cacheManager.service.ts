@@ -72,6 +72,7 @@ const deleteCache = async () => {
     // eslint-disable-next-line no-restricted-syntax
     for (const cacheKey of cacheKeys) {
       if (
+        cacheKey.length &&
         cacheKey.includes(CACHE_STORAGE_NAME_PREFIX) &&
         isTwoDaysAgoCache(cacheKey)
       ) {
@@ -186,6 +187,17 @@ export const handleNetworkOnly = async <T = any>(
   throw apiRes.error;
 };
 
+interface HandleCacheStrategyParams<T> {
+  cacheStrategy: CacheStrategy;
+  apiCallback: Promise<AxiosResponse<T>>;
+  url: string;
+}
+
+export interface HandleCacheStrategyResponse<T = any> {
+  data?: AxiosResponse<T>;
+  callback?: Promise<FulfillFormat<T>>;
+}
+
 export const handleCacheThenNetwork = async <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
   url: string,
@@ -194,10 +206,12 @@ export const handleCacheThenNetwork = async <T = any>(
   const callback = new Promise<FulfillFormat<T>>((resolve, reject) => {
     (async () => {
       const apiRes = await handleCallback<T>(apiCallback);
+      // 理想情況、讀到一半斷網、弱網使用
       if (apiRes.data) {
         setAxiosCache(url, apiRes.data);
         resolve({ data: apiRes.data, cache: cacheRes });
       }
+      // 一開始斷網使用
       if (apiRes.error && cacheRes) {
         resolve({ cache: cacheRes, error: apiRes.error });
       }
@@ -206,10 +220,6 @@ export const handleCacheThenNetwork = async <T = any>(
   });
   return handleResponse<T>(cacheRes, callback);
 };
-export interface HandleCacheStrategyResponse<T = any> {
-  data?: AxiosResponse<T>;
-  callback?: Promise<FulfillFormat<T>>;
-}
 
 const handleResponse = <T = any>(
   data?: AxiosResponse<T>,
@@ -218,12 +228,6 @@ const handleResponse = <T = any>(
   data,
   callback,
 });
-
-interface HandleCacheStrategyParams<T> {
-  cacheStrategy: CacheStrategy;
-  apiCallback: Promise<AxiosResponse<T>>;
-  url: string;
-}
 
 export const handleCacheStrategy = <T = any>({
   cacheStrategy,
