@@ -21,7 +21,7 @@ interface Params {
 
 type UserNoLiveInfo = Omit<User, 'onliveInfo'>;
 
-interface Response<T> {
+export interface Response<T> {
   data: T[];
   nextCursor: string | '';
   type: string;

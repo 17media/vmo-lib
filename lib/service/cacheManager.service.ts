@@ -105,7 +105,7 @@ const getCache = async <T = any>(
   }
 };
 
-const getLatestCache = async (url: string) => {
+const getLatestCache = async <T = any>(url: string) => {
   const cacheKeys = await caches.keys();
   const sortedCache = cacheKeys.reverse();
 
@@ -113,7 +113,7 @@ const getLatestCache = async (url: string) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const cacheKey of sortedCache) {
     // eslint-disable-next-line no-await-in-loop
-    latestCache = await getCache(cacheKey, url);
+    latestCache = await getCache<T>(cacheKey, url);
     if (latestCache?.error) console.error(latestCache?.error);
     if (latestCache?.cache) return latestCache.cache;
   }
@@ -154,7 +154,7 @@ type CaughtError = null | Error | AxiosError | CacheError;
 
 interface FulfillFormat<T = any> {
   data?: AxiosResponse<T>;
-  cache?: T;
+  cache?: AxiosResponse<T>;
   error?: CaughtError;
 }
 
@@ -167,35 +167,33 @@ export const handleNetworkFirst = async <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
   url: string,
 ) => {
-  const apiRes = await handleCallback(apiCallback);
+  const apiRes = await handleCallback<T>(apiCallback);
   if (apiRes.data) {
     setAxiosCache(url, apiRes.data);
-    return apiRes.data;
+    return handleResponse<T>(apiRes.data);
   }
 
-  if (apiRes.error) {
-    const cacheRes = await getLatestCache(url);
-    if (cacheRes) return cacheRes;
-    throw apiRes.error;
-  }
+  const cacheRes = await getLatestCache<T>(url);
+  if (cacheRes) return handleResponse<T>(cacheRes);
+  throw apiRes.error;
 };
 
 export const handleNetworkOnly = async <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
 ) => {
-  const apiRes = await handleCallback(apiCallback);
-  if (apiRes.data) return apiRes.data;
-  if (apiRes.error) throw apiRes.error;
+  const apiRes = await handleCallback<T>(apiCallback);
+  if (apiRes.data) return handleResponse<T>(apiRes.data);
+  throw apiRes.error;
 };
 
 export const handleCacheThenNetwork = async <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
   url: string,
 ) => {
-  const cacheRes = await getLatestCache(url);
+  const cacheRes = await getLatestCache<T>(url);
   const callback = new Promise<FulfillFormat<T>>((resolve, reject) => {
     (async () => {
-      const apiRes = await handleCallback(apiCallback);
+      const apiRes = await handleCallback<T>(apiCallback);
       if (apiRes.data) {
         setAxiosCache(url, apiRes.data);
         resolve({ data: apiRes.data, cache: cacheRes });
@@ -206,15 +204,15 @@ export const handleCacheThenNetwork = async <T = any>(
       reject(apiRes.error);
     })();
   });
-  return handleResponse(cacheRes, callback);
+  return handleResponse<T>(cacheRes, callback);
 };
 export interface HandleCacheStrategyResponse<T = any> {
-  data: T;
+  data?: AxiosResponse<T>;
   callback?: Promise<FulfillFormat<T>>;
 }
 
 const handleResponse = <T = any>(
-  data: T,
+  data?: AxiosResponse<T>,
   callback?: Promise<FulfillFormat<T>>,
 ): HandleCacheStrategyResponse<T> => ({
   data,

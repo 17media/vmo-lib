@@ -1,10 +1,14 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import axios, { CancelTokenSource } from 'axios';
-import { getLeaderboardEventory } from '../service/leaderboardEventory.service';
+import {
+  getLeaderboardEventory,
+  Response,
+} from '../service/leaderboardEventory.service';
 import {
   CacheStrategy,
   getApiUrlStrategy,
   HttpMethod,
+  HandleCacheStrategyResponse,
 } from '../service/cacheManager.service';
 import { User, EventoryApiOption } from '../types';
 import { sleep } from '../utils';
@@ -57,7 +61,9 @@ export const useTypeApi = ({
   opt?: EventoryApiOption;
 }) => {
   const [requestError, setRequestError] = useState<any | null>(null);
-  const [leaderboardData, setLeaderboardData] = useState(initialData);
+  const [leaderboardData, setLeaderboardData] = useState<
+    (User[] | undefined)[] | undefined
+  >(initialData);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
   const timeoutKey = useRef(0);
@@ -155,15 +161,18 @@ export const useTypeApi = ({
   );
 
   const setOthersStrategyData = useCallback(
-    (results: any[], requestApiIndex: any[]) => {
+    (
+      results: HandleCacheStrategyResponse<Response<User>>[],
+      requestApiIndex: (number | null)[],
+    ) => {
       setLeaderboardData(pre => {
-        if (!pre) return results.map(result => result.data.data);
-        const newData = pre.map((preResult, index) => {
+        if (!pre) return results.map(result => result.data?.data.data);
+        const newData = pre?.map((preResult, index) => {
           const foundIndex = requestApiIndex.findIndex(
             targetIndex => index === targetIndex,
           );
-          if (foundIndex >= 0 && results[foundIndex]?.data?.data && preResult) {
-            const nextData = [...results[foundIndex]?.data.data];
+          const nextData = results[foundIndex]?.data?.data?.data;
+          if (foundIndex >= 0 && nextData && preResult) {
             return [...preResult, ...nextData];
           }
           return preResult;
@@ -176,7 +185,10 @@ export const useTypeApi = ({
   );
 
   const setCacheThenNetworkData = useCallback(
-    async (results: any[], requestApiIndex: any[]) => {
+    async (
+      results: HandleCacheStrategyResponse<Response<User>>[],
+      requestApiIndex: (number | null)[],
+    ) => {
       /**
        * CacheStrategy === CACHE_THEN_NETWORK
        * 首筆資料一定是先使用 cache，之後的資料是看 callbackResponses 回應模式
@@ -186,13 +198,9 @@ export const useTypeApi = ({
           const foundIndex = requestApiIndex.findIndex(
             targetIndex => index === targetIndex,
           );
-          if (
-            foundIndex >= 0 &&
-            results[foundIndex].data?.data?.data &&
-            preResult
-          ) {
+          const nextCache = results[foundIndex]?.data?.data?.data;
+          if (foundIndex >= 0 && nextCache && preResult) {
             hasInitCacheRef.current = true;
-            const nextCache = [...results[foundIndex].data.data.data];
             return [...preResult, ...nextCache];
           }
           return preResult;
@@ -215,7 +223,7 @@ export const useTypeApi = ({
 
       // 紀錄是否一開始就斷網, 只要其中一個出錯就當作全部有問題
       const callbacksError = callbackResponses.some(
-        callbackRes => callbackRes.error,
+        callbackRes => callbackRes?.error,
       );
       if (callbacksError && isFirstInitRef.current) {
         isFirstInitErrorRef.current = true;
@@ -243,22 +251,15 @@ export const useTypeApi = ({
           const foundIndex = requestApiIndex.findIndex(
             targetIndex => index === targetIndex,
           );
-          if (
-            foundIndex >= 0 &&
-            callbackResponses[foundIndex][dataSource]?.data?.data &&
-            preResult
-          ) {
-            const nextData = [
-              ...callbackResponses[foundIndex][dataSource]?.data.data,
-            ];
+          const nextData =
+            callbackResponses[foundIndex]?.[dataSource]?.data.data;
+          if (foundIndex >= 0 && nextData && preResult) {
             return [...preResult, ...nextData];
           }
           return preResult;
         });
         return newData;
       });
-
-      console.log('callbackResponses', callbackResponses);
       return callbackResponses;
     },
     [],
@@ -297,9 +298,9 @@ export const useTypeApi = ({
       setRequestError(null);
 
       const apiPromiseList = getApiPromiseList(apis, strategy);
-      const requestApiIndex = getRequestApiIndex(apis);
-
       if (!apiPromiseList.length) return;
+
+      const requestApiIndex = getRequestApiIndex(apis);
       finishedGetLBProcessRef.current = false;
       loadingRef.current =
         isFirstInitRef.current && reacquireCountRef.current < 1;
@@ -307,7 +308,9 @@ export const useTypeApi = ({
 
       let nextOptions: EventoryApiOption[] = [];
       try {
-        const results = await Promise.all(apiPromiseList);
+        const results = (await Promise.all(
+          apiPromiseList,
+        )) as HandleCacheStrategyResponse<Response<User>>[];
 
         /**
          * CacheStrategy === NETWORK_ONLY, NETWORK_FIRST
@@ -326,7 +329,6 @@ export const useTypeApi = ({
           requestApiIndex,
         );
         nextOptions = getNextOptions(responses, requestApiIndex, strategy);
-        console.log('nextOptions', nextOptions);
       } catch (error) {
         setRequestError(error);
       } finally {
