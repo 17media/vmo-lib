@@ -280,7 +280,7 @@ export const useTypeApi = ({
               ? results[foundIndex].cache.data.nextCursor
               : results[foundIndex].data.data.nextCursor;
           } else {
-            nextCursor = results[foundIndex].data.nextCursor;
+            nextCursor = results[foundIndex].data.data.nextCursor;
           }
 
           return {
