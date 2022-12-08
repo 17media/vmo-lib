@@ -9,6 +9,7 @@ import {
   getApiUrlStrategy,
   HttpMethod,
   HandleCacheStrategyResponse,
+  checkCacheUsable,
 } from '../service/cacheManager.service';
 import { User, EventoryApiOption } from '../types';
 import { sleep } from '../utils';
@@ -101,6 +102,7 @@ export const useTypeApi = ({
   const [options, setOptions] = useState<EventoryApiOption[]>(
     initialConfig.options,
   );
+  const [finalCacheStrategy, setFinalCacheStrategy] = useState<CacheStrategy>();
   const sourceRef = useRef<CancelTokenSource[]>(initialConfig.sources);
 
   const isFirstInitRef = useRef(true);
@@ -116,8 +118,6 @@ export const useTypeApi = ({
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
     [],
   );
-
-  const finalCacheStrategy = cacheStrategy ?? defaultCacheStrategy;
 
   const getApiPromiseList = useCallback(
     (apis: APIType[] = [], strategy: CacheStrategy) =>
@@ -351,10 +351,20 @@ export const useTypeApi = ({
     ],
   );
 
-  const handleLeaderboardDataStrategy = useCallback(
-    () => handleLeaderboardData(apiList, finalCacheStrategy),
-    [apiList, finalCacheStrategy, handleLeaderboardData],
-  );
+  const getFinalCacheStrategy = useCallback(async () => {
+    const isCacheSupported = await checkCacheUsable();
+    const strategy = isCacheSupported
+      ? cacheStrategy ?? defaultCacheStrategy
+      : CacheStrategy.NETWORK_ONLY;
+    setFinalCacheStrategy(strategy);
+  }, [cacheStrategy, defaultCacheStrategy]);
+
+  const handleLeaderboardDataStrategy = useCallback(async () => {
+    console.log('finalCacheStrategy', finalCacheStrategy);
+    if (finalCacheStrategy) {
+      handleLeaderboardData(apiList, finalCacheStrategy);
+    }
+  }, [apiList, handleLeaderboardData, finalCacheStrategy]);
 
   const refresh = useCallback(() => {
     setCacheData(initialConfig.cacheData);
@@ -364,6 +374,10 @@ export const useTypeApi = ({
     handleLeaderboardDataStrategy();
   }, [handleLeaderboardDataStrategy, initialConfig]);
 
+  useEffect(() => {
+    getFinalCacheStrategy();
+  }, [getFinalCacheStrategy]);
+
   /**
    * 讀到一半斷網：重新執行 geLeaderboardData
    * */
@@ -371,13 +385,7 @@ export const useTypeApi = ({
     if (reload) {
       handleLeaderboardDataStrategy();
     }
-  }, [
-    apiList,
-    finalCacheStrategy,
-    handleLeaderboardData,
-    handleLeaderboardDataStrategy,
-    reload,
-  ]);
+  }, [apiList, handleLeaderboardData, handleLeaderboardDataStrategy, reload]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -462,7 +470,6 @@ export const useTypeApi = ({
   }, [
     options,
     apiList,
-    finalCacheStrategy,
     handleLeaderboardData,
     suspend,
     realTime,

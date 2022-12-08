@@ -28,6 +28,16 @@ const cacheWhitelists = [
   },
 ];
 
+export const checkCacheUsable = async () => {
+  try {
+    await caches.open('Test Cache Storage Available');
+    return true;
+  } catch (error) {
+    console.error('Cache Storage Unavailable, ', error);
+    return false;
+  }
+};
+
 const formatDate = (date: Date) => {
   const day = date.getDate();
   const month = date.getMonth();
