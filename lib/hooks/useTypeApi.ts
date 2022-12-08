@@ -157,7 +157,7 @@ export const useTypeApi = ({
           }
           return undefined;
         })
-        .filter((i): i is number => Boolean(i)),
+        .filter((i): i is number => Number.isFinite(i)),
     [options],
   );
 
