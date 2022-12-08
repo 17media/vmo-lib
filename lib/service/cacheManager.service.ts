@@ -164,6 +164,14 @@ const handleCallback = <T = any>(
 ): Promise<FulfillFormat<T>> =>
   apiCallback.then(res => ({ data: res })).catch(error => ({ error }));
 
+const handleResponse = <T = any>(
+  data?: AxiosResponse<T>,
+  callback?: Promise<FulfillFormat<T>>,
+): HandleCacheStrategyResponse<T> => ({
+  data,
+  callback,
+});
+
 export const handleNetworkFirst = async <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
   url: string,
@@ -220,14 +228,6 @@ export const handleCacheThenNetwork = async <T = any>(
   });
   return handleResponse<T>(cacheRes, callback);
 };
-
-const handleResponse = <T = any>(
-  data?: AxiosResponse<T>,
-  callback?: Promise<FulfillFormat<T>>,
-): HandleCacheStrategyResponse<T> => ({
-  data,
-  callback,
-});
 
 export const handleCacheStrategy = <T = any>({
   cacheStrategy,
