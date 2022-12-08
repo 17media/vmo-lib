@@ -61,7 +61,7 @@ export const useTypeApi = ({
   cacheStrategy?: CacheStrategy;
   opt?: EventoryApiOption;
 }) => {
-  const [requestError, setRequestError] = useState<any | null>(null);
+  const [requestError, setRequestError] = useState(null);
   const [leaderboardData, setLeaderboardData] = useState(initialData);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
@@ -267,7 +267,7 @@ export const useTypeApi = ({
   );
 
   const getNextOptions = useCallback(
-    (results, requestApiIndex: any[], strategy: CacheStrategy) =>
+    (results, requestApiIndex: number[], strategy: CacheStrategy) =>
       options.map((option, index) => {
         const foundIndex = requestApiIndex.findIndex(
           targetIndex => index === targetIndex,
@@ -359,7 +359,6 @@ export const useTypeApi = ({
   }, [cacheStrategy, defaultCacheStrategy]);
 
   const handleLeaderboardDataStrategy = useCallback(async () => {
-    console.log('finalCacheStrategy', finalCacheStrategy);
     if (finalCacheStrategy) {
       handleLeaderboardData(apiList, finalCacheStrategy);
     }
