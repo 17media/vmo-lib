@@ -169,6 +169,11 @@ interface FulfillFormat<T = any> {
   error?: CaughtError;
 }
 
+export interface HandleCacheStrategyResponse<T = any> {
+  data?: AxiosResponse<T>;
+  callback?: Promise<FulfillFormat<T>>;
+}
+
 const handleCallback = <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
 ): Promise<FulfillFormat<T>> =>
@@ -205,17 +210,6 @@ export const handleNetworkOnly = async <T = any>(
   throw apiRes.error;
 };
 
-interface HandleCacheStrategyParams<T> {
-  cacheStrategy: CacheStrategy;
-  apiCallback: Promise<AxiosResponse<T>>;
-  url: string;
-}
-
-export interface HandleCacheStrategyResponse<T = any> {
-  data?: AxiosResponse<T>;
-  callback?: Promise<FulfillFormat<T>>;
-}
-
 export const handleCacheThenNetwork = async <T = any>(
   apiCallback: Promise<AxiosResponse<T>>,
   url: string,
@@ -238,6 +232,12 @@ export const handleCacheThenNetwork = async <T = any>(
   });
   return handleResponse<T>(cacheRes, callback);
 };
+
+interface HandleCacheStrategyParams<T> {
+  cacheStrategy: CacheStrategy;
+  apiCallback: Promise<AxiosResponse<T>>;
+  url: string;
+}
 
 export const handleCacheStrategy = <T = any>({
   cacheStrategy,
