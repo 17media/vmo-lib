@@ -103,14 +103,14 @@ export const useTypeApi = ({
     initialConfig.options,
   );
   const [finalCacheStrategy, setFinalCacheStrategy] = useState<CacheStrategy>();
+  const [loading, setLoading] = useState(false);
+  const [polling, setPolling] = useState(false);
   const sourceRef = useRef<CancelTokenSource[]>(initialConfig.sources);
 
   const isFirstInitRef = useRef(true);
   const isFirstInitErrorRef = useRef(false);
   const shouldDelayRef = useRef(false);
   const hasInitCacheRef = useRef(false);
-  const loadingRef = useRef(false);
-  const pollingRef = useRef(false);
   const finishedGetLBProcessRef = useRef(false);
   const reacquireCountRef = useRef(0);
 
@@ -210,7 +210,7 @@ export const useTypeApi = ({
       });
 
       if (isFirstInitRef.current && hasInitCacheRef.current) {
-        loadingRef.current = false;
+        setLoading(false);
       }
 
       // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
@@ -303,9 +303,8 @@ export const useTypeApi = ({
 
       const requestApiIndex = getRequestApiIndex(apis);
       finishedGetLBProcessRef.current = false;
-      loadingRef.current =
-        isFirstInitRef.current && reacquireCountRef.current < 1;
-      pollingRef.current = true;
+      setLoading(isFirstInitRef.current && reacquireCountRef.current < 1);
+      setPolling(true);
 
       let nextOptions: EventoryApiOption[] = [];
       try {
@@ -333,8 +332,8 @@ export const useTypeApi = ({
       } catch (error) {
         setRequestError(error);
       } finally {
-        loadingRef.current = false;
-        pollingRef.current = false;
+        setLoading(false);
+        setPolling(false);
         isFirstInitRef.current = false;
         if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
           setOptions(nextOptions);
@@ -448,7 +447,7 @@ export const useTypeApi = ({
   }, [networkData, cacheData, options, realTime, apiList, finalCacheStrategy]);
 
   useEffect(() => {
-    if (loadingRef.current || pollingRef.current || suspend) return;
+    if (loading || polling || suspend) return;
 
     // init handleLeaderboardDataStrategy
     if (isFirstInitRef.current) {
@@ -463,7 +462,7 @@ export const useTypeApi = ({
     }
 
     // 重複取得LB資料
-    if (!pollingRef.current && realTime > 0) {
+    if (!polling && realTime > 0) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
       timeoutKey.current = window.setTimeout(refresh, realTime);
     }
@@ -475,11 +474,13 @@ export const useTypeApi = ({
     realTime,
     refresh,
     handleLeaderboardDataStrategy,
+    loading,
+    polling,
   ]);
 
   return {
-    loading: loadingRef.current,
-    polling: pollingRef.current,
+    loading,
+    polling,
     requestError,
     leaderboardData,
   };
