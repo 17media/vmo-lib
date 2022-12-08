@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import axios, { CancelTokenSource, AxiosResponse } from 'axios';
+import axios, { CancelTokenSource } from 'axios';
 import {
   getLeaderboardEventory,
   Response,
