@@ -23,7 +23,7 @@ type UserNoLiveInfo = Omit<User, 'onliveInfo'>;
 
 export interface Response<T> {
   data: T[];
-  nextCursor: string | '';
+  nextCursor: string;
   type: string;
 }
 

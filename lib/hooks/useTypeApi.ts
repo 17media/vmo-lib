@@ -61,7 +61,7 @@ export const useTypeApi = ({
   cacheStrategy?: CacheStrategy;
   opt?: EventoryApiOption;
 }) => {
-  const [requestError, setRequestError] = useState(null);
+  const [requestError, setRequestError] = useState();
   const [leaderboardData, setLeaderboardData] = useState(initialData);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
@@ -173,10 +173,11 @@ export const useTypeApi = ({
             targetIndex => index === targetIndex,
           );
           const nextData = results[foundIndex]?.data?.data?.data;
-          if (foundIndex >= 0 && nextData && preResult) {
-            return [...preResult, ...nextData];
-          }
-          return preResult;
+          const combineData =
+            foundIndex >= 0 && nextData && preResult
+              ? [...preResult, ...nextData]
+              : preResult;
+          return combineData;
         });
         return newData;
       });
@@ -254,10 +255,11 @@ export const useTypeApi = ({
           );
           const nextData =
             callbackResponses[foundIndex]?.[dataSource]?.data.data;
-          if (foundIndex >= 0 && nextData && preResult) {
-            return [...preResult, ...nextData];
-          }
-          return preResult;
+          const combineData =
+            foundIndex >= 0 && nextData && preResult
+              ? [...preResult, ...nextData]
+              : preResult;
+          return combineData;
         });
         return newData;
       });
@@ -273,14 +275,13 @@ export const useTypeApi = ({
           targetIndex => index === targetIndex,
         );
         if (foundIndex >= 0) {
-          let nextCursor;
+          let { nextCursor } = results[foundIndex].data.data;
 
-          if (strategy === CacheStrategy.CACHE_THEN_NETWORK) {
-            nextCursor = isFirstInitErrorRef.current
-              ? results[foundIndex].cache.data.nextCursor
-              : results[foundIndex].data.data.nextCursor;
-          } else {
-            nextCursor = results[foundIndex].data.data.nextCursor;
+          if (
+            strategy === CacheStrategy.CACHE_THEN_NETWORK &&
+            isFirstInitErrorRef.current
+          ) {
+            nextCursor = results[foundIndex].cache.data.nextCursor;
           }
 
           return {
@@ -296,7 +297,7 @@ export const useTypeApi = ({
 
   const handleLeaderboardData = useCallback(
     async (apis: APIType[] = [], strategy: CacheStrategy) => {
-      setRequestError(null);
+      setRequestError(undefined);
 
       const apiPromiseList = getApiPromiseList(apis, strategy);
       if (!apiPromiseList.length) return;
