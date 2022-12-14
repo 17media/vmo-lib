@@ -105,6 +105,8 @@ export const useTypeApi = ({
   const [finalCacheStrategy, setFinalCacheStrategy] = useState<CacheStrategy>();
   const [loading, setLoading] = useState(false);
   const [polling, setPolling] = useState(false);
+  const loadingRef = useRef(false);
+  const pollingRef = useRef(false);
   const sourceRef = useRef<CancelTokenSource[]>(initialConfig.sources);
 
   const isFirstInitRef = useRef(true);
@@ -166,7 +168,7 @@ export const useTypeApi = ({
       results: HandleCacheStrategyResponse<Response<User>>[],
       requestApiIndex: number[],
     ) => {
-      setLeaderboardData(pre => {
+      setNetworkData(pre => {
         if (!pre) return results.map(result => result.data!.data.data);
         const newData = pre.map((preResult, index) => {
           const foundIndex = requestApiIndex.findIndex(
@@ -212,6 +214,7 @@ export const useTypeApi = ({
 
       if (isFirstInitRef.current && hasInitCacheRef.current) {
         setLoading(false);
+        loadingRef.current = false;
       }
 
       // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
@@ -304,8 +307,12 @@ export const useTypeApi = ({
 
       const requestApiIndex = getRequestApiIndex(apis);
       finishedGetLBProcessRef.current = false;
-      setLoading(isFirstInitRef.current && reacquireCountRef.current < 1);
+      const loadingStatus =
+        isFirstInitRef.current && reacquireCountRef.current < 1;
+      setLoading(loadingStatus);
       setPolling(true);
+      loadingRef.current = loadingStatus;
+      pollingRef.current = true;
 
       let nextOptions: EventoryApiOption[] = [];
       try {
@@ -335,6 +342,8 @@ export const useTypeApi = ({
       } finally {
         setLoading(false);
         setPolling(false);
+        loadingRef.current = false;
+        pollingRef.current = false;
         isFirstInitRef.current = false;
         if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
           setOptions(nextOptions);
@@ -424,30 +433,28 @@ export const useTypeApi = ({
   }, [networkData, options]);
 
   useEffect(() => {
-    if (finalCacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
-      const canSetNetworkData = networkData.some(data => data.length > 0);
-      const dataSource = canSetNetworkData ? networkData : cacheData;
+    const canSetNetworkData = networkData.some(data => data.length > 0);
+    const dataSource = canSetNetworkData ? networkData : cacheData;
 
-      // 全部資料只取1次(不需自動重發api更新資料)
-      if (realTime <= 0) {
-        setLeaderboardData(dataSource);
-        return;
-      }
-      // 全部資料按時間重新取得(需自動重發api更新資料)
-      const finishedAll = options.every(option => !option.cursor);
-      // 當首次還未取得全部資料時，讓資料慢慢更新上畫面
-      if (reacquireCountRef.current === 0) {
-        setLeaderboardData(dataSource);
-      } else if (reacquireCountRef.current > 0) {
-        // 當已經取得全部資料時，等資料全部拿完之後再一起更新
-        if (finishedAll && finishedGetLBProcessRef.current && canSetNetworkData)
-          setLeaderboardData(networkData);
-      }
+    // 全部資料只取1次(不需自動重發api更新資料)
+    if (realTime <= 0) {
+      setLeaderboardData(dataSource);
+      return;
     }
-  }, [networkData, cacheData, options, realTime, apiList, finalCacheStrategy]);
+    // 全部資料按時間重新取得(需自動重發api更新資料)
+    const finishedAll = options.every(option => !option.cursor);
+    // 當首次還未取得全部資料時，讓資料慢慢更新上畫面
+    if (reacquireCountRef.current === 0) {
+      setLeaderboardData(dataSource);
+    } else if (reacquireCountRef.current > 0) {
+      // 當已經取得全部資料時，等資料全部拿完之後再一起更新
+      if (finishedAll && finishedGetLBProcessRef.current && canSetNetworkData)
+        setLeaderboardData(networkData);
+    }
+  }, [networkData, cacheData, options, realTime, apiList]);
 
   useEffect(() => {
-    if (loading || polling || suspend) return;
+    if (loadingRef.current || pollingRef.current || suspend) return;
 
     // init handleLeaderboardDataStrategy
     if (isFirstInitRef.current) {
@@ -462,7 +469,7 @@ export const useTypeApi = ({
     }
 
     // 重複取得LB資料
-    if (!polling && realTime > 0) {
+    if (!pollingRef.current && realTime > 0) {
       if (timeoutKey.current) clearTimeout(timeoutKey.current);
       timeoutKey.current = window.setTimeout(refresh, realTime);
     }
@@ -474,8 +481,6 @@ export const useTypeApi = ({
     realTime,
     refresh,
     handleLeaderboardDataStrategy,
-    loading,
-    polling,
   ]);
 
   return {
