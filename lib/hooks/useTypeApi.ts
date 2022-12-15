@@ -105,8 +105,6 @@ export const useTypeApi = ({
   const [finalCacheStrategy, setFinalCacheStrategy] = useState<CacheStrategy>();
   const [loading, setLoading] = useState(false);
   const [polling, setPolling] = useState(false);
-  const loadingRef = useRef(false);
-  const pollingRef = useRef(false);
   const sourceRef = useRef<CancelTokenSource[]>(initialConfig.sources);
 
   const isFirstInitRef = useRef(true);
@@ -214,7 +212,6 @@ export const useTypeApi = ({
 
       if (isFirstInitRef.current && hasInitCacheRef.current) {
         setLoading(false);
-        loadingRef.current = false;
       }
 
       // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
@@ -311,8 +308,6 @@ export const useTypeApi = ({
         isFirstInitRef.current && reacquireCountRef.current < 1;
       setLoading(loadingStatus);
       setPolling(true);
-      loadingRef.current = loadingStatus;
-      pollingRef.current = true;
 
       let nextOptions: EventoryApiOption[] = [];
       try {
@@ -342,8 +337,6 @@ export const useTypeApi = ({
       } finally {
         setLoading(false);
         setPolling(false);
-        loadingRef.current = false;
-        pollingRef.current = false;
         isFirstInitRef.current = false;
         if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
           setOptions(nextOptions);
@@ -382,6 +375,24 @@ export const useTypeApi = ({
     handleLeaderboardDataStrategy();
   }, [handleLeaderboardDataStrategy, initialConfig]);
 
+  const getFinishedRetrievedAllNetworkData = useCallback(
+    () =>
+      networkData?.every((data, index) => {
+        // 需要確保option已經被設定完成
+        if (!finishedGetLBProcessRef.current) return false;
+        const nextCursor = options[index]?.cursor;
+        // 有cursor時，看回傳的network資料長度是不是已經達到total count，達到代表以經將此次的資料讀取完成
+        if (nextCursor) {
+          const [timestampCursor] = nextCursor.split('-', 1);
+          const totalCount = timestampCursor.split(':').slice(1)[0];
+          return networkData[index].length === +totalCount;
+        }
+        // 沒有cursor時，表示單次api就可以取得完成，直接回傳true
+        return true;
+      }),
+    [networkData, options],
+  );
+
   useEffect(() => {
     getFinalCacheStrategy();
   }, [getFinalCacheStrategy]);
@@ -412,25 +423,12 @@ export const useTypeApi = ({
 
   // 計數每次重新取得全部資料
   useEffect(() => {
-    const finishedRetrievedAllNetworkData = networkData?.every(
-      (data, index) => {
-        // 需要確保option已經被設定完成
-        if (!finishedGetLBProcessRef.current) return false;
-        const nextCursor = options[index]?.cursor;
-        // 有cursor時，看回傳的network資料長度是不是已經達到total count，達到代表以經將此次的資料讀取完成
-        if (nextCursor) {
-          const [timestampCursor] = nextCursor.split('-', 1);
-          const totalCount = timestampCursor.split(':').slice(1)[0];
-          return networkData[index].length === +totalCount;
-        }
-        // 沒有cursor時，表示單次api就可以取得完成，直接回傳true
-        return true;
-      },
-    );
+    const finishedRetrievedAllNetworkData =
+      getFinishedRetrievedAllNetworkData();
     if (finishedRetrievedAllNetworkData && networkData.length > 0) {
       reacquireCountRef.current += 1;
     }
-  }, [networkData, options]);
+  }, [networkData, getFinishedRetrievedAllNetworkData]);
 
   useEffect(() => {
     const canSetNetworkData = networkData.some(data => data.length > 0);
@@ -453,35 +451,39 @@ export const useTypeApi = ({
     }
   }, [networkData, cacheData, options, realTime, apiList]);
 
+  // 當需要取得更多資料時，使用最新的options重新執行handleLeaderboardData
   useEffect(() => {
-    if (loadingRef.current || pollingRef.current || suspend) return;
-
-    // init handleLeaderboardDataStrategy
-    if (isFirstInitRef.current) {
-      handleLeaderboardDataStrategy();
-      return;
-    }
-
-    // 當需要取得更多資料時，使用最新的options重新執行handleLeaderboardData
+    if (suspend) return;
     const hasMore = options.find(option => option.cursor);
     if (hasMore) {
       handleLeaderboardDataStrategy();
     }
+  }, [handleLeaderboardDataStrategy, options, suspend]);
 
-    // 重複取得LB資料
-    if (!pollingRef.current && realTime > 0) {
-      if (timeoutKey.current) clearTimeout(timeoutKey.current);
+  // 重複取得LB資料
+  useEffect(() => {
+    if (polling || suspend) return;
+    const finishedRetrievedAllNetworkData =
+      getFinishedRetrievedAllNetworkData();
+    if (
+      !polling &&
+      realTime > 0 &&
+      !isFirstInitRef.current &&
+      finishedRetrievedAllNetworkData
+    ) {
+      if (timeoutKey.current) {
+        clearTimeout(timeoutKey.current);
+        timeoutKey.current = 0;
+      }
       timeoutKey.current = window.setTimeout(refresh, realTime);
     }
-  }, [
-    options,
-    apiList,
-    handleLeaderboardData,
-    suspend,
-    realTime,
-    refresh,
-    handleLeaderboardDataStrategy,
-  ]);
+  }, [getFinishedRetrievedAllNetworkData, polling, realTime, refresh, suspend]);
+
+  // init handleLeaderboardDataStrategy
+  useEffect(() => {
+    if (suspend || !isFirstInitRef.current) return;
+    handleLeaderboardDataStrategy();
+  }, [handleLeaderboardDataStrategy, suspend]);
 
   return {
     loading,
