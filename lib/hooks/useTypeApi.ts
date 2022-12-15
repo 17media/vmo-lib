@@ -334,11 +334,17 @@ export const useTypeApi = ({
         nextOptions = getNextOptions(responses, requestApiIndex, strategy);
       } catch (error) {
         setRequestError(error);
+        if (strategy !== CacheStrategy.CACHE_THEN_NETWORK) {
+          setOptions(initialConfig.options);
+        }
       } finally {
         setLoading(false);
         setPolling(false);
         isFirstInitRef.current = false;
-        if (isFirstInitErrorRef.current || !shouldDelayRef.current) {
+        if (
+          nextOptions.length > 0 &&
+          (isFirstInitErrorRef.current || !shouldDelayRef.current)
+        ) {
           setOptions(nextOptions);
         }
         finishedGetLBProcessRef.current = true;
@@ -348,6 +354,7 @@ export const useTypeApi = ({
       getApiPromiseList,
       getNextOptions,
       getRequestApiIndex,
+      initialConfig.options,
       setCacheThenNetworkData,
       setOthersStrategyData,
     ],
