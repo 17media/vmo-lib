@@ -275,15 +275,8 @@ export const useTypeApi = ({
           targetIndex => index === targetIndex,
         );
         if (foundIndex >= 0) {
-          let { nextCursor } = results[foundIndex].data.data;
-
-          if (
-            strategy === CacheStrategy.CACHE_THEN_NETWORK &&
-            isFirstInitErrorRef.current
-          ) {
-            nextCursor = results[foundIndex].cache.data.nextCursor;
-          }
-
+          const dataSource = isFirstInitErrorRef.current ? 'cache' : 'data';
+          const { nextCursor } = results[foundIndex][dataSource].data;
           return {
             limit: opt.limit,
             cursor: nextCursor,
