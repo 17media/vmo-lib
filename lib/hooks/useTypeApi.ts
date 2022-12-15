@@ -453,12 +453,11 @@ export const useTypeApi = ({
 
   // 當需要取得更多資料時，使用最新的options重新執行handleLeaderboardData
   useEffect(() => {
-    if (suspend) return;
     const hasMore = options.find(option => option.cursor);
     if (hasMore) {
       handleLeaderboardDataStrategy();
     }
-  }, [handleLeaderboardDataStrategy, options, suspend]);
+  }, [handleLeaderboardDataStrategy, options]);
 
   // 重複取得LB資料
   useEffect(() => {
