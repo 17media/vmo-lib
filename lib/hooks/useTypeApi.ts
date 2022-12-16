@@ -102,7 +102,6 @@ export const useTypeApi = ({
   const [options, setOptions] = useState<EventoryApiOption[]>(
     initialConfig.options,
   );
-  const [finalCacheStrategy, setFinalCacheStrategy] = useState<CacheStrategy>();
   const [loading, setLoading] = useState(false);
   const [polling, setPolling] = useState(false);
   const sourceRef = useRef<CancelTokenSource[]>(initialConfig.sources);
@@ -113,6 +112,7 @@ export const useTypeApi = ({
   const hasInitCacheRef = useRef(false);
   const finishedGetLBProcessRef = useRef(false);
   const reacquireCountRef = useRef(0);
+  const finalCacheStrategyRef = useRef<CacheStrategy>();
 
   const { cacheStrategy: defaultCacheStrategy } = useMemo(
     () => getApiUrlStrategy(endpoint, HttpMethod.GET),
@@ -289,18 +289,31 @@ export const useTypeApi = ({
   );
 
   const handleLeaderboardData = useCallback(
-    async (apis: APIType[] = [], strategy: CacheStrategy) => {
+    async (apis: APIType[] = []) => {
       setRequestError(undefined);
-
-      const apiPromiseList = getApiPromiseList(apis, strategy);
-      if (!apiPromiseList.length) return;
-
-      const requestApiIndex = getRequestApiIndex(apis);
-      finishedGetLBProcessRef.current = false;
       const loadingStatus =
         isFirstInitRef.current && reacquireCountRef.current < 1;
       setLoading(loadingStatus);
       setPolling(true);
+
+      if (cacheStrategy === CacheStrategy.NETWORK_ONLY) {
+        finalCacheStrategyRef.current = cacheStrategy;
+      }
+      if (!finalCacheStrategyRef.current) {
+        const isCacheSupported = await checkCacheUsable();
+        finalCacheStrategyRef.current = isCacheSupported
+          ? cacheStrategy ?? defaultCacheStrategy
+          : CacheStrategy.NETWORK_ONLY;
+      }
+
+      const apiPromiseList = getApiPromiseList(
+        apis,
+        finalCacheStrategyRef.current,
+      );
+      if (!apiPromiseList.length) return;
+
+      const requestApiIndex = getRequestApiIndex(apis);
+      finishedGetLBProcessRef.current = false;
 
       let nextOptions: EventoryApiOption[] = [];
       try {
@@ -311,9 +324,15 @@ export const useTypeApi = ({
         /**
          * CacheStrategy === NETWORK_ONLY, NETWORK_FIRST
          * */
-        if (strategy !== CacheStrategy.CACHE_THEN_NETWORK) {
+        if (
+          finalCacheStrategyRef.current !== CacheStrategy.CACHE_THEN_NETWORK
+        ) {
           const responses = setOthersStrategyData(results, requestApiIndex);
-          nextOptions = getNextOptions(responses, requestApiIndex, strategy);
+          nextOptions = getNextOptions(
+            responses,
+            requestApiIndex,
+            finalCacheStrategyRef.current,
+          );
           return;
         }
 
@@ -324,10 +343,16 @@ export const useTypeApi = ({
           results,
           requestApiIndex,
         );
-        nextOptions = getNextOptions(responses, requestApiIndex, strategy);
+        nextOptions = getNextOptions(
+          responses,
+          requestApiIndex,
+          finalCacheStrategyRef.current,
+        );
       } catch (error) {
         setRequestError(error);
-        if (strategy !== CacheStrategy.CACHE_THEN_NETWORK) {
+        if (
+          finalCacheStrategyRef.current !== CacheStrategy.CACHE_THEN_NETWORK
+        ) {
           setOptions(initialConfig.options);
         }
       } finally {
@@ -344,6 +369,8 @@ export const useTypeApi = ({
       }
     },
     [
+      cacheStrategy,
+      defaultCacheStrategy,
       getApiPromiseList,
       getNextOptions,
       getRequestApiIndex,
@@ -353,19 +380,9 @@ export const useTypeApi = ({
     ],
   );
 
-  const getFinalCacheStrategy = useCallback(async () => {
-    const isCacheSupported = await checkCacheUsable();
-    const strategy = isCacheSupported
-      ? cacheStrategy ?? defaultCacheStrategy
-      : CacheStrategy.NETWORK_ONLY;
-    setFinalCacheStrategy(strategy);
-  }, [cacheStrategy, defaultCacheStrategy]);
-
   const handleLeaderboardDataStrategy = useCallback(async () => {
-    if (finalCacheStrategy) {
-      handleLeaderboardData(apiList, finalCacheStrategy);
-    }
-  }, [apiList, handleLeaderboardData, finalCacheStrategy]);
+    handleLeaderboardData(apiList);
+  }, [apiList, handleLeaderboardData]);
 
   const refresh = useCallback(() => {
     setCacheData(initialConfig.cacheData);
@@ -392,10 +409,6 @@ export const useTypeApi = ({
       }),
     [networkData, options],
   );
-
-  useEffect(() => {
-    getFinalCacheStrategy();
-  }, [getFinalCacheStrategy]);
 
   /**
    * 讀到一半斷網：重新執行 geLeaderboardData
