@@ -13,6 +13,11 @@ interface Params {
     callback?: Function;
     preData?: User[];
 }
+export interface Response<T> {
+    data: T[];
+    nextCursor: string;
+    type: string;
+}
 declare type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
     apiEndpoint: string;
 };
@@ -25,5 +30,5 @@ declare type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
 export declare const getParsedURL: ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }: FetchURL) => string;
 export declare const getLeaderboardEventory: ({ type, cancelToken, limit, cursor, withoutOnliveInfo, strategy, }: Params & {
     strategy: CacheStrategy;
-}) => Promise<any>;
+}) => Promise<import("./cacheManager.service").HandleCacheStrategyResponse<Response<User>>>;
 export default getLeaderboardEventory;

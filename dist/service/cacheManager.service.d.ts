@@ -7,16 +7,14 @@ export declare enum CacheStrategy {
     CACHE_THEN_NETWORK = "cacheThenNetwork",
     /** Only get data from the network, no data will be cached. */
     NETWORK_ONLY = "networkOnly",
-    NETWORK_FIRST = "networkFirst",
-    CACHE_ONLY = "cacheOnly",
-    /** Get data from the network, data will be cached, but will not return cache. */
-    NETWORK_THEN_SET_CACHE = "networkThenSetCache"
+    NETWORK_FIRST = "networkFirst"
 }
 export declare enum HttpMethod {
     GET = "get",
     POST = "post",
     PUT = "put"
 }
+export declare const checkCacheUsable: () => Promise<boolean>;
 export declare const getApiUrlStrategy: (apiUrl: string, method?: HttpMethod) => {
     cacheStrategy: CacheStrategy;
 };
@@ -26,22 +24,20 @@ declare class CacheError extends Error {
 declare type CaughtError = null | Error | AxiosError | CacheError;
 interface FulfillFormat<T = any> {
     data?: AxiosResponse<T>;
-    cache?: T;
+    cache?: AxiosResponse<T>;
     error?: CaughtError;
 }
-export declare const handleNetworkFirst: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<any>;
-export declare const handleNetworkThenSetCache: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<AxiosResponse<T> | undefined>;
-export declare const handleNetworkOnly: <T = any>(apiCallback: Promise<AxiosResponse<T>>) => Promise<AxiosResponse<T> | undefined>;
-export declare const handleCacheOnly: (url: string) => Promise<any>;
-export declare const handleCacheThenNetwork: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<HandleCacheStrategyResponse<any>>;
 export interface HandleCacheStrategyResponse<T = any> {
-    data: T;
+    data?: AxiosResponse<T>;
     callback?: Promise<FulfillFormat<T>>;
 }
+export declare const handleNetworkFirst: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<HandleCacheStrategyResponse<T>>;
+export declare const handleNetworkOnly: <T = any>(apiCallback: Promise<AxiosResponse<T>>) => Promise<HandleCacheStrategyResponse<T>>;
+export declare const handleCacheThenNetwork: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<HandleCacheStrategyResponse<T>>;
 interface HandleCacheStrategyParams<T> {
     cacheStrategy: CacheStrategy;
     apiCallback: Promise<AxiosResponse<T>>;
     url: string;
 }
-export declare const handleCacheStrategy: <T = any>({ cacheStrategy, apiCallback, url, }: HandleCacheStrategyParams<T>) => Promise<any>;
+export declare const handleCacheStrategy: <T = any>({ cacheStrategy, apiCallback, url, }: HandleCacheStrategyParams<T>) => Promise<HandleCacheStrategyResponse<T>>;
 export {};

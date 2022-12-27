@@ -45,3 +45,7 @@ export declare const DEFAULT_AVATAR_IMAGE: string;
  * if streamer is streaming, use this image wrap around streamer's avatar.
  */
 export declare const ONLINE_RIM_IMAGE: string;
+/**
+ * sentry production dns url.
+ */
+export declare const SENTRY_DSN_URL = "https://8526f3bd6d3a4abcac1b3fdcbc06b416@o998499.ingest.sentry.io/6547346";

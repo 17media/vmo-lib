@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ONLINE_RIM_IMAGE = exports.DEFAULT_AVATAR_IMAGE = exports.AVATAR_BASE_URL = exports.AVATAR_ENDPOINT = exports.ASSETS_CND_ENDPOINT = exports.LANG_FILE_ENDPOINT = exports.IFRAME_ENDPOINT = exports.EVENTORY_OFFLINE_ENDPOINT = exports.EVENTORY_ENDPOINT = exports.GCP_CDN_HOST = exports.GCP_CDN_DOMAIN = exports.MAIN_HOST = void 0;
+exports.SENTRY_DSN_URL = exports.ONLINE_RIM_IMAGE = exports.DEFAULT_AVATAR_IMAGE = exports.AVATAR_BASE_URL = exports.AVATAR_ENDPOINT = exports.ASSETS_CND_ENDPOINT = exports.LANG_FILE_ENDPOINT = exports.IFRAME_ENDPOINT = exports.EVENTORY_OFFLINE_ENDPOINT = exports.EVENTORY_ENDPOINT = exports.GCP_CDN_HOST = exports.GCP_CDN_DOMAIN = exports.MAIN_HOST = void 0;
 exports.MAIN_HOST = 'https://vmo.17.media';
 /**
  * GCP bucket
@@ -48,4 +48,8 @@ exports.DEFAULT_AVATAR_IMAGE = `https://${exports.GCP_CDN_DOMAIN}/17live/ig-defa
  * if streamer is streaming, use this image wrap around streamer's avatar.
  */
 exports.ONLINE_RIM_IMAGE = `https://${exports.GCP_CDN_DOMAIN}/campaign/assets/igOfficialCircle.png`;
+/**
+ * sentry production dns url.
+ */
+exports.SENTRY_DSN_URL = 'https://8526f3bd6d3a4abcac1b3fdcbc06b416@o998499.ingest.sentry.io/6547346';
 //# sourceMappingURL=index.js.map

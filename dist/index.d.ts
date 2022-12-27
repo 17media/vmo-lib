@@ -48,14 +48,16 @@ declare const _default: {
         handleSroll: (e: any) => void;
         elPoolRef: import("react").MutableRefObject<Element[]>;
     };
-    useTypeApi: (apiList: import("./hooks").APIType[] | undefined, method: string | undefined, realTime: number, initialData?: import("./types").User[][] | undefined, opt?: {
-        limit: number;
-        cursor: string;
-        withoutOnliveInfo: boolean;
+    useTypeApi: ({ apiList, realTime, initialData, cacheStrategy, opt, }: {
+        apiList: import("./hooks").APIType[];
+        realTime: number;
+        initialData?: import("./types").User[][] | undefined;
+        cacheStrategy?: import("./hooks").CacheStrategy | undefined;
+        opt?: import("./types").EventoryApiOption | undefined;
     }) => {
         loading: boolean;
         polling: boolean;
-        requestError: any;
+        requestError: undefined;
         leaderboardData: import("./types").User[][] | undefined;
     };
     useFilter: (initialData: import("./types").User[]) => {
