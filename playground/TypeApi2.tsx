@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import useTypeApi from '../lib/hooks/useTypeApi';
+import useTypeApi, { APIType } from '../lib/hooks/useTypeApi';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
 import { ItemStyle } from '../lib/hooks/useItemTransition';
-import { User } from '../lib/types';
+import { User, EventoryApiOption } from '../lib/types';
 import handleClickAvatar from '../lib/helpers/handleClickAvatar';
 
 const rowCount = 2;
@@ -52,63 +52,136 @@ const Button = styled.button`
   padding: 5px 10px;
 `;
 
-const TypeApi2 = () => {
-  const [eventoryContainerIdLeft, setEventoryContainerIdLeft] =
-    useState<string>('dbda13a5-70b4-445a-95a5-52f0802c4781');
-  const [eventoryContainerIdRight, setEventoryContainerIdRight] =
-    useState<string>('4a03f9c8-8c7e-402e-9cca-67dc81abc0b8');
-  const [apiList, setApiList] = useState([]);
-  const [requestMethod, setRequestMethod] = useState<string>('GET');
-  const [realTime, setRealTime] = useState<number>(0);
-  const realTimeRef = useRef(null);
-  const [limit, setLimit] = useState<number>(1000);
-  const optRef = useRef({
-    limit: 1000,
-    cursor: '',
-    withoutOnliveInfo: true,
+const LeaderboardData = ({ config, left, right }) => {
+  const { loading, polling, requestError, leaderboardData } = useTypeApi({
+    apiList: config.apiList,
+    realTime: config.realTime,
+    initialData: [],
+    opt: config.opt,
   });
 
-  const init: User[][] = [[], []];
+  const final1 =
+    leaderboardData && leaderboardData.length > 0 ? leaderboardData[0] : [];
+  const final2 =
+    leaderboardData && leaderboardData.length > 0 ? leaderboardData[1] : [];
 
-  const { loading, polling, requestError, leaderboardData } = useTypeApi(
-    apiList,
-    requestMethod,
-    realTimeRef.current,
-    init,
-    optRef.current,
+  return (
+    <>
+      <span>is loading: {loading.toString()}</span> <br />
+      <span>is polling: {polling.toString()}</span> <br />
+      {requestError && (
+        <span>Error: {(requestError as any)?.message}</span>
+      )}{' '}
+      <br />
+      {!requestError && (
+        <Wrapper>
+          <Left>
+            Eventory Container ID: {left}
+            <TransitionLeaderboardWrapper
+              itemStyle={itemStyle}
+              rowCount={rowCount}
+              user={final1}
+            >
+              {final1.map(item => (
+                <Item
+                  key={item.userInfo.userID}
+                  onClick={() =>
+                    handleClickAvatar(
+                      item.userInfo.userID,
+                      item.userInfo.openID,
+                      item.userInfo?.onLiveInfo?.streamID,
+                    )
+                  }
+                >
+                  <b>主播名稱:</b> {item.userInfo.displayName}
+                  <br />
+                  <b>id: </b> {item.userInfo.userID} <br />
+                  <b>value:</b> {item.score}
+                </Item>
+              ))}
+            </TransitionLeaderboardWrapper>
+          </Left>
+          <Right>
+            Eventory Container ID: {right}
+            <TransitionLeaderboardWrapper
+              itemStyle={itemStyle}
+              rowCount={rowCount}
+              user={final2}
+            >
+              {final2.map(item => (
+                <Item key={item.userInfo.userID}>
+                  <b>主播名稱:</b> {item.userInfo.displayName}
+                  <br />
+                  <b>id: </b> {item.userInfo.userID} <br />
+                  <b>value:</b> {item.score}
+                </Item>
+              ))}
+            </TransitionLeaderboardWrapper>
+          </Right>
+        </Wrapper>
+      )}
+    </>
   );
+};
+
+const TypeApi2 = () => {
+  const [eventoryContainerIdLeft, setEventoryContainerIdLeft] =
+    useState<string>('8f112c2c-d466-4427-9406-c2b040ea399f');
+  const [eventoryContainerIdRight, setEventoryContainerIdRight] =
+    useState<string>('0fd39941-f077-4990-aaf7-78b8a77f04c5');
+  const [realTime, setRealTime] = useState(0);
+  const [limit, setLimit] = useState(1000);
+  const [config, setConfig] = useState<{
+    apiList: APIType[];
+    realTime: number;
+    initialData?: User[][];
+    opt?: EventoryApiOption;
+  } | null>();
 
   const eventoryContainerIdLeftHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
-  ) => setEventoryContainerIdLeft(e.target.value);
+  ) => {
+    setEventoryContainerIdLeft(e.target.value);
+    setConfig(null);
+  };
 
   const eventoryContainerIdRightHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
-  ) => setEventoryContainerIdRight(e.target.value);
-
-  const realTimeHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setRealTime(+e.target.value);
-
-  const limitHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setLimit(+e.target.value);
-
-  const submitHandler = () => {
-    realTimeRef.current = realTime;
-    optRef.current.limit = limit;
-    setApiList([
-      {
-        sta: eventoryContainerIdLeft,
-        prod: '',
-      },
-      {
-        sta: eventoryContainerIdRight,
-        prod: '',
-      },
-    ]);
+  ) => {
+    setEventoryContainerIdRight(e.target.value);
+    setConfig(null);
   };
 
-  const final1 = leaderboardData.length > 0 ? leaderboardData[0] : [];
-  const final2 = leaderboardData.length > 0 ? leaderboardData[1] : [];
+  const realTimeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRealTime(+e.target.value);
+    setConfig(null);
+  };
+
+  const limitHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLimit(+e.target.value);
+    setConfig(null);
+  };
+
+  const submitHandler = () => {
+    setConfig({
+      apiList: [
+        {
+          sta: eventoryContainerIdLeft,
+          prod: '',
+        },
+        {
+          sta: eventoryContainerIdRight,
+          prod: '',
+        },
+      ],
+      realTime,
+      opt: {
+        limit,
+        cursor: '',
+        withoutOnliveInfo: false,
+      },
+    });
+  };
 
   return (
     <div>
@@ -143,7 +216,6 @@ const TypeApi2 = () => {
       <span>Request 自動重發更新間隔時間:</span>
       <Input
         type="number"
-        ref={realTimeRef}
         value={realTime}
         placeholder="請輸入request間隔時間"
         onChange={realTimeHandler}
@@ -161,55 +233,12 @@ const TypeApi2 = () => {
       <br />
       <Button onClick={submitHandler}>送出</Button>
       <br />
-      <span>is loading: {loading.toString()}</span> <br />
-      <span>is polling: {polling.toString()}</span> <br />
-      {requestError && <span>Error: {requestError.message}</span>} <br />
-      {!requestError && (
-        <Wrapper>
-          <Left>
-            Eventory Container ID: {eventoryContainerIdLeft}
-            <TransitionLeaderboardWrapper
-              itemStyle={itemStyle}
-              rowCount={rowCount}
-              user={final1}
-            >
-              {final1.map(item => (
-                <Item
-                  key={item.userInfo.userID}
-                  onClick={() =>
-                    handleClickAvatar(
-                      item.userInfo.userID,
-                      item.userInfo.openID,
-                      item.userInfo?.onLiveInfo?.streamID,
-                    )
-                  }
-                >
-                  <b>主播名稱:</b> {item.userInfo.displayName}
-                  <br />
-                  <b>id: </b> {item.userInfo.userID} <br />
-                  <b>value:</b> {item.score}
-                </Item>
-              ))}
-            </TransitionLeaderboardWrapper>
-          </Left>
-          <Right>
-            Eventory Container ID: {eventoryContainerIdRight}
-            <TransitionLeaderboardWrapper
-              itemStyle={itemStyle}
-              rowCount={rowCount}
-              user={final2}
-            >
-              {final2.map(item => (
-                <Item key={item.userInfo.userID}>
-                  <b>主播名稱:</b> {item.userInfo.displayName}
-                  <br />
-                  <b>id: </b> {item.userInfo.userID} <br />
-                  <b>value:</b> {item.score}
-                </Item>
-              ))}
-            </TransitionLeaderboardWrapper>
-          </Right>
-        </Wrapper>
+      {config && (
+        <LeaderboardData
+          config={config}
+          left={eventoryContainerIdLeft}
+          right={eventoryContainerIdRight}
+        />
       )}
     </div>
   );
