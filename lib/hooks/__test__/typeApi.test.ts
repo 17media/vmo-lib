@@ -2,18 +2,24 @@
 import { renderHook } from '@testing-library/react-hooks';
 import useTypeApi from '../useTypeApi';
 import { User } from '../../types';
+import { CacheStrategy } from '../../service/cacheManager.service';
 
 describe('test type api hook', () => {
   test('should get eventory leaderboard backend data.', async () => {
     const eventoryLeaderboardApiList = [
       {
-        sta: 'dbda13a5-70b4-445a-95a5-52f0802c4781', // 夏末
+        sta: '8f112c2c-d466-4427-9406-c2b040ea399f',
         prod: '',
       },
     ];
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useTypeApi(eventoryLeaderboardApiList, 'GET', 0, []),
+      useTypeApi({
+        apiList: eventoryLeaderboardApiList,
+        realTime: 0,
+        initialData: [],
+        cacheStrategy: CacheStrategy.NETWORK_ONLY,
+      }),
     );
 
     await waitForNextUpdate({ timeout: 5000 });
@@ -49,10 +55,30 @@ describe('test type api hook', () => {
       ],
     ];
 
-    const { result } = renderHook(() => useTypeApi([], 'GET', 0, init));
-    expect(result.current.leaderboardData);
-    if (result.current.leaderboardData) {
-      expect(result.current.leaderboardData[0][0].userInfo.userID).toEqual(
+    const eventoryLeaderboardApiList = [
+      {
+        sta: '8f112c2c-d466-4427-9406-c2b040ea399f',
+        prod: '',
+      },
+    ];
+
+    const { result } = renderHook(() =>
+      useTypeApi({
+        apiList: eventoryLeaderboardApiList,
+        realTime: 0,
+        initialData: init,
+        cacheStrategy: CacheStrategy.NETWORK_ONLY,
+      }),
+    );
+    const { leaderboardData } = result.all[0] as {
+      loading: boolean;
+      polling: boolean;
+      requestError: undefined;
+      leaderboardData: User[][];
+    };
+    expect(leaderboardData);
+    if (leaderboardData) {
+      expect(leaderboardData[0][0].userInfo.userID).toEqual(
         init[0][0].userInfo.userID,
       );
     }
