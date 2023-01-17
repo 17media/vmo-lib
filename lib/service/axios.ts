@@ -24,20 +24,20 @@ export const getInstanceCache = () => {
 
   return axios.create({
     baseURL: isProdVmo17Media()
-      ? `${EVENT_SERVER_ENDPOINT}/api`
+      ? EVENT_SERVER_ENDPOINT
       : isStagVmo17Media()
-      ? `${EVENT_SERVER_ENDPOINT_STA}/api`
-      : `${EVENT_SERVER_ENDPOINT_UAT}/api`,
+      ? EVENT_SERVER_ENDPOINT_STA
+      : EVENT_SERVER_ENDPOINT_UAT,
   });
 };
 
 export const getInstanceEventory = () =>
   axios.create({
     baseURL: isProdVmo17Media()
-      ? `${GOAPI_ENDPOINT}/api`
+      ? GOAPI_ENDPOINT
       : isStagVmo17Media()
-      ? `${GOAPI_ENDPOINT_STA}/api`
-      : `${GOAPI_ENDPOINT_UAT}/api`,
+      ? GOAPI_ENDPOINT_STA
+      : GOAPI_ENDPOINT_UAT,
   });
 /**
  * same with getInstanceEventory

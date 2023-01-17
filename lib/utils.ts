@@ -68,10 +68,10 @@ export const isUatVmo17Media = () =>
 
 export const getGoapiUrl = () =>
   isProdVmo17Media()
-    ? `${GOAPI_ENDPOINT}/api`
+    ? GOAPI_ENDPOINT
     : isStagVmo17Media()
-    ? `${GOAPI_ENDPOINT_STA}/api`
-    : `${GOAPI_ENDPOINT_UAT}/api`;
+    ? GOAPI_ENDPOINT_STA
+    : GOAPI_ENDPOINT_UAT;
 
 export const getType = (api: { sta: string; prod: string; uat: string }) =>
   isProdVmo17Media() ? api.prod : isStagVmo17Media() ? api.sta : api.uat;
