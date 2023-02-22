@@ -26,6 +26,14 @@ const useFollower = (userID, accessToken, jwtAccessToken) => {
         const fetchFollowers = () => __awaiter(void 0, void 0, void 0, function* () {
             var _a, _b;
             try {
+                if (!userID) {
+                    setErrorMsg('empty userID');
+                    return;
+                }
+                if (!accessToken && !jwtAccessToken) {
+                    setErrorMsg('empty token');
+                    return;
+                }
                 const callback = (data) => {
                     setFollowers(data);
                 };
