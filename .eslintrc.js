@@ -31,6 +31,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'react/prop-types': 0,
     '@typescript-eslint/no-use-before-define': 'off',
+    'no-nested-ternary': 'off',
     'react/jsx-filename-extension': 0,
     'no-console': 0,
     'import/no-named-as-default': 0,

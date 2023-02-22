@@ -1,3 +1,14 @@
+import {
+  GOAPI_ENDPOINT,
+  GOAPI_ENDPOINT_STA,
+  GOAPI_ENDPOINT_UAT,
+  MAIN_HOST,
+  MAIN_HOST_CN,
+  MAIN_HOST_STA,
+  MAIN_HOST_STA_CN,
+  MAIN_HOST_UAT,
+  MAIN_HOST_UAT_CN,
+} from './constants';
 import { EventTypes } from './enums';
 import { ISetting, LeaderboardItem } from './types';
 
@@ -44,11 +55,26 @@ export const getRandomInteger = (min: number, max: number): number => {
 };
 
 export const isProdVmo17Media = () =>
-  window.location.hostname === 'vmo.17.media' ||
-  window.location.hostname === 'gcscdn-event-cn.17.media';
+  window.location.hostname === MAIN_HOST ||
+  window.location.hostname === MAIN_HOST_CN;
 
-export const getType = (api: { sta: string; prod: string }) =>
-  isProdVmo17Media() ? api.prod : api.sta;
+export const isStagVmo17Media = () =>
+  window.location.hostname === MAIN_HOST_STA ||
+  window.location.hostname === MAIN_HOST_STA_CN;
+
+export const isUatVmo17Media = () =>
+  window.location.hostname === MAIN_HOST_UAT ||
+  window.location.hostname === MAIN_HOST_UAT_CN;
+
+export const getGoapiUrl = () =>
+  isProdVmo17Media()
+    ? GOAPI_ENDPOINT
+    : isStagVmo17Media()
+    ? GOAPI_ENDPOINT_STA
+    : GOAPI_ENDPOINT_UAT;
+
+export const getType = (api: { sta: string; prod: string; uat: string }) =>
+  isProdVmo17Media() ? api.prod : isStagVmo17Media() ? api.sta : api.uat;
 
 export function debounce<Params extends any[]>(
   func: (...args: Params) => any,

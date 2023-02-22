@@ -1,12 +1,18 @@
 import axios from 'axios';
+import {
+  EVENT_SERVER_ENDPOINT,
+  EVENT_SERVER_ENDPOINT_STA,
+  EVENT_SERVER_ENDPOINT_UAT,
+  GOAPI_ENDPOINT,
+  GOAPI_ENDPOINT_STA,
+  GOAPI_ENDPOINT_UAT,
+} from '../constants';
 
-import { isProdVmo17Media } from '../utils';
+import { getGoapiUrl, isProdVmo17Media, isStagVmo17Media } from '../utils';
 
 export const getInstance = () =>
   axios.create({
-    baseURL: isProdVmo17Media()
-      ? 'https://api.17app.co/api'
-      : 'https://sta-api.17app.co/api',
+    baseURL: getGoapiUrl(),
   });
 
 export const getInstanceCache = () => {
@@ -18,21 +24,22 @@ export const getInstanceCache = () => {
 
   return axios.create({
     baseURL: isProdVmo17Media()
-      ? 'https://event-server.17app.co/api'
-      : 'https://event-server-sta.17app.co/api',
+      ? EVENT_SERVER_ENDPOINT
+      : isStagVmo17Media()
+      ? EVENT_SERVER_ENDPOINT_STA
+      : EVENT_SERVER_ENDPOINT_UAT,
   });
 };
 
 export const getInstanceEventory = () =>
   axios.create({
     baseURL: isProdVmo17Media()
-      ? 'https://api-dsa.17app.co/api'
-      : 'https://sta-api.17app.co/api',
+      ? GOAPI_ENDPOINT
+      : isStagVmo17Media()
+      ? GOAPI_ENDPOINT_STA
+      : GOAPI_ENDPOINT_UAT,
   });
-
-export const getInstanceVote = () =>
-  axios.create({
-    baseURL: isProdVmo17Media()
-      ? 'https://api.17app.co/api'
-      : 'https://sta-api.17app.co/api',
-  });
+/**
+ * same with getInstanceEventory
+ */
+export const getInstanceVote = () => getInstanceEventory();
