@@ -24,6 +24,15 @@ export const useFollower: Props = (userID, accessToken, jwtAccessToken) => {
   useEffect(() => {
     const fetchFollowers = async () => {
       try {
+        if (!userID) {
+          setErrorMsg('empty userID');
+          return;
+        }
+        if (!accessToken && !jwtAccessToken) {
+          setErrorMsg('empty token');
+          return;
+        }
+
         const callback = (data: string[]) => {
           setFollowers(data);
         };
