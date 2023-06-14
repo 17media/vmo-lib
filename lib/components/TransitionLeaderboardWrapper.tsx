@@ -7,6 +7,7 @@ export interface ITransitionLeaderboardWrapperProps {
   user: User[];
   rowCount: number;
   itemStyle: ItemStyle;
+  children: React.ReactNode;
 }
 
 const Wrapper = styled.div`

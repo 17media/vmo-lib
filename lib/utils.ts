@@ -14,6 +14,7 @@ import { ISetting, LeaderboardItem } from './types';
 
 declare const java17WebObject: any;
 
+// @ts-ignore
 export const globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 
 export const qs = <T extends { [k: string]: string | boolean }>(
