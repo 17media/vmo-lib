@@ -10,6 +10,7 @@ import {
   HttpMethod,
   HandleCacheStrategyResponse,
   checkCacheUsable,
+  FulfillFormat,
 } from '../service/cacheManager.service';
 import { User, EventoryApiOption } from '../types';
 import { sleep } from '../utils';
@@ -24,6 +25,9 @@ interface Config {
 }
 
 export type APIType = {
+  /** staging site container ID */
+  uat?: string;
+
   /** staging site container ID */
   sta: string;
 
@@ -61,7 +65,7 @@ export const useTypeApi = ({
   cacheStrategy?: CacheStrategy;
   opt?: EventoryApiOption;
 }) => {
-  const [requestError, setRequestError] = useState();
+  const [requestError, setRequestError] = useState<any>();
   const [leaderboardData, setLeaderboardData] = useState(initialData);
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
@@ -120,7 +124,7 @@ export const useTypeApi = ({
   );
 
   const getApiPromiseList = useCallback(
-    (apis: APIType[] = [], strategy: CacheStrategy) =>
+    (strategy: CacheStrategy, apis: APIType[] = []) =>
       apis
         .map((type: APIType, index) => {
           /**
@@ -216,8 +220,8 @@ export const useTypeApi = ({
 
       // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
       if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
-        await sleep(1000);
         setReload(false);
+        await sleep(1000);
       }
 
       const networkCallbacks = results.map(result => result.callback);
@@ -269,14 +273,23 @@ export const useTypeApi = ({
   );
 
   const getNextOptions = useCallback(
-    (results, requestApiIndex: number[], strategy: CacheStrategy) =>
+    (
+      results:
+        | HandleCacheStrategyResponse<Response<User>>[]
+        | (FulfillFormat<Response<User>> | undefined)[],
+      requestApiIndex: number[],
+      strategy: CacheStrategy,
+    ) =>
       options.map((option, index) => {
         const foundIndex = requestApiIndex.findIndex(
           targetIndex => index === targetIndex,
         );
         if (foundIndex >= 0) {
           const dataSource = isFirstInitErrorRef.current ? 'cache' : 'data';
-          const { nextCursor } = results[foundIndex][dataSource].data;
+          const { nextCursor } = isFirstInitErrorRef.current
+            ? (results[foundIndex] as FulfillFormat<Response<User>>)!.cache!
+                .data
+            : results[foundIndex]!.data!.data;
           return {
             limit: opt.limit,
             cursor: nextCursor,
@@ -307,8 +320,8 @@ export const useTypeApi = ({
       }
 
       const apiPromiseList = getApiPromiseList(
-        apis,
         finalCacheStrategyRef.current,
+        apis,
       );
       if (!apiPromiseList.length) return;
 
