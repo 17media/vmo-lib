@@ -71,10 +71,19 @@ export const getGoapiUrl = () =>
     ? GOAPI_ENDPOINT
     : isStagVmo17Media()
     ? GOAPI_ENDPOINT_STA
-    : GOAPI_ENDPOINT_UAT;
+    : isUatVmo17Media()
+    ? GOAPI_ENDPOINT_UAT
+    : GOAPI_ENDPOINT_STA;
 
-export const getType = (api: { sta: string; prod: string; uat: string }) =>
-  isProdVmo17Media() ? api.prod : isStagVmo17Media() ? api.sta : api.uat;
+// default type = api.sta
+export const getType = (api: { sta: string; prod: string; uat?: string }) =>
+  isProdVmo17Media()
+    ? api.prod
+    : isStagVmo17Media()
+    ? api.sta
+    : isUatVmo17Media() && api.uat
+    ? api.uat
+    : api.sta;
 
 export function debounce<Params extends any[]>(
   func: (...args: Params) => any,
