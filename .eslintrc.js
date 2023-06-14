@@ -39,6 +39,13 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'react-hooks/rules-of-hooks': 'error', // 檢查 Hook 的規則
     'react-hooks/exhaustive-deps': 'warn', // 檢查 effect 的相依性
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: ['arrow-function', 'function-expression'],
+        unnamedComponents: ['arrow-function', 'function-expression'],
+      },
+    ],
   },
   settings: {
     'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
