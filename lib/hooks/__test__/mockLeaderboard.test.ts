@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import { mockRandomForEach } from 'jest-mock-random';
 import useMockLeaderboard, { mockUsers, usersID } from '../useMockLeaderboard';
 
@@ -17,10 +17,10 @@ describe('test mock leaderboard hook', () => {
       userID: usersID[1],
       score: 2000,
     };
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useMockLeaderboard(true),
-    );
-    await waitForNextUpdate({ timeout: false });
+    const { result } = renderHook(() => useMockLeaderboard(true));
+    await waitFor(() => expect(result.current.leaderboard.length).toEqual(1), {
+      timeout: 2000,
+    });
     expect(result.current.leaderboard[0].userInfo.openID).toEqual(
       expectedFirstUser.user,
     );
@@ -30,7 +30,9 @@ describe('test mock leaderboard hook', () => {
     expect(result.current.leaderboard[0].score).toEqual(
       expectedFirstUser.score,
     );
-    await waitForNextUpdate({ timeout: false });
+    await waitFor(() => expect(result.current.leaderboard.length).toEqual(2), {
+      timeout: 2000,
+    });
     expect(result.current.leaderboard[0].userInfo.openID).toEqual(
       expectedSecondUser.user,
     );
