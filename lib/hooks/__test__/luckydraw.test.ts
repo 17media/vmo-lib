@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react';
 import useLuckyDraw from '../useLuckyDraw';
 import { mockUsers } from '../useMockLeaderboard';
 import { User } from '../../types';

@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import useAutoNext from '../useAutoNext';
 import { globalThis } from '../../utils';
 
