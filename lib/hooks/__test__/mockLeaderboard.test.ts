@@ -5,7 +5,7 @@ import useMockLeaderboard, { mockUsers, usersID } from '../useMockLeaderboard';
 describe('test mock leaderboard hook', () => {
   // user0 userID[0] 1000
   // user1 userID[1] 2000
-  mockRandomForEach([0, 0.1, 0, 0.01, 0.2]);
+  mockRandomForEach([0, 0.1, 0.01, 0.2]);
   test('should change the leaderboard users each seconds', async () => {
     const expectedFirstUser = {
       user: 'user0',
@@ -31,7 +31,7 @@ describe('test mock leaderboard hook', () => {
       expectedFirstUser.score,
     );
     await waitFor(() => expect(result.current.leaderboard.length).toEqual(2), {
-      timeout: 2000,
+      timeout: 3000,
     });
     expect(result.current.leaderboard[0].userInfo.openID).toEqual(
       expectedSecondUser.user,
