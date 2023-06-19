@@ -52,7 +52,6 @@ const createMockGiftedUsers = (
   const giftedUsers = new Array(count).fill(0).map(() => {
     const randomUserIndex = Math.floor(limit * Math.random());
     const randomScore = Math.floor(10000 * Math.random());
-    console.log('Math.random()', Math.random());
     return {
       userID: usersID[randomUserIndex],
       score: randomScore,
