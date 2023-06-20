@@ -117,7 +117,7 @@ export const useMockLeaderboard = (
         timer.current = 0;
       }
     };
-  }, [limit, stable]);
+  }, [enable, limit, stable]);
 
   return { leaderboard } as const;
 };
