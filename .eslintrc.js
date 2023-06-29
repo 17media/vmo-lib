@@ -46,6 +46,7 @@ module.exports = {
         unnamedComponents: ['arrow-function', 'function-expression'],
       },
     ],
+    'react/require-default-props': 0, // Since we do not use prop-types
   },
   settings: {
     'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
