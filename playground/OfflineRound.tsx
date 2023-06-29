@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { usePageData, PageContext } from '../lib/hooks/usePageData';
 import { TransitionLeaderboardWrapper } from '../lib/components/TransitionLeaderboardWrapper';
 import { ItemStyle } from '../lib/hooks/useItemTransition';
-import { qs } from '../lib/utils';
 
 // const { test, initMockList } = qs<{ test: string; initMockList: string }>();
 

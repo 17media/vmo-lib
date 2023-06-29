@@ -3,7 +3,7 @@ import useScore from '../lib/hooks/useScore';
 
 const Follower = () => {
   const [inputScore, setInputScore] = useState<number>(0);
-  const score = useScore(inputScore);
+  const score = useScore({ givenScore: inputScore });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newScore = e.target.value;
