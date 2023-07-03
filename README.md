@@ -41,7 +41,7 @@
 
 - local testing
 
-`yarn dev`
+`yarn start`
 
 - GitHub pages testing
 
@@ -53,7 +53,7 @@
 
 [vmo-lib TypeDoc](https://17media.github.io/vmo-lib/docs/index.html)
 
-[vmo-lib Playground](https://17media.github.io/vmo-lib/out/index.html)
+[vmo-lib Playground](https://17media.github.io/vmo-lib/output/index.html)
 
 ---
 
@@ -82,7 +82,7 @@ npx typedoc --showConfig
 Run the following command to make sure build successfully.
 
 ```
-yarn build:new:both
+yarn build:both
 ```
 
 - Build and Deploy TypeDoc & Playground (already include build command)
@@ -90,7 +90,7 @@ yarn build:new:both
 To run the following command, you need to wait until feature branch successfully merged back to master since that is the correct version you want to deploy. After passing QA test, follow "Release" step to release the version.
 
 ```
-yarn deploy:new:both
+yarn deploy:both
 ```
 
 ## Release

@@ -48,7 +48,6 @@
     "@sentry/tracing": "^7.21.1",
     "@testing-library/react": "^14.0.0",
     "@types/axios": "^0.14.0",
-    "@types/next": "9.0.0",
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.9",
@@ -57,7 +56,6 @@
     "file-loader": "^6.2.0",
     "intersection-observer": "^0.12.2",
     "jest-mock-random": "^1.1.1",
-    "next": "13.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-window": "^1.8.6",
@@ -72,20 +70,15 @@
     "build": "rm -rf dist && tsc",
     "start": "webpack server --hot",
     "watch": "tsc --watch",
-    "dev": "next dev",
     "test": "jest",
     "format": "prettier --write .",
     "doc": "rm -rf docs && typedoc",
     "build:playground": "rm -rf output && webpack",
-    "build:new:playground": "rm -rf out && next build && next export",
     "build:both": "yarn doc && yarn build:playground",
     "build:new:both": "yarn doc && yarn build:new:playground",
     "copy:both": "rm -rf deploy/docs && rm -rf deploy/output && cp -r docs deploy/docs && cp -r output deploy/output",
-    "copy:new:both": "rm -rf deploy/docs && rm -rf deploy/out && cp -r docs deploy/docs && cp -r out deploy/out",
     "rm:both": "rm -rf docs && rm -rf output && rm -rf deploy/docs && rm -rf deploy/output",
-    "rm:new:both": "rm -rf docs && rm -rf out && rm -rf deploy/docs && rm -rf deploy/out",
-    "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both",
-    "deploy:new": "yarn build:new:both && yarn copy:new:both && gh-pages -d deploy -t true && yarn rm:new:both"
+    "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both"
   },
   "lint-staged": {
     "**/*.ts?(x)": [
