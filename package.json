@@ -81,7 +81,7 @@
     "build:both": "yarn doc && yarn build:playground",
     "build:new:both": "yarn doc && yarn build:new:playground",
     "copy:both": "rm -rf deploy/docs && rm -rf deploy/output && cp -r docs deploy/docs && cp -r output deploy/output",
-    "copy:new:both": "rm -rf deploy/docs && rm -rf deploy/out && mkdir deploy && cp -r docs deploy/docs && cp -r out deploy/out && touch deploy/.nojekyll",
+    "copy:new:both": "rm -rf deploy/docs && rm -rf deploy/out && cp -r docs deploy/docs && cp -r out deploy/out",
     "rm:both": "rm -rf docs && rm -rf output && rm -rf deploy/docs && rm -rf deploy/output",
     "rm:new:both": "rm -rf docs && rm -rf out && rm -rf deploy/docs && rm -rf deploy/out",
     "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both",
