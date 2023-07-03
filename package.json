@@ -77,10 +77,15 @@
     "format": "prettier --write .",
     "doc": "rm -rf docs && typedoc",
     "build:playground": "rm -rf output && webpack",
+    "build:new:playground": "rm -rf out && next build && next export",
     "build:both": "yarn doc && yarn build:playground",
+    "build:new:both": "yarn doc && yarn build:new:playground",
     "copy:both": "rm -rf deploy/docs && rm -rf deploy/output && cp -r docs deploy/docs && cp -r output deploy/output",
+    "copy:new:both": "rm -rf deploy/docs && rm -rf deploy/out && mkdir deploy && cp -r docs deploy/docs && cp -r out deploy/out && touch deploy/.nojekyll",
     "rm:both": "rm -rf docs && rm -rf output && rm -rf deploy/docs && rm -rf deploy/output",
-    "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both"
+    "rm:new:both": "rm -rf docs && rm -rf out && rm -rf deploy/docs && rm -rf deploy/out",
+    "deploy:both": "yarn build:both && yarn copy:both && gh-pages -d deploy && yarn rm:both",
+    "deploy:new": "yarn build:new:both && yarn copy:new:both && gh-pages -d deploy -t true && yarn rm:new:both"
   },
   "lint-staged": {
     "**/*.ts?(x)": [

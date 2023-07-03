@@ -128,7 +128,7 @@ const LeaderboardData = ({ config }) => {
 
 const TypeApi = () => {
   const [eventoryContainerId, setEventoryContainerId] = useState<string>(
-    '8f112c2c-d466-4427-9406-c2b040ea399f',
+    '7f92082d-844e-4094-b661-a10e2c9c79a9',
   );
   const [realTime, setRealTime] = useState(0);
   const [limit, setLimit] = useState<number>(1000);
