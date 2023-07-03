@@ -39,7 +39,7 @@ const useScore = ({
       const newScore = score + Math.round(percent * (givenScore - score));
       setScore(newScore);
     });
-  }, [givenScore]);
+  }, [duration, givenScore, score]);
 
   return numberFormat(score, regionLanguage);
 };

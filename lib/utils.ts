@@ -540,15 +540,15 @@ export const copyLeaderboardDataToClipboard = (
   data: LeaderboardItem[],
   extraDataList: ExtraData[],
 ): boolean => {
-  // Get mession string
-  const messionStrArr: string[] = [];
+  // Get mission string
+  const missionStrArr: string[] = [];
   if (data.length > 0) {
     const firstMission = data[0].missions;
     if (firstMission) {
       Object.keys(firstMission)
         .sort((a: any, b: any) => Number(a.substr(-1)) - Number(b.substr(-1)))
         .forEach(item => {
-          messionStrArr.push(
+          missionStrArr.push(
             `${item.substr(0, 1).toUpperCase()}${item.substr(1)}`,
           );
         });
@@ -587,8 +587,8 @@ export const copyLeaderboardDataToClipboard = (
   } else {
     firstRow = `Rank\tUserID\tName\tScore\tRegion`;
   }
-  if (messionStrArr.length > 0) {
-    firstRow = `${firstRow}\t${messionStrArr.join('\t')}`;
+  if (missionStrArr.length > 0) {
+    firstRow = `${firstRow}\t${missionStrArr.join('\t')}`;
   }
   if (metaStrArr.length > 0) {
     firstRow = `${firstRow}\t${metaStrArr.join('\t')}`;
@@ -607,15 +607,15 @@ export const copyLeaderboardDataToClipboard = (
       item.userInfo.displayName || item.userInfo.openID
     }\t${item.score}\t${item.userInfo.region}`;
 
-    if (messionStrArr.length > 0) {
-      const messions: string[] = [];
+    if (missionStrArr.length > 0) {
+      const missions: string[] = [];
       Object.keys(item.missions)
         .sort((a: any, b: any) => Number(a.substr(-1)) - Number(b.substr(-1)))
         .forEach(mItem => {
-          messions.push(`${item.missions[mItem]}`);
+          missions.push(`${item.missions[mItem]}`);
         });
-      if (messions.length > 0) {
-        itemStr = `${itemStr}\t${messions.join(`\t`)}`;
+      if (missions.length > 0) {
+        itemStr = `${itemStr}\t${missions.join(`\t`)}`;
       }
     }
     if (metaStrArr.length > 0) {
@@ -743,4 +743,5 @@ export const storeUserInfo = () => {
 };
 
 export const sleep = (ms: number) =>
+  // eslint-disable-next-line no-promise-executor-return
   new Promise(resolve => setTimeout(resolve, ms));
