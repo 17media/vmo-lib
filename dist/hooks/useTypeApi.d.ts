@@ -1,6 +1,8 @@
 import { CacheStrategy } from '../service/cacheManager.service';
 import { User, EventoryApiOption } from '../types';
-export declare type APIType = {
+export type APIType = {
+    /** staging site container ID */
+    uat?: string;
     /** staging site container ID */
     sta: string;
     /** production site container ID */
@@ -26,7 +28,7 @@ export declare const useTypeApi: ({ apiList, realTime, initialData, cacheStrateg
 }) => {
     loading: boolean;
     polling: boolean;
-    requestError: undefined;
+    requestError: any;
     leaderboardData: User[][] | undefined;
 };
 export default useTypeApi;

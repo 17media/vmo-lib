@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("../utils");
 const _17liveMessageTunnel_1 = __importDefault(require("../17liveMessageTunnel"));
 const open = (userID, openID, streamID = 0) => {
-    if (utils_1.isMobile(window.navigator.userAgent)) {
-        if (utils_1.isAndroid(window.navigator.userAgent)) {
+    if ((0, utils_1.isMobile)(window.navigator.userAgent)) {
+        if ((0, utils_1.isAndroid)(window.navigator.userAgent)) {
             if (streamID > 0) {
                 window.location.href = `http://17.media/share/live/${streamID}`;
                 return;
@@ -18,7 +18,7 @@ const open = (userID, openID, streamID = 0) => {
                 return;
             }
         }
-        if (utils_1.isIOS(window.navigator.userAgent)) {
+        if ((0, utils_1.isIOS)(window.navigator.userAgent)) {
             if (streamID > 0) {
                 window.location.href = `media17://live/${streamID}`;
                 return;
@@ -29,7 +29,7 @@ const open = (userID, openID, streamID = 0) => {
     else {
         if (window.parent !== window) {
             // 17.live
-            _17liveMessageTunnel_1.default(openID);
+            (0, _17liveMessageTunnel_1.default)(openID);
             return;
         }
         if (streamID > 0) {
@@ -45,7 +45,7 @@ const open = (userID, openID, streamID = 0) => {
  * @returns 取得 followers 資料以及 errMsg 判斷是否有問題
  */
 const handleClickAvatar = (userID, openID, streamID = 0) => {
-    if (!utils_1.isClient()) {
+    if (!(0, utils_1.isClient)()) {
         console.warn('can only use in client side.');
         return;
     }

@@ -506,6 +506,7 @@ export const useTypeApi = ({
 
   // init handleLeaderboardDataStrategy
   useEffect(() => {
+    console.log('react 18 test');
     if (suspend || !isFirstInitRef.current) return;
     handleLeaderboardDataStrategy();
   }, [handleLeaderboardDataStrategy, suspend]);

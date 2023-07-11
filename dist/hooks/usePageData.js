@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -34,10 +38,11 @@ const useMockLeaderboard_1 = __importDefault(require("./useMockLeaderboard"));
 const usePageData = ({ startDate, endDate, nextPage, isResultPage, endedText, test, init, }) => {
     const start = new Date(startDate).getTime();
     const end = new Date(endDate).getTime();
-    const { status, text: countdownText } = useCountdown_1.default(start, end, endedText);
-    const isEnded = status === useCountdown_1.TimeStatus.Ended && dad_1.now() < end + 5000;
-    useAutoNext_1.default(isEnded, nextPage);
-    const { leaderboard: mockLeaderboard } = useMockLeaderboard_1.default(test, init, isResultPage);
+    const { status, text: countdownText } = (0, useCountdown_1.default)(start, end, endedText);
+    const isEnded = status === useCountdown_1.TimeStatus.Ended && (0, dad_1.now)() < end + 5000;
+    (0, useAutoNext_1.default)(isEnded, nextPage);
+    const finalTest = isEnded ? false : test;
+    const { leaderboard: mockLeaderboard } = (0, useMockLeaderboard_1.default)(finalTest, init, isResultPage);
     return {
         mockLeaderboard,
         countdownText,

@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sleep = exports.storeUserInfo = exports.getUserInfo = exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
+exports.sleep = exports.storeUserInfo = exports.getUserInfo = exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.getGoapiUrl = exports.isUatVmo17Media = exports.isStagVmo17Media = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
+const constants_1 = require("./constants");
 const enums_1 = require("./enums");
+// @ts-ignore
 exports.globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 const qs = (search = exports.globalThis.location
     ? exports.globalThis.location.search.slice(1)
@@ -37,10 +39,31 @@ const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
 exports.getRandomInteger = getRandomInteger;
-const isProdVmo17Media = () => window.location.hostname === 'vmo.17.media' ||
-    window.location.hostname === 'gcscdn-event-cn.17.media';
+const isProdVmo17Media = () => window.location.hostname === constants_1.MAIN_HOST ||
+    window.location.hostname === constants_1.MAIN_HOST_CN;
 exports.isProdVmo17Media = isProdVmo17Media;
-const getType = (api) => exports.isProdVmo17Media() ? api.prod : api.sta;
+const isStagVmo17Media = () => window.location.hostname === constants_1.MAIN_HOST_STA ||
+    window.location.hostname === constants_1.MAIN_HOST_STA_CN;
+exports.isStagVmo17Media = isStagVmo17Media;
+const isUatVmo17Media = () => window.location.hostname === constants_1.MAIN_HOST_UAT ||
+    window.location.hostname === constants_1.MAIN_HOST_UAT_CN;
+exports.isUatVmo17Media = isUatVmo17Media;
+const getGoapiUrl = () => (0, exports.isProdVmo17Media)()
+    ? constants_1.GOAPI_ENDPOINT
+    : (0, exports.isStagVmo17Media)()
+        ? constants_1.GOAPI_ENDPOINT_STA
+        : (0, exports.isUatVmo17Media)()
+            ? constants_1.GOAPI_ENDPOINT_UAT
+            : constants_1.GOAPI_ENDPOINT_STA;
+exports.getGoapiUrl = getGoapiUrl;
+// default type = api.sta
+const getType = (api) => (0, exports.isProdVmo17Media)()
+    ? api.prod
+    : (0, exports.isStagVmo17Media)()
+        ? api.sta
+        : (0, exports.isUatVmo17Media)() && api.uat
+            ? api.uat
+            : api.sta;
 exports.getType = getType;
 function debounce(func, timeout) {
     let timer;
@@ -56,7 +79,7 @@ exports.debounce = debounce;
  * Get browser languages or manually queryString. e.g. ?lang=ja
  */
 const getUserLangs = () => {
-    const q = exports.qs();
+    const q = (0, exports.qs)();
     return Array.from(new Set([q.lang, ...window.navigator.languages].filter(Boolean)));
 };
 exports.getUserLangs = getUserLangs;
@@ -72,7 +95,7 @@ var RegionLanguage;
     RegionLanguage["JAPAN"] = "ja";
     RegionLanguage["EUROPE"] = "en_US";
     RegionLanguage["ARAB"] = "ar";
-})(RegionLanguage = exports.RegionLanguage || (exports.RegionLanguage = {}));
+})(RegionLanguage || (exports.RegionLanguage = RegionLanguage = {}));
 /**
  * Get Currently selected language from campaign setting
  * @param {RegionLanguage[]} supportLangs languages provide by campaign setting
@@ -93,7 +116,7 @@ const getCurrentTranslateLang = (supportLangs) => {
         prefix: langCode.substr(0, 2),
         lang: langCode,
     }));
-    const userLangList = exports.getUserLangs().map(lang => {
+    const userLangList = (0, exports.getUserLangs)().map(lang => {
         if (lang.includes('-') || lang.includes('_')) {
             const formatLang = lang.replace('-', '_').split('_');
             return `${formatLang[0].toLowerCase()}_${formatLang[1].toUpperCase()}`;
@@ -220,9 +243,9 @@ const getDetailDate = (date) => {
  */
 const getStringDateCountdownByLocalFormat = ({ d, h, m, s, ms, }, formatText) => formatText
     .replace('D', d.toString())
-    .replace('hh', exports.addLeadingZeros(h).toString())
-    .replace('mm', exports.addLeadingZeros(m).toString())
-    .replace('ss', exports.addLeadingZeros(s).toString());
+    .replace('hh', (0, exports.addLeadingZeros)(h).toString())
+    .replace('mm', (0, exports.addLeadingZeros)(m).toString())
+    .replace('ss', (0, exports.addLeadingZeros)(s).toString());
 exports.getStringDateCountdownByLocalFormat = getStringDateCountdownByLocalFormat;
 /**
  * Get time text which shown on countdown remaining time. * if remaining time is less than one day.
@@ -240,8 +263,8 @@ exports.convertDateToTime = convertDateToTime;
  * @param {string} endDate datetime, i.e. 2021-09-25T18:00:00+08:00
  * @returns {boolean}
  */
-const isSameDate = (startDate, endDate) => exports.getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') ===
-    exports.getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
+const isSameDate = (startDate, endDate) => (0, exports.getStringDateByLocalFormat)(startDate, 'MM/DD/YYYY') ===
+    (0, exports.getStringDateByLocalFormat)(endDate, 'MM/DD/YYYY');
 exports.isSameDate = isSameDate;
 const cumulativeOffset = (element) => {
     let top = 0;
@@ -304,22 +327,22 @@ const getKeyboardSettings = (firstPage, lastPage) => [
         type: enums_1.EventTypes.CUSTOM,
         key: 'ArrowLeft',
         fn: () => {
-            const search = exports.qs();
+            const search = (0, exports.qs)();
             window.scrollTo(0, 0);
             const query = Object.assign(Object.assign({}, search), { page: Number(search.page) > firstPage ? Number(search.page) - 1 : firstPage });
-            exports.getNextLocation(query);
+            (0, exports.getNextLocation)(query);
         },
     },
     {
         type: enums_1.EventTypes.CUSTOM,
         key: 'ArrowRight',
         fn: () => {
-            const search = exports.qs();
+            const search = (0, exports.qs)();
             window.scrollTo(0, 0);
             const query = Object.assign(Object.assign({}, search), { page: !search.page || Number(search.page) < lastPage
                     ? Number(search.page || firstPage) + 1
                     : search.page });
-            exports.getNextLocation(query);
+            (0, exports.getNextLocation)(query);
         },
     },
     ...Array.from({ length: lastPage > 9 ? 9 : lastPage }).map((_, index) => ({
@@ -391,15 +414,15 @@ exports.copyStringToClipboard = copyStringToClipboard;
  * @returns {boolean} copy result: success/fail
  */
 const copyLeaderboardDataToClipboard = (data, extraDataList) => {
-    // Get mession string
-    const messionStrArr = [];
+    // Get mission string
+    const missionStrArr = [];
     if (data.length > 0) {
         const firstMission = data[0].missions;
         if (firstMission) {
             Object.keys(firstMission)
                 .sort((a, b) => Number(a.substr(-1)) - Number(b.substr(-1)))
                 .forEach(item => {
-                messionStrArr.push(`${item.substr(0, 1).toUpperCase()}${item.substr(1)}`);
+                missionStrArr.push(`${item.substr(0, 1).toUpperCase()}${item.substr(1)}`);
             });
         }
     }
@@ -434,8 +457,8 @@ const copyLeaderboardDataToClipboard = (data, extraDataList) => {
     else {
         firstRow = `Rank\tUserID\tName\tScore\tRegion`;
     }
-    if (messionStrArr.length > 0) {
-        firstRow = `${firstRow}\t${messionStrArr.join('\t')}`;
+    if (missionStrArr.length > 0) {
+        firstRow = `${firstRow}\t${missionStrArr.join('\t')}`;
     }
     if (metaStrArr.length > 0) {
         firstRow = `${firstRow}\t${metaStrArr.join('\t')}`;
@@ -449,15 +472,15 @@ const copyLeaderboardDataToClipboard = (data, extraDataList) => {
     copyArr.push(firstRow);
     data.forEach((item, index) => {
         let itemStr = `${item.rank}\t${item.userInfo.userID}\t${item.userInfo.displayName || item.userInfo.openID}\t${item.score}\t${item.userInfo.region}`;
-        if (messionStrArr.length > 0) {
-            const messions = [];
+        if (missionStrArr.length > 0) {
+            const missions = [];
             Object.keys(item.missions)
                 .sort((a, b) => Number(a.substr(-1)) - Number(b.substr(-1)))
                 .forEach(mItem => {
-                messions.push(`${item.missions[mItem]}`);
+                missions.push(`${item.missions[mItem]}`);
             });
-            if (messions.length > 0) {
-                itemStr = `${itemStr}\t${messions.join(`\t`)}`;
+            if (missions.length > 0) {
+                itemStr = `${itemStr}\t${missions.join(`\t`)}`;
             }
         }
         if (metaStrArr.length > 0) {
@@ -489,7 +512,7 @@ const copyLeaderboardDataToClipboard = (data, extraDataList) => {
         });
         copyArr.push(itemStr);
     });
-    return exports.copyStringToClipboard(copyArr.join('\n'));
+    return (0, exports.copyStringToClipboard)(copyArr.join('\n'));
 };
 exports.copyLeaderboardDataToClipboard = copyLeaderboardDataToClipboard;
 const userInfoStorageName = 'userInfo';
@@ -499,7 +522,7 @@ var UserInfoParam;
     UserInfoParam["userID"] = "userID";
     UserInfoParam["accessToken"] = "accessToken";
 })(UserInfoParam || (UserInfoParam = {}));
-const getUserInfoFromQuerystring = () => exports.qs();
+const getUserInfoFromQuerystring = () => (0, exports.qs)();
 const getUserInfo = () => {
     var _a;
     const { jwtAccessToken: urlJwtAccessToken, accessToken: urlAccessToken, userID: urlUserID, } = getUserInfoFromQuerystring();
@@ -549,6 +572,8 @@ const storeUserInfo = () => {
     };
 };
 exports.storeUserInfo = storeUserInfo;
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => 
+// eslint-disable-next-line no-promise-executor-return
+new Promise(resolve => setTimeout(resolve, ms));
 exports.sleep = sleep;
 //# sourceMappingURL=utils.js.map

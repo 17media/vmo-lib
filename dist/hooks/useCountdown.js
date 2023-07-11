@@ -9,11 +9,11 @@ var TimeStatus;
     TimeStatus[TimeStatus["NotYet"] = 0] = "NotYet";
     TimeStatus[TimeStatus["Ongoing"] = 1] = "Ongoing";
     TimeStatus[TimeStatus["Ended"] = 2] = "Ended";
-})(TimeStatus = exports.TimeStatus || (exports.TimeStatus = {}));
+})(TimeStatus || (exports.TimeStatus = TimeStatus = {}));
 const day = 1000 * 60 * 60 * 24;
 const h = 1000 * 60 * 60;
 const m = 1000 * 60;
-const formatCountdownText = (times) => `${utils_1.addLeadingZeros(times.d * 24 + times.h)}:${utils_1.addLeadingZeros(times.m)}:${utils_1.addLeadingZeros(times.s)}`;
+const formatCountdownText = (times) => `${(0, utils_1.addLeadingZeros)(times.d * 24 + times.h)}:${(0, utils_1.addLeadingZeros)(times.m)}:${(0, utils_1.addLeadingZeros)(times.s)}`;
 exports.formatCountdownText = formatCountdownText;
 const getRelatedDistance = (dist) => ({
     d: Math.max(0, Math.floor(dist / day)),
@@ -40,15 +40,16 @@ function getCurrentStatus(time, start, end) {
  * when you use this hook, outside component should use React.memo() to prevent rerender.
  */
 const useCountdown = (start, end, timeEndText) => {
-    const timer = react_1.useRef(0);
-    const [currentTime, setCurrentTime] = react_1.useState(dad_1.now() * 1000);
+    const timer = (0, react_1.useRef)(0);
+    const [currentTime, setCurrentTime] = (0, react_1.useState)((0, dad_1.now)() * 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getCurrentTime = () => {
         if (currentTime > start && currentTime < end) {
-            setCurrentTime(dad_1.now() * 1000);
+            setCurrentTime((0, dad_1.now)() * 1000);
             requestAnimationFrame(getCurrentTime);
         }
     };
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         timer.current = requestAnimationFrame(getCurrentTime);
         return () => {
             cancelAnimationFrame(timer.current);
@@ -59,10 +60,10 @@ const useCountdown = (start, end, timeEndText) => {
     const status = getCurrentStatus(currentTime, start, end);
     let text;
     if (status === TimeStatus.NotYet) {
-        text = exports.formatCountdownText(exports.getRelatedDistance(defaultCountdownTime));
+        text = (0, exports.formatCountdownText)((0, exports.getRelatedDistance)(defaultCountdownTime));
     }
     else if (status === TimeStatus.Ongoing) {
-        text = exports.formatCountdownText(exports.getRelatedDistance(countdownTime));
+        text = (0, exports.formatCountdownText)((0, exports.getRelatedDistance)(countdownTime));
     }
     else {
         text = timeEndText;

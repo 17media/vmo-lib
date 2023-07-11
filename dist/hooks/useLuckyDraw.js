@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -33,10 +37,10 @@ const maskDiv = styled_components_1.default.div `
   width: 100%;
   height: 100%;
 `;
-const StyledMaskDivOuter = styled_components_1.default(maskDiv) `
+const StyledMaskDivOuter = (0, styled_components_1.default)(maskDiv) `
   background: #1b1818;
 `;
-const StyledMaskDivInner = styled_components_1.default(maskDiv) `
+const StyledMaskDivInner = (0, styled_components_1.default)(maskDiv) `
   background: white;
   border-radius: 50%;
   animation: show 0.5s;
@@ -58,11 +62,11 @@ const MaskDiv = () => (react_1.default.createElement(react_1.default.Fragment, n
  * - Record by localstorage for custom feature. ex: key: 'http://localhost:9000/?page=2'(location href), value: allWinners<User[][]> (This feature can only use in client side and will not clear.)
  */
 const useLuckyDraw = (allCandidates, willAutoDrawRemainCount = true) => {
-    const [candidates, setCandidates] = react_1.useState([]);
-    const [winners, setWinners] = react_1.useState([]);
-    const [allWinners, setAllWinners] = react_1.useState([]);
-    const [currentRound, setCurrentRound] = react_1.useState(0);
-    const [hasDraw, setHasDraw] = react_1.useState(false);
+    const [candidates, setCandidates] = (0, react_1.useState)([]);
+    const [winners, setWinners] = (0, react_1.useState)([]);
+    const [allWinners, setAllWinners] = (0, react_1.useState)([]);
+    const [currentRound, setCurrentRound] = (0, react_1.useState)(0);
+    const [hasDraw, setHasDraw] = (0, react_1.useState)(false);
     const draw = (drawCount) => {
         if (!drawCount) {
             console.warn('can not draw without drawCount.');
@@ -79,7 +83,7 @@ const useLuckyDraw = (allCandidates, willAutoDrawRemainCount = true) => {
         setHasDraw(true);
         let nonRepeatWinnersIndex = [];
         const getNonRepeatWinnerIndex = () => {
-            const winnerIndex = utils_1.getRandomInteger(0, candidates.length - 1);
+            const winnerIndex = (0, utils_1.getRandomInteger)(0, candidates.length - 1);
             if (nonRepeatWinnersIndex.includes(winnerIndex)) {
                 return getNonRepeatWinnerIndex();
             }
@@ -103,7 +107,7 @@ const useLuckyDraw = (allCandidates, willAutoDrawRemainCount = true) => {
         setWinners(roundWinners);
         setAllWinners(preAllWinners => {
             const newAllWinners = [...preAllWinners, roundWinners];
-            if (utils_1.isBrowser()) {
+            if ((0, utils_1.isBrowser)()) {
                 localStorage.setItem(utils_1.globalThis.location.href, JSON.stringify(newAllWinners));
             }
             return newAllWinners;
@@ -118,11 +122,11 @@ const useLuckyDraw = (allCandidates, willAutoDrawRemainCount = true) => {
         setCandidates(allCandidates);
         setWinners([]);
         setAllWinners([]);
-        if (utils_1.isBrowser()) {
+        if ((0, utils_1.isBrowser)()) {
             localStorage.removeItem(utils_1.globalThis.location.href);
         }
     };
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         if (currentRound !== 0) {
             return;
         }

@@ -8,15 +8,15 @@ const dad_1 = require("@17media/dad");
  * @returns expired, 是否過期
  */
 const useExpired = (expiredDate) => {
-    const getExpiredStatus = react_1.useCallback(() => {
+    const getExpiredStatus = (0, react_1.useCallback)(() => {
         const expiredTime = new Date(expiredDate);
-        const nowTime = dad_1.now() * 1000;
+        const nowTime = (0, dad_1.now)() * 1000;
         const expiredStatus = nowTime - expiredTime.getTime() >= 0;
         return expiredStatus;
     }, [expiredDate]);
-    const [expired, setExpired] = react_1.useState(getExpiredStatus());
-    const timeoutKey = react_1.useRef(0);
-    react_1.useEffect(() => {
+    const [expired, setExpired] = (0, react_1.useState)(getExpiredStatus());
+    const timeoutKey = (0, react_1.useRef)(0);
+    (0, react_1.useEffect)(() => {
         timeoutKey.current = window.setInterval(() => {
             const expiredInterval = getExpiredStatus();
             if (expiredInterval) {

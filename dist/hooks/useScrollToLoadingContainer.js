@@ -7,7 +7,7 @@ const react_1 = require("react");
  * @param loading boolean
  */
 const useScrollToLoadingContainer = (loading) => {
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         if (loading) {
             const target = document.getElementById('loading-container');
             if (target) {

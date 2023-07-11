@@ -6,5 +6,5 @@ var EventTypes;
 (function (EventTypes) {
     EventTypes[EventTypes["PAGE"] = 0] = "PAGE";
     EventTypes[EventTypes["CUSTOM"] = 1] = "CUSTOM";
-})(EventTypes = exports.EventTypes || (exports.EventTypes = {}));
+})(EventTypes || (exports.EventTypes = EventTypes = {}));
 //# sourceMappingURL=enums.js.map

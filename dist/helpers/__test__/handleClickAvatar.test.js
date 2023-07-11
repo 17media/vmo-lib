@@ -36,7 +36,7 @@ describe('test handleClickAvatar helper - web', () => {
         const mockUser = useMockLeaderboard_1.mockUsers[0];
         const { userID, openID, onLiveInfo } = mockUser.userInfo;
         const streamID = (onLiveInfo === null || onLiveInfo === void 0 ? void 0 : onLiveInfo.streamID) || defaultStreamID;
-        handleClickAvatar_1.default(userID, openID, streamID);
+        (0, handleClickAvatar_1.default)(userID, openID, streamID);
         expect(utils_1.globalThis.open).toHaveBeenCalled();
     }));
 });
@@ -59,7 +59,7 @@ describe('test handleClickAvatar helper - ios', () => {
         const mockUser = useMockLeaderboard_1.mockUsers[0];
         const { userID, openID, onLiveInfo } = mockUser.userInfo;
         const streamID = (onLiveInfo === null || onLiveInfo === void 0 ? void 0 : onLiveInfo.streamID) || defaultStreamID;
-        handleClickAvatar_1.default(userID, openID, streamID);
+        (0, handleClickAvatar_1.default)(userID, openID, streamID);
         const expectUrl = `media17://live/${streamID}`;
         expect(utils_1.globalThis.location.href).toBe(expectUrl);
     }));
@@ -67,7 +67,7 @@ describe('test handleClickAvatar helper - ios', () => {
         const mockUser = useMockLeaderboard_1.mockUsers[0];
         const { userID, openID, onLiveInfo } = mockUser.userInfo;
         const streamID = onLiveInfo === null || onLiveInfo === void 0 ? void 0 : onLiveInfo.streamID;
-        handleClickAvatar_1.default(userID, openID, streamID);
+        (0, handleClickAvatar_1.default)(userID, openID, streamID);
         const expectUrl = `media17://u/${userID}`;
         expect(utils_1.globalThis.location.href).toBe(expectUrl);
     }));
@@ -95,7 +95,7 @@ describe('test handleClickAvatar helper - android', () => {
         const mockUser = useMockLeaderboard_1.mockUsers[0];
         const { userID, openID, onLiveInfo } = mockUser.userInfo;
         const streamID = (onLiveInfo === null || onLiveInfo === void 0 ? void 0 : onLiveInfo.streamID) || defaultStreamID;
-        handleClickAvatar_1.default(userID, openID, streamID);
+        (0, handleClickAvatar_1.default)(userID, openID, streamID);
         const expectUrl = `http://17.media/share/live/${streamID}`;
         expect(utils_1.globalThis.location.href).toBe(expectUrl);
     }));
@@ -103,34 +103,8 @@ describe('test handleClickAvatar helper - android', () => {
         const mockUser = useMockLeaderboard_1.mockUsers[0];
         const { userID, openID, onLiveInfo } = mockUser.userInfo;
         const streamID = onLiveInfo === null || onLiveInfo === void 0 ? void 0 : onLiveInfo.streamID;
-        handleClickAvatar_1.default(userID, openID, streamID);
+        (0, handleClickAvatar_1.default)(userID, openID, streamID);
         expect(java17WebObject.openProfile).toHaveBeenCalled();
-    }));
-});
-describe('test handleClickAvatar helper - server', () => {
-    // beforeAll((): void => {
-    //   delete globalThis.location;
-    //   delete globalThis.navigator;
-    //   delete globalThis.open;
-    //   globalThis.location = {
-    //     pathname: domainUrl,
-    //     href: domainUrl,
-    //     search: '',
-    //   };
-    //   globalThis.navigator = {
-    //     userAgent: 'web/testing/userAgent',
-    //   };
-    //   globalThis.open = jest.fn();
-    // });
-    test('should not using in server side.', () => __awaiter(void 0, void 0, void 0, function* () {
-        const defaultStreamID = 1;
-        const mockUser = useMockLeaderboard_1.mockUsers[0];
-        const { userID, openID, onLiveInfo } = mockUser.userInfo;
-        const streamID = (onLiveInfo === null || onLiveInfo === void 0 ? void 0 : onLiveInfo.streamID) || defaultStreamID;
-        handleClickAvatar_1.default(userID, openID, streamID);
-        const msg = 'can only use in client side.';
-        const consoleSpy = jest.spyOn(console, 'warn');
-        expect(consoleSpy).toHaveBeenCalledWith(msg);
     }));
 });
 //# sourceMappingURL=handleClickAvatar.test.js.map

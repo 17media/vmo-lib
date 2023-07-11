@@ -1,4 +1,4 @@
-export declare type Translation = {
+export type Translation = {
     key: string;
     values: {
         language: string;

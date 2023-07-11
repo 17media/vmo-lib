@@ -20,11 +20,11 @@ const defaultLang = 'zh_TW';
  * @returns 取得設定的線上翻譯
  */
 const useTranslation = (eventType, supportLangs) => {
-    const supportLangsRef = react_1.useRef(supportLangs);
-    const [translation, setTranslation] = react_1.useState(new Map());
-    const getTranslation = react_1.useCallback((langs) => __awaiter(void 0, void 0, void 0, function* () {
+    const supportLangsRef = (0, react_1.useRef)(supportLangs);
+    const [translation, setTranslation] = (0, react_1.useState)(new Map());
+    const getTranslation = (0, react_1.useCallback)((langs) => __awaiter(void 0, void 0, void 0, function* () {
         if (eventType) {
-            const response = yield translation_service_1.getTranslation(eventType);
+            const response = yield (0, translation_service_1.getTranslation)(eventType);
             if (response && response.length > 0) {
                 const translationTransformed = new Map();
                 response.forEach(item => {
@@ -46,11 +46,11 @@ const useTranslation = (eventType, supportLangs) => {
             }
         }
     }), [eventType]);
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         supportLangsRef.current = supportLangs;
     }, [supportLangs]);
-    react_1.useEffect(() => {
-        getTranslation(utils_1.getCurrentTranslateLang(supportLangsRef.current));
+    (0, react_1.useEffect)(() => {
+        getTranslation((0, utils_1.getCurrentTranslateLang)(supportLangsRef.current));
     }, [getTranslation]);
     return translation;
 };

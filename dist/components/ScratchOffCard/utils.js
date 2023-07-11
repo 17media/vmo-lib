@@ -11,7 +11,7 @@ const getFilledInPixels = (stride, ctx, canvasWidth, canvasHeight) => {
     let count = 0;
     for (let i = 0; i < l; i += newStride) {
         if (+pdata[i] === 0) {
-            count++;
+            count += 1;
         }
     }
     return Math.round((count / total) * 100);
@@ -29,11 +29,11 @@ const getMouse = (e, canvas) => {
             offsetY += canvas.offsetTop;
         }
     }
-    if (exports.isMouseEvent(e)) {
+    if ((0, exports.isMouseEvent)(e)) {
         mx = e.pageX - offsetX;
         my = e.pageY - offsetY;
     }
-    if (exports.isTouchEvent(e)) {
+    if ((0, exports.isTouchEvent)(e)) {
         mx = e.touches[0].clientX - offsetX + window.scrollX;
         my = e.touches[0].clientY - offsetY + window.scrollY;
     }
@@ -42,7 +42,7 @@ const getMouse = (e, canvas) => {
 exports.getMouse = getMouse;
 const getDistanceBetween = (point1, point2) => Math.sqrt(
 // eslint-disable-next-line no-restricted-properties
-Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
+Math.pow((point2.x - point1.x), 2) + Math.pow((point2.y - point1.y), 2));
 exports.getDistanceBetween = getDistanceBetween;
 const getAngleBetween = (point1, point2) => Math.atan2(point2.x - point1.x, point2.y - point1.y);
 exports.getAngleBetween = getAngleBetween;
