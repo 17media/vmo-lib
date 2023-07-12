@@ -18486,31 +18486,38 @@ var useTypeApi = function useTypeApi(_ref) {
 
             // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
             if (!(!isFirstInitErrorRef.current && shouldDelayRef.current)) {
-              _context.next = 6;
+              _context.next = 8;
               break;
             }
             setReload(false);
-            _context.next = 6;
+            console.log('sleep start');
+            _context.next = 7;
             return (0,_utils__WEBPACK_IMPORTED_MODULE_3__.sleep)(1000);
-          case 6:
+          case 7:
+            console.log('sleep end');
+          case 8:
             networkCallbacks = results.map(function (result) {
               return result.callback;
             });
-            _context.next = 9;
+            console.log('networkCallbacks', networkCallbacks);
+            _context.next = 12;
             return Promise.all(networkCallbacks);
-          case 9:
+          case 12:
             callbackResponses = _context.sent;
+            console.log('callbackResponses', callbackResponses);
             // 紀錄是否一開始就斷網, 只要其中一個出錯就當作全部有問題
             callbacksError = callbackResponses.some(function (callbackRes) {
               return callbackRes === null || callbackRes === void 0 ? void 0 : callbackRes.error;
-            });
+            }); // console.log('callbacksError', callbacksError);
             if (callbacksError && isFirstInitRef.current) {
               isFirstInitErrorRef.current = true;
             }
-
+            console.log('callbacksError', callbacksError);
+            console.log('isFirstInitErrorRef.current', isFirstInitErrorRef.current);
             // 紀錄是否需要 delay 下一次的 request
             shouldDelayRef.current = callbacksError;
             if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
+              console.log('set reload');
               setReload(true);
             }
 
@@ -18538,7 +18545,7 @@ var useTypeApi = function useTypeApi(_ref) {
               return newData;
             });
             return _context.abrupt("return", callbackResponses);
-          case 17:
+          case 23:
           case "end":
             return _context.stop();
         }
@@ -18692,6 +18699,7 @@ var useTypeApi = function useTypeApi(_ref) {
    * 讀到一半斷網：重新執行 geLeaderboardData
    * */
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log('讀到一半斷網', reload);
     if (reload) {
       handleLeaderboardDataStrategy();
     }
@@ -18766,6 +18774,7 @@ var useTypeApi = function useTypeApi(_ref) {
 
   // init handleLeaderboardDataStrategy
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log('react 18 test v2');
     if (suspend || !isFirstInitRef.current) return;
     handleLeaderboardDataStrategy();
   }, [handleLeaderboardDataStrategy, suspend]);
