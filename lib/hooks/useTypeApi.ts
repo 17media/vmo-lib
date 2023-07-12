@@ -214,9 +214,9 @@ export const useTypeApi = ({
         return newData;
       });
 
-      if (isFirstInitRef.current && hasInitCacheRef.current) {
-        setLoading(false);
-      }
+      // if (isFirstInitRef.current && hasInitCacheRef.current) {
+      //   setLoading(false);
+      // }
 
       // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
       if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
@@ -454,6 +454,12 @@ export const useTypeApi = ({
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (isFirstInitRef.current && hasInitCacheRef.current) {
+      setLoading(false);
+    }
+  }, [cacheData]);
 
   // 計數每次重新取得全部資料
   useEffect(() => {
