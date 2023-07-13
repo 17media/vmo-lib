@@ -144,8 +144,10 @@ const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy, opt = 
                 }
                 return preResult;
             });
+            console.log('==== set cacheDate');
             return newData;
         });
+        console.log('==== hasInitCacheRef.current', hasInitCacheRef.current);
         // if (isFirstInitRef.current && hasInitCacheRef.current) {
         //   setLoading(false);
         // }
@@ -329,7 +331,7 @@ const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy, opt = 
         if (isFirstInitRef.current && hasInitCacheRef.current) {
             setLoading(false);
         }
-    }, [cacheData]);
+    }, [cacheData, initialConfig.cacheData]);
     // 計數每次重新取得全部資料
     (0, react_1.useEffect)(() => {
         const finishedRetrievedAllNetworkData = getFinishedRetrievedAllNetworkData();
@@ -382,7 +384,7 @@ const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy, opt = 
     }, [getFinishedRetrievedAllNetworkData, polling, realTime, refresh, suspend]);
     // init handleLeaderboardDataStrategy
     (0, react_1.useEffect)(() => {
-        console.log('react 18 test v2.1.0');
+        console.log('react 18 test v2.1.1');
         if (suspend || !isFirstInitRef.current)
             return;
         handleLeaderboardDataStrategy();

@@ -211,9 +211,11 @@ export const useTypeApi = ({
           }
           return preResult;
         });
+        console.log('==== set cacheDate');
         return newData;
       });
 
+      console.log('==== hasInitCacheRef.current', hasInitCacheRef.current);
       // if (isFirstInitRef.current && hasInitCacheRef.current) {
       //   setLoading(false);
       // }
@@ -459,7 +461,7 @@ export const useTypeApi = ({
     if (isFirstInitRef.current && hasInitCacheRef.current) {
       setLoading(false);
     }
-  }, [cacheData]);
+  }, [cacheData, initialConfig.cacheData]);
 
   // 計數每次重新取得全部資料
   useEffect(() => {
@@ -520,7 +522,7 @@ export const useTypeApi = ({
 
   // init handleLeaderboardDataStrategy
   useEffect(() => {
-    console.log('react 18 test v2.1.0');
+    console.log('react 18 test v2.1.1');
     if (suspend || !isFirstInitRef.current) return;
     handleLeaderboardDataStrategy();
   }, [handleLeaderboardDataStrategy, suspend]);

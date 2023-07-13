@@ -1844,6 +1844,11 @@
   "resolved" "https://registry.npmjs.org/@types/prettier/-/prettier-2.7.3.tgz"
   "version" "2.7.3"
 
+"@types/prop-types@*":
+  "integrity" "sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w=="
+  "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
+  "version" "15.7.5"
+
 "@types/qs@*":
   "integrity" "sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw=="
   "resolved" "https://registry.npmjs.org/@types/qs/-/qs-6.9.7.tgz"
@@ -1854,7 +1859,7 @@
   "resolved" "https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.4.tgz"
   "version" "1.2.4"
 
-"@types/react-dom@^18.0.0", "@types/react-dom@^18.2.4":
+"@types/react-dom@^18.0.0", "@types/react-dom@file:../vmo-v2/node_modules/@types/react-dom":
   "resolved" "file:../vmo-v2/node_modules/@types/react-dom"
   "version" "18.2.4"
   dependencies:
@@ -1867,9 +1872,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@file:../vmo-v2/node_modules/@types/react":
-  "resolved" "file:../vmo-v2/node_modules/@types/react"
-  "version" "18.2.6"
+"@types/react@*", "@types/react@^18.2.8":
+  "integrity" "sha512-A0zjq+QN/O0Kpe30hA1GidzyFjatVvrpIvWLxD+xv67Vt91TWWgco9IvrJBkeyHm1trGaFS/FSGqPlhyeZRm0g=="
+  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.2.14.tgz"
+  "version" "18.2.14"
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -1879,6 +1885,11 @@
   "integrity" "sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA=="
   "resolved" "https://registry.npmjs.org/@types/retry/-/retry-0.12.0.tgz"
   "version" "0.12.0"
+
+"@types/scheduler@*":
+  "integrity" "sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ=="
+  "resolved" "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.3.tgz"
+  "version" "0.16.3"
 
 "@types/semver@^7.3.12":
   "integrity" "sha512-G8hZ6XJiHnuhQKR7ZmysCeJWE08o8T0AXtk5darsCaTVsYZhhgUrq53jizaR2FvsoeCwJhlmwTjkXBY5Pn/ZHw=="
@@ -6987,9 +6998,7 @@
   "version" "3.3.3"
 
 "styled-components@^6.0.0-rc.3":
-  "integrity" "sha512-CRWTuYme0W4zVqzXpODByyocgVbBpRoXmaEgPGb67dvweV1igp7Ik4Z5C9e83wZ2l2hPg/XKV7cjuNxhRlC7Mg=="
-  "resolved" "https://registry.npmjs.org/styled-components/-/styled-components-6.0.2.tgz"
-  "version" "6.0.2"
+  "version" "6.0.3"
   dependencies:
     "@babel/cli" "^7.21.0"
     "@babel/core" "^7.21.0"
@@ -7217,9 +7226,7 @@
   "version" "1.14.1"
 
 "tslib@^2.0.3", "tslib@^2.1.0", "tslib@^2.4.1 || ^1.9.3", "tslib@^2.5.0":
-  "integrity" "sha512-7At1WUettjcSRHXCyYtTselblcHl9PJFFVKiCAy/bY97+BPZXSQ2wbq0P9s8tK2G7dFQfNnlJnPAiArVBVBsfA=="
-  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.6.0.tgz"
-  "version" "2.6.0"
+  "version" "2.5.2"
 
 "tsutils@^3.21.0":
   "integrity" "sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA=="
