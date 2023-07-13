@@ -382,7 +382,7 @@ const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy, opt = 
     }, [getFinishedRetrievedAllNetworkData, polling, realTime, refresh, suspend]);
     // init handleLeaderboardDataStrategy
     (0, react_1.useEffect)(() => {
-        console.log('react 18 test v2');
+        console.log('react 18 test v2.1.0');
         if (suspend || !isFirstInitRef.current)
             return;
         handleLeaderboardDataStrategy();

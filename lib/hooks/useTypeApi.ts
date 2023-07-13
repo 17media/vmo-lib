@@ -520,7 +520,7 @@ export const useTypeApi = ({
 
   // init handleLeaderboardDataStrategy
   useEffect(() => {
-    console.log('react 18 test v2');
+    console.log('react 18 test v2.1.0');
     if (suspend || !isFirstInitRef.current) return;
     handleLeaderboardDataStrategy();
   }, [handleLeaderboardDataStrategy, suspend]);

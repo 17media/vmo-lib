@@ -177,9 +177,11 @@ const handleNetworkOnly = (apiCallback) => __awaiter(void 0, void 0, void 0, fun
 exports.handleNetworkOnly = handleNetworkOnly;
 const handleCacheThenNetwork = (apiCallback, url) => __awaiter(void 0, void 0, void 0, function* () {
     const cacheRes = yield getLatestCache(url);
+    console.log('error test cache cacheRes2', cacheRes);
     const callback = new Promise((resolve, reject) => {
         (() => __awaiter(void 0, void 0, void 0, function* () {
             const apiRes = yield handleCallback(apiCallback);
+            console.log('error test cache apiRes2', apiRes);
             // 理想情況、讀到一半斷網、弱網使用
             if (apiRes.data) {
                 setAxiosCache(url, apiRes.data);
