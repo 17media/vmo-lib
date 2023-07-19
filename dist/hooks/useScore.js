@@ -25,15 +25,15 @@ const animation = (duration, callback) => {
  * @param givenScore 給定的值
  * @param duration 動態改變值的時間, default 1000
  */
-const useScore = (givenScore, duration = 1000, regionLanguage) => {
-    const [score, setScore] = react_1.useState(givenScore);
-    react_1.useEffect(() => {
+const useScore = ({ givenScore, duration = 1000, regionLanguage, }) => {
+    const [score, setScore] = (0, react_1.useState)(givenScore);
+    (0, react_1.useEffect)(() => {
         animation(duration, percent => {
             const newScore = score + Math.round(percent * (givenScore - score));
             setScore(newScore);
         });
-    }, [givenScore]);
-    return utils_1.numberFormat(score, regionLanguage);
+    }, [duration, givenScore, score]);
+    return (0, utils_1.numberFormat)(score, regionLanguage);
 };
 exports.default = useScore;
 //# sourceMappingURL=useScore.js.map

@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -40,7 +44,6 @@ const StyledScratchOffCard = styled_components_1.default.div `
   user-select: none;
 `;
 const StyledResultContainer = styled_components_1.default.div `
-  visibility: ${props => (props.isCoverImageReady ? 'visible' : 'hidden')};
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -54,16 +57,16 @@ const StyledCoverImg = styled_components_1.default.img `
   display: none;
 `;
 const ScratchOffCard = ({ revealPercentage = DEFAULT_REVEAL_PERCENTAGE, width, height, coverImgSrc, children, handleReveal, }) => {
-    const coverImgRef = react_1.useRef(null);
-    const canvasRef = react_1.useRef(null);
-    const [isCoverImageReady, setIsCoverImageReady] = react_1.useState(false);
-    react_1.useEffect(() => {
+    const coverImgRef = (0, react_1.useRef)(null);
+    const canvasRef = (0, react_1.useRef)(null);
+    const [isCoverImageReady, setIsCoverImageReady] = (0, react_1.useState)(false);
+    (0, react_1.useEffect)(() => {
         coverImgRef.current.src = coverImgSrc;
         coverImgRef.current.onload = () => {
             setIsCoverImageReady(true);
         };
     }, [coverImgSrc]);
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         if (!isCoverImageReady) {
             return;
         }
@@ -76,16 +79,16 @@ const ScratchOffCard = ({ revealPercentage = DEFAULT_REVEAL_PERCENTAGE, width, h
         ctx.drawImage(coverImgRef.current, 0, 0, width, height);
         const handleMouseDown = (e) => {
             isDrawing = true;
-            lastPoint = utils_1.getMouse(e, canvas);
+            lastPoint = (0, utils_1.getMouse)(e, canvas);
         };
         const handleMouseMove = (e) => {
             if (!isDrawing) {
                 return;
             }
             e.preventDefault();
-            const currentPoint = utils_1.getMouse(e, canvas);
-            const dist = utils_1.getDistanceBetween(lastPoint, currentPoint);
-            const angle = utils_1.getAngleBetween(lastPoint, currentPoint);
+            const currentPoint = (0, utils_1.getMouse)(e, canvas);
+            const dist = (0, utils_1.getDistanceBetween)(lastPoint, currentPoint);
+            const angle = (0, utils_1.getAngleBetween)(lastPoint, currentPoint);
             let x;
             let y;
             for (let i = 0; i < dist; i += 1) {
@@ -95,7 +98,7 @@ const ScratchOffCard = ({ revealPercentage = DEFAULT_REVEAL_PERCENTAGE, width, h
                 ctx.drawImage(brush, x, y);
             }
             lastPoint = currentPoint;
-            const currentPercentage = utils_1.getFilledInPixels(32, ctx, width, height);
+            const currentPercentage = (0, utils_1.getFilledInPixels)(32, ctx, width, height);
             if (currentPercentage > revealPercentage && (canvas === null || canvas === void 0 ? void 0 : canvas.parentNode)) {
                 handleReveal();
                 canvas === null || canvas === void 0 ? void 0 : canvas.parentNode.removeChild(canvas);
@@ -121,9 +124,9 @@ const ScratchOffCard = ({ revealPercentage = DEFAULT_REVEAL_PERCENTAGE, width, h
     }, [handleReveal, revealPercentage, height, width, isCoverImageReady]);
     return (react_1.default.createElement(StyledScratchOffCard, { width: width, height: height },
         react_1.default.createElement(StyledCanvas, { ref: canvasRef, width: width, height: height }),
-        react_1.default.createElement(StyledResultContainer, { isCoverImageReady: isCoverImageReady }, children),
+        isCoverImageReady && (react_1.default.createElement(StyledResultContainer, null, children)),
         react_1.default.createElement(StyledCoverImg, { alt: "", ref: coverImgRef, crossOrigin: "anonymous" })));
 };
 exports.ScratchOffCard = ScratchOffCard;
-exports.default = react_1.memo(exports.ScratchOffCard);
+exports.default = (0, react_1.memo)(exports.ScratchOffCard);
 //# sourceMappingURL=index.js.map

@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -28,7 +32,7 @@ const react_1 = __importStar(require("react"));
 const react_window_1 = require("react-window");
 const styled_components_1 = __importDefault(require("styled-components"));
 const utils_1 = require("../utils");
-const StyledVariableSizeList = styled_components_1.default(react_window_1.VariableSizeList) `
+const StyledVariableSizeList = (0, styled_components_1.default)(react_window_1.VariableSizeList) `
   height: ${props => props.calculatedHeight}px !important;
   overflow: hidden !important;
   .virtualized-item:first-of-type,
@@ -37,7 +41,7 @@ const StyledVariableSizeList = styled_components_1.default(react_window_1.Variab
   }
 `;
 const TrackChildrenWrapper = ({ index, style, children, rank, }) => {
-    const ref = react_1.useRef(null);
+    const ref = (0, react_1.useRef)(null);
     return (react_1.default.createElement("div", { ref: ref, style: style, className: "virtualized-item" }, children({ index })));
 };
 /**
@@ -45,10 +49,10 @@ const TrackChildrenWrapper = ({ index, style, children, rank, }) => {
  * @param IVirtualizedListProps 使用方法參考 IVirtualizedListProps 說明
  */
 const VirtualizedList = ({ dataset, children, itemHeight = 80, panelSize = 0, }) => {
-    const isAlreadyScroll = react_1.useRef(false);
-    const listRef = react_1.useRef(null);
-    const queryString = utils_1.qs();
-    const getInitScrollOffset = react_1.useCallback(() => {
+    const isAlreadyScroll = (0, react_1.useRef)(false);
+    const listRef = (0, react_1.useRef)(null);
+    const queryString = (0, utils_1.qs)();
+    const getInitScrollOffset = (0, react_1.useCallback)(() => {
         if (listRef.current) {
             // eslint-disable-next-line no-underscore-dangle
             const boardRect = listRef.current._outerRef.getBoundingClientRect();
@@ -56,17 +60,17 @@ const VirtualizedList = ({ dataset, children, itemHeight = 80, panelSize = 0, })
         }
         return -1;
     }, [listRef]);
-    const handleScroll = react_1.useCallback(() => {
+    const handleScroll = (0, react_1.useCallback)(() => {
         const initialScrollOffset = getInitScrollOffset();
         if (initialScrollOffset >= 0) {
             listRef.current.scrollTo(initialScrollOffset);
         }
     }, [getInitScrollOffset]);
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         window.addEventListener('scroll', handleScroll, true);
         return () => window.removeEventListener('scroll', handleScroll, true);
     }, [handleScroll]);
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         if (isAlreadyScroll.current)
             return;
         if (queryString.streamerUserID) {
@@ -75,19 +79,20 @@ const VirtualizedList = ({ dataset, children, itemHeight = 80, panelSize = 0, })
                 window.scrollTo({
                     top: 
                     // eslint-disable-next-line no-underscore-dangle
-                    utils_1.cumulativeOffset(listRef.current._outerRef).top +
+                    (0, utils_1.cumulativeOffset)(listRef.current._outerRef).top +
                         fIndex * itemHeight,
                 });
                 isAlreadyScroll.current = true;
             }
         }
     }, [dataset, itemHeight, queryString.streamerUserID]);
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         listRef.current.resetAfterIndex(0, true);
         setTimeout(() => {
             handleScroll();
         });
     }, [handleScroll, dataset]);
+    // eslint-disable-next-line react/no-unstable-nested-components
     const Row = ({ index, style }) => (react_1.default.createElement(TrackChildrenWrapper, { index: index, style: style, children: children, rank: dataset[index].rank }));
     const getItemSize = () => itemHeight;
     const getCalculatedHeight = () => dataset.length * itemHeight + 2;

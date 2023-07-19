@@ -56,7 +56,25 @@ const LeaderboardData = ({ config }) => {
   const { loading, polling, requestError, leaderboardData } = useTypeApi({
     apiList: config.apiList,
     realTime: config.realTime,
-    initialData: [],
+    initialData: [
+      [
+        {
+          userInfo: {
+            userID: '4bfcd001-5ff1-4ec7-88fe-e395b05386b0',
+            displayName: '我是柔柔',
+            picture: '24661c0e-a4da-4d34-8d5b-f85ba5bf98bc.jpg',
+            name: '',
+            level: 0,
+            openID: '',
+            region: 'TW',
+            gloryroadMode: 0,
+          },
+          score: 1000000,
+          rank: 1,
+          meta: { eventoryKey: '4bfcd001-5ff1-4ec7-88fe-e395b05386b0' },
+        },
+      ],
+    ],
     opt: config.opt,
   });
 
@@ -110,7 +128,7 @@ const LeaderboardData = ({ config }) => {
 
 const TypeApi = () => {
   const [eventoryContainerId, setEventoryContainerId] = useState<string>(
-    '8f112c2c-d466-4427-9406-c2b040ea399f',
+    '7f92082d-844e-4094-b661-a10e2c9c79a9',
   );
   const [realTime, setRealTime] = useState(0);
   const [limit, setLimit] = useState<number>(1000);

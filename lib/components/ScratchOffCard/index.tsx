@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, memo } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   getAngleBetween,
   getDistanceBetween,
@@ -23,8 +23,7 @@ const StyledScratchOffCard = styled.div<{ width: number; height: number }>`
   user-select: none;
 `;
 
-const StyledResultContainer = styled.div<{ isCoverImageReady: boolean }>`
-  visibility: ${props => (props.isCoverImageReady ? 'visible' : 'hidden')};
+const StyledResultContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -140,9 +139,9 @@ export const ScratchOffCard: React.FC<IScratchOffCardProps> = ({
   return (
     <StyledScratchOffCard width={width} height={height}>
       <StyledCanvas ref={canvasRef} width={width} height={height} />
-      <StyledResultContainer isCoverImageReady={isCoverImageReady}>
-        {children}
-      </StyledResultContainer>
+      {isCoverImageReady && (
+        <StyledResultContainer>{children}</StyledResultContainer>
+      )}
       <StyledCoverImg alt="" ref={coverImgRef} crossOrigin="anonymous" />
     </StyledScratchOffCard>
   );

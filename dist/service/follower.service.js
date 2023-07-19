@@ -13,7 +13,7 @@ exports.getUserFollowers = void 0;
 const axios_1 = require("./axios");
 const DEFAULT_EACH_FOLLOWER_COUNT = 100;
 const getUserFollowers = ({ userID, accessToken, jwtAccessToken, cursor, count = DEFAULT_EACH_FOLLOWER_COUNT, callback, preData = [], }) => __awaiter(void 0, void 0, void 0, function* () {
-    const axios = axios_1.getInstanceEventory();
+    const axios = (0, axios_1.getInstanceEventory)();
     const url = `/v1/users/${userID}/followeeIDs`;
     const res = yield axios.get(url, {
         headers: Object.assign(Object.assign({}, (jwtAccessToken && {
@@ -30,7 +30,7 @@ const getUserFollowers = ({ userID, accessToken, jwtAccessToken, cursor, count =
         callback(currentData);
     }
     if (nextCursor) {
-        const nextData = yield exports.getUserFollowers({
+        const nextData = yield (0, exports.getUserFollowers)({
             userID,
             accessToken,
             jwtAccessToken,

@@ -112,9 +112,12 @@ export const useMockLeaderboard = (
       }, 1000);
     }
     return () => {
-      clearInterval(timer.current);
+      if (timer.current) {
+        clearInterval(timer.current);
+        timer.current = 0;
+      }
     };
-  }, [limit, stable]);
+  }, [enable, limit, stable]);
 
   return { leaderboard } as const;
 };

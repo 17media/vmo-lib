@@ -16,7 +16,7 @@ const transitionStyle = {
     transition: 'all 0.5s ease 0.3s',
 };
 exports.TransitionLeaderboardWrapper = react_1.default.memo(({ user, itemStyle, rowCount, children }) => {
-    const { itemTransitionStyle } = useItemTransition_1.default(itemStyle, transitionStyle, rowCount, user.map(u => u.rank));
+    const { itemTransitionStyle } = (0, useItemTransition_1.default)(itemStyle, transitionStyle, rowCount, user.map(u => u.rank));
     function renderChild() {
         return react_1.default.Children.map(children, (child, index) => {
             if (!react_1.default.isValidElement(child) ||

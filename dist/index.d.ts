@@ -2,7 +2,7 @@
 export * from './hooks';
 export * from './components';
 declare const _default: {
-    OfflineNormalTemplate: () => JSX.Element;
+    OfflineNormalTemplate: () => import("react").JSX.Element;
     TransitionLeaderboardWrapper: import("react").FC<import("./components").ITransitionLeaderboardWrapperProps>;
     VirtualizedList: import("react").FC<import("./components").IVirtualizedListProps>;
     ScratchOffCard: import("react").FC<import("./components").IScratchOffCardProps>;
@@ -45,7 +45,7 @@ declare const _default: {
         MaskDiv: import("react").FC<{}>;
     };
     useSyncScroll: () => {
-        handleSroll: (e: any) => void;
+        handleScroll: (e: any) => void;
         elPoolRef: import("react").MutableRefObject<Element[]>;
     };
     useTypeApi: ({ apiList, realTime, initialData, cacheStrategy, opt, }: {
@@ -57,7 +57,7 @@ declare const _default: {
     }) => {
         loading: boolean;
         polling: boolean;
-        requestError: undefined;
+        requestError: any;
         leaderboardData: import("./types").User[][] | undefined;
     };
     useFilter: (initialData: import("./types").User[]) => {

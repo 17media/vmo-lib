@@ -8,6 +8,7 @@ const endpoint = `/v1/leaderboards/eventory`;
 
 interface Params {
   type: {
+    uat?: string;
     sta: string;
     prod: string;
   };

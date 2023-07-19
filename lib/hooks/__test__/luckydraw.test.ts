@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react';
 import useLuckyDraw from '../useLuckyDraw';
 import { mockUsers } from '../useMockLeaderboard';
 import { User } from '../../types';
 import { localStorageMock, urlMock } from './setupTests';
 
-const url: string = 'http://jest/mock/url?page=1';
+const url: string = 'https://jest/mock/url?page=1';
 urlMock(url);
 localStorageMock();
 

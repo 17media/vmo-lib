@@ -10,14 +10,14 @@ const utils_1 = require("../utils");
  * @returns data: 取得過濾後的 leaderboard 資料, handleOnChange: handle filter 資料的 method
  */
 const useFilter = (initialData) => {
-    const [data, setData] = react_1.useState(initialData);
-    const [keyword, setKeyword] = react_1.useState('');
-    const getFilterData = react_1.useMemo(() => initialData.filter((item) => {
+    const [data, setData] = (0, react_1.useState)(initialData);
+    const [keyword, setKeyword] = (0, react_1.useState)('');
+    const getFilterData = (0, react_1.useMemo)(() => initialData.filter((item) => {
         var _a;
         const name = (_a = (item.userInfo.displayName || item.userInfo.openID)) !== null && _a !== void 0 ? _a : '';
         return name.toLowerCase().includes(keyword.trim().toLowerCase());
     }), [initialData, keyword]);
-    const handleOnChange = react_1.useMemo(() => utils_1.debounce(value => {
+    const handleOnChange = (0, react_1.useMemo)(() => (0, utils_1.debounce)(value => {
         setKeyword(value);
         if (!value) {
             setData(initialData);
@@ -26,7 +26,7 @@ const useFilter = (initialData) => {
         const filterData = getFilterData;
         setData(filterData);
     }, 500), [initialData, getFilterData]);
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         if (keyword) {
             setData(() => {
                 const filterData = getFilterData;

@@ -11,6 +11,7 @@ const StyledSpace = styled.div`
 const ScrollToStreamer = () => {
   const { data } = fakeLeaderBoardData;
 
+  // eslint-disable-next-line react/no-unstable-nested-components
   const Row = ({ index, style }) => (
     <div style={style}>
       <b>Streamer User ID:</b> {data[index]?.userInfo.userID}

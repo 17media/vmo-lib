@@ -20,8 +20,8 @@ const utils_1 = require("../utils");
  * @param nextPage 跳轉至哪個頁面
  */
 const useAutoNext = (isEnded, nextPage) => {
-    react_1.useEffect(() => {
-        const _a = utils_1.qs(), { page = 1 } = _a, search = __rest(_a, ["page"]);
+    (0, react_1.useEffect)(() => {
+        const _a = (0, utils_1.qs)(), { page = 1 } = _a, search = __rest(_a, ["page"]);
         if (+page === nextPage)
             return;
         if (isEnded) {
@@ -30,7 +30,7 @@ const useAutoNext = (isEnded, nextPage) => {
             const nextLocation = `${utils_1.globalThis.location.pathname}?${queryPath.join('&')}`;
             utils_1.globalThis.location.href = nextLocation;
         }
-    }, [isEnded, nextPage, utils_1.qs]);
+    }, [isEnded, nextPage]);
 };
 exports.useAutoNext = useAutoNext;
 exports.default = exports.useAutoNext;

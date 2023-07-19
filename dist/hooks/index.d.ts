@@ -52,7 +52,7 @@ declare const _default: {
         MaskDiv: import("react").FC<{}>;
     };
     useSyncScroll: () => {
-        handleSroll: (e: any) => void;
+        handleScroll: (e: any) => void;
         elPoolRef: import("react").MutableRefObject<Element[]>;
     };
     useTypeApi: ({ apiList, realTime, initialData, cacheStrategy, opt, }: {
@@ -64,7 +64,7 @@ declare const _default: {
     }) => {
         loading: boolean;
         polling: boolean;
-        requestError: undefined;
+        requestError: any;
         leaderboardData: import("../types").User[][] | undefined;
     };
     useFilter: (initialData: import("../types").User[]) => {

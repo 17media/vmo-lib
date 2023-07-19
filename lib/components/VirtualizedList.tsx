@@ -115,6 +115,7 @@ export const VirtualizedList: React.FC<IVirtualizedListProps> = ({
     });
   }, [handleScroll, dataset]);
 
+  // eslint-disable-next-line react/no-unstable-nested-components
   const Row = ({ index, style }: { index: number; style: any }) => (
     <TrackChildrenWrapper
       index={index}

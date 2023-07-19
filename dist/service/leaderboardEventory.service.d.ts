@@ -3,6 +3,7 @@ import { User } from '../types';
 import { CacheStrategy } from './cacheManager.service';
 interface Params {
     type: {
+        uat?: string;
         sta: string;
         prod: string;
     };
@@ -18,7 +19,7 @@ export interface Response<T> {
     nextCursor: string;
     type: string;
 }
-declare type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
+type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
     apiEndpoint: string;
 };
 /**

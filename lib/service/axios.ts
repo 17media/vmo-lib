@@ -8,7 +8,12 @@ import {
   GOAPI_ENDPOINT_UAT,
 } from '../constants';
 
-import { getGoapiUrl, isProdVmo17Media, isStagVmo17Media } from '../utils';
+import {
+  getGoapiUrl,
+  isProdVmo17Media,
+  isStagVmo17Media,
+  isUatVmo17Media,
+} from '../utils';
 
 export const getInstance = () =>
   axios.create({
@@ -27,7 +32,9 @@ export const getInstanceCache = () => {
       ? EVENT_SERVER_ENDPOINT
       : isStagVmo17Media()
       ? EVENT_SERVER_ENDPOINT_STA
-      : EVENT_SERVER_ENDPOINT_UAT,
+      : isUatVmo17Media()
+      ? EVENT_SERVER_ENDPOINT_UAT
+      : EVENT_SERVER_ENDPOINT_STA,
   });
 };
 
@@ -37,7 +44,9 @@ export const getInstanceEventory = () =>
       ? GOAPI_ENDPOINT
       : isStagVmo17Media()
       ? GOAPI_ENDPOINT_STA
-      : GOAPI_ENDPOINT_UAT,
+      : isUatVmo17Media()
+      ? GOAPI_ENDPOINT_UAT
+      : GOAPI_ENDPOINT_STA,
   });
 /**
  * same with getInstanceEventory

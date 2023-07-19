@@ -6,8 +6,8 @@ const react_1 = require("react");
  * @returns startRender
  */
 const useStartRender = () => {
-    const [startRender, setStartRender] = react_1.useState(false);
-    react_1.useEffect(() => {
+    const [startRender, setStartRender] = (0, react_1.useState)(false);
+    (0, react_1.useEffect)(() => {
         setStartRender(true);
     }, []);
     return startRender;

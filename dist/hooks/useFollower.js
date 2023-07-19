@@ -20,9 +20,9 @@ const follower_service_1 = require("../service/follower.service");
  * @returns 取得 followers 資料以及 errMsg 判斷是否有問題
  */
 const useFollower = (userID, accessToken, jwtAccessToken) => {
-    const [followers, setFollowers] = react_1.useState([]);
-    const [errorMsg, setErrorMsg] = react_1.useState('');
-    react_1.useEffect(() => {
+    const [followers, setFollowers] = (0, react_1.useState)([]);
+    const [errorMsg, setErrorMsg] = (0, react_1.useState)('');
+    (0, react_1.useEffect)(() => {
         const fetchFollowers = () => __awaiter(void 0, void 0, void 0, function* () {
             var _a, _b;
             try {
@@ -37,7 +37,7 @@ const useFollower = (userID, accessToken, jwtAccessToken) => {
                 const callback = (data) => {
                     setFollowers(data);
                 };
-                const data = yield follower_service_1.getUserFollowers({
+                const data = yield (0, follower_service_1.getUserFollowers)({
                     userID,
                     accessToken,
                     jwtAccessToken,

@@ -7,8 +7,8 @@ const react_1 = require("react");
  */
 const useSyncScroll = () => {
     // element which want to handle scroll
-    const elPoolRef = react_1.useRef([]);
-    const handleSroll = (e) => {
+    const elPoolRef = (0, react_1.useRef)([]);
+    const handleScroll = (e) => {
         if (!elPoolRef.current)
             return;
         Array.from(elPoolRef.current).forEach(el => {
@@ -16,7 +16,7 @@ const useSyncScroll = () => {
         });
     };
     return {
-        handleSroll,
+        handleScroll,
         elPoolRef,
     };
 };

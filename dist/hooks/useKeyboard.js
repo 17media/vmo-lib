@@ -5,10 +5,10 @@ const react_1 = require("react");
 const enums_1 = require("../enums");
 const utils_1 = require("../utils");
 const switchPageEvent = (page) => {
-    const search = utils_1.qs();
+    const search = (0, utils_1.qs)();
     window.scrollTo(0, 0);
     const query = Object.assign(Object.assign({}, search), { page });
-    utils_1.getNextLocation(query);
+    (0, utils_1.getNextLocation)(query);
 };
 exports.switchPageEvent = switchPageEvent;
 const eventFunc = (event, settings) => {
@@ -16,7 +16,7 @@ const eventFunc = (event, settings) => {
     if (setting) {
         switch (setting.type) {
             case enums_1.EventTypes.PAGE: {
-                exports.switchPageEvent(setting.page);
+                (0, exports.switchPageEvent)(setting.page);
                 break;
             }
             case enums_1.EventTypes.CUSTOM: {
@@ -36,8 +36,8 @@ exports.eventFunc = eventFunc;
  * @returns void
  */
 const useKeyboard = (settings) => {
-    react_1.useEffect(() => {
-        const handleOnKeyup = (event) => exports.eventFunc(event, settings);
+    (0, react_1.useEffect)(() => {
+        const handleOnKeyup = (event) => (0, exports.eventFunc)(event, settings);
         window.addEventListener('keyup', handleOnKeyup);
         return () => {
             window.removeEventListener('keyup', handleOnKeyup);

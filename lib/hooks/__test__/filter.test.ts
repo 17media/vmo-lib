@@ -1,5 +1,5 @@
 // yarn test ./lib/hooks/__test__/filter.test.ts
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, waitFor } from '@testing-library/react';
 import useFilter from '../useFilter';
 import { User } from '../../types';
 
@@ -68,24 +68,16 @@ const leaderboardData: User[] = [
 
 describe('test filter hook', () => {
   test('should get filtered data length equals to two', async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useFilter(leaderboardData),
-    );
+    const { result } = renderHook(() => useFilter(leaderboardData));
 
     result.current.handleOnChange('剛');
-    await waitForNextUpdate();
-
-    expect(result.current.data.length).toEqual(2);
+    await waitFor(() => expect(result.current.data.length).toEqual(2));
   });
 
   test('should get no filtered data', async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useFilter(leaderboardData),
-    );
+    const { result } = renderHook(() => useFilter(leaderboardData));
 
     result.current.handleOnChange('0');
-    await waitForNextUpdate();
-
-    expect(result.current.data.length).toEqual(0);
+    await waitFor(() => expect(result.current.data.length).toEqual(0));
   });
 });

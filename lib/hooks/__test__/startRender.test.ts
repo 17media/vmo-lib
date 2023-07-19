@@ -1,5 +1,5 @@
 // yarn test ./lib/hooks/__test__/startRender.test.ts
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import useStartRender from '../useStartRender';
 
 describe('test useStartRender hook', () => {

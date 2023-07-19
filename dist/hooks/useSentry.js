@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -27,7 +31,7 @@ const constants_1 = require("../constants");
  * 包相關設定檔案統一管理, 只需單純 useSentry.
  */
 const useSentry = () => {
-    react_1.useEffect(() => {
+    (0, react_1.useEffect)(() => {
         Sentry.init({
             dsn: constants_1.SENTRY_DSN_URL,
             integrations: [new tracing_1.BrowserTracing()],

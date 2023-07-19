@@ -5,11 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getInstanceVote = exports.getInstanceEventory = exports.getInstanceCache = exports.getInstance = void 0;
 const axios_1 = __importDefault(require("axios"));
+const constants_1 = require("../constants");
 const utils_1 = require("../utils");
 const getInstance = () => axios_1.default.create({
-    baseURL: utils_1.isProdVmo17Media()
-        ? 'https://api.17app.co/api'
-        : 'https://sta-api.17app.co/api',
+    baseURL: (0, utils_1.getGoapiUrl)(),
 });
 exports.getInstance = getInstance;
 const getInstanceCache = () => {
@@ -19,22 +18,29 @@ const getInstanceCache = () => {
         });
     }
     return axios_1.default.create({
-        baseURL: utils_1.isProdVmo17Media()
-            ? 'https://event-server.17app.co/api'
-            : 'https://event-server-sta.17app.co/api',
+        baseURL: (0, utils_1.isProdVmo17Media)()
+            ? constants_1.EVENT_SERVER_ENDPOINT
+            : (0, utils_1.isStagVmo17Media)()
+                ? constants_1.EVENT_SERVER_ENDPOINT_STA
+                : (0, utils_1.isUatVmo17Media)()
+                    ? constants_1.EVENT_SERVER_ENDPOINT_UAT
+                    : constants_1.EVENT_SERVER_ENDPOINT_STA,
     });
 };
 exports.getInstanceCache = getInstanceCache;
 const getInstanceEventory = () => axios_1.default.create({
-    baseURL: utils_1.isProdVmo17Media()
-        ? 'https://api-dsa.17app.co/api'
-        : 'https://sta-api.17app.co/api',
+    baseURL: (0, utils_1.isProdVmo17Media)()
+        ? constants_1.GOAPI_ENDPOINT
+        : (0, utils_1.isStagVmo17Media)()
+            ? constants_1.GOAPI_ENDPOINT_STA
+            : (0, utils_1.isUatVmo17Media)()
+                ? constants_1.GOAPI_ENDPOINT_UAT
+                : constants_1.GOAPI_ENDPOINT_STA,
 });
 exports.getInstanceEventory = getInstanceEventory;
-const getInstanceVote = () => axios_1.default.create({
-    baseURL: utils_1.isProdVmo17Media()
-        ? 'https://api.17app.co/api'
-        : 'https://sta-api.17app.co/api',
-});
+/**
+ * same with getInstanceEventory
+ */
+const getInstanceVote = () => (0, exports.getInstanceEventory)();
 exports.getInstanceVote = getInstanceVote;
 //# sourceMappingURL=axios.js.map

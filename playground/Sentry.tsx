@@ -16,7 +16,9 @@ const Follower = () => {
         filter by product tag `&quot;`eventory/custom`&quot;`.
       </h3>
       <p>Following button will trigger error and send it to sentry.</p>
-      <button onClick={handleSentry}>trigger error button</button>
+      <button type="button" onClick={handleSentry}>
+        trigger error button
+      </button>
     </div>
   );
 };

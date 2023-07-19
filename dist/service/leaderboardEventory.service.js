@@ -20,9 +20,7 @@ var ErrorCode;
 })(ErrorCode || (ErrorCode = {}));
 const CANCEL_TIME_OUT = 5000;
 const getFetchURL = (apiEndpoint, params) => {
-    const baseURL = utils_1.isProdVmo17Media()
-        ? 'https://api.17app.co/api'
-        : 'https://sta-api.17app.co/api';
+    const baseURL = (0, utils_1.getGoapiUrl)();
     const fetchURL = new URL(baseURL + apiEndpoint);
     Object.keys(params).forEach(key => {
         const value = params[key];
@@ -40,7 +38,7 @@ const getFetchURL = (apiEndpoint, params) => {
  */
 const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) => {
     const params = {
-        containerID: utils_1.getType(type),
+        containerID: (0, utils_1.getType)(type),
         count: limit,
         cursor,
         withoutOnliveInfo,
@@ -57,7 +55,7 @@ const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) 
 exports.getParsedURL = getParsedURL;
 const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, }) => eventoryApi.get(apiEndpoint, {
     params: {
-        containerID: utils_1.getType(type),
+        containerID: (0, utils_1.getType)(type),
         count: limit,
         cursor,
         withoutOnliveInfo,
@@ -65,7 +63,7 @@ const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, with
     cancelToken,
 });
 const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, strategy, }) => __awaiter(void 0, void 0, void 0, function* () {
-    const eventoryApi = axios_1.getInstanceEventory();
+    const eventoryApi = (0, axios_1.getInstanceEventory)();
     if (!withoutOnliveInfo) {
         const responseHandler = (response) => response;
         const errorHandler = (error) => {
@@ -85,14 +83,14 @@ const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', 
         eventoryApi.defaults.timeout = CANCEL_TIME_OUT;
         eventoryApi.interceptors.response.use(responseHandler, errorHandler);
     }
-    const parsedURL = exports.getParsedURL({
+    const parsedURL = (0, exports.getParsedURL)({
         apiEndpoint: endpoint,
         type,
         limit,
         cursor,
         withoutOnliveInfo,
     });
-    const responseData = yield cacheManager_service_1.handleCacheStrategy({
+    const responseData = yield (0, cacheManager_service_1.handleCacheStrategy)({
         cacheStrategy: strategy,
         apiCallback: getLBDataCallback({
             apiEndpoint: endpoint,
