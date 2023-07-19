@@ -215,11 +215,9 @@ export const handleCacheThenNetwork = async <T = any>(
   url: string,
 ) => {
   const cacheRes = await getLatestCache<T>(url);
-  console.log('error test cache cacheRes2', cacheRes);
   const callback = new Promise<FulfillFormat<T>>((resolve, reject) => {
     (async () => {
       const apiRes = await handleCallback<T>(apiCallback);
-      console.log('error test cache apiRes2', apiRes);
       // 理想情況、讀到一半斷網、弱網使用
       if (apiRes.data) {
         setAxiosCache(url, apiRes.data);

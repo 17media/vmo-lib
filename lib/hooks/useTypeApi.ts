@@ -211,42 +211,28 @@ export const useTypeApi = ({
           }
           return preResult;
         });
-        console.log('==== set cacheDate');
         return newData;
       });
-
-      console.log('==== hasInitCacheRef.current', hasInitCacheRef.current);
-      // if (isFirstInitRef.current && hasInitCacheRef.current) {
-      //   setLoading(false);
-      // }
 
       // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
       if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
         setReload(false);
-        console.log('sleep start');
         await sleep(1000);
-        console.log('sleep end');
       }
 
       const networkCallbacks = results.map(result => result.callback);
-      console.log('networkCallbacks', networkCallbacks);
       const callbackResponses = await Promise.all(networkCallbacks);
-      console.log('callbackResponses', callbackResponses);
       // 紀錄是否一開始就斷網, 只要其中一個出錯就當作全部有問題
       const callbacksError = callbackResponses.some(
         callbackRes => callbackRes?.error,
       );
-      // console.log('callbacksError', callbacksError);
       if (callbacksError && isFirstInitRef.current) {
         isFirstInitErrorRef.current = true;
       }
 
-      console.log('callbacksError', callbacksError);
-      console.log('isFirstInitErrorRef.current', isFirstInitErrorRef.current);
       // 紀錄是否需要 delay 下一次的 request
       shouldDelayRef.current = callbacksError;
       if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
-        console.log('set reload');
         setReload(true);
       }
 
@@ -436,7 +422,6 @@ export const useTypeApi = ({
    * 讀到一半斷網：重新執行 geLeaderboardData
    * */
   useEffect(() => {
-    console.log('讀到一半斷網', reload);
     if (reload) {
       handleLeaderboardDataStrategy();
     }
@@ -522,7 +507,6 @@ export const useTypeApi = ({
 
   // init handleLeaderboardDataStrategy
   useEffect(() => {
-    console.log('react 18 test v2.1.1');
     if (suspend || !isFirstInitRef.current) return;
     handleLeaderboardDataStrategy();
   }, [handleLeaderboardDataStrategy, suspend]);
