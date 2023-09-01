@@ -12,6 +12,7 @@ import {
   checkCacheUsable,
   FulfillFormat,
 } from '../service/cacheManager.service';
+import { Env } from '../enums';
 import { User, EventoryApiOption } from '../types';
 import { sleep } from '../utils';
 
@@ -58,12 +59,14 @@ export const useTypeApi = ({
     cursor: '',
     withoutOnliveInfo: false,
   },
+  env,
 }: {
   apiList: APIType[];
   realTime: number;
   initialData?: User[][];
   cacheStrategy?: CacheStrategy;
   opt?: EventoryApiOption;
+  env?: Env;
 }) => {
   const [requestError, setRequestError] = useState<any>();
   const [leaderboardData, setLeaderboardData] = useState(initialData);
@@ -141,6 +144,7 @@ export const useTypeApi = ({
               cursor: options[index]?.cursor,
               withoutOnliveInfo: options[index]?.withoutOnliveInfo,
               strategy,
+              env,
             });
           }
           return undefined;

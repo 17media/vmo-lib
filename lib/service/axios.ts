@@ -15,17 +15,23 @@ import {
   isUatVmo17Media,
 } from '../utils';
 
-export const getInstance = () =>
+import { Env } from '../enums';
+
+export const getInstance = (env?: Env) =>
   axios.create({
-    baseURL: getGoapiUrl(),
+    baseURL: getGoapiUrl(env),
   });
 
-export const getInstanceCache = () => {
+export const getInstanceCache = (env?: Env) => {
   if (process.env.LOCAL) {
     return axios.create({
       baseURL: 'http://localhost:5000',
     });
   }
+
+  if (env === Env.PROD) return EVENT_SERVER_ENDPOINT;
+  if (env === Env.STA) return EVENT_SERVER_ENDPOINT_STA;
+  if (env === Env.UAT) return EVENT_SERVER_ENDPOINT_UAT;
 
   return axios.create({
     baseURL: isProdVmo17Media()
@@ -38,8 +44,11 @@ export const getInstanceCache = () => {
   });
 };
 
-export const getInstanceEventory = () =>
-  axios.create({
+export const getInstanceEventory = (env?: Env) => {
+  if (env === Env.PROD) return axios.create({ baseURL: GOAPI_ENDPOINT });
+  if (env === Env.STA) return axios.create({ baseURL: GOAPI_ENDPOINT_STA });
+  if (env === Env.UAT) return axios.create({ baseURL: GOAPI_ENDPOINT_UAT });
+  return axios.create({
     baseURL: isProdVmo17Media()
       ? GOAPI_ENDPOINT
       : isStagVmo17Media()
@@ -48,6 +57,7 @@ export const getInstanceEventory = () =>
       ? GOAPI_ENDPOINT_UAT
       : GOAPI_ENDPOINT_STA,
   });
+};
 /**
  * same with getInstanceEventory
  */
