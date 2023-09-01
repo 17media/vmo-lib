@@ -19,8 +19,8 @@ var ErrorCode;
     ErrorCode["TIMEOUT"] = "ECONNABORTED";
 })(ErrorCode || (ErrorCode = {}));
 const CANCEL_TIME_OUT = 5000;
-const getFetchURL = (apiEndpoint, params) => {
-    const baseURL = (0, utils_1.getGoapiUrl)();
+const getFetchURL = (apiEndpoint, params, env) => {
+    const baseURL = (0, utils_1.getGoapiUrl)(env);
     const fetchURL = new URL(baseURL + apiEndpoint);
     Object.keys(params).forEach(key => {
         const value = params[key];
@@ -36,9 +36,9 @@ const getFetchURL = (apiEndpoint, params) => {
  *
  * parsedCursor => {total count}:{start}:{shard size}
  */
-const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) => {
+const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, env, }) => {
     const params = {
-        containerID: (0, utils_1.getType)(type),
+        containerID: (0, utils_1.getType)(type, env),
         count: limit,
         cursor,
         withoutOnliveInfo,
@@ -48,22 +48,22 @@ const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) 
         const [totalCount, start, shardSize] = timestampCursor.split(':').slice(1);
         const parsedCursor = `${totalCount}:${start}:${shardSize}`;
         const parsedParams = Object.assign(Object.assign({}, params), { cursor: parsedCursor });
-        return getFetchURL(apiEndpoint, parsedParams);
+        return getFetchURL(apiEndpoint, parsedParams, env);
     }
-    return getFetchURL(apiEndpoint, params);
+    return getFetchURL(apiEndpoint, params, env);
 };
 exports.getParsedURL = getParsedURL;
-const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, }) => eventoryApi.get(apiEndpoint, {
+const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, env, }) => eventoryApi.get(apiEndpoint, {
     params: {
-        containerID: (0, utils_1.getType)(type),
+        containerID: (0, utils_1.getType)(type, env),
         count: limit,
         cursor,
         withoutOnliveInfo,
     },
     cancelToken,
 });
-const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, strategy, }) => __awaiter(void 0, void 0, void 0, function* () {
-    const eventoryApi = (0, axios_1.getInstanceEventory)();
+const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, strategy, env, }) => __awaiter(void 0, void 0, void 0, function* () {
+    const eventoryApi = (0, axios_1.getInstanceEventory)(env);
     if (!withoutOnliveInfo) {
         const responseHandler = (response) => response;
         const errorHandler = (error) => {
@@ -89,6 +89,7 @@ const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', 
         limit,
         cursor,
         withoutOnliveInfo,
+        env,
     });
     const responseData = yield (0, cacheManager_service_1.handleCacheStrategy)({
         cacheStrategy: strategy,
@@ -100,6 +101,7 @@ const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', 
             withoutOnliveInfo,
             cancelToken,
             eventoryApi,
+            env,
         }),
         url: parsedURL,
     });

@@ -1,3 +1,4 @@
+import { Env } from './enums';
 import { ISetting, LeaderboardItem } from './types';
 export declare const globalThis: any;
 export declare const qs: <T extends {
@@ -16,12 +17,12 @@ export declare const getRandomInteger: (min: number, max: number) => number;
 export declare const isProdVmo17Media: () => boolean;
 export declare const isStagVmo17Media: () => boolean;
 export declare const isUatVmo17Media: () => boolean;
-export declare const getGoapiUrl: () => "https://api-dsa.17app.co/api" | "https://sta-api.17app.co/api" | "https://uat-api.17app.co/api";
+export declare const getGoapiUrl: (env?: Env) => "https://api-dsa.17app.co/api" | "https://sta-api.17app.co/api" | "https://uat-api.17app.co/api";
 export declare const getType: (api: {
     sta: string;
     prod: string;
     uat?: string;
-}) => string;
+}, env?: Env) => string;
 export declare function debounce<Params extends any[]>(func: (...args: Params) => any, timeout: number): (...args: Params) => void;
 /**
  * Get browser languages or manually queryString. e.g. ?lang=ja

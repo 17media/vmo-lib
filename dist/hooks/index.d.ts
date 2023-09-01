@@ -55,12 +55,13 @@ declare const _default: {
         handleScroll: (e: any) => void;
         elPoolRef: import("react").MutableRefObject<Element[]>;
     };
-    useTypeApi: ({ apiList, realTime, initialData, cacheStrategy, opt, }: {
+    useTypeApi: ({ apiList, realTime, initialData, cacheStrategy, opt, env, }: {
         apiList: import("./useTypeApi").APIType[];
         realTime: number;
         initialData?: import("../types").User[][] | undefined;
         cacheStrategy?: import("./useTypeApi").CacheStrategy | undefined;
         opt?: import("../types").EventoryApiOption | undefined;
+        env?: import("../enums").Env | undefined;
     }) => {
         loading: boolean;
         polling: boolean;

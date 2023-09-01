@@ -1,4 +1,5 @@
 import { CacheStrategy } from '../service/cacheManager.service';
+import { Env } from '../enums';
 import { User, EventoryApiOption } from '../types';
 export type APIType = {
     /** staging site container ID */
@@ -19,12 +20,13 @@ export { CacheStrategy } from '../service/cacheManager.service';
  *
  * @returns 取得 Container Leaderboard 資料以及 Loading 狀態
  */
-export declare const useTypeApi: ({ apiList, realTime, initialData, cacheStrategy, opt, }: {
+export declare const useTypeApi: ({ apiList, realTime, initialData, cacheStrategy, opt, env, }: {
     apiList: APIType[];
     realTime: number;
     initialData?: User[][] | undefined;
     cacheStrategy?: CacheStrategy | undefined;
     opt?: EventoryApiOption | undefined;
+    env?: Env | undefined;
 }) => {
     loading: boolean;
     polling: boolean;

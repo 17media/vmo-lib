@@ -35,7 +35,7 @@ const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy, opt = 
     limit: 1000,
     cursor: '',
     withoutOnliveInfo: false,
-}, }) => {
+}, env, }) => {
     const [requestError, setRequestError] = (0, react_1.useState)();
     const [leaderboardData, setLeaderboardData] = (0, react_1.useState)(initialData);
     const [suspend, setSuspend] = (0, react_1.useState)(false);
@@ -97,6 +97,7 @@ const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy, opt = 
                 cursor: (_c = options[index]) === null || _c === void 0 ? void 0 : _c.cursor,
                 withoutOnliveInfo: (_d = options[index]) === null || _d === void 0 ? void 0 : _d.withoutOnliveInfo,
                 strategy,
+                env,
             });
         }
         return undefined;

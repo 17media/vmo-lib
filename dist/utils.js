@@ -39,31 +39,47 @@ const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
 exports.getRandomInteger = getRandomInteger;
-const isProdVmo17Media = () => window.location.hostname === constants_1.MAIN_HOST ||
-    window.location.hostname === constants_1.MAIN_HOST_CN;
+const isProdVmo17Media = () => window.location.origin === constants_1.MAIN_HOST ||
+    window.location.origin === constants_1.MAIN_HOST_CN;
 exports.isProdVmo17Media = isProdVmo17Media;
-const isStagVmo17Media = () => window.location.hostname === constants_1.MAIN_HOST_STA ||
-    window.location.hostname === constants_1.MAIN_HOST_STA_CN;
+const isStagVmo17Media = () => window.location.origin === constants_1.MAIN_HOST_STA ||
+    window.location.origin === constants_1.MAIN_HOST_STA_CN;
 exports.isStagVmo17Media = isStagVmo17Media;
-const isUatVmo17Media = () => window.location.hostname === constants_1.MAIN_HOST_UAT ||
-    window.location.hostname === constants_1.MAIN_HOST_UAT_CN;
+const isUatVmo17Media = () => window.location.origin === constants_1.MAIN_HOST_UAT ||
+    window.location.origin === constants_1.MAIN_HOST_UAT_CN;
 exports.isUatVmo17Media = isUatVmo17Media;
-const getGoapiUrl = () => (0, exports.isProdVmo17Media)()
-    ? constants_1.GOAPI_ENDPOINT
-    : (0, exports.isStagVmo17Media)()
-        ? constants_1.GOAPI_ENDPOINT_STA
-        : (0, exports.isUatVmo17Media)()
-            ? constants_1.GOAPI_ENDPOINT_UAT
-            : constants_1.GOAPI_ENDPOINT_STA;
+const getGoapiUrl = (env) => {
+    if (env === enums_1.Env.PROD)
+        return constants_1.GOAPI_ENDPOINT;
+    if (env === enums_1.Env.STA)
+        return constants_1.GOAPI_ENDPOINT_STA;
+    if (env === enums_1.Env.UAT)
+        return constants_1.GOAPI_ENDPOINT_UAT;
+    return (0, exports.isProdVmo17Media)()
+        ? constants_1.GOAPI_ENDPOINT
+        : (0, exports.isStagVmo17Media)()
+            ? constants_1.GOAPI_ENDPOINT_STA
+            : (0, exports.isUatVmo17Media)()
+                ? constants_1.GOAPI_ENDPOINT_UAT
+                : constants_1.GOAPI_ENDPOINT_STA;
+};
 exports.getGoapiUrl = getGoapiUrl;
 // default type = api.sta
-const getType = (api) => (0, exports.isProdVmo17Media)()
-    ? api.prod
-    : (0, exports.isStagVmo17Media)()
-        ? api.sta
-        : (0, exports.isUatVmo17Media)() && api.uat
-            ? api.uat
-            : api.sta;
+const getType = (api, env) => {
+    if (env === enums_1.Env.PROD)
+        return api.prod;
+    if (env === enums_1.Env.STA)
+        return api.sta;
+    if (env === enums_1.Env.UAT && api.uat)
+        return api.uat;
+    return (0, exports.isProdVmo17Media)()
+        ? api.prod
+        : (0, exports.isStagVmo17Media)()
+            ? api.sta
+            : (0, exports.isUatVmo17Media)() && api.uat
+                ? api.uat
+                : api.sta;
+};
 exports.getType = getType;
 function debounce(func, timeout) {
     let timer;
