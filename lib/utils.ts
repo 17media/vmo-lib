@@ -56,16 +56,16 @@ export const getRandomInteger = (min: number, max: number): number => {
 };
 
 export const isProdVmo17Media = () =>
-  window.location.hostname === MAIN_HOST ||
-  window.location.hostname === MAIN_HOST_CN;
+  window.location.origin === MAIN_HOST ||
+  window.location.origin === MAIN_HOST_CN;
 
 export const isStagVmo17Media = () =>
-  window.location.hostname === MAIN_HOST_STA ||
-  window.location.hostname === MAIN_HOST_STA_CN;
+  window.location.origin === MAIN_HOST_STA ||
+  window.location.origin === MAIN_HOST_STA_CN;
 
 export const isUatVmo17Media = () =>
-  window.location.hostname === MAIN_HOST_UAT ||
-  window.location.hostname === MAIN_HOST_UAT_CN;
+  window.location.origin === MAIN_HOST_UAT ||
+  window.location.origin === MAIN_HOST_UAT_CN;
 
 export const getGoapiUrl = (env?: Env) => {
   if (env === Env.PROD) return GOAPI_ENDPOINT;
