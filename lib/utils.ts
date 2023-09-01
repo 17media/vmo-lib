@@ -9,7 +9,7 @@ import {
   MAIN_HOST_UAT,
   MAIN_HOST_UAT_CN,
 } from './constants';
-import { EventTypes } from './enums';
+import { EventTypes, Env } from './enums';
 import { ISetting, LeaderboardItem } from './types';
 
 declare const java17WebObject: any;
@@ -67,24 +67,35 @@ export const isUatVmo17Media = () =>
   window.location.hostname === MAIN_HOST_UAT ||
   window.location.hostname === MAIN_HOST_UAT_CN;
 
-export const getGoapiUrl = () =>
-  isProdVmo17Media()
+export const getGoapiUrl = (env?: Env) => {
+  if (env === Env.PROD) return GOAPI_ENDPOINT;
+  if (env === Env.STA) return GOAPI_ENDPOINT_STA;
+  if (env === Env.UAT) return GOAPI_ENDPOINT_UAT;
+  return isProdVmo17Media()
     ? GOAPI_ENDPOINT
     : isStagVmo17Media()
     ? GOAPI_ENDPOINT_STA
     : isUatVmo17Media()
     ? GOAPI_ENDPOINT_UAT
     : GOAPI_ENDPOINT_STA;
+};
 
 // default type = api.sta
-export const getType = (api: { sta: string; prod: string; uat?: string }) =>
-  isProdVmo17Media()
+export const getType = (
+  api: { sta: string; prod: string; uat?: string },
+  env?: Env,
+) => {
+  if (env === Env.PROD) return api.prod;
+  if (env === Env.STA) return api.sta;
+  if (env === Env.UAT && api.uat) return api.uat;
+  return isProdVmo17Media()
     ? api.prod
     : isStagVmo17Media()
     ? api.sta
     : isUatVmo17Media() && api.uat
     ? api.uat
     : api.sta;
+};
 
 export function debounce<Params extends any[]>(
   func: (...args: Params) => any,
