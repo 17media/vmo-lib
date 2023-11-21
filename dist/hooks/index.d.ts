@@ -79,5 +79,6 @@ declare const _default: {
         errorMsg?: string | undefined;
     };
     useCheckWebview: () => boolean;
+    useCacheImage: (imageUrls: string[]) => Record<string, string>;
 };
 export default _default;

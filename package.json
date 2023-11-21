@@ -54,6 +54,7 @@
     "@types/uuid": "^9.0.1",
     "axios": "^1.4.0",
     "file-loader": "^6.2.0",
+    "idb-keyval": "^6.2.1",
     "intersection-observer": "^0.12.2",
     "jest-mock-random": "^1.1.1",
     "react": "^18.2.0",
