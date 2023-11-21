@@ -11,6 +11,7 @@ import { useScrollToLoadingContainer } from './useScrollToLoadingContainer';
 import { useKeyboard } from './useKeyboard';
 import { useFollower } from './useFollower';
 import { useCheckWebview } from './useCheckWebview';
+import { useCacheImage } from './useCacheImage';
 
 export * from './useCountdown';
 export * from './useItemTransition';
@@ -40,4 +41,5 @@ export default {
   useKeyboard,
   useFollower,
   useCheckWebview,
+  useCacheImage,
 };

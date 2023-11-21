@@ -27,6 +27,7 @@ const useScrollToLoadingContainer_1 = require("./useScrollToLoadingContainer");
 const useKeyboard_1 = require("./useKeyboard");
 const useFollower_1 = require("./useFollower");
 const useCheckWebview_1 = require("./useCheckWebview");
+const useCacheImage_1 = require("./useCacheImage");
 __exportStar(require("./useCountdown"), exports);
 __exportStar(require("./useItemTransition"), exports);
 __exportStar(require("./usePageData"), exports);
@@ -54,5 +55,6 @@ exports.default = {
     useKeyboard: useKeyboard_1.useKeyboard,
     useFollower: useFollower_1.useFollower,
     useCheckWebview: useCheckWebview_1.useCheckWebview,
+    useCacheImage: useCacheImage_1.useCacheImage,
 };
 //# sourceMappingURL=index.js.map
