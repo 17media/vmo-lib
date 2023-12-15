@@ -17,7 +17,7 @@ export declare const getRandomInteger: (min: number, max: number) => number;
 export declare const isProdVmo17Media: () => boolean;
 export declare const isStagVmo17Media: () => boolean;
 export declare const isUatVmo17Media: () => boolean;
-export declare const getGoapiUrl: (env?: Env) => "https://api-dsa.17app.co/api" | "https://sta-api.17app.co/api" | "https://uat-api.17app.co/api";
+export declare const getGoapiUrl: (env?: Env) => "https://wap-api.17app.co/api" | "https://sta-wap-api.17app.co/api" | "https://uat-wap-api.17app.co/api";
 export declare const getType: (api: {
     sta: string;
     prod: string;

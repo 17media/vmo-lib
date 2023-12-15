@@ -5,9 +5,9 @@ export const MAIN_HOST_STA_CN = 'https://sta-cn-mov.17.media';
 export const MAIN_HOST_UAT = 'https://uat-vmo.17.media';
 export const MAIN_HOST_UAT_CN = 'https://uat-event-cn.17.media';
 
-export const GOAPI_ENDPOINT = 'https://api-dsa.17app.co/api';
-export const GOAPI_ENDPOINT_STA = 'https://sta-api.17app.co/api';
-export const GOAPI_ENDPOINT_UAT = 'https://uat-api.17app.co/api';
+export const GOAPI_ENDPOINT = 'https://wap-api.17app.co/api';
+export const GOAPI_ENDPOINT_STA = 'https://sta-wap-api.17app.co/api';
+export const GOAPI_ENDPOINT_UAT = 'https://uat-wap-api.17app.co/api';
 
 export const EVENT_SERVER_ENDPOINT = 'https://event-server.17app.co/api';
 export const EVENT_SERVER_ENDPOINT_STA =
