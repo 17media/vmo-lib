@@ -1,2 +1,2 @@
-export declare const meow: () => void;
+export declare const meow: () => string;
 export default meow;

@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.bark = void 0;
 const axios_1 = __importDefault(require("axios"));
 const bark = () => {
-    axios_1.default.get('http://google.com');
     console.log('bark !');
+    return axios_1.default.get('http://google.com');
 };
 exports.bark = bark;
 exports.default = exports.bark;

@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.meow = void 0;
 const uuid_1 = __importDefault(require("uuid"));
 const meow = () => {
-    uuid_1.default.v4();
     console.log('meow !');
+    return uuid_1.default.v4();
 };
 exports.meow = meow;
 exports.default = exports.meow;
