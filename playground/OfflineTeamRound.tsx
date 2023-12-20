@@ -12,6 +12,7 @@ const LeaderboardWrapper = styled.div`
   width: 300px;
   height: 100%;
   border: 1px solid black;
+  margin-right: 10px;
 `;
 
 const Item = styled.div`
@@ -28,7 +29,7 @@ const Team: React.FC<Props> = ({ handleScroll }) => {
     <LeaderboardWrapper onScroll={handleScroll}>
       {mockLeaderboard.map(item => (
         // key must be empty or the scrollbar would back to top
-        <Item>
+        <Item key={item.userInfo.userID}>
           {item.userInfo.openID}: {item.score}
         </Item>
       ))}
@@ -48,7 +49,7 @@ const teams = new Array(3).fill(0).map(() => uuidv4());
 const OfflineTeamRound = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const { elPoolRef, handleSroll } = useSyncScroll();
+  const { elPoolRef, handleScroll } = useSyncScroll();
 
   useEffect(() => {
     if (!elPoolRef.current) return;
@@ -59,9 +60,14 @@ const OfflineTeamRound = () => {
 
   return (
     <div>
+      多個榜單可以同時滾動
+      <br />
       <Wrapper ref={wrapperRef}>
-        {teams.map(key => (
-          <Team key={key} handleScroll={handleSroll} />
+        {teams.map((key, index) => (
+          <>
+            榜單{index + 1}
+            <Team key={key} handleScroll={handleScroll} />
+          </>
         ))}
       </Wrapper>
     </div>

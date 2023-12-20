@@ -1,10 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.sleep = exports.storeUserInfo = exports.getUserInfo = exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
-const enums_1 = require("./enums");
-exports.globalThis = (1, eval)('this'); // eslint-disable-line no-eval
-const qs = (search = exports.globalThis.location
-    ? exports.globalThis.location.search.slice(1)
+import { GOAPI_ENDPOINT, GOAPI_ENDPOINT_STA, GOAPI_ENDPOINT_UAT, MAIN_HOST, MAIN_HOST_CN, MAIN_HOST_STA, MAIN_HOST_STA_CN, MAIN_HOST_UAT, MAIN_HOST_UAT_CN, } from './constants';
+import { EventTypes, Env } from './enums';
+// @ts-ignore
+export const globalThis = (1, eval)('this'); // eslint-disable-line no-eval
+export const qs = (search = globalThis.location
+    ? globalThis.location.search.slice(1)
     : '') => search
     .split('&')
     .filter(Boolean)
@@ -16,19 +15,16 @@ const qs = (search = exports.globalThis.location
         o[key] = decodeURIComponent(value);
     return o;
 }, {});
-exports.qs = qs;
-const addLeadingZeros = (value) => String(value).length < 2 ? `0${String(value)}` : value;
-exports.addLeadingZeros = addLeadingZeros;
+export const addLeadingZeros = (value) => String(value).length < 2 ? `0${String(value)}` : value;
 /**
  *
  * check is using in client side.
  */
-const isBrowser = () => typeof window !== 'undefined';
-exports.isBrowser = isBrowser;
+export const isBrowser = () => typeof window !== 'undefined';
 /**
  * random integer number between min to max.
  */
-const getRandomInteger = (min, max) => {
+export const getRandomInteger = (min, max) => {
     if (min > max) {
         const temp = min;
         min = max;
@@ -36,13 +32,44 @@ const getRandomInteger = (min, max) => {
     }
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
-exports.getRandomInteger = getRandomInteger;
-const isProdVmo17Media = () => window.location.hostname === 'vmo.17.media' ||
-    window.location.hostname === 'gcscdn-event-cn.17.media';
-exports.isProdVmo17Media = isProdVmo17Media;
-const getType = (api) => exports.isProdVmo17Media() ? api.prod : api.sta;
-exports.getType = getType;
-function debounce(func, timeout) {
+export const isProdVmo17Media = () => window.location.origin === MAIN_HOST ||
+    window.location.origin === MAIN_HOST_CN;
+export const isStagVmo17Media = () => window.location.origin === MAIN_HOST_STA ||
+    window.location.origin === MAIN_HOST_STA_CN;
+export const isUatVmo17Media = () => window.location.origin === MAIN_HOST_UAT ||
+    window.location.origin === MAIN_HOST_UAT_CN;
+export const getGoapiUrl = (env) => {
+    if (env === Env.PROD)
+        return GOAPI_ENDPOINT;
+    if (env === Env.STA)
+        return GOAPI_ENDPOINT_STA;
+    if (env === Env.UAT)
+        return GOAPI_ENDPOINT_UAT;
+    return isProdVmo17Media()
+        ? GOAPI_ENDPOINT
+        : isStagVmo17Media()
+            ? GOAPI_ENDPOINT_STA
+            : isUatVmo17Media()
+                ? GOAPI_ENDPOINT_UAT
+                : GOAPI_ENDPOINT_STA;
+};
+// default type = api.sta
+export const getType = (api, env) => {
+    if (env === Env.PROD)
+        return api.prod;
+    if (env === Env.STA)
+        return api.sta;
+    if (env === Env.UAT && api.uat)
+        return api.uat;
+    return isProdVmo17Media()
+        ? api.prod
+        : isStagVmo17Media()
+            ? api.sta
+            : isUatVmo17Media() && api.uat
+                ? api.uat
+                : api.sta;
+};
+export function debounce(func, timeout) {
     let timer;
     return (...args) => {
         clearTimeout(timer);
@@ -51,20 +78,18 @@ function debounce(func, timeout) {
         }, timeout);
     };
 }
-exports.debounce = debounce;
 /**
  * Get browser languages or manually queryString. e.g. ?lang=ja
  */
-const getUserLangs = () => {
-    const q = exports.qs();
+export const getUserLangs = () => {
+    const q = qs();
     return Array.from(new Set([q.lang, ...window.navigator.languages].filter(Boolean)));
 };
-exports.getUserLangs = getUserLangs;
 /**
  * languages defined from Eventory
  * @enum
  */
-var RegionLanguage;
+export var RegionLanguage;
 (function (RegionLanguage) {
     RegionLanguage["TAIWAN"] = "zh_TW";
     RegionLanguage["CHINA"] = "zh_CN";
@@ -72,13 +97,13 @@ var RegionLanguage;
     RegionLanguage["JAPAN"] = "ja";
     RegionLanguage["EUROPE"] = "en_US";
     RegionLanguage["ARAB"] = "ar";
-})(RegionLanguage = exports.RegionLanguage || (exports.RegionLanguage = {}));
+})(RegionLanguage || (RegionLanguage = {}));
 /**
  * Get Currently selected language from campaign setting
  * @param {RegionLanguage[]} supportLangs languages provide by campaign setting
  * @returns enum RegionLanguage
  */
-const getCurrentTranslateLang = (supportLangs) => {
+export const getCurrentTranslateLang = (supportLangs) => {
     const defaultLang = RegionLanguage.TAIWAN;
     if (supportLangs.length <= 0) {
         return defaultLang;
@@ -93,7 +118,7 @@ const getCurrentTranslateLang = (supportLangs) => {
         prefix: langCode.substr(0, 2),
         lang: langCode,
     }));
-    const userLangList = exports.getUserLangs().map(lang => {
+    const userLangList = getUserLangs().map(lang => {
         if (lang.includes('-') || lang.includes('_')) {
             const formatLang = lang.replace('-', '_').split('_');
             return `${formatLang[0].toLowerCase()}_${formatLang[1].toUpperCase()}`;
@@ -126,7 +151,6 @@ const getCurrentTranslateLang = (supportLangs) => {
     });
     return (currentLang || defaultLang);
 };
-exports.getCurrentTranslateLang = getCurrentTranslateLang;
 const getDateByFormat = (date, format, locale) => {
     if (format.indexOf('MM/DD/YYYY') > -1) {
         return format.replace('MM/DD/YYYY', date.toLocaleDateString(locale, {
@@ -182,7 +206,7 @@ const getTimeByFormat = (date, format, locale) => {
  * @param {RegionLanguage} regionLanguage return language, options from enum RegionLanguage
  * @returns formated dateString
  */
-const getStringDateByLocalFormat = (dateString, format = 'MM/DD(WN)hh:mm:ss', regionLanguage = RegionLanguage.TAIWAN) => {
+export const getStringDateByLocalFormat = (dateString, format = 'MM/DD(WN)hh:mm:ss', regionLanguage = RegionLanguage.TAIWAN) => {
     const localeMap = {
         [RegionLanguage.TAIWAN]: 'zh-TW',
         [RegionLanguage.CHINA]: 'zh-CH',
@@ -198,7 +222,6 @@ const getStringDateByLocalFormat = (dateString, format = 'MM/DD(WN)hh:mm:ss', re
     format = getTimeByFormat(date, format, locale);
     return format;
 };
-exports.getStringDateByLocalFormat = getStringDateByLocalFormat;
 const getDetailDate = (date) => {
     const dateObj = new Date(date);
     const month = dateObj.getMonth() + 1;
@@ -218,32 +241,29 @@ const getDetailDate = (date) => {
  * @param {string} formatText format want to replace. i.e. 剩餘 D 天 hh:mm:ss
  * @returns formated text
  */
-const getStringDateCountdownByLocalFormat = ({ d, h, m, s, ms, }, formatText) => formatText
+export const getStringDateCountdownByLocalFormat = ({ d, h, m, s, ms, }, formatText) => formatText
     .replace('D', d.toString())
-    .replace('hh', exports.addLeadingZeros(h).toString())
-    .replace('mm', exports.addLeadingZeros(m).toString())
-    .replace('ss', exports.addLeadingZeros(s).toString());
-exports.getStringDateCountdownByLocalFormat = getStringDateCountdownByLocalFormat;
+    .replace('hh', addLeadingZeros(h).toString())
+    .replace('mm', addLeadingZeros(m).toString())
+    .replace('ss', addLeadingZeros(s).toString());
 /**
  * Get time text which shown on countdown remaining time. * if remaining time is less than one day.
  * @param {string} dateString datetime, i.e. 2021-09-25T18:00:00+08:00
  * @returns {string}
  */
-const convertDateToTime = (dateString) => {
+export const convertDateToTime = (dateString) => {
     const { stringHours, stringMinutes, stringSec } = getDetailDate(dateString);
     return `${stringHours}:${stringMinutes}:${stringSec}`;
 };
-exports.convertDateToTime = convertDateToTime;
 /**
  * Get result for compare two datetime is same or not
  * @param {string} startDate datetime, i.e. 2021-09-25T18:00:00+08:00
  * @param {string} endDate datetime, i.e. 2021-09-25T18:00:00+08:00
  * @returns {boolean}
  */
-const isSameDate = (startDate, endDate) => exports.getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') ===
-    exports.getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
-exports.isSameDate = isSameDate;
-const cumulativeOffset = (element) => {
+export const isSameDate = (startDate, endDate) => getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') ===
+    getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
+export const cumulativeOffset = (element) => {
     let top = 0;
     let left = 0;
     do {
@@ -256,85 +276,83 @@ const cumulativeOffset = (element) => {
         left,
     };
 };
-exports.cumulativeOffset = cumulativeOffset;
 /**
  * Format number by toLocaleString and remove digit number.
  * @param {RegionLanguage} regionLanguage language provide by campaign setting for toLocaleString
  * @param {number} value digit number, i.e. 1234.56
  * @returns {string}
  */
-const numberFormat = (value, regionLanguage) => value.toLocaleString(regionLanguage !== null && regionLanguage !== void 0 ? regionLanguage : navigator.language, {
+export const numberFormat = (value, regionLanguage) => value.toLocaleString(regionLanguage ?? navigator.language, {
     minimumFractionDigits: 0,
 });
-exports.numberFormat = numberFormat;
 /**
  * check isMobile by navigator userAgent.
  */
-const isMobile = (userAgent) => /Mobile/.test(userAgent);
-exports.isMobile = isMobile;
+export const isMobile = (userAgent) => /Mobile/.test(userAgent);
 /**
  * check isAndroid by navigator userAgent.
  */
-const isAndroid = (userAgent) => /Android/.test(userAgent) && typeof java17WebObject !== 'undefined';
-exports.isAndroid = isAndroid;
+export const isAndroid = (userAgent) => /Android/.test(userAgent) && typeof java17WebObject !== 'undefined';
 /**
  * check isIOS by navigator userAgent.
  */
-const isIOS = (userAgent) => /iPhone|iPad|iPod/.test(userAgent);
-exports.isIOS = isIOS;
+export const isIOS = (userAgent) => /iPhone|iPad|iPod/.test(userAgent);
 /**
  * check is using in client side.
  */
-const isClient = () => typeof window !== 'undefined';
-exports.isClient = isClient;
+export const isClient = () => typeof window !== 'undefined';
 /**
  * go to next page
  */
-const getNextLocation = (query) => {
+export const getNextLocation = (query) => {
     const queryPath = Object.entries(query).map(([key, value]) => `${key}=${value}`);
-    const nextLocation = `${exports.globalThis.location.pathname}?${queryPath.join('&')}`;
-    exports.globalThis.location.href = nextLocation;
+    const nextLocation = `${globalThis.location.pathname}?${queryPath.join('&')}`;
+    globalThis.location.href = nextLocation;
 };
-exports.getNextLocation = getNextLocation;
 /**
  * set default keyboard settings
  */
-const getKeyboardSettings = (firstPage, lastPage) => [
+export const getKeyboardSettings = (firstPage, lastPage) => [
     {
-        type: enums_1.EventTypes.CUSTOM,
+        type: EventTypes.CUSTOM,
         key: 'ArrowLeft',
         fn: () => {
-            const search = exports.qs();
+            const search = qs();
             window.scrollTo(0, 0);
-            const query = Object.assign(Object.assign({}, search), { page: Number(search.page) > firstPage ? Number(search.page) - 1 : firstPage });
-            exports.getNextLocation(query);
+            const query = {
+                ...search,
+                page: Number(search.page) > firstPage ? Number(search.page) - 1 : firstPage,
+            };
+            getNextLocation(query);
         },
     },
     {
-        type: enums_1.EventTypes.CUSTOM,
+        type: EventTypes.CUSTOM,
         key: 'ArrowRight',
         fn: () => {
-            const search = exports.qs();
+            const search = qs();
             window.scrollTo(0, 0);
-            const query = Object.assign(Object.assign({}, search), { page: !search.page || Number(search.page) < lastPage
+            const query = {
+                ...search,
+                page: !search.page || Number(search.page) < lastPage
                     ? Number(search.page || firstPage) + 1
-                    : search.page });
-            exports.getNextLocation(query);
+                    : search.page,
+            };
+            getNextLocation(query);
         },
     },
     ...Array.from({ length: lastPage > 9 ? 9 : lastPage }).map((_, index) => ({
-        type: enums_1.EventTypes.PAGE,
+        type: EventTypes.PAGE,
         key: String(index + 1),
         page: String(index + 1),
     })),
 ];
-exports.getKeyboardSettings = getKeyboardSettings;
 /**
  * Copy specific text in browser.
  * @param {string} str Specific text which want to be copy.
  * @returns {boolean} copy result: success/fail
  */
-const copyStringToClipboard = (str) => {
+export const copyStringToClipboard = (str) => {
     const el = document.createElement('textarea');
     el.value = str;
     el.setAttribute('readonly', '');
@@ -358,7 +376,6 @@ const copyStringToClipboard = (str) => {
         return false;
     }
 };
-exports.copyStringToClipboard = copyStringToClipboard;
 /**
  * Copy Leaderboard Data in browser.
  *
@@ -390,16 +407,16 @@ exports.copyStringToClipboard = copyStringToClipboard;
  * @param {ExtraData[]} extraDataList Setting extraData to get more than basic columns
  * @returns {boolean} copy result: success/fail
  */
-const copyLeaderboardDataToClipboard = (data, extraDataList) => {
-    // Get mession string
-    const messionStrArr = [];
+export const copyLeaderboardDataToClipboard = (data, extraDataList) => {
+    // Get mission string
+    const missionStrArr = [];
     if (data.length > 0) {
         const firstMission = data[0].missions;
         if (firstMission) {
             Object.keys(firstMission)
                 .sort((a, b) => Number(a.substr(-1)) - Number(b.substr(-1)))
                 .forEach(item => {
-                messionStrArr.push(`${item.substr(0, 1).toUpperCase()}${item.substr(1)}`);
+                missionStrArr.push(`${item.substr(0, 1).toUpperCase()}${item.substr(1)}`);
             });
         }
     }
@@ -434,8 +451,8 @@ const copyLeaderboardDataToClipboard = (data, extraDataList) => {
     else {
         firstRow = `Rank\tUserID\tName\tScore\tRegion`;
     }
-    if (messionStrArr.length > 0) {
-        firstRow = `${firstRow}\t${messionStrArr.join('\t')}`;
+    if (missionStrArr.length > 0) {
+        firstRow = `${firstRow}\t${missionStrArr.join('\t')}`;
     }
     if (metaStrArr.length > 0) {
         firstRow = `${firstRow}\t${metaStrArr.join('\t')}`;
@@ -449,23 +466,22 @@ const copyLeaderboardDataToClipboard = (data, extraDataList) => {
     copyArr.push(firstRow);
     data.forEach((item, index) => {
         let itemStr = `${item.rank}\t${item.userInfo.userID}\t${item.userInfo.displayName || item.userInfo.openID}\t${item.score}\t${item.userInfo.region}`;
-        if (messionStrArr.length > 0) {
-            const messions = [];
+        if (missionStrArr.length > 0) {
+            const missions = [];
             Object.keys(item.missions)
                 .sort((a, b) => Number(a.substr(-1)) - Number(b.substr(-1)))
                 .forEach(mItem => {
-                messions.push(`${item.missions[mItem]}`);
+                missions.push(`${item.missions[mItem]}`);
             });
-            if (messions.length > 0) {
-                itemStr = `${itemStr}\t${messions.join(`\t`)}`;
+            if (missions.length > 0) {
+                itemStr = `${itemStr}\t${missions.join(`\t`)}`;
             }
         }
         if (metaStrArr.length > 0) {
             const meta = [];
             if (item.meta) {
                 Object.keys(item.meta).forEach(mItem => {
-                    var _a;
-                    meta.push(`${(_a = item.meta) === null || _a === void 0 ? void 0 : _a[mItem]}`);
+                    meta.push(`${item.meta?.[mItem]}`);
                 });
                 if (meta.length > 0) {
                     itemStr = `${itemStr}\t${meta.join(`\t`)}`;
@@ -485,13 +501,12 @@ const copyLeaderboardDataToClipboard = (data, extraDataList) => {
         }
         extraDataList.forEach(({ filterFunction }) => {
             const extraItem = filterFunction(item);
-            itemStr = `${itemStr}\t${extraItem !== null && extraItem !== void 0 ? extraItem : ''}`;
+            itemStr = `${itemStr}\t${extraItem ?? ''}`;
         });
         copyArr.push(itemStr);
     });
-    return exports.copyStringToClipboard(copyArr.join('\n'));
+    return copyStringToClipboard(copyArr.join('\n'));
 };
-exports.copyLeaderboardDataToClipboard = copyLeaderboardDataToClipboard;
 const userInfoStorageName = 'userInfo';
 var UserInfoParam;
 (function (UserInfoParam) {
@@ -499,25 +514,22 @@ var UserInfoParam;
     UserInfoParam["userID"] = "userID";
     UserInfoParam["accessToken"] = "accessToken";
 })(UserInfoParam || (UserInfoParam = {}));
-const getUserInfoFromQuerystring = () => exports.qs();
-const getUserInfo = () => {
-    var _a;
+const getUserInfoFromQuerystring = () => qs();
+export const getUserInfo = () => {
     const { jwtAccessToken: urlJwtAccessToken, accessToken: urlAccessToken, userID: urlUserID, } = getUserInfoFromQuerystring();
-    const storageUserInfo = JSON.parse((_a = localStorage.getItem(userInfoStorageName)) !== null && _a !== void 0 ? _a : '{}');
-    const jwtAccessToken = urlJwtAccessToken !== null && urlJwtAccessToken !== void 0 ? urlJwtAccessToken : storageUserInfo === null || storageUserInfo === void 0 ? void 0 : storageUserInfo.jwtAccessToken;
-    const accessToken = urlAccessToken !== null && urlAccessToken !== void 0 ? urlAccessToken : storageUserInfo === null || storageUserInfo === void 0 ? void 0 : storageUserInfo.accessToken;
-    const userID = urlUserID !== null && urlUserID !== void 0 ? urlUserID : storageUserInfo === null || storageUserInfo === void 0 ? void 0 : storageUserInfo.userID;
+    const storageUserInfo = JSON.parse(localStorage.getItem(userInfoStorageName) ?? '{}');
+    const jwtAccessToken = urlJwtAccessToken ?? storageUserInfo?.jwtAccessToken;
+    const accessToken = urlAccessToken ?? storageUserInfo?.accessToken;
+    const userID = urlUserID ?? storageUserInfo?.userID;
     return {
         jwtAccessToken,
         accessToken,
         userID,
     };
 };
-exports.getUserInfo = getUserInfo;
-const storeUserInfo = () => {
-    var _a;
+export const storeUserInfo = () => {
     const { jwtAccessToken, accessToken, userID } = getUserInfoFromQuerystring();
-    const userInfo = JSON.parse((_a = localStorage.getItem(userInfoStorageName)) !== null && _a !== void 0 ? _a : '{}');
+    const userInfo = JSON.parse(localStorage.getItem(userInfoStorageName) ?? '{}');
     const isComingToken = !!(jwtAccessToken || accessToken);
     const isNewToken = jwtAccessToken !== userInfo.jwtAccessToken ||
         accessToken !== userInfo.accessToken;
@@ -548,7 +560,7 @@ const storeUserInfo = () => {
         userID,
     };
 };
-exports.storeUserInfo = storeUserInfo;
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-exports.sleep = sleep;
+export const sleep = (ms) => 
+// eslint-disable-next-line no-promise-executor-return
+new Promise(resolve => setTimeout(resolve, ms));
 //# sourceMappingURL=utils.js.map

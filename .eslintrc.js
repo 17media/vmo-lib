@@ -31,6 +31,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'react/prop-types': 0,
     '@typescript-eslint/no-use-before-define': 'off',
+    'no-nested-ternary': 'off',
     'react/jsx-filename-extension': 0,
     'no-console': 0,
     'import/no-named-as-default': 0,
@@ -38,6 +39,14 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'react-hooks/rules-of-hooks': 'error', // 檢查 Hook 的規則
     'react-hooks/exhaustive-deps': 'warn', // 檢查 effect 的相依性
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: ['arrow-function', 'function-expression'],
+        unnamedComponents: ['arrow-function', 'function-expression'],
+      },
+    ],
+    'react/require-default-props': 0, // Since we do not use prop-types
   },
   settings: {
     'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],

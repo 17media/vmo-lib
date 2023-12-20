@@ -24,7 +24,7 @@ export const useAutoNext = (isEnded: boolean, nextPage: number) => {
       )}`;
       globalThis.location.href = nextLocation;
     }
-  }, [isEnded, nextPage, qs]);
+  }, [isEnded, nextPage]);
 };
 
 export default useAutoNext;

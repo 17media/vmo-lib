@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = require("react");
-const utils_1 = require("../utils");
+import { useState, useEffect } from 'react';
+import { numberFormat } from '../utils';
 const animation = (duration, callback) => {
     const start = performance.now();
     let timer = 0;
@@ -25,15 +23,15 @@ const animation = (duration, callback) => {
  * @param givenScore 給定的值
  * @param duration 動態改變值的時間, default 1000
  */
-const useScore = (givenScore, duration = 1000, regionLanguage) => {
-    const [score, setScore] = react_1.useState(givenScore);
-    react_1.useEffect(() => {
+const useScore = ({ givenScore, duration = 1000, regionLanguage, }) => {
+    const [score, setScore] = useState(givenScore);
+    useEffect(() => {
         animation(duration, percent => {
             const newScore = score + Math.round(percent * (givenScore - score));
             setScore(newScore);
         });
-    }, [givenScore]);
-    return utils_1.numberFormat(score, regionLanguage);
+    }, [duration, givenScore, score]);
+    return numberFormat(score, regionLanguage);
 };
-exports.default = useScore;
+export default useScore;
 //# sourceMappingURL=useScore.js.map

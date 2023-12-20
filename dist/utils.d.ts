@@ -1,3 +1,4 @@
+import { Env } from './enums';
 import { ISetting, LeaderboardItem } from './types';
 export declare const globalThis: any;
 export declare const qs: <T extends {
@@ -14,10 +15,14 @@ export declare const isBrowser: () => boolean;
  */
 export declare const getRandomInteger: (min: number, max: number) => number;
 export declare const isProdVmo17Media: () => boolean;
+export declare const isStagVmo17Media: () => boolean;
+export declare const isUatVmo17Media: () => boolean;
+export declare const getGoapiUrl: (env?: Env) => "https://api-dsa.17app.co/api" | "https://sta-api.17app.co/api" | "https://uat-api.17app.co/api";
 export declare const getType: (api: {
     sta: string;
     prod: string;
-}) => string;
+    uat?: string;
+}, env?: Env) => string;
 export declare function debounce<Params extends any[]>(func: (...args: Params) => any, timeout: number): (...args: Params) => void;
 /**
  * Get browser languages or manually queryString. e.g. ?lang=ja
@@ -85,7 +90,7 @@ export declare const cumulativeOffset: (element: any) => {
  * @param {number} value digit number, i.e. 1234.56
  * @returns {string}
  */
-export declare const numberFormat: (value: number, regionLanguage?: RegionLanguage | undefined) => string;
+export declare const numberFormat: (value: number, regionLanguage?: RegionLanguage) => string;
 /**
  * check isMobile by navigator userAgent.
  */
@@ -118,7 +123,7 @@ export declare const getKeyboardSettings: (firstPage: number, lastPage: number) 
  * @returns {boolean} copy result: success/fail
  */
 export declare const copyStringToClipboard: (str: string) => boolean;
-export declare type ExtraData = {
+export type ExtraData = {
     name: string;
     filterFunction: (item: any) => string;
 };
@@ -154,7 +159,7 @@ export declare type ExtraData = {
  * @returns {boolean} copy result: success/fail
  */
 export declare const copyLeaderboardDataToClipboard: (data: LeaderboardItem[], extraDataList: ExtraData[]) => boolean;
-export declare type UserInfo = Partial<{
+export type UserInfo = Partial<{
     jwtAccessToken: string;
     accessToken: string;
     userID: string;

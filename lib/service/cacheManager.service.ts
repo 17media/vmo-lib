@@ -163,7 +163,7 @@ class CacheError extends Error {
 
 type CaughtError = null | Error | AxiosError | CacheError;
 
-interface FulfillFormat<T = any> {
+export interface FulfillFormat<T = any> {
   data?: AxiosResponse<T>;
   cache?: AxiosResponse<T>;
   error?: CaughtError;

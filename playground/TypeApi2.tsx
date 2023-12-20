@@ -126,9 +126,9 @@ const LeaderboardData = ({ config, left, right }) => {
 
 const TypeApi2 = () => {
   const [eventoryContainerIdLeft, setEventoryContainerIdLeft] =
-    useState<string>('8f112c2c-d466-4427-9406-c2b040ea399f');
+    useState<string>('7f92082d-844e-4094-b661-a10e2c9c79a9');
   const [eventoryContainerIdRight, setEventoryContainerIdRight] =
-    useState<string>('0fd39941-f077-4990-aaf7-78b8a77f04c5');
+    useState<string>('4b5acf97-717f-4819-b0e9-d692d99728dc');
   const [realTime, setRealTime] = useState(0);
   const [limit, setLimit] = useState(1000);
   const [config, setConfig] = useState<{

@@ -23,11 +23,15 @@ const animation = (duration: number, callback: (percent: number) => void) => {
  * @param givenScore 給定的值
  * @param duration 動態改變值的時間, default 1000
  */
-const useScore = (
-  givenScore: number,
+const useScore = ({
+  givenScore,
   duration = 1000,
-  regionLanguage?: RegionLanguage,
-) => {
+  regionLanguage,
+}: {
+  givenScore: number;
+  duration?: number;
+  regionLanguage?: RegionLanguage;
+}) => {
   const [score, setScore] = useState<number>(givenScore);
 
   useEffect(() => {
@@ -35,7 +39,7 @@ const useScore = (
       const newScore = score + Math.round(percent * (givenScore - score));
       setScore(newScore);
     });
-  }, [givenScore]);
+  }, [duration, givenScore, score]);
 
   return numberFormat(score, regionLanguage);
 };

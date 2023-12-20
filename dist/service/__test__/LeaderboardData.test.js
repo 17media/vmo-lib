@@ -1,9 +1,4 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const LeaderboardData_1 = __importDefault(require("../LeaderboardData"));
+import LeaderboardData from '../LeaderboardData';
 /* 榜單資料集：
 [
     [User], [User], [WhiteList], [fake WhiteList], [BlackList],
@@ -486,14 +481,14 @@ const userInfo = [
 describe('leaderboard data testing', () => {
     test('should return correct team map and leaderboard users order', () => {
         const copyUserInfo = userInfo;
-        const lb = new LeaderboardData_1.default(copyUserInfo);
+        const lb = new LeaderboardData(copyUserInfo);
         lb.setLeaderboard(5, 'baby');
         const leaderboardMap = lb.getLeaderboard();
         expect(leaderboardMap.baby).toEqual(userInfo[0]);
     });
     test('should return correct teams map', () => {
         const copyUserInfo = userInfo;
-        const lb = new LeaderboardData_1.default(copyUserInfo);
+        const lb = new LeaderboardData(copyUserInfo);
         lb.setLeaderboards([0, 1], ['baby', 'kitty']);
         const leaderboardMap = lb.getLeaderboard();
         expect(leaderboardMap.baby).toEqual(userInfo[0]);
@@ -501,7 +496,7 @@ describe('leaderboard data testing', () => {
     });
     test('should return correct leaderboard after whitelist filter', () => {
         const copyUserInfo = userInfo;
-        const lb = new LeaderboardData_1.default(copyUserInfo);
+        const lb = new LeaderboardData(copyUserInfo);
         lb.setLeaderboard(0, 'baby');
         lb.setWhiteList(2, 'baby');
         const leaderboardMap = lb.getLeaderboard();
@@ -509,7 +504,7 @@ describe('leaderboard data testing', () => {
     });
     test('should return correct leaderboard after whitelist filter at the case no one in the whitelist', () => {
         const copyUserInfo = userInfo;
-        const lb = new LeaderboardData_1.default(copyUserInfo);
+        const lb = new LeaderboardData(copyUserInfo);
         lb.setLeaderboard(0, 'baby');
         lb.setWhiteList(3, 'baby');
         const leaderboardMap = lb.getLeaderboard();
@@ -517,7 +512,7 @@ describe('leaderboard data testing', () => {
     });
     test('should return correct leaderboard after blacklist filter', () => {
         const copyUserInfo = userInfo;
-        const lb = new LeaderboardData_1.default(copyUserInfo);
+        const lb = new LeaderboardData(copyUserInfo);
         lb.setLeaderboard(0, 'baby');
         lb.setBlackList(4, 'baby');
         const leaderboardMap = lb.getLeaderboard();
@@ -525,7 +520,7 @@ describe('leaderboard data testing', () => {
     });
     test('should return correct team map after updateLeaderboard function works', () => {
         const copyUserInfo = userInfo;
-        const lb = new LeaderboardData_1.default(copyUserInfo);
+        const lb = new LeaderboardData(copyUserInfo);
         lb.setLeaderboard(0, 'baby');
         lb.setLeaderboard(6, 'baby');
         const leaderboardMap = lb.getLeaderboard();
@@ -533,7 +528,7 @@ describe('leaderboard data testing', () => {
     });
     test('should return correct team map after setBonus function works', () => {
         const copyUserInfo = userInfo;
-        const lb = new LeaderboardData_1.default(copyUserInfo);
+        const lb = new LeaderboardData(copyUserInfo);
         lb.setLeaderboard(1, 'round1');
         lb.setBonus(8, 'round1');
         const leaderboardMap = lb.getLeaderboard();

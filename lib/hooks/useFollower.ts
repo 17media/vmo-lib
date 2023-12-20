@@ -44,7 +44,7 @@ export const useFollower: Props = (userID, accessToken, jwtAccessToken) => {
         });
         setFollowers(data);
         setErrorMsg('');
-      } catch (error) {
+      } catch (error: any) {
         setFollowers([]);
         if (error?.response && error?.response.data) {
           setErrorMsg(error?.response.data?.errorMessage ?? 'something wrong!');

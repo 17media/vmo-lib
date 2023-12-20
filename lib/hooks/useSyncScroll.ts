@@ -7,7 +7,7 @@ export const useSyncScroll = () => {
   // element which want to handle scroll
   const elPoolRef = useRef<Element[]>([]);
 
-  const handleSroll = (e: any) => {
+  const handleScroll = (e: any) => {
     if (!elPoolRef.current) return;
     Array.from(elPoolRef.current).forEach(el => {
       el.scrollTop = e.target.scrollTop;
@@ -15,7 +15,7 @@ export const useSyncScroll = () => {
   };
 
   return {
-    handleSroll,
+    handleScroll,
     elPoolRef,
   };
 };

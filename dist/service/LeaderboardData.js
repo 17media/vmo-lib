@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 更新原始榜單
  * @param prevLB 原始榜單
@@ -38,6 +36,8 @@ function updateLeaderboard(prevLB, newLB) {
  * ```
  */
 class LeaderboardData {
+    data;
+    leaderboardMap;
     constructor(data) {
         this.data = data;
         this.leaderboardMap = {};
@@ -110,7 +110,10 @@ class LeaderboardData {
             const curData = leaderboardDataMap.get(data.userInfo.userID);
             if (curData && curData.bonus) {
                 curData.bonus += data.score;
-                curData.meta = Object.assign(Object.assign({}, curData.meta), { [name]: data.score });
+                curData.meta = {
+                    ...curData.meta,
+                    [name]: data.score,
+                };
             }
         });
         return this;
@@ -133,5 +136,5 @@ class LeaderboardData {
         return this.leaderboardMap;
     }
 }
-exports.default = LeaderboardData;
+export default LeaderboardData;
 //# sourceMappingURL=LeaderboardData.js.map

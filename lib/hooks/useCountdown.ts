@@ -58,6 +58,7 @@ export const useCountdown = (
   const timer = useRef(0);
   const [currentTime, setCurrentTime] = useState(now() * 1000);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getCurrentTime = () => {
     if (currentTime > start && currentTime < end) {
       setCurrentTime(now() * 1000);

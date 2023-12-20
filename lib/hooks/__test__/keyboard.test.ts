@@ -1,5 +1,5 @@
 // yarn test ./lib/hooks/__test__/keyboard.test.ts
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import useKeyboard from '../useKeyboard';
 import { ISetting } from '../../types';
 import { qs, getKeyboardSettings, globalThis } from '../../utils';

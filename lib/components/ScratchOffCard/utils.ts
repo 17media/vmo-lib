@@ -13,7 +13,7 @@ export const getFilledInPixels = (
 
   for (let i = 0; i < l; i += newStride) {
     if (+pdata[i] === 0) {
-      count++;
+      count += 1;
     }
   }
 
@@ -53,7 +53,7 @@ export const getDistanceBetween = (
 ) =>
   Math.sqrt(
     // eslint-disable-next-line no-restricted-properties
-    Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2),
+    (point2.x - point1.x) ** 2 + (point2.y - point1.y) ** 2,
   );
 
 export const getAngleBetween = (

@@ -54,11 +54,7 @@ const renderPage = () => {
     }
   }
 
-  return (
-    <>
-      <PageComponent />
-    </>
-  );
+  return <PageComponent />;
 };
 
 const Keyboard = () => {

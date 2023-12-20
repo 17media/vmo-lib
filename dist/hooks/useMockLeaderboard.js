@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useMockLeaderboard = exports.mockUsers = exports.usersID = void 0;
-const react_1 = require("react");
-const uuid_1 = require("uuid");
+import { useState, useEffect, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 const defaultUser = {
     bonus: 0,
     meta: {},
@@ -25,15 +22,27 @@ const defaultUser = {
         },
     },
 };
-exports.usersID = new Array(100).fill(0).map(() => uuid_1.v4());
-const createDefaultUser = (id, index, score = 1000) => (Object.assign(Object.assign({}, defaultUser), { score, rank: index + 1, userInfo: Object.assign(Object.assign({}, defaultUser.userInfo), { displayName: `user${index}`, name: `user${index}`, openID: `user${index}`, picture: '', userID: id }) }));
-exports.mockUsers = exports.usersID.map((user, index) => createDefaultUser(user, index));
+export const usersID = new Array(100).fill(0).map(() => uuidv4());
+const createDefaultUser = (id, index, score = 1000) => ({
+    ...defaultUser,
+    score,
+    rank: index + 1,
+    userInfo: {
+        ...defaultUser.userInfo,
+        displayName: `user${index}`,
+        name: `user${index}`,
+        openID: `user${index}`,
+        picture: '',
+        userID: id,
+    },
+});
+export const mockUsers = usersID.map((user, index) => createDefaultUser(user, index));
 const createMockGiftedUsers = (count, limit) => {
     const giftedUsers = new Array(count).fill(0).map(() => {
         const randomUserIndex = Math.floor(limit * Math.random());
         const randomScore = Math.floor(10000 * Math.random());
         return {
-            userID: exports.usersID[randomUserIndex],
+            userID: usersID[randomUserIndex],
             score: randomScore,
         };
     });
@@ -53,7 +62,7 @@ const replaceLeaderboard = (curLeaderboard, limit) => {
     });
     return nextLeaderboard
         .sort((a, b) => b.score - a.score)
-        .map((user, index) => (Object.assign(Object.assign({}, user), { rank: index + 1 })));
+        .map((user, index) => ({ ...user, rank: index + 1 }));
 };
 /**
  * 測試用 leaderboard 資料
@@ -62,17 +71,17 @@ const replaceLeaderboard = (curLeaderboard, limit) => {
  * @param stable 是否固定還是要持續增加 user
  * @param limit 最多幾名 users
  */
-const useMockLeaderboard = (enable = false, initMockList = false, stable = false, limit = 100) => {
-    const [leaderboard, setLeaderboard] = react_1.useState([]);
-    const timer = react_1.useRef(0);
-    react_1.useEffect(() => {
+export const useMockLeaderboard = (enable = false, initMockList = false, stable = false, limit = 100) => {
+    const [leaderboard, setLeaderboard] = useState([]);
+    const timer = useRef(0);
+    useEffect(() => {
         if (initMockList) {
-            setLeaderboard(exports.mockUsers);
+            setLeaderboard(mockUsers);
         }
     }, [initMockList]);
-    react_1.useEffect(() => {
+    useEffect(() => {
         if (enable && stable) {
-            setLeaderboard(exports.mockUsers.slice(0, limit));
+            setLeaderboard(mockUsers.slice(0, limit));
         }
         if (enable && !timer.current && !stable) {
             timer.current = window.setInterval(() => {
@@ -80,11 +89,13 @@ const useMockLeaderboard = (enable = false, initMockList = false, stable = false
             }, 1000);
         }
         return () => {
-            clearInterval(timer.current);
+            if (timer.current) {
+                clearInterval(timer.current);
+                timer.current = 0;
+            }
         };
-    }, [limit, stable]);
+    }, [enable, limit, stable]);
     return { leaderboard };
 };
-exports.useMockLeaderboard = useMockLeaderboard;
-exports.default = exports.useMockLeaderboard;
+export default useMockLeaderboard;
 //# sourceMappingURL=useMockLeaderboard.js.map

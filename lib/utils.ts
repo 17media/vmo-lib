@@ -1,8 +1,20 @@
-import { EventTypes } from './enums';
+import {
+  GOAPI_ENDPOINT,
+  GOAPI_ENDPOINT_STA,
+  GOAPI_ENDPOINT_UAT,
+  MAIN_HOST,
+  MAIN_HOST_CN,
+  MAIN_HOST_STA,
+  MAIN_HOST_STA_CN,
+  MAIN_HOST_UAT,
+  MAIN_HOST_UAT_CN,
+} from './constants';
+import { EventTypes, Env } from './enums';
 import { ISetting, LeaderboardItem } from './types';
 
 declare const java17WebObject: any;
 
+// @ts-ignore
 export const globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 
 export const qs = <T extends { [k: string]: string | boolean }>(
@@ -44,11 +56,46 @@ export const getRandomInteger = (min: number, max: number): number => {
 };
 
 export const isProdVmo17Media = () =>
-  window.location.hostname === 'vmo.17.media' ||
-  window.location.hostname === 'gcscdn-event-cn.17.media';
+  window.location.origin === MAIN_HOST ||
+  window.location.origin === MAIN_HOST_CN;
 
-export const getType = (api: { sta: string; prod: string }) =>
-  isProdVmo17Media() ? api.prod : api.sta;
+export const isStagVmo17Media = () =>
+  window.location.origin === MAIN_HOST_STA ||
+  window.location.origin === MAIN_HOST_STA_CN;
+
+export const isUatVmo17Media = () =>
+  window.location.origin === MAIN_HOST_UAT ||
+  window.location.origin === MAIN_HOST_UAT_CN;
+
+export const getGoapiUrl = (env?: Env) => {
+  if (env === Env.PROD) return GOAPI_ENDPOINT;
+  if (env === Env.STA) return GOAPI_ENDPOINT_STA;
+  if (env === Env.UAT) return GOAPI_ENDPOINT_UAT;
+  return isProdVmo17Media()
+    ? GOAPI_ENDPOINT
+    : isStagVmo17Media()
+    ? GOAPI_ENDPOINT_STA
+    : isUatVmo17Media()
+    ? GOAPI_ENDPOINT_UAT
+    : GOAPI_ENDPOINT_STA;
+};
+
+// default type = api.sta
+export const getType = (
+  api: { sta: string; prod: string; uat?: string },
+  env?: Env,
+) => {
+  if (env === Env.PROD) return api.prod;
+  if (env === Env.STA) return api.sta;
+  if (env === Env.UAT && api.uat) return api.uat;
+  return isProdVmo17Media()
+    ? api.prod
+    : isStagVmo17Media()
+    ? api.sta
+    : isUatVmo17Media() && api.uat
+    ? api.uat
+    : api.sta;
+};
 
 export function debounce<Params extends any[]>(
   func: (...args: Params) => any,
@@ -504,15 +551,15 @@ export const copyLeaderboardDataToClipboard = (
   data: LeaderboardItem[],
   extraDataList: ExtraData[],
 ): boolean => {
-  // Get mession string
-  const messionStrArr: string[] = [];
+  // Get mission string
+  const missionStrArr: string[] = [];
   if (data.length > 0) {
     const firstMission = data[0].missions;
     if (firstMission) {
       Object.keys(firstMission)
         .sort((a: any, b: any) => Number(a.substr(-1)) - Number(b.substr(-1)))
         .forEach(item => {
-          messionStrArr.push(
+          missionStrArr.push(
             `${item.substr(0, 1).toUpperCase()}${item.substr(1)}`,
           );
         });
@@ -551,8 +598,8 @@ export const copyLeaderboardDataToClipboard = (
   } else {
     firstRow = `Rank\tUserID\tName\tScore\tRegion`;
   }
-  if (messionStrArr.length > 0) {
-    firstRow = `${firstRow}\t${messionStrArr.join('\t')}`;
+  if (missionStrArr.length > 0) {
+    firstRow = `${firstRow}\t${missionStrArr.join('\t')}`;
   }
   if (metaStrArr.length > 0) {
     firstRow = `${firstRow}\t${metaStrArr.join('\t')}`;
@@ -571,15 +618,15 @@ export const copyLeaderboardDataToClipboard = (
       item.userInfo.displayName || item.userInfo.openID
     }\t${item.score}\t${item.userInfo.region}`;
 
-    if (messionStrArr.length > 0) {
-      const messions: string[] = [];
+    if (missionStrArr.length > 0) {
+      const missions: string[] = [];
       Object.keys(item.missions)
         .sort((a: any, b: any) => Number(a.substr(-1)) - Number(b.substr(-1)))
         .forEach(mItem => {
-          messions.push(`${item.missions[mItem]}`);
+          missions.push(`${item.missions[mItem]}`);
         });
-      if (messions.length > 0) {
-        itemStr = `${itemStr}\t${messions.join(`\t`)}`;
+      if (missions.length > 0) {
+        itemStr = `${itemStr}\t${missions.join(`\t`)}`;
       }
     }
     if (metaStrArr.length > 0) {
@@ -707,4 +754,5 @@ export const storeUserInfo = () => {
 };
 
 export const sleep = (ms: number) =>
+  // eslint-disable-next-line no-promise-executor-return
   new Promise(resolve => setTimeout(resolve, ms));

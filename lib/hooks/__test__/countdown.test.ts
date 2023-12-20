@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { now } from '@17media/dad';
 import useCountdown, {
   getRelatedDistance,

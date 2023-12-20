@@ -47,7 +47,7 @@ const App = () => {
   return (
     <div>
       <div>
-        <p>選擇範例:</p>
+        <p>react 18 選擇範例:</p>
         {Object.keys(playgrounds).map(playground => (
           <button
             key={playground}

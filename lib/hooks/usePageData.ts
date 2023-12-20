@@ -36,8 +36,9 @@ export const usePageData = ({
   const isEnded = status === TimeStatus.Ended && now() < end + 5000;
   useAutoNext(isEnded, nextPage);
 
+  const finalTest = isEnded ? false : test;
   const { leaderboard: mockLeaderboard } = useMockLeaderboard(
-    test,
+    finalTest,
     init,
     isResultPage,
   );

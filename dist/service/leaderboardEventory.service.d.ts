@@ -1,8 +1,10 @@
 import { CancelToken } from 'axios';
+import { Env } from '../enums';
 import { User } from '../types';
 import { CacheStrategy } from './cacheManager.service';
 interface Params {
     type: {
+        uat?: string;
         sta: string;
         prod: string;
     };
@@ -18,7 +20,7 @@ export interface Response<T> {
     nextCursor: string;
     type: string;
 }
-declare type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
+type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
     apiEndpoint: string;
 };
 /**
@@ -27,8 +29,13 @@ declare type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
  *
  * parsedCursor => {total count}:{start}:{shard size}
  */
-export declare const getParsedURL: ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }: FetchURL) => string;
-export declare const getLeaderboardEventory: ({ type, cancelToken, limit, cursor, withoutOnliveInfo, strategy, }: Params & {
+export declare const getParsedURL: ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, env, }: Omit<Params, "cancelToken" | "callback" | "preData"> & {
+    apiEndpoint: string;
+} & {
+    env?: Env | undefined;
+}) => string;
+export declare const getLeaderboardEventory: ({ type, cancelToken, limit, cursor, withoutOnliveInfo, strategy, env, }: Params & {
     strategy: CacheStrategy;
+    env?: Env | undefined;
 }) => Promise<import("./cacheManager.service").HandleCacheStrategyResponse<Response<User>>>;
 export default getLeaderboardEventory;

@@ -1,13 +1,15 @@
 import { CancelToken, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { getInstanceEventory } from './axios';
+import { Env } from '../enums';
 import { User } from '../types';
-import { getType, isProdVmo17Media } from '../utils';
+import { getGoapiUrl, getType } from '../utils';
 import { CacheStrategy, handleCacheStrategy } from './cacheManager.service';
 
 const endpoint = `/v1/leaderboards/eventory`;
 
 interface Params {
   type: {
+    uat?: string;
     sta: string;
     prod: string;
   };
@@ -44,10 +46,12 @@ interface FetchURLParams {
   withoutOnliveInfo?: boolean;
 }
 
-const getFetchURL = (apiEndpoint: string, params: FetchURLParams) => {
-  const baseURL = isProdVmo17Media()
-    ? 'https://api.17app.co/api'
-    : 'https://sta-api.17app.co/api';
+const getFetchURL = (
+  apiEndpoint: string,
+  params: FetchURLParams,
+  env?: Env,
+) => {
+  const baseURL = getGoapiUrl(env);
 
   const fetchURL = new URL(baseURL + apiEndpoint);
   Object.keys(params).forEach(key => {
@@ -71,9 +75,12 @@ export const getParsedURL = ({
   limit,
   cursor,
   withoutOnliveInfo,
-}: FetchURL) => {
+  env,
+}: FetchURL & {
+  env?: Env;
+}) => {
   const params: FetchURLParams = {
-    containerID: getType(type),
+    containerID: getType(type, env),
     count: limit,
     cursor,
     withoutOnliveInfo,
@@ -83,9 +90,9 @@ export const getParsedURL = ({
     const [totalCount, start, shardSize] = timestampCursor.split(':').slice(1);
     const parsedCursor = `${totalCount}:${start}:${shardSize}`;
     const parsedParams = { ...params, cursor: parsedCursor };
-    return getFetchURL(apiEndpoint, parsedParams);
+    return getFetchURL(apiEndpoint, parsedParams, env);
   }
-  return getFetchURL(apiEndpoint, params);
+  return getFetchURL(apiEndpoint, params, env);
 };
 
 const getLBDataCallback = ({
@@ -96,13 +103,15 @@ const getLBDataCallback = ({
   cursor,
   withoutOnliveInfo,
   cancelToken,
+  env,
 }: Params & {
   apiEndpoint: string;
   eventoryApi: AxiosInstance;
+  env?: Env;
 }) =>
   eventoryApi.get<Response<User>>(apiEndpoint, {
     params: {
-      containerID: getType(type),
+      containerID: getType(type, env),
       count: limit,
       cursor,
       withoutOnliveInfo,
@@ -117,10 +126,12 @@ export const getLeaderboardEventory = async ({
   cursor = '',
   withoutOnliveInfo,
   strategy,
+  env,
 }: Params & {
   strategy: CacheStrategy;
+  env?: Env;
 }) => {
-  const eventoryApi = getInstanceEventory();
+  const eventoryApi = getInstanceEventory(env);
 
   if (!withoutOnliveInfo) {
     const responseHandler = (response: AxiosResponse) => response;
@@ -156,6 +167,7 @@ export const getLeaderboardEventory = async ({
     limit,
     cursor,
     withoutOnliveInfo,
+    env,
   });
 
   const responseData = await handleCacheStrategy<Response<User>>({
@@ -168,6 +180,7 @@ export const getLeaderboardEventory = async ({
       withoutOnliveInfo,
       cancelToken,
       eventoryApi,
+      env,
     }),
     url: parsedURL,
   });
