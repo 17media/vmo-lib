@@ -1,1 +1,5 @@
+<<<<<<< Updated upstream
 {"version":3,"file":"useStartRender.js","sourceRoot":"","sources":["../../lib/hooks/useStartRender.ts"],"names":[],"mappings":";;AAAA,iCAA4C;AAE5C;;;GAGG;AACH,MAAM,cAAc,GAAG,GAAG,EAAE;IAC1B,MAAM,CAAC,WAAW,EAAE,cAAc,CAAC,GAAG,gBAAQ,CAAC,KAAK,CAAC,CAAC;IACtD,iBAAS,CAAC,GAAG,EAAE;QACb,cAAc,CAAC,IAAI,CAAC,CAAC;IACvB,CAAC,EAAE,EAAE,CAAC,CAAC;IACP,OAAO,WAAW,CAAC;AACrB,CAAC,CAAC;AAEF,kBAAe,cAAc,CAAC"}
+=======
+{"version":3,"file":"useStartRender.js","sourceRoot":"","sources":["../../lib/hooks/useStartRender.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,SAAS,EAAE,MAAM,OAAO,CAAC;AAE5C;;;GAGG;AACH,MAAM,cAAc,GAAG,GAAG,EAAE;IAC1B,MAAM,CAAC,WAAW,EAAE,cAAc,CAAC,GAAG,QAAQ,CAAC,KAAK,CAAC,CAAC;IACtD,SAAS,CAAC,GAAG,EAAE;QACb,cAAc,CAAC,IAAI,CAAC,CAAC;IACvB,CAAC,EAAE,EAAE,CAAC,CAAC;IACP,OAAO,WAAW,CAAC;AACrB,CAAC,CAAC;AAEF,eAAe,cAAc,CAAC"}
+>>>>>>> Stashed changes

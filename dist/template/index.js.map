@@ -1,1 +1,5 @@
+<<<<<<< Updated upstream
 {"version":3,"file":"index.js","sourceRoot":"","sources":["../../lib/template/index.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,mDAAwD;AAExD,kDAAgC;AAEhC,kBAAe,EAAE,qBAAqB,EAArB,qCAAqB,EAAE,CAAC"}
+=======
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../lib/template/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,iBAAiB,CAAC;AAExD,cAAc,iBAAiB,CAAC;AAEhC,eAAe,EAAE,qBAAqB,EAAE,CAAC"}
+>>>>>>> Stashed changes

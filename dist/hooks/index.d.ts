@@ -1,4 +1,3 @@
-/// <reference types="react" />
 export * from './useCountdown';
 export * from './useItemTransition';
 export * from './usePageData';
@@ -12,6 +11,7 @@ export * from './useScrollToLoadingContainer';
 export * from './useKeyboard';
 export * from './useFollower';
 export * from './useCheckWebview';
+<<<<<<< Updated upstream
 declare const _default: {
     useAutoNext: (isEnded: boolean, nextPage: number) => void;
     useCountdown: (start: number, end: number, timeEndText: string) => {
@@ -80,3 +80,5 @@ declare const _default: {
     useCheckWebview: () => boolean;
 };
 export default _default;
+=======
+>>>>>>> Stashed changes

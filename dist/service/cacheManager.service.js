@@ -1,18 +1,6 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleCacheStrategy = exports.handleCacheThenNetwork = exports.handleNetworkOnly = exports.handleNetworkFirst = exports.getApiUrlStrategy = exports.checkCacheUsable = exports.HttpMethod = exports.CacheStrategy = void 0;
 const CACHE_STORAGE_NAME_PREFIX = 'lb-cache-v1';
 // eslint-disable-next-line no-shadow
-var CacheStrategy;
+export var CacheStrategy;
 (function (CacheStrategy) {
     /** alias Cache, falling back to network. */
     /** Read the data from the cache first, if not, then get it from the network.  */
@@ -22,13 +10,22 @@ var CacheStrategy;
     /** Only get data from the network, no data will be cached. */
     CacheStrategy["NETWORK_ONLY"] = "networkOnly";
     CacheStrategy["NETWORK_FIRST"] = "networkFirst";
+<<<<<<< Updated upstream
 })(CacheStrategy = exports.CacheStrategy || (exports.CacheStrategy = {}));
 var HttpMethod;
+=======
+})(CacheStrategy || (CacheStrategy = {}));
+export var HttpMethod;
+>>>>>>> Stashed changes
 (function (HttpMethod) {
     HttpMethod["GET"] = "get";
     HttpMethod["POST"] = "post";
     HttpMethod["PUT"] = "put";
+<<<<<<< Updated upstream
 })(HttpMethod = exports.HttpMethod || (exports.HttpMethod = {}));
+=======
+})(HttpMethod || (HttpMethod = {}));
+>>>>>>> Stashed changes
 const cacheWhitelists = [
     {
         path: '/leaderboards/eventory',
@@ -36,17 +33,16 @@ const cacheWhitelists = [
         cacheStrategy: CacheStrategy.CACHE_THEN_NETWORK,
     },
 ];
-const checkCacheUsable = () => __awaiter(void 0, void 0, void 0, function* () {
+export const checkCacheUsable = async () => {
     try {
-        yield caches.open('Test Cache Storage Available');
+        await caches.open('Test Cache Storage Available');
         return true;
     }
     catch (error) {
         console.error('Cache Storage Unavailable, ', error);
         return false;
     }
-});
-exports.checkCacheUsable = checkCacheUsable;
+};
 const formatDate = (date) => {
     const day = date.getDate();
     const month = date.getMonth();
@@ -59,19 +55,19 @@ const getDateDaysAgo = (numOfDays, date = new Date()) => {
     daysAgo.setDate(date.getDate() - numOfDays);
     return daysAgo;
 };
-const setAxiosCache = (url, response) => __awaiter(void 0, void 0, void 0, function* () {
+const setAxiosCache = async (url, response) => {
     const today = new Date();
     const cacheStorageName = `${CACHE_STORAGE_NAME_PREFIX}-${formatDate(today)}`;
-    yield deleteCache();
+    await deleteCache();
     try {
-        const cacheStorage = yield caches.open(cacheStorageName);
+        const cacheStorage = await caches.open(cacheStorageName);
         const options = {
             headers: {
                 'Content-Type': 'application/json',
             },
         };
         const axiosRes = new Response(JSON.stringify(response), options);
-        yield cacheStorage.put(url, axiosRes);
+        await cacheStorage.put(url, axiosRes);
     }
     catch (error) {
         if (error.name === 'QuotaExceededError') {
@@ -81,10 +77,10 @@ const setAxiosCache = (url, response) => __awaiter(void 0, void 0, void 0, funct
             console.error(`Set cache storage ${error}.`);
         }
     }
-});
-const deleteCache = () => __awaiter(void 0, void 0, void 0, function* () {
+};
+const deleteCache = async () => {
     try {
-        const cacheKeys = yield caches.keys();
+        const cacheKeys = await caches.keys();
         // 當天和前一天
         // eslint-disable-next-line no-restricted-syntax
         for (const cacheKey of cacheKeys) {
@@ -92,47 +88,47 @@ const deleteCache = () => __awaiter(void 0, void 0, void 0, function* () {
                 cacheKey.includes(CACHE_STORAGE_NAME_PREFIX) &&
                 isTwoDaysAgoCache(cacheKey)) {
                 // eslint-disable-next-line no-await-in-loop
-                yield caches.delete(cacheKey);
+                await caches.delete(cacheKey);
             }
         }
     }
     catch (error) {
         console.error(`Delete cache storage ${error}.`);
     }
-});
+};
 const isTwoDaysAgoCache = (cacheKey) => {
     const twoDaysAgo = getDateDaysAgo(2);
     const cacheDateString = cacheKey.replace(`${CACHE_STORAGE_NAME_PREFIX}-`, '');
     const cacheDate = new Date(cacheDateString);
     return twoDaysAgo >= cacheDate;
 };
-const getCache = (cacheKey, url) => __awaiter(void 0, void 0, void 0, function* () {
+const getCache = async (cacheKey, url) => {
     try {
-        const cacheStorage = yield caches.open(cacheKey);
-        const cachedResponse = yield cacheStorage.match(url);
-        const cachedBody = yield (cachedResponse === null || cachedResponse === void 0 ? void 0 : cachedResponse.json());
+        const cacheStorage = await caches.open(cacheKey);
+        const cachedResponse = await cacheStorage.match(url);
+        const cachedBody = await cachedResponse?.json();
         return { cache: cachedBody };
     }
     catch (error) {
         return { error: new CacheError(error) };
     }
-});
-const getLatestCache = (url) => __awaiter(void 0, void 0, void 0, function* () {
-    const cacheKeys = yield caches.keys();
+};
+const getLatestCache = async (url) => {
+    const cacheKeys = await caches.keys();
     const sortedCache = cacheKeys.reverse();
     let latestCache;
     // eslint-disable-next-line no-restricted-syntax
     for (const cacheKey of sortedCache) {
         // eslint-disable-next-line no-await-in-loop
-        latestCache = yield getCache(cacheKey, url);
-        if (latestCache === null || latestCache === void 0 ? void 0 : latestCache.error)
-            console.error(latestCache === null || latestCache === void 0 ? void 0 : latestCache.error);
-        if (latestCache === null || latestCache === void 0 ? void 0 : latestCache.cache)
+        latestCache = await getCache(cacheKey, url);
+        if (latestCache?.error)
+            console.error(latestCache?.error);
+        if (latestCache?.cache)
             return latestCache.cache;
     }
     console.warn('Cannot find any cache.');
-});
-const getApiUrlStrategy = (apiUrl, method = HttpMethod.GET) => {
+};
+export const getApiUrlStrategy = (apiUrl, method = HttpMethod.GET) => {
     // Because cache api only accept cache get request.
     if (method !== HttpMethod.GET) {
         return { cacheStrategy: CacheStrategy.NETWORK_ONLY };
@@ -144,7 +140,6 @@ const getApiUrlStrategy = (apiUrl, method = HttpMethod.GET) => {
     const { cacheStrategy } = whitelistItem;
     return { cacheStrategy };
 };
-exports.getApiUrlStrategy = getApiUrlStrategy;
 class CacheError extends Error {
     constructor(message) {
         super(message);
@@ -156,30 +151,28 @@ const handleResponse = (data, callback) => ({
     data,
     callback,
 });
-const handleNetworkFirst = (apiCallback, url) => __awaiter(void 0, void 0, void 0, function* () {
-    const apiRes = yield handleCallback(apiCallback);
+export const handleNetworkFirst = async (apiCallback, url) => {
+    const apiRes = await handleCallback(apiCallback);
     if (apiRes.data) {
         setAxiosCache(url, apiRes.data);
         return handleResponse(apiRes.data);
     }
-    const cacheRes = yield getLatestCache(url);
+    const cacheRes = await getLatestCache(url);
     if (cacheRes)
         return handleResponse(cacheRes);
     throw apiRes.error;
-});
-exports.handleNetworkFirst = handleNetworkFirst;
-const handleNetworkOnly = (apiCallback) => __awaiter(void 0, void 0, void 0, function* () {
-    const apiRes = yield handleCallback(apiCallback);
+};
+export const handleNetworkOnly = async (apiCallback) => {
+    const apiRes = await handleCallback(apiCallback);
     if (apiRes.data)
         return handleResponse(apiRes.data);
     throw apiRes.error;
-});
-exports.handleNetworkOnly = handleNetworkOnly;
-const handleCacheThenNetwork = (apiCallback, url) => __awaiter(void 0, void 0, void 0, function* () {
-    const cacheRes = yield getLatestCache(url);
+};
+export const handleCacheThenNetwork = async (apiCallback, url) => {
+    const cacheRes = await getLatestCache(url);
     const callback = new Promise((resolve, reject) => {
-        (() => __awaiter(void 0, void 0, void 0, function* () {
-            const apiRes = yield handleCallback(apiCallback);
+        (async () => {
+            const apiRes = await handleCallback(apiCallback);
             // 理想情況、讀到一半斷網、弱網使用
             if (apiRes.data) {
                 setAxiosCache(url, apiRes.data);
@@ -190,19 +183,26 @@ const handleCacheThenNetwork = (apiCallback, url) => __awaiter(void 0, void 0, v
                 resolve({ cache: cacheRes, error: apiRes.error });
             }
             reject(apiRes.error);
-        }))();
+        })();
     });
     return handleResponse(cacheRes, callback);
-});
-exports.handleCacheThenNetwork = handleCacheThenNetwork;
-const handleCacheStrategy = ({ cacheStrategy, apiCallback, url, }) => {
+};
+export const handleCacheStrategy = ({ cacheStrategy, apiCallback, url, }) => {
     if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
+<<<<<<< Updated upstream
         return exports.handleNetworkFirst(apiCallback, url);
     }
     if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
         return exports.handleCacheThenNetwork(apiCallback, url);
     }
     return exports.handleNetworkOnly(apiCallback);
+=======
+        return handleNetworkFirst(apiCallback, url);
+    }
+    if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
+        return handleCacheThenNetwork(apiCallback, url);
+    }
+    return handleNetworkOnly(apiCallback);
+>>>>>>> Stashed changes
 };
-exports.handleCacheStrategy = handleCacheStrategy;
 //# sourceMappingURL=cacheManager.service.js.map
