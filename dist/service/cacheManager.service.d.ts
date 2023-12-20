@@ -22,7 +22,7 @@ declare class CacheError extends Error {
     constructor(message: string);
 }
 type CaughtError = null | Error | AxiosError | CacheError;
-export interface FulfillFormat<T = any> {
+interface FulfillFormat<T = any> {
     data?: AxiosResponse<T>;
     cache?: AxiosResponse<T>;
     error?: CaughtError;

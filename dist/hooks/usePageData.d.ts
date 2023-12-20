@@ -13,7 +13,7 @@ export interface PageContext {
  * when you use this hook, outside component should use React.memo() to prevent rerender. (trigger by useCountdown)
  */
 export declare const usePageData: ({ startDate, endDate, nextPage, isResultPage, endedText, test, init, }: PageContext) => {
-    mockLeaderboard: import("../types").User[];
+    mockLeaderboard: import("..").User[];
     countdownText: string;
     status: TimeStatus;
 };

@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const hosts = ['https://17.live', 'https://sta.17.live'];
 // to store recognized host in sessionStorage
 const KEY_17LIVE_HOST = '17live/17LIVE_HOST';
@@ -31,5 +29,5 @@ const open = (openID) => sendMessage({
     type: '17live/Event/EVENT_SEND_AVATAR_LINK',
     payload: openID,
 });
-exports.default = open;
+export default open;
 //# sourceMappingURL=17liveMessageTunnel.js.map
