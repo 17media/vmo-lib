@@ -5,6 +5,80 @@ import sh from 'sh-exec';
 import fs from 'fs';
 import path from 'path';
 
+const exportPaths = {
+  './package.json': './package.json',
+  '.': {
+    module: {
+      types: './index.d.ts',
+      default: './index.js',
+    },
+    default: {
+      types: './index.d.ts',
+      default: './index.js',
+    },
+  },
+  './components': {
+    module: {
+      types: './components/index.d.ts',
+      default: './components/index.js',
+    },
+    default: {
+      types: './components/index.d.ts',
+      default: './components/index.js',
+    },
+  },
+  './constants': {
+    module: {
+      types: './constants/index.d.ts',
+      default: './constants/index.js',
+    },
+    default: {
+      types: './constants/index.d.ts',
+      default: './constants/index.js',
+    },
+  },
+  './hooks': {
+    module: {
+      types: './hooks/index.d.ts',
+      default: './hooks/index.js',
+    },
+    default: {
+      types: './hooks/index.d.ts',
+      default: './hooks/index.js',
+    },
+  },
+  './enums': {
+    module: {
+      types: './enums.d.ts',
+      default: './enums.js',
+    },
+    default: {
+      types: './enums.d.ts',
+      default: './enums.js',
+    },
+  },
+  './types': {
+    module: {
+      types: './types.d.ts',
+      default: './types.js',
+    },
+    default: {
+      types: './types.d.ts',
+      default: './types.js',
+    },
+  },
+  './utils': {
+    module: {
+      types: './utils.d.ts',
+      default: './utils.js',
+    },
+    default: {
+      types: './utils.d.ts',
+      default: './utils.js',
+    },
+  },
+};
+
 // ghpages.publish(
 //   'out',
 //   {
@@ -39,13 +113,16 @@ import path from 'path';
     // main: 'index.js',
     module: 'vmo.js',
     types: 'vmo.d.ts',
-    name: 'vmo-lib-v2',
+    exports: exportPaths,
+    // name: 'vmo-lib-v2',
   };
 
   // @ts-ignore
   delete newPkgJSON.main;
 
-  const releaseVersion = `version/${newPkgJSON.version}`;
+  // const releaseVersion = `version/${newPkgJSON.version}`;
+
+  const releaseVersion = `version/0.0.1`;
 
   console.log('Start building ..');
 

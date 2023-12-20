@@ -80,5 +80,5 @@
     }
   },
   "include": ["lib/**/*.ts"],
-  "exclude": ["lib/__test__/**/*.ts", "lib/hooks/__test__/*.ts", "./dist"]
+  "exclude": ["lib/__test__/**/*.ts", "lib/**/__test__/*.ts", "./dist"]
 }
