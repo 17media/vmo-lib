@@ -12,19 +12,19 @@
 // import { useFollower } from './useFollower';
 // import { useCheckWebview } from './useCheckWebview';
 // import { useCacheImage } from './useCacheImage';
-export * from './useCountdown';
-export * from './useItemTransition';
-export * from './usePageData';
-export * from './useAutoNext';
-export * from './useMockLeaderboard';
-export * from './useLuckyDraw';
-export * from './useSyncScroll';
-export * from './useTypeApi';
-export * from './useFilter';
-export * from './useScrollToLoadingContainer';
-export * from './useKeyboard';
-export * from './useFollower';
-export * from './useCheckWebview';
+export { default as useCountdown } from './useCountdown';
+export { default as useItemTransition } from './useItemTransition';
+export { default as usePageData } from './usePageData';
+export { default as useAutoNext } from './useAutoNext';
+export { default as useMockLeaderboard } from './useMockLeaderboard';
+export { default as useLuckyDraw } from './useLuckyDraw';
+export { default as useSyncScroll } from './useSyncScroll';
+export { default as useTypeApi } from './useTypeApi';
+export { default as useFilter } from './useFilter';
+export { default as useScrollToLoadingContainer } from './useScrollToLoadingContainer';
+export { default as useKeyboard } from './useKeyboard';
+export { default as useFollower } from './useFollower';
+export { default as useCheckWebview } from './useCheckWebview';
 // export default {
 //   useAutoNext,
 //   useCountdown,
