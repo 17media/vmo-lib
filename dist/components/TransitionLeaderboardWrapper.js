@@ -9,13 +9,8 @@ const Wrapper = styled.div `
 const transitionStyle = {
     transition: 'all 0.5s ease 0.3s',
 };
-<<<<<<< Updated upstream
-exports.TransitionLeaderboardWrapper = react_1.default.memo(({ user, itemStyle, rowCount, children }) => {
-    const { itemTransitionStyle } = useItemTransition_1.default(itemStyle, transitionStyle, rowCount, user.map(u => u.rank));
-=======
 export const TransitionLeaderboardWrapper = React.memo(({ user, itemStyle, rowCount, children }) => {
     const { itemTransitionStyle } = useItemTransition(itemStyle, transitionStyle, rowCount, user.map(u => u.rank));
->>>>>>> Stashed changes
     function renderChild() {
         return React.Children.map(children, (child, index) => {
             if (!React.isValidElement(child) ||

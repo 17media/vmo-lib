@@ -1,6 +1,6 @@
 import React from 'react';
 import { User } from '../types';
-declare type Props = (allCandidates: User[], willAutoDrawRemainCount?: Boolean) => {
+type Props = (allCandidates: User[], willAutoDrawRemainCount?: Boolean) => {
     candidates: User[];
     winners: User[];
     allWinners: User[][];

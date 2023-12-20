@@ -1,5 +1,1 @@
-<<<<<<< Updated upstream
-{"version":3,"file":"enums.js","sourceRoot":"","sources":["../lib/enums.ts"],"names":[],"mappings":";;;AAAA,wDAAwD;AACxD,IAAY,UAGX;AAHD,WAAY,UAAU;IACpB,2CAAI,CAAA;IACJ,+CAAM,CAAA;AACR,CAAC,EAHW,UAAU,GAAV,kBAAU,KAAV,kBAAU,QAGrB"}
-=======
-{"version":3,"file":"enums.js","sourceRoot":"","sources":["../lib/enums.ts"],"names":[],"mappings":"AAAA,wDAAwD;AACxD,MAAM,CAAN,IAAY,UAGX;AAHD,WAAY,UAAU;IACpB,2CAAI,CAAA;IACJ,+CAAM,CAAA;AACR,CAAC,EAHW,UAAU,KAAV,UAAU,QAGrB;AAED,MAAM,CAAN,IAAY,GAIX;AAJD,WAAY,GAAG;IACb,kBAAW,CAAA;IACX,kBAAW,CAAA;IACX,oBAAa,CAAA;AACf,CAAC,EAJW,GAAG,KAAH,GAAG,QAId"}
->>>>>>> Stashed changes
+{"version":3,"file":"enums.js","sourceRoot":"","sources":["../lib/enums.ts"],"names":[],"mappings":"AAAA,wDAAwD;AACxD,MAAM,CAAN,IAAY,UAGX;AAHD,WAAY,UAAU;IACpB,2CAAI,CAAA;IACJ,+CAAM,CAAA;AACR,CAAC,EAHW,UAAU,KAAV,UAAU,QAGrB"}

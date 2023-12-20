@@ -23,26 +23,15 @@ const animation = (duration, callback) => {
  * @param givenScore 給定的值
  * @param duration 動態改變值的時間, default 1000
  */
-<<<<<<< Updated upstream
 const useScore = (givenScore, duration = 1000, regionLanguage) => {
-    const [score, setScore] = react_1.useState(givenScore);
-    react_1.useEffect(() => {
-=======
-const useScore = ({ givenScore, duration = 1000, regionLanguage, }) => {
     const [score, setScore] = useState(givenScore);
     useEffect(() => {
->>>>>>> Stashed changes
         animation(duration, percent => {
             const newScore = score + Math.round(percent * (givenScore - score));
             setScore(newScore);
         });
-<<<<<<< Updated upstream
     }, [givenScore]);
-    return utils_1.numberFormat(score, regionLanguage);
-=======
-    }, [duration, givenScore, score]);
     return numberFormat(score, regionLanguage);
->>>>>>> Stashed changes
 };
 export default useScore;
 //# sourceMappingURL=useScore.js.map

@@ -19,17 +19,7 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
     limit: 1000,
     cursor: '',
     withoutOnliveInfo: false,
-<<<<<<< Updated upstream
 }, }) => {
-    const [requestError, setRequestError] = react_1.useState();
-    const [leaderboardData, setLeaderboardData] = react_1.useState(initialData);
-    const [suspend, setSuspend] = react_1.useState(false);
-    const [reload, setReload] = react_1.useState(false);
-    const timeoutKey = react_1.useRef(0);
-    const { limit, cursor, withoutOnliveInfo } = opt;
-    const initialConfig = react_1.useMemo(() => ({
-=======
-}, env, }) => {
     const [requestError, setRequestError] = useState();
     const [leaderboardData, setLeaderboardData] = useState(initialData);
     const [suspend, setSuspend] = useState(false);
@@ -37,7 +27,6 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
     const timeoutKey = useRef(0);
     const { limit, cursor, withoutOnliveInfo } = opt;
     const initialConfig = useMemo(() => ({
->>>>>>> Stashed changes
         cacheData: [],
         networkData: [],
         options: [],
@@ -61,23 +50,6 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
             ];
         });
     }
-<<<<<<< Updated upstream
-    const [cacheData, setCacheData] = react_1.useState(initialConfig.cacheData);
-    const [networkData, setNetworkData] = react_1.useState(initialConfig.networkData);
-    const [options, setOptions] = react_1.useState(initialConfig.options);
-    const [loading, setLoading] = react_1.useState(false);
-    const [polling, setPolling] = react_1.useState(false);
-    const sourceRef = react_1.useRef(initialConfig.sources);
-    const isFirstInitRef = react_1.useRef(true);
-    const isFirstInitErrorRef = react_1.useRef(false);
-    const shouldDelayRef = react_1.useRef(false);
-    const hasInitCacheRef = react_1.useRef(false);
-    const finishedGetLBProcessRef = react_1.useRef(false);
-    const reacquireCountRef = react_1.useRef(0);
-    const finalCacheStrategyRef = react_1.useRef();
-    const { cacheStrategy: defaultCacheStrategy } = react_1.useMemo(() => cacheManager_service_1.getApiUrlStrategy(endpoint, cacheManager_service_1.HttpMethod.GET), []);
-    const getApiPromiseList = react_1.useCallback((apis = [], strategy) => apis
-=======
     const [cacheData, setCacheData] = useState(initialConfig.cacheData);
     const [networkData, setNetworkData] = useState(initialConfig.networkData);
     const [options, setOptions] = useState(initialConfig.options);
@@ -92,8 +64,7 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
     const reacquireCountRef = useRef(0);
     const finalCacheStrategyRef = useRef();
     const { cacheStrategy: defaultCacheStrategy } = useMemo(() => getApiUrlStrategy(endpoint, HttpMethod.GET), []);
-    const getApiPromiseList = useCallback((strategy, apis = []) => apis
->>>>>>> Stashed changes
+    const getApiPromiseList = useCallback((apis, strategy) => apis
         .map((type, index) => {
         /**
          * 有 2 種情況會有下一次的 api promise
@@ -101,13 +72,8 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
          * 2. 還未讀取完成，有回傳cursor
          * 其他情況都不需要api promise，回傳null，最後會filter掉
          * */
-<<<<<<< Updated upstream
-        if (isFirstInitRef.current || ((_a = options[index]) === null || _a === void 0 ? void 0 : _a.cursor)) {
-            return leaderboardEventory_service_1.getLeaderboardEventory({
-=======
         if (isFirstInitRef.current || options[index]?.cursor) {
             return getLeaderboardEventory({
->>>>>>> Stashed changes
                 type,
                 cancelToken: sourceRef.current[index].token,
                 limit: options[index]?.limit,
@@ -119,11 +85,7 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
         return undefined;
     })
         .filter((i) => Boolean(i)), [options]);
-<<<<<<< Updated upstream
-    const getRequestApiIndex = react_1.useCallback((apis = []) => apis
-=======
     const getRequestApiIndex = useCallback((apis = []) => apis
->>>>>>> Stashed changes
         .map((_, index) => {
         if (isFirstInitRef.current || options[index]?.cursor) {
             return index;
@@ -131,11 +93,7 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
         return undefined;
     })
         .filter((i) => Number.isFinite(i)), [options]);
-<<<<<<< Updated upstream
-    const setOthersStrategyData = react_1.useCallback((results, requestApiIndex) => {
-=======
     const setOthersStrategyData = useCallback((results, requestApiIndex) => {
->>>>>>> Stashed changes
         setNetworkData(pre => {
             if (!pre)
                 return results.map(result => result.data.data.data);
@@ -151,11 +109,7 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
         });
         return results;
     }, []);
-<<<<<<< Updated upstream
-    const setCacheThenNetworkData = react_1.useCallback((results, requestApiIndex) => __awaiter(void 0, void 0, void 0, function* () {
-=======
     const setCacheThenNetworkData = useCallback(async (results, requestApiIndex) => {
->>>>>>> Stashed changes
         /**
          * CacheStrategy === CACHE_THEN_NETWORK
          * 首筆資料一定是先使用 cache，之後的資料是看 callbackResponses 回應模式
@@ -177,12 +131,8 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
         }
         // 如果需要 delay 下一次的 request，且不是一開始就斷網，執行 delay
         if (!isFirstInitErrorRef.current && shouldDelayRef.current) {
-            yield utils_1.sleep(1000);
-            setReload(false);
-<<<<<<< Updated upstream
-=======
             await sleep(1000);
->>>>>>> Stashed changes
+            setReload(false);
         }
         const networkCallbacks = results.map(result => result.callback);
         const callbackResponses = await Promise.all(networkCallbacks);
@@ -219,13 +169,8 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
             return newData;
         });
         return callbackResponses;
-<<<<<<< Updated upstream
-    }), []);
-    const getNextOptions = react_1.useCallback((results, requestApiIndex, strategy) => options.map((option, index) => {
-=======
     }, []);
     const getNextOptions = useCallback((results, requestApiIndex, strategy) => options.map((option, index) => {
->>>>>>> Stashed changes
         const foundIndex = requestApiIndex.findIndex(targetIndex => index === targetIndex);
         if (foundIndex >= 0) {
             const dataSource = isFirstInitErrorRef.current ? 'cache' : 'data';
@@ -238,11 +183,7 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
         }
         return option;
     }), [opt.limit, opt.withoutOnliveInfo, options]);
-<<<<<<< Updated upstream
-    const handleLeaderboardData = react_1.useCallback((apis = []) => __awaiter(void 0, void 0, void 0, function* () {
-=======
     const handleLeaderboardData = useCallback(async (apis = []) => {
->>>>>>> Stashed changes
         setRequestError(undefined);
         const loadingStatus = isFirstInitRef.current && reacquireCountRef.current < 1;
         setLoading(loadingStatus);
@@ -251,11 +192,7 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
             finalCacheStrategyRef.current = cacheStrategy;
         }
         if (!finalCacheStrategyRef.current) {
-<<<<<<< Updated upstream
-            const isCacheSupported = yield cacheManager_service_1.checkCacheUsable();
-=======
             const isCacheSupported = await checkCacheUsable();
->>>>>>> Stashed changes
             finalCacheStrategyRef.current = isCacheSupported
                 ? cacheStrategy ?? defaultCacheStrategy
                 : CacheStrategy.NETWORK_ONLY;
@@ -308,29 +245,17 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
         setCacheThenNetworkData,
         setOthersStrategyData,
     ]);
-<<<<<<< Updated upstream
-    const handleLeaderboardDataStrategy = react_1.useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
-        handleLeaderboardData(apiList);
-    }), [apiList, handleLeaderboardData]);
-    const refresh = react_1.useCallback(() => {
-=======
     const handleLeaderboardDataStrategy = useCallback(async () => {
         handleLeaderboardData(apiList);
     }, [apiList, handleLeaderboardData]);
     const refresh = useCallback(() => {
->>>>>>> Stashed changes
         setCacheData(initialConfig.cacheData);
         setNetworkData(initialConfig.networkData);
         isFirstInitRef.current = true;
         isFirstInitErrorRef.current = false;
         handleLeaderboardDataStrategy();
     }, [handleLeaderboardDataStrategy, initialConfig]);
-<<<<<<< Updated upstream
-    const getFinishedRetrievedAllNetworkData = react_1.useCallback(() => networkData === null || networkData === void 0 ? void 0 : networkData.every((data, index) => {
-        var _a;
-=======
     const getFinishedRetrievedAllNetworkData = useCallback(() => networkData?.every((data, index) => {
->>>>>>> Stashed changes
         // 需要確保option已經被設定完成
         if (!finishedGetLBProcessRef.current)
             return false;
@@ -347,20 +272,12 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
     /**
      * 讀到一半斷網：重新執行 geLeaderboardData
      * */
-<<<<<<< Updated upstream
-    react_1.useEffect(() => {
-=======
     useEffect(() => {
->>>>>>> Stashed changes
         if (reload) {
             handleLeaderboardDataStrategy();
         }
     }, [apiList, handleLeaderboardData, handleLeaderboardDataStrategy, reload]);
-<<<<<<< Updated upstream
-    react_1.useEffect(() => {
-=======
     useEffect(() => {
->>>>>>> Stashed changes
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'hidden') {
                 setSuspend(true);
@@ -374,28 +291,14 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
             document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
     }, []);
-<<<<<<< Updated upstream
-    // 計數每次重新取得全部資料
-    react_1.useEffect(() => {
-=======
-    useEffect(() => {
-        if (isFirstInitRef.current && hasInitCacheRef.current) {
-            setLoading(false);
-        }
-    }, [cacheData, initialConfig.cacheData]);
     // 計數每次重新取得全部資料
     useEffect(() => {
->>>>>>> Stashed changes
         const finishedRetrievedAllNetworkData = getFinishedRetrievedAllNetworkData();
         if (finishedRetrievedAllNetworkData && networkData.length > 0) {
             reacquireCountRef.current += 1;
         }
     }, [networkData, getFinishedRetrievedAllNetworkData]);
-<<<<<<< Updated upstream
-    react_1.useEffect(() => {
-=======
     useEffect(() => {
->>>>>>> Stashed changes
         const canSetNetworkData = networkData.some(data => data.length > 0);
         const dataSource = canSetNetworkData ? networkData : cacheData;
         // 全部資料只取1次(不需自動重發api更新資料)
@@ -416,22 +319,14 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
         }
     }, [networkData, cacheData, options, realTime, apiList]);
     // 當需要取得更多資料時，使用最新的options重新執行handleLeaderboardData
-<<<<<<< Updated upstream
-    react_1.useEffect(() => {
-=======
     useEffect(() => {
->>>>>>> Stashed changes
         const hasMore = options.find(option => option.cursor);
         if (hasMore) {
             handleLeaderboardDataStrategy();
         }
     }, [handleLeaderboardDataStrategy, options]);
     // 重複取得LB資料
-<<<<<<< Updated upstream
-    react_1.useEffect(() => {
-=======
     useEffect(() => {
->>>>>>> Stashed changes
         if (polling || suspend)
             return;
         const finishedRetrievedAllNetworkData = getFinishedRetrievedAllNetworkData();
@@ -447,11 +342,7 @@ export const useTypeApi = ({ apiList = [], realTime, initialData, cacheStrategy,
         }
     }, [getFinishedRetrievedAllNetworkData, polling, realTime, refresh, suspend]);
     // init handleLeaderboardDataStrategy
-<<<<<<< Updated upstream
-    react_1.useEffect(() => {
-=======
     useEffect(() => {
->>>>>>> Stashed changes
         if (suspend || !isFirstInitRef.current)
             return;
         handleLeaderboardDataStrategy();

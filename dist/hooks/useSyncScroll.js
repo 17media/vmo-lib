@@ -4,13 +4,8 @@ import { useRef } from 'react';
  */
 export const useSyncScroll = () => {
     // element which want to handle scroll
-<<<<<<< Updated upstream
-    const elPoolRef = react_1.useRef([]);
-    const handleSroll = (e) => {
-=======
     const elPoolRef = useRef([]);
-    const handleScroll = (e) => {
->>>>>>> Stashed changes
+    const handleSroll = (e) => {
         if (!elPoolRef.current)
             return;
         Array.from(elPoolRef.current).forEach(el => {

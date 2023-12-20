@@ -18,7 +18,7 @@ export interface Response<T> {
     nextCursor: string;
     type: string;
 }
-declare type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
+type FetchURL = Omit<Params, 'cancelToken' | 'callback' | 'preData'> & {
     apiEndpoint: string;
 };
 /**

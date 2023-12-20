@@ -120,7 +120,7 @@ export const useTypeApi = ({
   );
 
   const getApiPromiseList = useCallback(
-    (apis: APIType[] = [], strategy: CacheStrategy) =>
+    (apis: APIType[], strategy: CacheStrategy) =>
       apis
         .map((type: APIType, index) => {
           /**
@@ -269,7 +269,7 @@ export const useTypeApi = ({
   );
 
   const getNextOptions = useCallback(
-    (results, requestApiIndex: number[], strategy: CacheStrategy) =>
+    (results: any, requestApiIndex: number[], strategy: CacheStrategy) =>
       options.map((option, index) => {
         const foundIndex = requestApiIndex.findIndex(
           targetIndex => index === targetIndex,
@@ -349,7 +349,7 @@ export const useTypeApi = ({
           finalCacheStrategyRef.current,
         );
       } catch (error) {
-        setRequestError(error);
+        setRequestError(error as any);
         if (
           finalCacheStrategyRef.current !== CacheStrategy.CACHE_THEN_NETWORK
         ) {

@@ -1,13 +1,8 @@
 import { isClient, isAndroid, isIOS, isMobile } from '../utils';
 import tunnelOpen from '../17liveMessageTunnel';
 const open = (userID, openID, streamID = 0) => {
-<<<<<<< Updated upstream
-    if (utils_1.isMobile(window.navigator.userAgent)) {
-        if (utils_1.isAndroid(window.navigator.userAgent)) {
-=======
     if (isMobile(window.navigator.userAgent)) {
         if (isAndroid(window.navigator.userAgent)) {
->>>>>>> Stashed changes
             if (streamID > 0) {
                 window.location.href = `http://17.media/share/live/${streamID}`;
                 return;
@@ -18,11 +13,7 @@ const open = (userID, openID, streamID = 0) => {
                 return;
             }
         }
-<<<<<<< Updated upstream
-        if (utils_1.isIOS(window.navigator.userAgent)) {
-=======
         if (isIOS(window.navigator.userAgent)) {
->>>>>>> Stashed changes
             if (streamID > 0) {
                 window.location.href = `media17://live/${streamID}`;
                 return;
@@ -33,11 +24,7 @@ const open = (userID, openID, streamID = 0) => {
     else {
         if (window.parent !== window) {
             // 17.live
-<<<<<<< Updated upstream
-            _17liveMessageTunnel_1.default(openID);
-=======
             tunnelOpen(openID);
->>>>>>> Stashed changes
             return;
         }
         if (streamID > 0) {
@@ -53,11 +40,7 @@ const open = (userID, openID, streamID = 0) => {
  * @returns 取得 followers 資料以及 errMsg 判斷是否有問題
  */
 const handleClickAvatar = (userID, openID, streamID = 0) => {
-<<<<<<< Updated upstream
-    if (!utils_1.isClient()) {
-=======
     if (!isClient()) {
->>>>>>> Stashed changes
         console.warn('can only use in client side.');
         return;
     }

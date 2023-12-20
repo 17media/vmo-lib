@@ -19,7 +19,7 @@ const useTranslation = (eventType: string, supportLangs: RegionLanguage[]) => {
     new Map(),
   );
   const getTranslation = useCallback(
-    async langs => {
+    async (langs: any) => {
       if (eventType) {
         const response: ITranslation[] = await getTranslationService(eventType);
         if (response && response.length > 0) {

@@ -21,7 +21,7 @@ export declare const getApiUrlStrategy: (apiUrl: string, method?: HttpMethod) =>
 declare class CacheError extends Error {
     constructor(message: string);
 }
-declare type CaughtError = null | Error | AxiosError | CacheError;
+type CaughtError = null | Error | AxiosError | CacheError;
 interface FulfillFormat<T = any> {
     data?: AxiosResponse<T>;
     cache?: AxiosResponse<T>;

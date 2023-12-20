@@ -22,11 +22,6 @@ const defaultUser = {
         },
     },
 };
-<<<<<<< Updated upstream
-exports.usersID = new Array(100).fill(0).map(() => uuid_1.v4());
-const createDefaultUser = (id, index, score = 1000) => (Object.assign(Object.assign({}, defaultUser), { score, rank: index + 1, userInfo: Object.assign(Object.assign({}, defaultUser.userInfo), { displayName: `user${index}`, name: `user${index}`, openID: `user${index}`, picture: '', userID: id }) }));
-exports.mockUsers = exports.usersID.map((user, index) => createDefaultUser(user, index));
-=======
 export const usersID = new Array(100).fill(0).map(() => uuidv4());
 const createDefaultUser = (id, index, score = 1000) => ({
     ...defaultUser,
@@ -42,7 +37,6 @@ const createDefaultUser = (id, index, score = 1000) => ({
     },
 });
 export const mockUsers = usersID.map((user, index) => createDefaultUser(user, index));
->>>>>>> Stashed changes
 const createMockGiftedUsers = (count, limit) => {
     const giftedUsers = new Array(count).fill(0).map(() => {
         const randomUserIndex = Math.floor(limit * Math.random());
@@ -77,26 +71,15 @@ const replaceLeaderboard = (curLeaderboard, limit) => {
  * @param stable 是否固定還是要持續增加 user
  * @param limit 最多幾名 users
  */
-<<<<<<< Updated upstream
-const useMockLeaderboard = (enable = false, initMockList = false, stable = false, limit = 100) => {
-    const [leaderboard, setLeaderboard] = react_1.useState([]);
-    const timer = react_1.useRef(0);
-    react_1.useEffect(() => {
-=======
 export const useMockLeaderboard = (enable = false, initMockList = false, stable = false, limit = 100) => {
     const [leaderboard, setLeaderboard] = useState([]);
     const timer = useRef(0);
     useEffect(() => {
->>>>>>> Stashed changes
         if (initMockList) {
             setLeaderboard(mockUsers);
         }
     }, [initMockList]);
-<<<<<<< Updated upstream
-    react_1.useEffect(() => {
-=======
     useEffect(() => {
->>>>>>> Stashed changes
         if (enable && stable) {
             setLeaderboard(mockUsers.slice(0, limit));
         }

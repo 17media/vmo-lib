@@ -45,12 +45,14 @@ type Props = (
   MaskDiv: React.FC;
 };
 
-const MaskDiv = () => (
-  <>
-    <StyledMaskDivOuter />
-    <StyledMaskDivInner />
-  </>
-);
+function MaskDiv() {
+  return (
+    <>
+      <StyledMaskDivOuter />
+      <StyledMaskDivInner />
+    </>
+  );
+}
 
 /**
  * useLuckyDraw - pass all candidates, use the draw function with number of round winners to get each round winners, remain candidates and allWinners.

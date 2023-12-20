@@ -24,19 +24,11 @@ export const getMouse = (e, canvas) => {
             offsetY += canvas.offsetTop;
         }
     }
-<<<<<<< Updated upstream
-    if (exports.isMouseEvent(e)) {
-        mx = e.pageX - offsetX;
-        my = e.pageY - offsetY;
-    }
-    if (exports.isTouchEvent(e)) {
-=======
     if (isMouseEvent(e)) {
         mx = e.pageX - offsetX;
         my = e.pageY - offsetY;
     }
     if (isTouchEvent(e)) {
->>>>>>> Stashed changes
         mx = e.touches[0].clientX - offsetX + window.scrollX;
         my = e.touches[0].clientY - offsetY + window.scrollY;
     }
@@ -44,19 +36,8 @@ export const getMouse = (e, canvas) => {
 };
 export const getDistanceBetween = (point1, point2) => Math.sqrt(
 // eslint-disable-next-line no-restricted-properties
-<<<<<<< Updated upstream
 Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
-exports.getDistanceBetween = getDistanceBetween;
-const getAngleBetween = (point1, point2) => Math.atan2(point2.x - point1.x, point2.y - point1.y);
-exports.getAngleBetween = getAngleBetween;
-const isTouchEvent = (e) => e && 'touches' in e;
-exports.isTouchEvent = isTouchEvent;
-const isMouseEvent = (e) => e && 'screenX' in e;
-exports.isMouseEvent = isMouseEvent;
-=======
-(point2.x - point1.x) ** 2 + (point2.y - point1.y) ** 2);
 export const getAngleBetween = (point1, point2) => Math.atan2(point2.x - point1.x, point2.y - point1.y);
 export const isTouchEvent = (e) => e && 'touches' in e;
 export const isMouseEvent = (e) => e && 'screenX' in e;
->>>>>>> Stashed changes
 //# sourceMappingURL=utils.js.map

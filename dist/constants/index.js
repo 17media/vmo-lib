@@ -1,22 +1,4 @@
-<<<<<<< Updated upstream
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.SENTRY_DSN_URL = exports.ONLINE_RIM_IMAGE = exports.DEFAULT_AVATAR_IMAGE = exports.AVATAR_BASE_URL = exports.AVATAR_ENDPOINT = exports.ASSETS_CND_ENDPOINT = exports.LANG_FILE_ENDPOINT = exports.IFRAME_ENDPOINT = exports.EVENTORY_OFFLINE_ENDPOINT = exports.EVENTORY_ENDPOINT = exports.GCP_CDN_HOST = exports.GCP_CDN_DOMAIN = exports.MAIN_HOST = void 0;
-exports.MAIN_HOST = 'https://vmo.17.media';
-=======
 export const MAIN_HOST = 'https://vmo.17.media';
-export const MAIN_HOST_CN = 'https://gcscdn-event-cn.17.media';
-export const MAIN_HOST_STA = 'https://sta-vmo.17.media';
-export const MAIN_HOST_STA_CN = 'https://sta-cn-mov.17.media';
-export const MAIN_HOST_UAT = 'https://uat-vmo.17.media';
-export const MAIN_HOST_UAT_CN = 'https://uat-event-cn.17.media';
-export const GOAPI_ENDPOINT = 'https://api-dsa.17app.co/api';
-export const GOAPI_ENDPOINT_STA = 'https://sta-api.17app.co/api';
-export const GOAPI_ENDPOINT_UAT = 'https://uat-api.17app.co/api';
-export const EVENT_SERVER_ENDPOINT = 'https://event-server.17app.co/api';
-export const EVENT_SERVER_ENDPOINT_STA = 'https://event-server-sta.17app.co/api';
-export const EVENT_SERVER_ENDPOINT_UAT = 'https://event-server-uat.17app.co/api';
->>>>>>> Stashed changes
 /**
  * GCP bucket
  */

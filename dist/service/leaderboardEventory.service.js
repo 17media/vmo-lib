@@ -1,5 +1,5 @@
 import { getInstanceEventory } from './axios';
-import { getGoapiUrl, getType } from '../utils';
+import { getType, isProdVmo17Media } from '../utils';
 import { handleCacheStrategy } from './cacheManager.service';
 const endpoint = `/v1/leaderboards/eventory`;
 var ErrorCode;
@@ -7,15 +7,10 @@ var ErrorCode;
     ErrorCode["TIMEOUT"] = "ECONNABORTED";
 })(ErrorCode || (ErrorCode = {}));
 const CANCEL_TIME_OUT = 5000;
-<<<<<<< Updated upstream
 const getFetchURL = (apiEndpoint, params) => {
-    const baseURL = utils_1.isProdVmo17Media()
+    const baseURL = isProdVmo17Media()
         ? 'https://api.17app.co/api'
         : 'https://sta-api.17app.co/api';
-=======
-const getFetchURL = (apiEndpoint, params, env) => {
-    const baseURL = getGoapiUrl(env);
->>>>>>> Stashed changes
     const fetchURL = new URL(baseURL + apiEndpoint);
     Object.keys(params).forEach(key => {
         const value = params[key];
@@ -31,15 +26,9 @@ const getFetchURL = (apiEndpoint, params, env) => {
  *
  * parsedCursor => {total count}:{start}:{shard size}
  */
-<<<<<<< Updated upstream
-const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) => {
+export const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, }) => {
     const params = {
-        containerID: utils_1.getType(type),
-=======
-export const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveInfo, env, }) => {
-    const params = {
-        containerID: getType(type, env),
->>>>>>> Stashed changes
+        containerID: getType(type),
         count: limit,
         cursor,
         withoutOnliveInfo,
@@ -48,39 +37,22 @@ export const getParsedURL = ({ apiEndpoint, type, limit, cursor, withoutOnliveIn
         const [timestampCursor] = cursor.split('-', 1);
         const [totalCount, start, shardSize] = timestampCursor.split(':').slice(1);
         const parsedCursor = `${totalCount}:${start}:${shardSize}`;
-<<<<<<< Updated upstream
-        const parsedParams = Object.assign(Object.assign({}, params), { cursor: parsedCursor });
-        return getFetchURL(apiEndpoint, parsedParams);
-=======
         const parsedParams = { ...params, cursor: parsedCursor };
-        return getFetchURL(apiEndpoint, parsedParams, env);
->>>>>>> Stashed changes
+        return getFetchURL(apiEndpoint, parsedParams);
     }
     return getFetchURL(apiEndpoint, params);
 };
-<<<<<<< Updated upstream
-exports.getParsedURL = getParsedURL;
 const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, }) => eventoryApi.get(apiEndpoint, {
     params: {
-        containerID: utils_1.getType(type),
-=======
-const getLBDataCallback = ({ apiEndpoint, eventoryApi, type, limit, cursor, withoutOnliveInfo, cancelToken, env, }) => eventoryApi.get(apiEndpoint, {
-    params: {
-        containerID: getType(type, env),
->>>>>>> Stashed changes
+        containerID: getType(type),
         count: limit,
         cursor,
         withoutOnliveInfo,
     },
     cancelToken,
 });
-<<<<<<< Updated upstream
-const getLeaderboardEventory = ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, strategy, }) => __awaiter(void 0, void 0, void 0, function* () {
-    const eventoryApi = axios_1.getInstanceEventory();
-=======
-export const getLeaderboardEventory = async ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, strategy, env, }) => {
-    const eventoryApi = getInstanceEventory(env);
->>>>>>> Stashed changes
+export const getLeaderboardEventory = async ({ type, cancelToken, limit = 1000, cursor = '', withoutOnliveInfo, strategy, }) => {
+    const eventoryApi = getInstanceEventory();
     if (!withoutOnliveInfo) {
         const responseHandler = (response) => response;
         const errorHandler = (error) => {
@@ -102,22 +74,14 @@ export const getLeaderboardEventory = async ({ type, cancelToken, limit = 1000, 
         eventoryApi.defaults.timeout = CANCEL_TIME_OUT;
         eventoryApi.interceptors.response.use(responseHandler, errorHandler);
     }
-<<<<<<< Updated upstream
-    const parsedURL = exports.getParsedURL({
-=======
     const parsedURL = getParsedURL({
->>>>>>> Stashed changes
         apiEndpoint: endpoint,
         type,
         limit,
         cursor,
         withoutOnliveInfo,
     });
-<<<<<<< Updated upstream
-    const responseData = yield cacheManager_service_1.handleCacheStrategy({
-=======
     const responseData = await handleCacheStrategy({
->>>>>>> Stashed changes
         cacheStrategy: strategy,
         apiCallback: getLBDataCallback({
             apiEndpoint: endpoint,

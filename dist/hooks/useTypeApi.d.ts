@@ -1,6 +1,6 @@
 import { CacheStrategy } from '../service/cacheManager.service';
 import { User, EventoryApiOption } from '../types';
-export declare type APIType = {
+export type APIType = {
     /** staging site container ID */
     sta: string;
     /** production site container ID */

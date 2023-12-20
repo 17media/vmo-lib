@@ -1,19 +1,8 @@
-<<<<<<< Updated upstream
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.sleep = exports.storeUserInfo = exports.getUserInfo = exports.copyLeaderboardDataToClipboard = exports.copyStringToClipboard = exports.getKeyboardSettings = exports.getNextLocation = exports.isClient = exports.isIOS = exports.isAndroid = exports.isMobile = exports.numberFormat = exports.cumulativeOffset = exports.isSameDate = exports.convertDateToTime = exports.getStringDateCountdownByLocalFormat = exports.getStringDateByLocalFormat = exports.getCurrentTranslateLang = exports.RegionLanguage = exports.getUserLangs = exports.debounce = exports.getType = exports.isProdVmo17Media = exports.getRandomInteger = exports.isBrowser = exports.addLeadingZeros = exports.qs = exports.globalThis = void 0;
-const enums_1 = require("./enums");
-exports.globalThis = (1, eval)('this'); // eslint-disable-line no-eval
-const qs = (search = exports.globalThis.location
-    ? exports.globalThis.location.search.slice(1)
-=======
-import { GOAPI_ENDPOINT, GOAPI_ENDPOINT_STA, GOAPI_ENDPOINT_UAT, MAIN_HOST, MAIN_HOST_CN, MAIN_HOST_STA, MAIN_HOST_STA_CN, MAIN_HOST_UAT, MAIN_HOST_UAT_CN, } from './constants';
-import { EventTypes, Env } from './enums';
+import { EventTypes } from './enums';
 // @ts-ignore
 export const globalThis = (1, eval)('this'); // eslint-disable-line no-eval
 export const qs = (search = globalThis.location
     ? globalThis.location.search.slice(1)
->>>>>>> Stashed changes
     : '') => search
     .split('&')
     .filter(Boolean)
@@ -42,54 +31,10 @@ export const getRandomInteger = (min, max) => {
     }
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
-<<<<<<< Updated upstream
-exports.getRandomInteger = getRandomInteger;
-const isProdVmo17Media = () => window.location.hostname === 'vmo.17.media' ||
+export const isProdVmo17Media = () => window.location.hostname === 'vmo.17.media' ||
     window.location.hostname === 'gcscdn-event-cn.17.media';
-exports.isProdVmo17Media = isProdVmo17Media;
-const getType = (api) => exports.isProdVmo17Media() ? api.prod : api.sta;
-exports.getType = getType;
-function debounce(func, timeout) {
-=======
-export const isProdVmo17Media = () => window.location.origin === MAIN_HOST ||
-    window.location.origin === MAIN_HOST_CN;
-export const isStagVmo17Media = () => window.location.origin === MAIN_HOST_STA ||
-    window.location.origin === MAIN_HOST_STA_CN;
-export const isUatVmo17Media = () => window.location.origin === MAIN_HOST_UAT ||
-    window.location.origin === MAIN_HOST_UAT_CN;
-export const getGoapiUrl = (env) => {
-    if (env === Env.PROD)
-        return GOAPI_ENDPOINT;
-    if (env === Env.STA)
-        return GOAPI_ENDPOINT_STA;
-    if (env === Env.UAT)
-        return GOAPI_ENDPOINT_UAT;
-    return isProdVmo17Media()
-        ? GOAPI_ENDPOINT
-        : isStagVmo17Media()
-            ? GOAPI_ENDPOINT_STA
-            : isUatVmo17Media()
-                ? GOAPI_ENDPOINT_UAT
-                : GOAPI_ENDPOINT_STA;
-};
-// default type = api.sta
-export const getType = (api, env) => {
-    if (env === Env.PROD)
-        return api.prod;
-    if (env === Env.STA)
-        return api.sta;
-    if (env === Env.UAT && api.uat)
-        return api.uat;
-    return isProdVmo17Media()
-        ? api.prod
-        : isStagVmo17Media()
-            ? api.sta
-            : isUatVmo17Media() && api.uat
-                ? api.uat
-                : api.sta;
-};
+export const getType = (api) => isProdVmo17Media() ? api.prod : api.sta;
 export function debounce(func, timeout) {
->>>>>>> Stashed changes
     let timer;
     return (...args) => {
         clearTimeout(timer);
@@ -101,13 +46,8 @@ export function debounce(func, timeout) {
 /**
  * Get browser languages or manually queryString. e.g. ?lang=ja
  */
-<<<<<<< Updated upstream
-const getUserLangs = () => {
-    const q = exports.qs();
-=======
 export const getUserLangs = () => {
     const q = qs();
->>>>>>> Stashed changes
     return Array.from(new Set([q.lang, ...window.navigator.languages].filter(Boolean)));
 };
 /**
@@ -122,11 +62,7 @@ export var RegionLanguage;
     RegionLanguage["JAPAN"] = "ja";
     RegionLanguage["EUROPE"] = "en_US";
     RegionLanguage["ARAB"] = "ar";
-<<<<<<< Updated upstream
-})(RegionLanguage = exports.RegionLanguage || (exports.RegionLanguage = {}));
-=======
 })(RegionLanguage || (RegionLanguage = {}));
->>>>>>> Stashed changes
 /**
  * Get Currently selected language from campaign setting
  * @param {RegionLanguage[]} supportLangs languages provide by campaign setting
@@ -147,11 +83,7 @@ export const getCurrentTranslateLang = (supportLangs) => {
         prefix: langCode.substr(0, 2),
         lang: langCode,
     }));
-<<<<<<< Updated upstream
-    const userLangList = exports.getUserLangs().map(lang => {
-=======
     const userLangList = getUserLangs().map(lang => {
->>>>>>> Stashed changes
         if (lang.includes('-') || lang.includes('_')) {
             const formatLang = lang.replace('-', '_').split('_');
             return `${formatLang[0].toLowerCase()}_${formatLang[1].toUpperCase()}`;
@@ -276,16 +208,9 @@ const getDetailDate = (date) => {
  */
 export const getStringDateCountdownByLocalFormat = ({ d, h, m, s, ms, }, formatText) => formatText
     .replace('D', d.toString())
-<<<<<<< Updated upstream
-    .replace('hh', exports.addLeadingZeros(h).toString())
-    .replace('mm', exports.addLeadingZeros(m).toString())
-    .replace('ss', exports.addLeadingZeros(s).toString());
-exports.getStringDateCountdownByLocalFormat = getStringDateCountdownByLocalFormat;
-=======
     .replace('hh', addLeadingZeros(h).toString())
     .replace('mm', addLeadingZeros(m).toString())
     .replace('ss', addLeadingZeros(s).toString());
->>>>>>> Stashed changes
 /**
  * Get time text which shown on countdown remaining time. * if remaining time is less than one day.
  * @param {string} dateString datetime, i.e. 2021-09-25T18:00:00+08:00
@@ -301,16 +226,9 @@ export const convertDateToTime = (dateString) => {
  * @param {string} endDate datetime, i.e. 2021-09-25T18:00:00+08:00
  * @returns {boolean}
  */
-<<<<<<< Updated upstream
-const isSameDate = (startDate, endDate) => exports.getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') ===
-    exports.getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
-exports.isSameDate = isSameDate;
-const cumulativeOffset = (element) => {
-=======
 export const isSameDate = (startDate, endDate) => getStringDateByLocalFormat(startDate, 'MM/DD/YYYY') ===
     getStringDateByLocalFormat(endDate, 'MM/DD/YYYY');
 export const cumulativeOffset = (element) => {
->>>>>>> Stashed changes
     let top = 0;
     let left = 0;
     do {
@@ -364,12 +282,6 @@ export const getKeyboardSettings = (firstPage, lastPage) => [
         type: EventTypes.CUSTOM,
         key: 'ArrowLeft',
         fn: () => {
-<<<<<<< Updated upstream
-            const search = exports.qs();
-            window.scrollTo(0, 0);
-            const query = Object.assign(Object.assign({}, search), { page: Number(search.page) > firstPage ? Number(search.page) - 1 : firstPage });
-            exports.getNextLocation(query);
-=======
             const search = qs();
             window.scrollTo(0, 0);
             const query = {
@@ -377,31 +289,21 @@ export const getKeyboardSettings = (firstPage, lastPage) => [
                 page: Number(search.page) > firstPage ? Number(search.page) - 1 : firstPage,
             };
             getNextLocation(query);
->>>>>>> Stashed changes
         },
     },
     {
         type: EventTypes.CUSTOM,
         key: 'ArrowRight',
         fn: () => {
-<<<<<<< Updated upstream
-            const search = exports.qs();
-=======
             const search = qs();
->>>>>>> Stashed changes
             window.scrollTo(0, 0);
             const query = {
                 ...search,
                 page: !search.page || Number(search.page) < lastPage
                     ? Number(search.page || firstPage) + 1
-<<<<<<< Updated upstream
-                    : search.page });
-            exports.getNextLocation(query);
-=======
                     : search.page,
             };
             getNextLocation(query);
->>>>>>> Stashed changes
         },
     },
     ...Array.from({ length: lastPage > 9 ? 9 : lastPage }).map((_, index) => ({
@@ -470,15 +372,9 @@ export const copyStringToClipboard = (str) => {
  * @param {ExtraData[]} extraDataList Setting extraData to get more than basic columns
  * @returns {boolean} copy result: success/fail
  */
-<<<<<<< Updated upstream
-const copyLeaderboardDataToClipboard = (data, extraDataList) => {
+export const copyLeaderboardDataToClipboard = (data, extraDataList) => {
     // Get mession string
     const messionStrArr = [];
-=======
-export const copyLeaderboardDataToClipboard = (data, extraDataList) => {
-    // Get mission string
-    const missionStrArr = [];
->>>>>>> Stashed changes
     if (data.length > 0) {
         const firstMission = data[0].missions;
         if (firstMission) {
@@ -574,11 +470,7 @@ export const copyLeaderboardDataToClipboard = (data, extraDataList) => {
         });
         copyArr.push(itemStr);
     });
-<<<<<<< Updated upstream
-    return exports.copyStringToClipboard(copyArr.join('\n'));
-=======
     return copyStringToClipboard(copyArr.join('\n'));
->>>>>>> Stashed changes
 };
 const userInfoStorageName = 'userInfo';
 var UserInfoParam;
@@ -587,14 +479,8 @@ var UserInfoParam;
     UserInfoParam["userID"] = "userID";
     UserInfoParam["accessToken"] = "accessToken";
 })(UserInfoParam || (UserInfoParam = {}));
-<<<<<<< Updated upstream
-const getUserInfoFromQuerystring = () => exports.qs();
-const getUserInfo = () => {
-    var _a;
-=======
 const getUserInfoFromQuerystring = () => qs();
 export const getUserInfo = () => {
->>>>>>> Stashed changes
     const { jwtAccessToken: urlJwtAccessToken, accessToken: urlAccessToken, userID: urlUserID, } = getUserInfoFromQuerystring();
     const storageUserInfo = JSON.parse(localStorage.getItem(userInfoStorageName) ?? '{}');
     const jwtAccessToken = urlJwtAccessToken ?? storageUserInfo?.jwtAccessToken;
@@ -639,13 +525,7 @@ export const storeUserInfo = () => {
         userID,
     };
 };
-<<<<<<< Updated upstream
-exports.storeUserInfo = storeUserInfo;
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-exports.sleep = sleep;
-=======
-export const sleep = (ms) => 
-// eslint-disable-next-line no-promise-executor-return
-new Promise(resolve => setTimeout(resolve, ms));
->>>>>>> Stashed changes
+export const sleep = (ms) => new Promise(resolve => {
+    setTimeout(resolve, ms);
+});
 //# sourceMappingURL=utils.js.map

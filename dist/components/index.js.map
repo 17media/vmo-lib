@@ -1,5 +1,1 @@
-<<<<<<< Updated upstream
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../lib/components/index.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,iFAA8E;AAC9E,uDAAoD;AACpD,qDAAkD;AAElD,iEAA+C;AAC/C,oDAAkC;AAClC,mDAAiC;AAEjC,kBAAe;IACb,4BAA4B,EAA5B,2DAA4B;IAC5B,eAAe,EAAf,iCAAe;IACf,cAAc,EAAd,+BAAc;CACf,CAAC"}
-=======
 {"version":3,"file":"index.js","sourceRoot":"","sources":["../../lib/components/index.ts"],"names":[],"mappings":"AAAA,iFAAiF;AACjF,uDAAuD;AACvD,qDAAqD;AAErD,cAAc,gCAAgC,CAAC;AAC/C,cAAc,mBAAmB,CAAC;AAClC,cAAc,kBAAkB,CAAC;AAEjC,mBAAmB;AACnB,kCAAkC;AAClC,qBAAqB;AACrB,oBAAoB;AACpB,KAAK"}
->>>>>>> Stashed changes

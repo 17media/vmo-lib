@@ -10,22 +10,13 @@ export var CacheStrategy;
     /** Only get data from the network, no data will be cached. */
     CacheStrategy["NETWORK_ONLY"] = "networkOnly";
     CacheStrategy["NETWORK_FIRST"] = "networkFirst";
-<<<<<<< Updated upstream
-})(CacheStrategy = exports.CacheStrategy || (exports.CacheStrategy = {}));
-var HttpMethod;
-=======
 })(CacheStrategy || (CacheStrategy = {}));
 export var HttpMethod;
->>>>>>> Stashed changes
 (function (HttpMethod) {
     HttpMethod["GET"] = "get";
     HttpMethod["POST"] = "post";
     HttpMethod["PUT"] = "put";
-<<<<<<< Updated upstream
-})(HttpMethod = exports.HttpMethod || (exports.HttpMethod = {}));
-=======
 })(HttpMethod || (HttpMethod = {}));
->>>>>>> Stashed changes
 const cacheWhitelists = [
     {
         path: '/leaderboards/eventory',
@@ -189,20 +180,11 @@ export const handleCacheThenNetwork = async (apiCallback, url) => {
 };
 export const handleCacheStrategy = ({ cacheStrategy, apiCallback, url, }) => {
     if (cacheStrategy === CacheStrategy.NETWORK_FIRST) {
-<<<<<<< Updated upstream
-        return exports.handleNetworkFirst(apiCallback, url);
-    }
-    if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
-        return exports.handleCacheThenNetwork(apiCallback, url);
-    }
-    return exports.handleNetworkOnly(apiCallback);
-=======
         return handleNetworkFirst(apiCallback, url);
     }
     if (cacheStrategy === CacheStrategy.CACHE_THEN_NETWORK) {
         return handleCacheThenNetwork(apiCallback, url);
     }
     return handleNetworkOnly(apiCallback);
->>>>>>> Stashed changes
 };
 //# sourceMappingURL=cacheManager.service.js.map

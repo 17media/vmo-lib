@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import useItemTransition, { ItemStyle } from '../hooks/useItemTransition';
 import { User } from '../types';
@@ -7,6 +7,7 @@ export interface ITransitionLeaderboardWrapperProps {
   user: User[];
   rowCount: number;
   itemStyle: ItemStyle;
+  children: any;
 }
 
 const Wrapper = styled.div`
@@ -39,7 +40,7 @@ export const TransitionLeaderboardWrapper: React.FC<ITransitionLeaderboardWrappe
         return React.cloneElement(child, {
           style: itemTransitionStyle[index],
           key: user[index].userInfo.userID,
-          ...child.props,
+          ...(child.props as any),
         });
       });
     }

@@ -4,5 +4,5 @@ import { RegionLanguage } from '../utils';
  * @param givenScore 給定的值
  * @param duration 動態改變值的時間, default 1000
  */
-declare const useScore: (givenScore: number, duration?: number, regionLanguage?: RegionLanguage | undefined) => string;
+declare const useScore: (givenScore: number, duration?: number, regionLanguage?: RegionLanguage) => string;
 export default useScore;

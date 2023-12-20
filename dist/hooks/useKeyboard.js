@@ -1,16 +1,3 @@
-<<<<<<< Updated upstream
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useKeyboard = exports.eventFunc = exports.switchPageEvent = void 0;
-const react_1 = require("react");
-const enums_1 = require("../enums");
-const utils_1 = require("../utils");
-const switchPageEvent = (page) => {
-    const search = utils_1.qs();
-    window.scrollTo(0, 0);
-    const query = Object.assign(Object.assign({}, search), { page });
-    utils_1.getNextLocation(query);
-=======
 import { useEffect } from 'react';
 import { EventTypes } from '../enums';
 import { qs, getNextLocation } from '../utils';
@@ -22,19 +9,13 @@ export const switchPageEvent = (page) => {
         page,
     };
     getNextLocation(query);
->>>>>>> Stashed changes
 };
 export const eventFunc = (event, settings) => {
     const setting = settings.find(item => item.key === event.key);
     if (setting) {
         switch (setting.type) {
-<<<<<<< Updated upstream
-            case enums_1.EventTypes.PAGE: {
-                exports.switchPageEvent(setting.page);
-=======
             case EventTypes.PAGE: {
                 switchPageEvent(setting.page);
->>>>>>> Stashed changes
                 break;
             }
             case EventTypes.CUSTOM: {
@@ -52,15 +33,9 @@ export const eventFunc = (event, settings) => {
  * @param settings Settings
  * @returns void
  */
-<<<<<<< Updated upstream
-const useKeyboard = (settings) => {
-    react_1.useEffect(() => {
-        const handleOnKeyup = (event) => exports.eventFunc(event, settings);
-=======
 export const useKeyboard = (settings) => {
     useEffect(() => {
         const handleOnKeyup = (event) => eventFunc(event, settings);
->>>>>>> Stashed changes
         window.addEventListener('keyup', handleOnKeyup);
         return () => {
             window.removeEventListener('keyup', handleOnKeyup);

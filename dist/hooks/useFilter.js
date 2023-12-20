@@ -6,17 +6,6 @@ import { debounce } from '../utils';
  * @param initialData 未經過濾的 leaderboard 資料
  * @returns data: 取得過濾後的 leaderboard 資料, handleOnChange: handle filter 資料的 method
  */
-<<<<<<< Updated upstream
-const useFilter = (initialData) => {
-    const [data, setData] = react_1.useState(initialData);
-    const [keyword, setKeyword] = react_1.useState('');
-    const getFilterData = react_1.useMemo(() => initialData.filter((item) => {
-        var _a;
-        const name = (_a = (item.userInfo.displayName || item.userInfo.openID)) !== null && _a !== void 0 ? _a : '';
-        return name.toLowerCase().includes(keyword.trim().toLowerCase());
-    }), [initialData, keyword]);
-    const handleOnChange = react_1.useMemo(() => utils_1.debounce(value => {
-=======
 export const useFilter = (initialData) => {
     const [data, setData] = useState(initialData);
     const [keyword, setKeyword] = useState('');
@@ -25,7 +14,6 @@ export const useFilter = (initialData) => {
         return name.toLowerCase().includes(keyword.trim().toLowerCase());
     }), [initialData, keyword]);
     const handleOnChange = useMemo(() => debounce(value => {
->>>>>>> Stashed changes
         setKeyword(value);
         if (!value) {
             setData(initialData);
@@ -34,11 +22,7 @@ export const useFilter = (initialData) => {
         const filterData = getFilterData;
         setData(filterData);
     }, 500), [initialData, getFilterData]);
-<<<<<<< Updated upstream
-    react_1.useEffect(() => {
-=======
     useEffect(() => {
->>>>>>> Stashed changes
         if (keyword) {
             setData(() => {
                 const filterData = getFilterData;

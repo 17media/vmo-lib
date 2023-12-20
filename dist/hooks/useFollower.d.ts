@@ -1,4 +1,4 @@
-declare type Props = (userID: string, accessToken: string, jwtAccessToken: string) => {
+type Props = (userID: string, accessToken: string, jwtAccessToken: string) => {
     followers: string[];
     errorMsg?: string;
 };

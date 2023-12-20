@@ -85,7 +85,7 @@ export declare const cumulativeOffset: (element: any) => {
  * @param {number} value digit number, i.e. 1234.56
  * @returns {string}
  */
-export declare const numberFormat: (value: number, regionLanguage?: RegionLanguage | undefined) => string;
+export declare const numberFormat: (value: number, regionLanguage?: RegionLanguage) => string;
 /**
  * check isMobile by navigator userAgent.
  */
@@ -118,7 +118,7 @@ export declare const getKeyboardSettings: (firstPage: number, lastPage: number) 
  * @returns {boolean} copy result: success/fail
  */
 export declare const copyStringToClipboard: (str: string) => boolean;
-export declare type ExtraData = {
+export type ExtraData = {
     name: string;
     filterFunction: (item: any) => string;
 };
@@ -154,7 +154,7 @@ export declare type ExtraData = {
  * @returns {boolean} copy result: success/fail
  */
 export declare const copyLeaderboardDataToClipboard: (data: LeaderboardItem[], extraDataList: ExtraData[]) => boolean;
-export declare type UserInfo = Partial<{
+export type UserInfo = Partial<{
     jwtAccessToken: string;
     accessToken: string;
     userID: string;
