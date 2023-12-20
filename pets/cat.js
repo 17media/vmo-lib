@@ -1,14 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.meow = void 0;
 // import uuid from 'uuid';
-const uuid_1 = require("uuid");
-const meow = () => {
+// import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+export const meow = () => {
     // const id = uuid.v4();
-    const id = (0, uuid_1.v4)();
+    // const id = uuidv4();
     console.log('meow !');
-    return id;
+    return axios.get('http://google.com');
+    // return id;
 };
-exports.meow = meow;
-exports.default = exports.meow;
+export default meow;
 //# sourceMappingURL=cat.js.map

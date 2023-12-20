@@ -33,17 +33,17 @@ declare const _default: {
         }[];
     };
     useMockLeaderboard: (enable?: boolean, initMockList?: boolean, stable?: boolean, limit?: number) => {
-        readonly leaderboard: import("../types").User[];
+        readonly leaderboard: import("..").User[];
     };
     usePageData: ({ startDate, endDate, nextPage, isResultPage, endedText, test, init, }: import("./usePageData").PageContext) => {
-        mockLeaderboard: import("../types").User[];
+        mockLeaderboard: import("..").User[];
         countdownText: string;
         status: import("./useCountdown").TimeStatus;
     };
-    useLuckyDraw: (allCandidates: import("../types").User[], willAutoDrawRemainCount?: Boolean | undefined) => {
-        candidates: import("../types").User[];
-        winners: import("../types").User[];
-        allWinners: import("../types").User[][];
+    useLuckyDraw: (allCandidates: import("..").User[], willAutoDrawRemainCount?: Boolean | undefined) => {
+        candidates: import("..").User[];
+        winners: import("..").User[];
+        allWinners: import("..").User[][];
         draw: (roundWinnersCount: number) => void;
         clearWinners: () => void;
         reset: () => void;
@@ -58,18 +58,18 @@ declare const _default: {
     useTypeApi: ({ apiList, realTime, initialData, cacheStrategy, opt, env, }: {
         apiList: import("./useTypeApi").APIType[];
         realTime: number;
-        initialData?: import("../types").User[][] | undefined;
+        initialData?: import("..").User[][] | undefined;
         cacheStrategy?: import("./useTypeApi").CacheStrategy | undefined;
-        opt?: import("../types").EventoryApiOption | undefined;
-        env?: import("../enums").Env | undefined;
+        opt?: import("..").EventoryApiOption | undefined;
+        env?: import("..").Env | undefined;
     }) => {
         loading: boolean;
         polling: boolean;
         requestError: any;
-        leaderboardData: import("../types").User[][] | undefined;
+        leaderboardData: import("..").User[][] | undefined;
     };
-    useFilter: (initialData: import("../types").User[]) => {
-        data: import("../types").User[];
+    useFilter: (initialData: import("..").User[]) => {
+        data: import("..").User[];
         handleOnChange: (value: any) => void;
     };
     useScrollToLoadingContainer: (loading: boolean) => void;

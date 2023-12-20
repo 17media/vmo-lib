@@ -1,37 +1,25 @@
-"use strict";
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useAutoNext = void 0;
-const react_1 = require("react");
-const utils_1 = require("../utils");
+import { useEffect } from 'react';
+import { qs, globalThis } from '../utils';
 /**
  * 線下階段結束跳轉結果頁面
  * @param isEnded 是否結束
  * @param nextPage 跳轉至哪個頁面
  */
-const useAutoNext = (isEnded, nextPage) => {
-    (0, react_1.useEffect)(() => {
-        const _a = (0, utils_1.qs)(), { page = 1 } = _a, search = __rest(_a, ["page"]);
+export const useAutoNext = (isEnded, nextPage) => {
+    useEffect(() => {
+        const { page = 1, ...search } = qs();
         if (+page === nextPage)
             return;
         if (isEnded) {
-            const query = Object.assign(Object.assign({}, search), { page: nextPage });
+            const query = {
+                ...search,
+                page: nextPage,
+            };
             const queryPath = Object.entries(query).map(([key, value]) => `${key}=${value}`);
-            const nextLocation = `${utils_1.globalThis.location.pathname}?${queryPath.join('&')}`;
-            utils_1.globalThis.location.href = nextLocation;
+            const nextLocation = `${globalThis.location.pathname}?${queryPath.join('&')}`;
+            globalThis.location.href = nextLocation;
         }
     }, [isEnded, nextPage]);
 };
-exports.useAutoNext = useAutoNext;
-exports.default = exports.useAutoNext;
+export default useAutoNext;
 //# sourceMappingURL=useAutoNext.js.map

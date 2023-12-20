@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useSyncScroll = void 0;
-const react_1 = require("react");
+import { useRef } from 'react';
 /**
  * 多個榜單同時下滑
  */
-const useSyncScroll = () => {
+export const useSyncScroll = () => {
     // element which want to handle scroll
-    const elPoolRef = (0, react_1.useRef)([]);
+    const elPoolRef = useRef([]);
     const handleScroll = (e) => {
         if (!elPoolRef.current)
             return;
@@ -20,6 +17,5 @@ const useSyncScroll = () => {
         elPoolRef,
     };
 };
-exports.useSyncScroll = useSyncScroll;
-exports.default = exports.useSyncScroll;
+export default useSyncScroll;
 //# sourceMappingURL=useSyncScroll.js.map
