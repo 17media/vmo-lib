@@ -3,7 +3,7 @@ export declare const MAIN_HOST = "https://vmo.17.media";
  * GCP bucket
  */
 export declare const GCP_CDN_DOMAIN = "webcdn.17app.co";
-export declare const GCP_CDN_HOST: string;
+export declare const GCP_CDN_HOST = "https://webcdn.17app.co";
 /**
  * Eventory Api
  *
@@ -25,7 +25,7 @@ export declare const IFRAME_ENDPOINT = "https://event.17.live";
 /**
  * e.g. https://webcdn.17app.co/campaign/projects/12027-tw-anniversary6-frontend/translations.json
  */
-export declare const LANG_FILE_ENDPOINT: string;
+export declare const LANG_FILE_ENDPOINT = "https://webcdn.17app.co/campaign/projects";
 export declare const ASSETS_CND_ENDPOINT = "https://storage.googleapis.com/media17-prod-web-assets/campaign";
 /**
  * Avatar CDN
@@ -36,15 +36,15 @@ export declare const AVATAR_ENDPOINT = "https://assets-17app.akamaized.net";
  *
  * use `userID` to compose to streamer's avatar image url.
  */
-export declare const AVATAR_BASE_URL: string;
+export declare const AVATAR_BASE_URL = "https://assets-17app.akamaized.net/THUMBNAIL_";
 /**
  * if streamer does not have avatar image, use this image instead.
  */
-export declare const DEFAULT_AVATAR_IMAGE: string;
+export declare const DEFAULT_AVATAR_IMAGE = "https://webcdn.17app.co/17live/ig-default.svg";
 /**
  * if streamer is streaming, use this image wrap around streamer's avatar.
  */
-export declare const ONLINE_RIM_IMAGE: string;
+export declare const ONLINE_RIM_IMAGE = "https://webcdn.17app.co/campaign/assets/igOfficialCircle.png";
 /**
  * sentry production dns url.
  */

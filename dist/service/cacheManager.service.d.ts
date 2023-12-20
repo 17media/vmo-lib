@@ -31,9 +31,9 @@ export interface HandleCacheStrategyResponse<T = any> {
     data?: AxiosResponse<T>;
     callback?: Promise<FulfillFormat<T>>;
 }
-export declare const handleNetworkFirst: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<HandleCacheStrategyResponse<T>>;
-export declare const handleNetworkOnly: <T = any>(apiCallback: Promise<AxiosResponse<T>>) => Promise<HandleCacheStrategyResponse<T>>;
-export declare const handleCacheThenNetwork: <T = any>(apiCallback: Promise<AxiosResponse<T>>, url: string) => Promise<HandleCacheStrategyResponse<T>>;
+export declare const handleNetworkFirst: <T = any>(apiCallback: Promise<AxiosResponse<T, any>>, url: string) => Promise<HandleCacheStrategyResponse<T>>;
+export declare const handleNetworkOnly: <T = any>(apiCallback: Promise<AxiosResponse<T, any>>) => Promise<HandleCacheStrategyResponse<T>>;
+export declare const handleCacheThenNetwork: <T = any>(apiCallback: Promise<AxiosResponse<T, any>>, url: string) => Promise<HandleCacheStrategyResponse<T>>;
 interface HandleCacheStrategyParams<T> {
     cacheStrategy: CacheStrategy;
     apiCallback: Promise<AxiosResponse<T>>;

@@ -5,34 +5,6 @@ import sh from 'sh-exec';
 import fs from 'fs';
 import path from 'path';
 
-// ghpages.publish(
-//   'out',
-//   {
-//     branch: 'release/v1.0.0',
-//     // add: true,
-//     // async beforeAdd(git) {
-//     //   return git.rm('./some-outdated-file.txt');
-//     // },
-//   },
-//   () => {},
-// );
-
-/* eslint-disable */
-
-// const getDiff = async (...packages: string[]) => {
-//   const stdout = await sh`git diff --name-only HEAD~1`;
-
-//   const modifiedPaths = (stdout.match(/^packages\/([^/]+)/gm) || []).map(
-//     filePath => filePath.split('/')[1],
-//   );
-
-//   const uniqPackages = [...new Set(modifiedPaths)].filter((pkg: string) =>
-//     packages.includes(pkg),
-//   );
-
-//   return uniqPackages;
-// };
-
 (async () => {
   const newPkgJSON = {
     ...pkgJSON,
@@ -69,9 +41,9 @@ import path from 'path';
     history: false,
   });
 
-  // await sh`
-  //   gh-pages -b ${releaseVersion} -d dist
-  // `;
+  await sh`
+    rm -rf dist
+  `;
 
-  // rm -rf dist
+  console.log(`[${releaseVersion}] Published.`);
 })();

@@ -52,7 +52,7 @@ export const useFollower: Props = (userID, accessToken, jwtAccessToken) => {
           (error as AxiosError)?.response?.data
         ) {
           setErrorMsg(
-            (error as AxiosError)?.response?.data?.errorMessage ??
+            ((error as AxiosError)?.response?.data as any)?.errorMessage ??
               'something wrong!',
           );
         } else {
