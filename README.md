@@ -1,4 +1,4 @@
-# A templates and functions library for custom event frontend
+# A templates and functions library for custom event frontend 
 
 ## When to use vmo lib?
 
