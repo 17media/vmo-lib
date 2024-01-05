@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AxiosError } from 'axios';
+import { AxiosError, isAxiosError } from 'axios';
 import { getUserFollowers } from '../service/follower.service';
 
 type Props = (
@@ -47,13 +47,11 @@ export const useFollower: Props = (userID, accessToken, jwtAccessToken) => {
         setErrorMsg('');
       } catch (error: any) {
         setFollowers([]);
-        if (
-          (error as AxiosError)?.response &&
-          (error as AxiosError)?.response?.data
-        ) {
+
+        if (isAxiosError(error)) {
           setErrorMsg(
-            ((error as AxiosError)?.response?.data as any)?.errorMessage ??
-              'something wrong!',
+            error?.response?.data?.errorMessage ??
+              'something wrong from axios error!',
           );
         } else {
           setErrorMsg('something wrong!');
