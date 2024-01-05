@@ -95,8 +95,7 @@ yarn deploy:both
 
 ## Release
 
-1. checkout master branch
-2. yarn build
-3. git tag vX.X.X
-4. git push origin vX.X.X
-5. release tag on https://github.com/17media/vmo-lib/releases/new
+1. `git checkout master`
+2. `git pull`
+3. `yarn`
+4. `yarn deploy:lib`
