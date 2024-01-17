@@ -61,6 +61,7 @@
     "react-dom": "^18.2.0",
     "react-window": "^1.8.6",
     "remove": "^0.1.5",
+    "store2": "^2.14.2",
     "styled-components": "^6.0.0-rc.3",
     "ts-loader": "^9.1.2",
     "ts-node": "^10.9.1",

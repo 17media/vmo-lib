@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import OfflineRound from './OfflineRound';
 import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
@@ -17,6 +17,7 @@ import Translation from './Translation';
 import Keyboard from './Keyboard';
 import Copy from './Copy';
 import Sentry from './Sentry';
+import cache from '../lib/service/cache.service';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] = useState<string>('Keyboard');
@@ -43,6 +44,26 @@ const App = () => {
     Copy: <Copy />,
     Sentry: <Sentry />,
   };
+
+  const sleep = (time: number) =>
+    new Promise(r => {
+      setTimeout(r, time * 1000);
+    });
+
+  useEffect(() => {
+    (async () => {
+      await cache.set('test', 'for test 1', 5);
+      await cache.set('test2', 'for test 2', 5);
+
+      await sleep(1);
+
+      const result = await cache.get('test');
+
+      // const result = await cache.get('test');
+
+      console.log(result);
+    })();
+  }, []);
 
   return (
     <div>
