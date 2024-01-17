@@ -361,7 +361,7 @@ export const useTypeApi = ({
           finalCacheStrategyRef.current,
         );
       } catch (error) {
-        setRequestError(error);
+        setRequestError(error as any);
         if (
           finalCacheStrategyRef.current !== CacheStrategy.CACHE_THEN_NETWORK
         ) {
