@@ -44,7 +44,7 @@ const cacheService = (provider: typeof idb) => {
   //   // return promise callback etc
   // };
 
-  const checkPeriod: number = 4 * 1000;
+  const checkPeriod: number = 10 * 1000;
   const metaPrefix = 'exp@';
   let timer;
 

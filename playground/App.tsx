@@ -19,6 +19,44 @@ import Copy from './Copy';
 import Sentry from './Sentry';
 import cache from '../lib/service/cache.service';
 
+// let cursor = 0;
+const taskQueue = [Promise.resolve()];
+
+async function updateCount(value: number) {
+  // console.log('cursor: ', cursor);
+
+  // cursor += 1;
+
+  await Promise.all(taskQueue);
+
+  taskQueue.push(
+    new Promise(r => {
+      (async () => {
+        const count = (await cache.get('count')) as string;
+        await cache.set('count', `${+count + value}`, 6000);
+        r();
+      })();
+    }),
+  );
+
+  console.log('taskQueue.length', taskQueue.length);
+  console.log(taskQueue);
+}
+
+async function setCount(count: number) {
+  await cache.set('count', `${count}`, 6000);
+}
+
+cache.get('count')?.then(res => {
+  // setCount(+(res as string) + 1);
+  updateCount(1);
+});
+
+cache.get('count')?.then(res => {
+  // setCount(+(res as string) + 1);
+  updateCount(1);
+});
+
 const App = () => {
   const [currentComponent, setCurrentComponent] = useState<string>('Keyboard');
   const changeComponent = (componentName: string) =>
