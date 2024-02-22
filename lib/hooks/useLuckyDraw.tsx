@@ -30,6 +30,15 @@ const StyledMaskDivInner = styled(maskDiv)`
   }
 `;
 
+const StyledAnimationContainer = styled(maskDiv)``;
+
+const StyledAnimationImg = styled.img`
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
 type Props = (
   allCandidates: User[],
   willAutoDrawRemainCount?: Boolean,
@@ -43,6 +52,7 @@ type Props = (
   currentRound: number;
   hasDraw: Boolean;
   MaskDiv: React.FC;
+  AnimationMask: ({ src }: AnimationMaskProps) => React.JSX.Element;
 };
 
 const MaskDiv = () => (
@@ -51,6 +61,25 @@ const MaskDiv = () => (
     <StyledMaskDivInner />
   </>
 );
+
+type AnimationMaskProps = {
+  src: string;
+};
+
+const AnimationMask = ({ src }: AnimationMaskProps) => {
+  const handleImageOnLoad = () => {
+    console.log('image loaded!');
+  };
+  return (
+    <StyledAnimationContainer>
+      <StyledAnimationImg
+        src={src}
+        alt="animation mask"
+        onLoad={handleImageOnLoad}
+      />
+    </StyledAnimationContainer>
+  );
+};
 
 /**
  * useLuckyDraw - pass all candidates, use the draw function with number of round winners to get each round winners, remain candidates and allWinners.
@@ -164,6 +193,7 @@ export const useLuckyDraw: Props = (
     reset,
     currentRound,
     MaskDiv,
+    AnimationMask,
   };
 };
 export default useLuckyDraw;
