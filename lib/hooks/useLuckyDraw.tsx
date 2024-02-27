@@ -60,6 +60,7 @@ type Props = (
   MaskDiv: React.FC;
   AnimationMask: any;
   isAnimationPlaying: boolean;
+  /** must send it to update props of Animation */
   setIsAnimationPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -83,9 +84,21 @@ const GifPlayer = ({
   onStart = () => {},
   onEnded = () => {},
 }: GifPlayerProps) => {
+  const FAILED_TO_FETCH = 'Failed to fetch';
   const [state, update] = usePlayerState();
-  useWorkerParser(src, update);
-  onStart();
+  useWorkerParser(src, info => {
+    if (
+      (info as any).error &&
+      (info as any).error.message === FAILED_TO_FETCH
+    ) {
+      console.warn(FAILED_TO_FETCH);
+      onEnded();
+      update(() => ({ autoPlay: false, playing: false }));
+      return;
+    }
+    onStart();
+    update(() => ({ ...info }));
+  });
   usePlayback(state, () => {
     if (state.length !== 0 && state.index === state.length - 1) {
       onEnded();
