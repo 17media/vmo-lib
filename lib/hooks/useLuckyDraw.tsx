@@ -87,10 +87,7 @@ const GifPlayer = ({
   const FAILED_TO_FETCH = 'Failed to fetch';
   const [state, update] = usePlayerState();
   useWorkerParser(src, info => {
-    if (
-      (info as any).error &&
-      (info as any).error.message === FAILED_TO_FETCH
-    ) {
+    if ('error' in info && info.error.message === FAILED_TO_FETCH) {
       console.warn(FAILED_TO_FETCH);
       onEnded();
       update(() => ({ autoPlay: false, playing: false }));
