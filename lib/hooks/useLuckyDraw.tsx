@@ -85,10 +85,8 @@ const GifPlayer = ({
 }: GifPlayerProps) => {
   const [state, update] = usePlayerState();
   useWorkerParser(src, update);
+  onStart();
   usePlayback(state, () => {
-    if (state.length !== 0 && state.index === 0 && state.playing) {
-      onStart();
-    }
     if (state.length !== 0 && state.index === state.length - 1) {
       onEnded();
       return update(() => ({ playing: false }));
