@@ -120,6 +120,8 @@ const LuckyDraw = React.memo(() => {
         <div>
           <label htmlFor="animationMask">
             使用動畫過場(目前僅支援 .gif)
+            {/*
+             */}
             <input
               id="animationMask"
               type="checkbox"

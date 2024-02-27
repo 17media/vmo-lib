@@ -47,7 +47,7 @@ const StyledAnimationContainer = styled(maskDiv)`
 
 type Props = (
   allCandidates: User[],
-  willAutoDrawRemainCount?: Boolean,
+  willAutoDrawRemainCount?: boolean,
 ) => {
   candidates: User[];
   winners: User[];
@@ -56,10 +56,10 @@ type Props = (
   clearWinners: () => void;
   reset: () => void;
   currentRound: number;
-  hasDraw: Boolean;
+  hasDraw: boolean;
   MaskDiv: React.FC;
   AnimationMask: any;
-  isAnimationPlaying: Boolean;
+  isAnimationPlaying: boolean;
   setIsAnimationPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
