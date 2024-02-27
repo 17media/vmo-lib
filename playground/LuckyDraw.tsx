@@ -53,11 +53,10 @@ const LuckyDraw = React.memo(() => {
   const [drawCount, setDrawCount] = useState<number>(20);
   const [willAutoDrawRemainCount, setwillAutoDrawRemainCount] =
     useState<boolean>(true);
-  const [animationImageSrc, setAnimationImageSrc] = useState<string>('');
   const [useAnimationMask, setUseAnimationMask] = useState<boolean>(false);
+  const [animationImageSrc, setAnimationImageSrc] = useState<string>('');
   const {
     MaskDiv,
-    AnimationMask,
     hasDraw,
     candidates,
     winners,
@@ -66,6 +65,9 @@ const LuckyDraw = React.memo(() => {
     draw,
     clearWinners,
     reset,
+    AnimationMask,
+    isAnimationPlaying,
+    setIsAnimationPlaying,
   } = useLuckyDraw(allCandidates, willAutoDrawRemainCount);
   const href = window.localStorage.getItem(window.location.href);
   const recordAllWinners = href ? JSON.parse(href) : [];
@@ -83,14 +85,14 @@ const LuckyDraw = React.memo(() => {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => setwillAutoDrawRemainCount(e.target.checked);
 
+  const handleUseAnimationMask = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUseAnimationMask(e.target.checked);
+
   const handleAnimationMaskImageSrc = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setAnimationImageSrc(e.target.value);
   };
-
-  const handleUseAnimationMask = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setUseAnimationMask(e.target.checked);
 
   return (
     <Wrapper>
@@ -116,12 +118,6 @@ const LuckyDraw = React.memo(() => {
           <p>(當參加者不足抽獎人數時, 是否抽出所有剩餘人數)</p>
         </div>
         <div>
-          <Input
-            type="text"
-            value={animationImageSrc}
-            placeholder="請輸入圖片連結"
-            onChange={handleAnimationMaskImageSrc}
-          />
           <label htmlFor="animationMask">
             使用動畫過場(目前僅支援 .gif)
             <input
@@ -132,18 +128,33 @@ const LuckyDraw = React.memo(() => {
             />
           </label>
         </div>
+        {useAnimationMask && (
+          <div>
+            <span>圖片連結：</span>
+            <Input
+              type="text"
+              value={animationImageSrc}
+              placeholder="請輸入圖片連結"
+              onChange={handleAnimationMaskImageSrc}
+            />
+          </div>
+        )}
       </RowContainer>
       <div>
         <Button onClick={handleDraw}>開獎</Button>
         <Button onClick={handleClearWinners}>清空得獎者</Button>
         <Button onClick={handleReset}>重新開始</Button>
       </div>
-      {hasDraw &&
-        (useAnimationMask ? (
-          <AnimationMask src={animationImageSrc} />
-        ) : (
-          <MaskDiv />
-        ))}
+      {(() => {
+        if (!useAnimationMask && hasDraw) return <MaskDiv />;
+        if (useAnimationMask && (hasDraw || isAnimationPlaying))
+          return (
+            <AnimationMask
+              src={animationImageSrc}
+              update={setIsAnimationPlaying}
+            />
+          );
+      })()}
       <LuckyDrawSection>
         <Left>
           <h2>參加者名單</h2>
