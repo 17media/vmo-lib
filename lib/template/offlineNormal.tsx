@@ -17,6 +17,8 @@ const round1 = {
   init: !!initMockList,
 };
 
+console.log('test push');
+
 const rowCount = 4;
 
 const itemStyle: ItemStyle = {
