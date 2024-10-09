@@ -17,6 +17,7 @@ import Translation from './Translation';
 import Keyboard from './Keyboard';
 import Copy from './Copy';
 import Sentry from './Sentry';
+import Bingo from './Bingo';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] = useState<string>('Keyboard');
@@ -42,6 +43,7 @@ const App = () => {
     Keyboard: <Keyboard />,
     Copy: <Copy />,
     Sentry: <Sentry />,
+    Bingo: <Bingo />,
   };
 
   return (
