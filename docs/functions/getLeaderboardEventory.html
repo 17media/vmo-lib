@@ -23,10 +23,10 @@
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">__namedParameters</span>: <span class="tsd-signature-type ">Params</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">strategy</span><span class="tsd-signature-symbol">: </span><a href="../enums/CacheStrategy.html" class="tsd-signature-type tsd-kind-enum">CacheStrategy</a><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></h5></li></ul></div>
+<h5><span class="tsd-kind-parameter">__namedParameters</span>: <span class="tsd-signature-type ">Params</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span><span class="tsd-kind-property">env</span><span class="tsd-signature-symbol">?: </span><a href="../enums/Env.html" class="tsd-signature-type tsd-kind-enum">Env</a><span class="tsd-signature-symbol">; </span><br/><span>    </span><span class="tsd-kind-property">strategy</span><span class="tsd-signature-symbol">: </span><a href="../enums/CacheStrategy.html" class="tsd-signature-type tsd-kind-enum">CacheStrategy</a><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/HandleCacheStrategyResponse.html" class="tsd-signature-type tsd-kind-interface">HandleCacheStrategyResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Response.html" class="tsd-signature-type tsd-kind-interface">Response</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/User.html" class="tsd-signature-type tsd-kind-interface">User</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/3d67906/lib/service/leaderboardEventory.service.ts#L113">lib/service/leaderboardEventory.service.ts:113</a></li></ul></aside></li></ul></section></div>
+<li>Defined in <a href="https://github.com/17media/vmo-lib/blob/27e879c/lib/service/leaderboardEventory.service.ts#L122">lib/service/leaderboardEventory.service.ts:122</a></li></ul></aside></li></ul></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -47,12 +47,14 @@
 <ul class="tsd-small-nested-navigation">
 <li><a href="../modules/handleClickAvatar.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>handle<wbr/>Click<wbr/>Avatar</span></a></li>
 <li><a href="../enums/CacheStrategy.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-8"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-enum)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.45 16V7.24H14.49V8.224H10.518V10.936H14.07V11.908H10.518V15.016H14.49V16H9.45Z" fill="var(--color-text)"></path></g></svg><span>Cache<wbr/>Strategy</span></a></li>
+<li><a href="../enums/Env.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Env</span></a></li>
 <li><a href="../enums/EventTypes.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Event<wbr/>Types</span></a></li>
 <li><a href="../enums/HttpMethod.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Http<wbr/>Method</span></a></li>
 <li><a href="../enums/RegionLanguage.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Region<wbr/>Language</span></a></li>
 <li><a href="../enums/TimeStatus.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Time<wbr/>Status</span></a></li>
 <li><a href="../classes/LeaderboardData.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-128"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)"></path></g></svg><span>Leaderboard<wbr/>Data</span></a></li>
 <li><a href="../interfaces/EventoryApiOption.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-256"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)"></path></g></svg><span>Eventory<wbr/>Api<wbr/>Option</span></a></li>
+<li><a href="../interfaces/FulfillFormat.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Fulfill<wbr/>Format</span></a></li>
 <li><a href="../interfaces/HandleCacheStrategyResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Handle<wbr/>Cache<wbr/>Strategy<wbr/>Response</span></a></li>
 <li><a href="../interfaces/IScratchOffCardProps.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>IScratch<wbr/>Off<wbr/>Card<wbr/>Props</span></a></li>
 <li><a href="../interfaces/ISetting.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>ISetting</span></a></li>
@@ -77,11 +79,22 @@
 <li><a href="../variables/DEFAULT_AVATAR_IMAGE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>DEFAULT_<wbr/>AVATAR_<wbr/>IMAGE</span></a></li>
 <li><a href="../variables/EVENTORY_ENDPOINT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>EVENTORY_<wbr/>ENDPOINT</span></a></li>
 <li><a href="../variables/EVENTORY_OFFLINE_ENDPOINT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>EVENTORY_<wbr/>OFFLINE_<wbr/>ENDPOINT</span></a></li>
+<li><a href="../variables/EVENT_SERVER_ENDPOINT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>EVENT_<wbr/>SERVER_<wbr/>ENDPOINT</span></a></li>
+<li><a href="../variables/EVENT_SERVER_ENDPOINT_STA.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>EVENT_<wbr/>SERVER_<wbr/>ENDPOINT_<wbr/>STA</span></a></li>
+<li><a href="../variables/EVENT_SERVER_ENDPOINT_UAT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>EVENT_<wbr/>SERVER_<wbr/>ENDPOINT_<wbr/>UAT</span></a></li>
 <li><a href="../variables/GCP_CDN_DOMAIN.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>GCP_<wbr/>CDN_<wbr/>DOMAIN</span></a></li>
 <li><a href="../variables/GCP_CDN_HOST.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>GCP_<wbr/>CDN_<wbr/>HOST</span></a></li>
+<li><a href="../variables/GOAPI_ENDPOINT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>GOAPI_<wbr/>ENDPOINT</span></a></li>
+<li><a href="../variables/GOAPI_ENDPOINT_STA.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>GOAPI_<wbr/>ENDPOINT_<wbr/>STA</span></a></li>
+<li><a href="../variables/GOAPI_ENDPOINT_UAT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>GOAPI_<wbr/>ENDPOINT_<wbr/>UAT</span></a></li>
 <li><a href="../variables/IFRAME_ENDPOINT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>IFRAME_<wbr/>ENDPOINT</span></a></li>
 <li><a href="../variables/LANG_FILE_ENDPOINT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>LANG_<wbr/>FILE_<wbr/>ENDPOINT</span></a></li>
 <li><a href="../variables/MAIN_HOST.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>MAIN_<wbr/>HOST</span></a></li>
+<li><a href="../variables/MAIN_HOST_CN.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>MAIN_<wbr/>HOST_<wbr/>CN</span></a></li>
+<li><a href="../variables/MAIN_HOST_STA.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>MAIN_<wbr/>HOST_<wbr/>STA</span></a></li>
+<li><a href="../variables/MAIN_HOST_STA_CN.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>MAIN_<wbr/>HOST_<wbr/>STA_<wbr/>CN</span></a></li>
+<li><a href="../variables/MAIN_HOST_UAT.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>MAIN_<wbr/>HOST_<wbr/>UAT</span></a></li>
+<li><a href="../variables/MAIN_HOST_UAT_CN.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>MAIN_<wbr/>HOST_<wbr/>UAT_<wbr/>CN</span></a></li>
 <li><a href="../variables/ONLINE_RIM_IMAGE.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>ONLINE_<wbr/>RIM_<wbr/>IMAGE</span></a></li>
 <li><a href="../variables/SENTRY_DSN_URL.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>SENTRY_<wbr/>DSN_<wbr/>URL</span></a></li>
 <li><a href="../variables/globalThis.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg><span>global<wbr/>This</span></a></li>
@@ -102,6 +115,7 @@
 <li><a href="formatCountdownText.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>format<wbr/>Countdown<wbr/>Text</span></a></li>
 <li><a href="getApiUrlStrategy.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Api<wbr/>Url<wbr/>Strategy</span></a></li>
 <li><a href="getCurrentTranslateLang.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Current<wbr/>Translate<wbr/>Lang</span></a></li>
+<li><a href="getGoapiUrl.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Goapi<wbr/>Url</span></a></li>
 <li><a href="getKeyboardSettings.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Keyboard<wbr/>Settings</span></a></li>
 <li><a href="getLeaderboardEventory.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Leaderboard<wbr/>Eventory</span></a></li>
 <li><a href="getNextLocation.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>get<wbr/>Next<wbr/>Location</span></a></li>
@@ -126,6 +140,8 @@
 <li><a href="isMobile.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Mobile</span></a></li>
 <li><a href="isProdVmo17Media.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Prod<wbr/>Vmo17<wbr/>Media</span></a></li>
 <li><a href="isSameDate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Same<wbr/>Date</span></a></li>
+<li><a href="isStagVmo17Media.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Stag<wbr/>Vmo17<wbr/>Media</span></a></li>
+<li><a href="isUatVmo17Media.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>is<wbr/>Uat<wbr/>Vmo17<wbr/>Media</span></a></li>
 <li><a href="numberFormat.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>number<wbr/>Format</span></a></li>
 <li><a href="qs.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>qs</span></a></li>
 <li><a href="sleep.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>sleep</span></a></li>
