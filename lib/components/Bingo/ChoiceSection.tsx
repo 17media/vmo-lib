@@ -15,6 +15,9 @@ const Container = styled.div<{
 }>`
   display: grid;
   grid-template-columns: repeat(${p => p.rowCount}, 1fr);
+  column-gap: 12px;
+  row-gap: 8px;
+  margin: 0 14px;
 `;
 
 const ChoiceSection: React.FC<ChoiceSectionProps> = ({

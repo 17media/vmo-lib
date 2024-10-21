@@ -5,10 +5,13 @@ import BingoResult from './Result';
 import { BingoItem, ItemType } from './Item';
 
 const BingoContainer = styled.div`
-  width: 400px;
-  max-height: 500px;
-  overflow: auto;
+  width: 300px;
   margin: 20px auto 0;
+`;
+const ChoiceContainer = styled.div`
+  margin-top: 20px;
+  max-height: 290px;
+  overflow: auto;
 `;
 
 interface BingoProps {
@@ -24,6 +27,8 @@ interface BingoProps {
   alreadyImageUrl?: string;
   awaitSelectImageUrl: string;
   awaitReachImageUrl: string;
+  resultBGImageUrl: string;
+  resultSubmitImageUrl: string;
   onItemClick: (bingoItem: BingoItem) => void;
   onSubmit: (bingoItems: BingoItem[]) => void;
 }
@@ -39,6 +44,8 @@ const Bingo: React.FC<BingoProps> = ({
   alreadyImageUrl,
   awaitSelectImageUrl,
   awaitReachImageUrl,
+  resultBGImageUrl,
+  resultSubmitImageUrl,
   itemType,
   itemPadding,
   onItemClick,
@@ -56,7 +63,7 @@ const Bingo: React.FC<BingoProps> = ({
         defaultImageUrl,
         selectedImageUrl,
         alreadyImageUrl,
-        text: `${index + 1}`,
+        text: `${index + 1 < 10 ? '0' : ''}${index + 1}`,
         status: defaultAlreadys.includes(index) ? 'already' : 'normal',
       }),
     );
@@ -155,11 +162,13 @@ const Bingo: React.FC<BingoProps> = ({
           alreadyItems={alreadyItems}
           awaitSelectImageUrl={awaitSelectImageUrl}
           awaitReachImageUrl={awaitReachImageUrl}
+          resultSubmitImageUrl={resultSubmitImageUrl}
+          resultBGImageUrl={resultBGImageUrl}
           onItemClick={handleItemClick}
           onSubmit={handleSubmit}
         />
       </BingoContainer>
-      <BingoContainer>
+      <ChoiceContainer>
         <ChoiceSection
           itemType={itemType}
           itemPadding={itemPadding}
@@ -167,7 +176,7 @@ const Bingo: React.FC<BingoProps> = ({
           bingoItems={bingoItems}
           onItemClick={handleItemClick}
         />
-      </BingoContainer>
+      </ChoiceContainer>
     </>
   );
 };

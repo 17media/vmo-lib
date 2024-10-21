@@ -28,8 +28,7 @@ const StyledItem = styled.div<{ bingoItem: BingoItem; itemPadding: number }>`
   aspect-ratio: 1;
 
   padding: ${p => (p.itemPadding ? `${p.itemPadding}px` : '')};
-  opacity: ${p =>
-    p.bingoItem.status === 'already' && !p.bingoItem.alreadyImageUrl ? 0.3 : 1};
+  opacity: ${p => (p.bingoItem.status === 'already' ? 0.3 : 1)};
   cursor: ${p => (p.bingoItem.status === 'already' ? 'default' : 'pointer')};
 `;
 
@@ -43,12 +42,13 @@ const StyledText = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   text-align: center;
-  background-color: white;
+  font-family: PingFangTC;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const Item: React.FC<BingoItemProps> = ({

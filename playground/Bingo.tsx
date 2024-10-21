@@ -15,13 +15,15 @@ const SettingContainer = styled.div`
   width: 450px;
 `;
 const BingoContainer = styled.div<{ isGameStart: boolean }>`
-  width: 400px;
-  max-height: 500px;
-  overflow: auto;
-  background-color: #9ca3af;
+  box-sizing: border-box;
+  width: 370px;
+  height: fit-content;
   margin: 20px auto 0;
+  padding: 20px 35px;
   pointer-events: ${p => (p.isGameStart ? '' : 'none')};
   opacity: ${p => (p.isGameStart ? '1' : '0.3')};
+  background-image: url('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/7b0dd75c-ca22-4da0-af8b-f5de195bfbc8_webp');
+  background-size: 100% 100%;
 `;
 
 const Input = styled.input`
@@ -33,19 +35,25 @@ const Input = styled.input`
 const Playground = () => {
   const [itemPadding, setItemPadding] = useState<number>();
   const [defaultImageUrl, setDefaultImageUrl] = useState<string>(
-    'https://storage.googleapis.com/media17-uat-web-assets/campaign/15185-kev-20240918-test1/98162f1c-2d1e-4af1-b86c-6ae26632682f_webp',
+    'https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/3c1b1760-5cc7-4a9f-b78d-9d3a4ccbdb6d_webp',
   );
   const [selectedImageUrl, setSelectedImageUrl] = useState<string>(
-    'https://storage.googleapis.com/media17-uat-web-assets/campaign/15186-young-test-0924-1/b06880d2-673c-4663-87a4-f8124b2c2422_webp',
+    'https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/0e73893a-bb7d-4c09-a26e-e9cccd68640d_webp',
   );
   const [alreadyImageUrl, setAlreadyImageUrl] = useState<string>(
-    'https://storage.googleapis.com/media17-uat-web-assets/campaign/15186-young-test-0924-1/fd2df144-111e-42e4-9f8d-84e3a6e286b4_webp',
+    'https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/0e73893a-bb7d-4c09-a26e-e9cccd68640d_webp',
   );
   const [awaitSelectImageUrl, setAwaitSelectImageUrl] = useState<string>(
-    'https://storage.googleapis.com/media17-uat-web-assets/campaign/15186-young-test-0924-1/33dd11ec-3369-4f3c-aa02-5c9982e13e0e_webp',
+    'https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/214e7c3a-6944-4fe9-99f1-1414ab8e8537_webp',
   );
   const [awaitReachImageUrl, setAwaitReachImageUrl] = useState<string>(
-    'https://storage.googleapis.com/media17-uat-web-assets/campaign/15186-young-test-0924-1/54b90d1f-6aba-4195-8331-d958fdd866a0_webp',
+    'https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/d3770f67-5210-4841-b8ef-b53ca7c7fbcd_webp',
+  );
+  const [resultBGImageUrl, setResultBGImageUrl] = useState<string>(
+    'https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/ebdbc54c-7672-4a40-a4be-eefaa1fc8962_webp',
+  );
+  const [resultSubmitImageUrl, setResultSubmitImageUrl] = useState<string>(
+    'https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/c7604b62-dfa7-4fee-bfb6-24182030b26f_webp',
   );
   const [maxSelectCount, setMaxSelectCount] =
     useState<number>(MAX_SELECTED_COUNT);
@@ -107,7 +115,7 @@ const Playground = () => {
         </div>
 
         <h3>Bingo ball </h3>
-        <div>
+        {/* <div>
           間距: <br />
           <Input
             type="number"
@@ -115,7 +123,7 @@ const Playground = () => {
             disabled={isGameStart}
             onChange={e => setItemPadding(+e.target.value)}
           />{' '}
-        </div>
+        </div> */}
         <div>
           預設圖: <br />
           <Input
@@ -159,6 +167,25 @@ const Playground = () => {
             value={awaitReachImageUrl}
             disabled={isGameStart}
             onChange={e => setAwaitReachImageUrl(e.target.value)}
+          />{' '}
+        </div>
+        <hr />
+        <div>
+          上方底圖: <br />
+          <Input
+            type="text"
+            value={resultBGImageUrl}
+            disabled={isGameStart}
+            onChange={e => setResultBGImageUrl(e.target.value)}
+          />{' '}
+        </div>
+        <div>
+          上方送出按鈕底圖: <br />
+          <Input
+            type="text"
+            value={resultSubmitImageUrl}
+            disabled={isGameStart}
+            onChange={e => setResultSubmitImageUrl(e.target.value)}
           />{' '}
         </div>
       </SettingContainer>
@@ -246,6 +273,8 @@ const Playground = () => {
           alreadyImageUrl={alreadyImageUrl}
           awaitSelectImageUrl={awaitSelectImageUrl}
           awaitReachImageUrl={awaitReachImageUrl}
+          resultBGImageUrl={resultBGImageUrl}
+          resultSubmitImageUrl={resultSubmitImageUrl}
           onItemClick={handleItemClick}
           onSubmit={handleSubmit}
           defaultAlreadys={defaultAlreadys}
