@@ -143,7 +143,8 @@ const Playground = () => {
           />{' '}
         </div>
         <div>
-          已選取圖（沒設會使用預設圖 + opacity 0.3): <br />
+          預設已選取號碼圖 <br />
+          （opacity 0.3, 沒設會使用預設圖): <br />
           <Input
             type="text"
             value={alreadyImageUrl}
@@ -243,6 +244,7 @@ const Playground = () => {
             onClick={() => {
               setSelectedItems([]);
               setDefaultAlreadys([]);
+              setDefaultSelected(0);
               setBingoCount(BINGO_COUNT);
               setCanSelectCount(CAN_SELECTED_COUNT);
               setIsGameStart(false);
