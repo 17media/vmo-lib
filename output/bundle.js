@@ -22712,6 +22712,7 @@ var Bingo = function Bingo(_ref) {
       };
     });
     setAlreadyItems(defaultAlreadyItems);
+    setSelectedItems([]);
   }, [defaultAlreadys, bingoCount, alreadyImageUrl, defaultImageUrl, selectedImageUrl]);
   var handleItemClick = function handleItemClick(item) {
     onItemClick(item); // you can do more thing outside.
@@ -22933,7 +22934,6 @@ var Result = function Result(_ref) {
   }, function (_, i) {
     return i;
   });
-  console.log('alreadyItems: ', alreadyItems);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ResultContainer, {
     resultBGImageUrl: resultBGImageUrl
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledTitle, null, "\u6211\u7684\u9078\u865F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ItemsContainer, null, alreadyItems.map(function (alreadyItem) {
@@ -23695,7 +23695,7 @@ var Playground = function Playground() {
     onChange: function onChange(e) {
       return setSelectedImageUrl(e.target.value);
     }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u5DF2\u9078\u53D6\u5716\uFF08\u6C92\u8A2D\u6703\u4F7F\u7528\u9810\u8A2D\u5716 + opacity 0.3): ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
+  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u9810\u8A2D\u5DF2\u9078\u53D6\u865F\u78BC\u5716 ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\uFF08opacity 0.3, \u6C92\u8A2D\u6703\u4F7F\u7528\u9810\u8A2D\u5716): ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
     type: "text",
     value: alreadyImageUrl,
     disabled: isGameStart,
@@ -23772,6 +23772,7 @@ var Playground = function Playground() {
     onClick: function onClick() {
       setSelectedItems([]);
       setDefaultAlreadys([]);
+      setDefaultSelected(0);
       setBingoCount(BINGO_COUNT);
       setCanSelectCount(CAN_SELECTED_COUNT);
       setIsGameStart(false);
