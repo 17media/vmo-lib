@@ -80,6 +80,7 @@ const Bingo: React.FC<BingoProps> = ({
       }),
     );
     setAlreadyItems(defaultAlreadyItems);
+    setSelectedItems([]);
   }, [
     defaultAlreadys,
     bingoCount,

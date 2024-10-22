@@ -88,7 +88,6 @@ const Result: React.FC<ResultProps> = ({
 }) => {
   const showMaxSelectCount = maxSelectCount - alreadyItems.length;
   const allItemIndexs = Array.from({ length: showMaxSelectCount }, (_, i) => i);
-  console.log('alreadyItems: ', alreadyItems);
 
   return (
     <ResultContainer resultBGImageUrl={resultBGImageUrl}>
