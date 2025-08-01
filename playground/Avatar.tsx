@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Avatar from '../lib/components/Avatar';
 
-// Main container for the playground
 const PlaygroundWrapper = styled.div`
   padding: 20px;
   font-family: sans-serif;
 `;
 
-// Container for interactive controls
 const Controls = styled.div`
   background-color: #f0f0f0;
   padding: 15px;
@@ -41,7 +39,6 @@ const ControlGroup = styled.div`
   }
 `;
 
-// Container for the main interactive avatar display
 const MainDisplay = styled.div`
   display: flex;
   flex-direction: column;
@@ -54,7 +51,6 @@ const MainDisplay = styled.div`
   min-height: 150px;
 `;
 
-// Container for static examples gallery
 const Gallery = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -110,9 +106,9 @@ const AvatarPlayground = () => {
 
       <Controls>
         <ControlGroup>
-          <label htmlFor="avatarUrl">Avatar URL</label>
+          <label htmlFor="avatarURL">Avatar URL</label>
           <input
-            id="avatarUrl"
+            id="avatarURL"
             type="text"
             value={avatarUrl}
             onChange={e => setAvatarUrl(e.target.value)}
@@ -151,25 +147,28 @@ const AvatarPlayground = () => {
           />
         </ControlGroup>
         <ControlGroup>
-          <label>
+          <label htmlFor="isLiveCheckbox">
             <input
               type="checkbox"
+              id="isLiveCheckbox"
               checked={isLive}
               onChange={e => setIsLive(e.target.checked)}
             />
             isLive
           </label>
-          <label>
+          <label htmlFor="isLoadingCheckbox">
             <input
               type="checkbox"
+              id="isLoadingCheckbox"
               checked={isLoading}
               onChange={e => setIsLoading(e.target.checked)}
             />
             isLoading
           </label>
-          <label>
+          <label htmlFor="isClickableCheckbox">
             <input
               type="checkbox"
+              id="isClickableCheckbox"
               checked={isClickable}
               onChange={e => setIsClickable(e.target.checked)}
             />

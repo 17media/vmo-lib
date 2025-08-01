@@ -3,12 +3,6 @@ import styled, { keyframes, css } from 'styled-components';
 import { DEFAULT_AVATAR_IMAGE } from '../../constants';
 import handleClickAvatar from '../../helpers/handleClickAvatar';
 
-// A default SVG placeholder for the avatar, visible when no avatarUrl is provided or it fails to load.
-// const defaultAvatarSvg = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="26" r="26" fill="%23E0E0E0"/><path d="M26 28C30.4183 28 34 24.4183 34 20C34 15.5817 30.4183 12 26 12C21.5817 12 18 15.5817 18 20C18 24.4183 21.5817 28 26 28Z" fill="%23BDBDBD"/><path d="M39.5 42C39.5 36.201 33.299 31.5 26 31.5C18.701 31.5 12.5 36.201 12.5 42H39.5Z" fill="%23BDBDBD"/></svg>`;
-
-/**
- * Props for the Avatar component.
- */
 interface AvatarProps {
   /** The URL of the avatar image. */
   avatarUrl?: string;
@@ -50,7 +44,6 @@ interface AvatarProps {
   streamID?: number;
 }
 
-// Keyframes for the skeleton loading shimmer effect
 const shimmer = keyframes`
   100% {
     transform: translateX(100%);
@@ -129,9 +122,6 @@ const AvatarWrapper = styled.div<{
     `}
 `;
 
-/**
- * Avatar component to display user profile pictures with various states like live, loading, and fallback.
- */
 const Avatar: React.FC<AvatarProps> = ({
   avatarUrl,
   defaultAvatarUrl = DEFAULT_AVATAR_IMAGE,
@@ -148,25 +138,21 @@ const Avatar: React.FC<AvatarProps> = ({
 }) => {
   const [currentSrc, setCurrentSrc] = useState(avatarUrl || defaultAvatarUrl);
 
-  // When the avatarUrl prop changes, reset the src to try loading the new URL.
   useEffect(() => {
-    setCurrentSrc(avatarUrl || defaultAvatarUrl);
+    setCurrentSrc(avatarUrl || defaultAvatarUrl || DEFAULT_AVATAR_IMAGE);
   }, [avatarUrl, defaultAvatarUrl]);
 
   const handleError = () => {
-    // If the provided avatarUrl fails to load, fall back to the default.
     if (currentSrc !== defaultAvatarUrl) {
       setCurrentSrc(defaultAvatarUrl);
     }
   };
 
   const handleAvatarClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    // First, call the custom onClick if it exists
     if (onClick) {
       onClick(event);
     }
 
-    // Then, handle redirection if enabled
     if (isRedirectEnabled) {
       if (!userID || !openID) {
         console.warn('Avatar: userID and openID are required for redirection.');
@@ -176,7 +162,6 @@ const Avatar: React.FC<AvatarProps> = ({
     }
   };
 
-  // Render skeleton if loading
   if (isLoading) {
     return <Skeleton size={size} />;
   }
