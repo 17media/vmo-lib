@@ -95,6 +95,10 @@ const AvatarPlayground = () => {
   const [isLive, setIsLive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isClickable, setIsClickable] = useState(true);
+  const [isRedirectEnabled, setIsRedirectEnabled] = useState(false);
+  const [userID, setUserID] = useState('122d1372-0051-45a3-b909-ba0b27b12328');
+  const [openID, setOpenID] = useState('18199368');
+  const [streamID, setStreamID] = useState(212817403);
 
   const handleClick = () => {
     alert('Avatar clicked!');
@@ -172,6 +176,41 @@ const AvatarPlayground = () => {
             onClick
           </label>
         </ControlGroup>
+        <ControlGroup>
+          <label>
+            <input
+              type="checkbox"
+              checked={isRedirectEnabled}
+              onChange={e => setIsRedirectEnabled(e.target.checked)}
+            />
+            isRedirectEnabled
+          </label>
+          <label htmlFor="userID">User ID</label>
+          <input
+            id="userID"
+            type="text"
+            value={userID}
+            onChange={e => setUserID(e.target.value)}
+            disabled={!isRedirectEnabled}
+          />
+          <label htmlFor="openID">Open ID</label>
+          <input
+            id="openID"
+            type="text"
+            value={openID}
+            onChange={e => setOpenID(e.target.value)}
+            disabled={!isRedirectEnabled}
+          />
+          <label htmlFor="streamID">Stream ID (optional)</label>
+          <input
+            id="streamID"
+            type="number"
+            value={streamID || ''}
+            onChange={e => setStreamID(Number(e.target.value))}
+            placeholder="e.g., 98765"
+            disabled={!isRedirectEnabled}
+          />
+        </ControlGroup>
       </Controls>
 
       <h2>Interactive Demo</h2>
@@ -184,6 +223,10 @@ const AvatarPlayground = () => {
           isLive={isLive}
           isLoading={isLoading}
           onClick={isClickable ? handleClick : undefined}
+          isRedirectEnabled={isRedirectEnabled}
+          userID={userID}
+          openID={openID}
+          streamID={streamID}
           alt="Interactive Avatar"
         />
       </MainDisplay>
@@ -244,6 +287,16 @@ const AvatarPlayground = () => {
             onClick={() => alert('Clicked!')}
           />
           <code>onClick</code>
+        </Example>
+        <Example>
+          <Avatar
+            avatarUrl="https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg"
+            isRedirectEnabled
+            userID="122d1372-0051-45a3-b909-ba0b27b12328"
+            openID="18199368"
+            streamID={212817403}
+          />
+          <code>isRedirectEnabled</code>
         </Example>
       </Gallery>
     </PlaygroundWrapper>

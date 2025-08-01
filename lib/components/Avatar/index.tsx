@@ -32,11 +32,22 @@ interface AvatarProps {
   /** If true, shows a skeleton loading state. This takes precedence over other states. */
   isLoading?: boolean;
   /**
-   * Callback function when the avatar is clicked.
-   * Providing this will change the cursor to a pointer.
-   * This can be used to handle navigation, e.g., to a user's profile or live room.
+   * Custom callback function when the avatar is clicked.
+   * If `isRedirectEnabled` is also true, this callback is executed *before* the redirection logic.
    */
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  /**
+   * If true, enables redirection to the user's profile or live room on click.
+   * `userID` and `openID` must be provided.
+   * @default false
+   */
+  isRedirectEnabled?: boolean;
+  /** The user's ID, required for redirection. */
+  userID?: string;
+  /** The user's openID, required for redirection. */
+  openID?: string;
+  /** The stream ID if the user is live, used for redirection to the live room. */
+  streamID?: number;
 }
 
 // Keyframes for the skeleton loading shimmer effect
@@ -130,6 +141,10 @@ const Avatar: React.FC<AvatarProps> = ({
   isLoading = false,
   border,
   onClick,
+  isRedirectEnabled = false,
+  userID,
+  openID,
+  streamID,
 }) => {
   const [currentSrc, setCurrentSrc] = useState(avatarUrl || defaultAvatarUrl);
 
@@ -145,6 +160,22 @@ const Avatar: React.FC<AvatarProps> = ({
     }
   };
 
+  const handleAvatarClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    // First, call the custom onClick if it exists
+    if (onClick) {
+      onClick(event);
+    }
+
+    // Then, handle redirection if enabled
+    if (isRedirectEnabled) {
+      if (!userID || !openID) {
+        console.warn('Avatar: userID and openID are required for redirection.');
+        return;
+      }
+      handleClickAvatar(userID, openID, streamID);
+    }
+  };
+
   // Render skeleton if loading
   if (isLoading) {
     return <Skeleton size={size} />;
@@ -154,10 +185,10 @@ const Avatar: React.FC<AvatarProps> = ({
     <AvatarWrapper
       size={size}
       isLive={isLive}
-      isClickable={!!onClick}
-      onClick={onClick}
-      role={onClick ? 'button' : 'img'}
-      tabIndex={onClick ? 0 : undefined}
+      isClickable={!!onClick || isRedirectEnabled}
+      onClick={handleAvatarClick}
+      role={onClick ?? isRedirectEnabled ? 'button' : 'img'}
+      tabIndex={onClick ?? isRedirectEnabled ? 0 : undefined}
       aria-label={alt}
     >
       <StyledImage
