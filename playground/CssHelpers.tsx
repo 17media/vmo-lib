@@ -184,6 +184,9 @@ const DevicePopupContent = styled.div<{ px?: number; py?: number }>`
   color: white;
   border: 2px dashed white;
 
+  width: 500px;
+  height: 800px;
+
   /* Set CSS variables from props */
   --device-padding-x: ${p => (p.px ? `${p.px}px` : '0px')};
   --device-padding-y: ${p => (p.py ? `${p.py}px` : '0px')};
@@ -217,7 +220,12 @@ const CssHelpers = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [isDeviceDemoVisible, setDeviceDemoVisible] = useState(false);
-  const [demoProps, setDemoProps] = useState({ px: 0, py: 0, useMax: false });
+  const [demoProps, setDemoProps] = useState({
+    px: 0,
+    py: 0,
+    useMax: false,
+    useMin: false,
+  });
 
   const handleClosePopup = () => {
     setIsAnimatingOut(true);
@@ -227,8 +235,13 @@ const CssHelpers = () => {
     }, 300); // Animation duration
   };
 
-  const showDeviceDemo = (px: number, py: number, useMax: boolean) => {
-    setDemoProps({ px, py, useMax });
+  const showDeviceDemo = (
+    px: number,
+    py: number,
+    useMax: boolean,
+    useMin: boolean = false,
+  ) => {
+    setDemoProps({ px, py, useMax, useMin });
     setDeviceDemoVisible(true);
   };
 
@@ -316,14 +329,20 @@ const CssHelpers = () => {
             <b style={{ color: 'blue' }}>藍色區域</b> 則是內容區塊。
           </p>
 
-          <Button onClick={() => showDeviceDemo(0, 0, false)}>
+          <Button onClick={() => showDeviceDemo(0, 0, false, false)}>
             Show Full Size (.device-width)
           </Button>
           <Button
             style={{ marginLeft: '10px' }}
-            onClick={() => showDeviceDemo(16, 32, true)}
+            onClick={() => showDeviceDemo(16, 32, true, false)}
           >
             Show Padded Size (.device-width-max)
+          </Button>
+          <Button
+            style={{ marginLeft: '10px', marginTop: '10px' }}
+            onClick={() => showDeviceDemo(20, 0, false, true)}
+          >
+            Show Min-Width Demo (.device-width-min)
           </Button>
 
           {isDeviceDemoVisible && (
@@ -336,6 +355,8 @@ const CssHelpers = () => {
                   className={
                     demoProps.useMax
                       ? 'device-width-max device-height-max'
+                      : demoProps.useMin
+                      ? 'device-width-min'
                       : 'device-width device-height'
                   }
                   px={demoProps.px}
@@ -345,11 +366,15 @@ const CssHelpers = () => {
                     <span>
                       {demoProps.useMax
                         ? 'Max viewport size with padding'
+                        : demoProps.useMin
+                        ? 'Min viewport size with padding'
                         : 'Full viewport size'}
                     </span>
                     <code>
                       {demoProps.useMax
                         ? '.device-width-max & .device-height-max'
+                        : demoProps.useMin
+                        ? '.device-width-min'
                         : '.device-width & .device-height'}
                     </code>
                     {demoProps.px > 0 && (
