@@ -13,9 +13,24 @@ const fadeIn = keyframes`
   }
 `;
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+`;
+
 const GlobalStyle = createGlobalStyle`
   .popupFadeIn {
     animation: ${fadeIn} 0.3s ease-out forwards;
+  }
+
+  .popupFadeOut {
+    animation: ${fadeOut} 0.3s ease-out forwards;
   }
 
   .non-selectable {
@@ -121,6 +136,15 @@ const Button = styled.button`
 // 3. Create the main component
 const CssHelpers = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+
+  const handleClosePopup = () => {
+    setIsAnimatingOut(true);
+    setTimeout(() => {
+      setIsPopupVisible(false);
+      setIsAnimatingOut(false);
+    }, 300); // Animation duration
+  };
 
   return (
     <>
@@ -131,17 +155,20 @@ const CssHelpers = () => {
         <Section>
           <SectionTitle>Popup Transition Effect</SectionTitle>
           <p>
-            使用 <code>popupFadeIn</code> class 來為彈出視窗增加淡入動畫效果。
+            使用 <code>popupFadeIn</code> 和 <code>popupFadeOut</code> class
+            來為彈出視窗增加淡入/淡出動畫效果。
           </p>
           <Button onClick={() => setIsPopupVisible(true)}>Show Popup</Button>
           {isPopupVisible && (
             <PopupContainer>
-              <PopupContent className="popupFadeIn">
+              <PopupContent
+                className={isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn'}
+              >
                 <h1>活動說明</h1>
-                <p>這是一個使用 fadeIn 動畫的彈出視窗。</p>
+                <p>這是一個使用 fadeIn/fadeOut 動畫的彈出視窗。</p>
                 <Button
                   style={{ marginTop: '20px' }}
-                  onClick={() => setIsPopupVisible(false)}
+                  onClick={handleClosePopup}
                 >
                   Close
                 </Button>

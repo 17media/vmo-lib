@@ -1,11 +1,66 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
 import Avatar from '../lib/components/Avatar';
 
 const PlaygroundWrapper = styled.div`
   padding: 20px;
   font-family: sans-serif;
 `;
+
+// --- Styles for Popup from CssHelpers.tsx ---
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+`;
+
+const PopupHelperStyles = createGlobalStyle`
+  .popupFadeIn {
+    animation: ${fadeIn} 0.3s ease-out forwards;
+  }
+  .popupFadeOut {
+    animation: ${fadeOut} 0.3s ease-out forwards;
+  }
+`;
+
+const PopupContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
+
+const PopupContent = styled.div`
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  min-width: 300px;
+`;
+// --- End of Popup Styles ---
 
 const Controls = styled.div`
   background-color: #f0f0f0;
@@ -95,13 +150,30 @@ const AvatarPlayground = () => {
   const [userID, setUserID] = useState('122d1372-0051-45a3-b909-ba0b27b12328');
   const [openID, setOpenID] = useState('18199368');
   const [streamID, setStreamID] = useState(212817403);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
   const handleClick = () => {
     alert('Avatar clicked!');
   };
 
+  const handleClosePopup = () => {
+    setIsAnimatingOut(true);
+    setTimeout(() => {
+      setIsPopupVisible(false);
+      setIsAnimatingOut(false);
+    }, 300); // Must match animation duration
+  };
+
+  const handleShowPopup = () => {
+    setIsPopupVisible(true);
+  };
+
   return (
     <PlaygroundWrapper>
+      {/* Inject popup animation styles */}
+      <PopupHelperStyles />
+
       <h1>Avatar Component Playground</h1>
 
       <Controls>
@@ -228,7 +300,41 @@ const AvatarPlayground = () => {
           streamID={streamID}
           alt="Interactive Avatar"
         />
+        <button
+          type="button"
+          onClick={handleShowPopup}
+          style={{ marginTop: '20px', padding: '10px 15px', cursor: 'pointer' }}
+        >
+          Show Details in Popup
+        </button>
       </MainDisplay>
+
+      {isPopupVisible && (
+        <PopupContainer>
+          <PopupContent
+            className={isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn'}
+          >
+            <h2>Avatar Details</h2>
+            <p>
+              <strong>User ID:</strong> {userID}
+            </p>
+            <p>
+              <strong>Open ID:</strong> {openID}
+            </p>
+            <button
+              type="button"
+              onClick={handleClosePopup}
+              style={{
+                marginTop: '20px',
+                padding: '10px 15px',
+                cursor: 'pointer',
+              }}
+            >
+              Close
+            </button>
+          </PopupContent>
+        </PopupContainer>
+      )}
 
       <h2>Examples</h2>
       <Gallery>
