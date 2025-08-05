@@ -19211,22 +19211,6 @@ function getGlobalSingleton(name, creator, obj) {
 
 /***/ }),
 
-/***/ "./lib/components/Bingo/index.ts":
-/*!***************************************!*\
-  !*** ./lib/components/Bingo/index.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _Bingo__WEBPACK_IMPORTED_MODULE_0__["default"])
-/* harmony export */ });
-/* harmony import */ var _Bingo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Bingo */ "./lib/components/Bingo/Bingo.tsx");
-
-
-/***/ }),
-
 /***/ "./lib/components/ScratchOffCard/utils.ts":
 /*!************************************************!*\
   !*** ./lib/components/ScratchOffCard/utils.ts ***!
@@ -22625,268 +22609,9 @@ var open = function open(openID) {
 
 /***/ }),
 
-/***/ "./lib/components/Bingo/Bingo.tsx":
-/*!****************************************!*\
-  !*** ./lib/components/Bingo/Bingo.tsx ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _ChoiceSection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ChoiceSection */ "./lib/components/Bingo/ChoiceSection.tsx");
-/* harmony import */ var _Result__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Result */ "./lib/components/Bingo/Result.tsx");
-
-
-
-
-var _templateObject, _templateObject2;
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-
-
-
-
-var BingoContainer = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  width: 300px;\n  margin: 20px auto 0;\n"])));
-var ChoiceContainer = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  margin-top: 20px;\n  max-height: 290px;\n  overflow: auto;\n"])));
-var Bingo = function Bingo(_ref) {
-  var rowCount = _ref.rowCount,
-    bingoCount = _ref.bingoCount,
-    maxSelectCount = _ref.maxSelectCount,
-    canSelectCount = _ref.canSelectCount,
-    defaultAlreadys = _ref.defaultAlreadys,
-    defaultImageUrl = _ref.defaultImageUrl,
-    selectedImageUrl = _ref.selectedImageUrl,
-    alreadyImageUrl = _ref.alreadyImageUrl,
-    awaitSelectImageUrl = _ref.awaitSelectImageUrl,
-    awaitReachImageUrl = _ref.awaitReachImageUrl,
-    resultBGImageUrl = _ref.resultBGImageUrl,
-    resultSubmitImageUrl = _ref.resultSubmitImageUrl,
-    itemType = _ref.itemType,
-    itemPadding = _ref.itemPadding,
-    onItemClick = _ref.onItemClick,
-    onSubmit = _ref.onSubmit;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]),
-    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
-    bingoItems = _useState2[0],
-    setBingoItems = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]),
-    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
-    selectedItems = _useState4[0],
-    setSelectedItems = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([]),
-    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
-    alreadyItems = _useState6[0],
-    setAlreadyItems = _useState6[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
-    var defaultBingoItems = Array.from({
-      length: bingoCount
-    }, function (v, index) {
-      return {
-        itemKey: "".concat(index),
-        defaultImageUrl: defaultImageUrl,
-        selectedImageUrl: selectedImageUrl,
-        alreadyImageUrl: alreadyImageUrl,
-        text: "".concat(index + 1 < 10 ? '0' : '').concat(index + 1),
-        status: defaultAlreadys.includes(index) ? 'already' : 'normal'
-      };
-    });
-    setBingoItems(defaultBingoItems);
-    var defaultAlreadyItems = defaultAlreadys.map(function (defaultAlready) {
-      return {
-        itemKey: "".concat(defaultAlready),
-        defaultImageUrl: defaultImageUrl,
-        selectedImageUrl: selectedImageUrl,
-        alreadyImageUrl: alreadyImageUrl,
-        text: "".concat(defaultAlready + 1),
-        status: 'already'
-      };
-    });
-    setAlreadyItems(defaultAlreadyItems);
-    setSelectedItems([]);
-  }, [defaultAlreadys, bingoCount, alreadyImageUrl, defaultImageUrl, selectedImageUrl]);
-  var handleItemClick = function handleItemClick(item) {
-    onItemClick(item); // you can do more thing outside.
-
-    if (item.status === 'already') {
-      return;
-    }
-    var isReachCanSelectedCount = selectedItems.length === canSelectCount;
-    var foundBingoItemIndex = bingoItems.findIndex(function (bingoItem) {
-      return bingoItem.itemKey === item.itemKey;
-    });
-    var updateItem = _objectSpread(_objectSpread({}, item), {}, {
-      status: item.status === 'selected' ? 'normal' : isReachCanSelectedCount ? 'normal' : 'selected'
-    });
-    var updateBingoItems = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(bingoItems.slice(0, foundBingoItemIndex)), [updateItem], (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(bingoItems.slice(foundBingoItemIndex + 1)));
-    setBingoItems(updateBingoItems);
-    var foundSelectedItem = selectedItems.find(function (selectedItem) {
-      return selectedItem.itemKey === item.itemKey;
-    });
-    if (foundSelectedItem) {
-      var updatedSelectedItems = selectedItems.filter(function (selectedItem) {
-        return selectedItem.itemKey !== foundSelectedItem.itemKey;
-      });
-      setSelectedItems(updatedSelectedItems);
-    } else {
-      if (isReachCanSelectedCount) {
-        return;
-      }
-      var _updatedSelectedItems = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(selectedItems), [updateItem]);
-      setSelectedItems(_updatedSelectedItems);
-    }
-  };
-  var handleSubmit = function handleSubmit(items) {
-    var updateBingoItems = bingoItems.map(function (bingoItem) {
-      return _objectSpread(_objectSpread({}, bingoItem), {}, {
-        status: bingoItem.status === 'normal' ? 'normal' : 'already'
-      });
-    });
-    setBingoItems(updateBingoItems);
-    var updateAlreadyItems = items.map(function (bingoItem) {
-      return _objectSpread(_objectSpread({}, bingoItem), {}, {
-        status: 'already'
-      });
-    });
-    setAlreadyItems([].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(alreadyItems), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(updateAlreadyItems)));
-    setSelectedItems([]);
-    onSubmit(items);
-  };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement((react__WEBPACK_IMPORTED_MODULE_4___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(BingoContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(_Result__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    itemType: itemType,
-    maxSelectCount: maxSelectCount,
-    canSelectCount: canSelectCount,
-    selectedItems: selectedItems,
-    alreadyItems: alreadyItems,
-    awaitSelectImageUrl: awaitSelectImageUrl,
-    awaitReachImageUrl: awaitReachImageUrl,
-    resultSubmitImageUrl: resultSubmitImageUrl,
-    resultBGImageUrl: resultBGImageUrl,
-    onItemClick: handleItemClick,
-    onSubmit: handleSubmit
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ChoiceContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(_ChoiceSection__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    itemType: itemType,
-    itemPadding: itemPadding,
-    rowCount: rowCount,
-    bingoItems: bingoItems,
-    onItemClick: handleItemClick
-  })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Bingo);
-
-/***/ }),
-
-/***/ "./lib/components/Bingo/ChoiceSection.tsx":
-/*!************************************************!*\
-  !*** ./lib/components/Bingo/ChoiceSection.tsx ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _Item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Item */ "./lib/components/Bingo/Item.tsx");
-
-var _templateObject;
-
-
-
-var Container = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: grid;\n  grid-template-columns: repeat(", ", 1fr);\n  column-gap: 12px;\n  row-gap: 8px;\n  margin: 0 14px;\n"])), function (p) {
-  return p.rowCount;
-});
-var ChoiceSection = function ChoiceSection(_ref) {
-  var bingoItems = _ref.bingoItems,
-    rowCount = _ref.rowCount,
-    itemType = _ref.itemType,
-    itemPadding = _ref.itemPadding,
-    onItemClick = _ref.onItemClick;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Container, {
-    rowCount: rowCount
-  }, bingoItems.map(function (bingoItem) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      key: bingoItem.itemKey,
-      bingoItem: bingoItem,
-      itemType: itemType,
-      itemPadding: itemPadding,
-      onClick: onItemClick
-    });
-  }));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().memo(ChoiceSection));
-
-/***/ }),
-
-/***/ "./lib/components/Bingo/Item.tsx":
-/*!***************************************!*\
-  !*** ./lib/components/Bingo/Item.tsx ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-
-var _templateObject, _templateObject2, _templateObject3;
-
-
-var StyledItem = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  position: relative;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex: 1;\n  aspect-ratio: 1;\n\n  padding: ", ";\n  opacity: ", ";\n  cursor: ", ";\n"])), function (p) {
-  return p.itemPadding ? "".concat(p.itemPadding, "px") : '';
-}, function (p) {
-  return p.bingoItem.status === 'already' ? 0.3 : 1;
-}, function (p) {
-  return p.bingoItem.status === 'already' ? 'default' : 'pointer';
-});
-var StyledImg = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].img(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  max-width: 100%;\n  height: auto;\n"])));
-var StyledText = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].span(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  position: absolute;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  text-align: center;\n  font-family: PingFangTC;\n  font-size: 18px;\n  font-weight: 600;\n"])));
-var Item = function Item(_ref) {
-  var _ref2, _ref3;
-  var bingoItem = _ref.bingoItem,
-    itemType = _ref.itemType,
-    _ref$itemPadding = _ref.itemPadding,
-    itemPadding = _ref$itemPadding === void 0 ? 0 : _ref$itemPadding,
-    _onClick = _ref.onClick;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledItem, {
-    itemPadding: itemPadding,
-    bingoItem: bingoItem,
-    onClick: function onClick() {
-      return _onClick(bingoItem);
-    }
-  }, itemType === 'text' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, bingoItem.text), itemType === 'image' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledImg, {
-    alt: bingoItem.itemKey,
-    src: (_ref2 = bingoItem.status === 'already' ? bingoItem.alreadyImageUrl || bingoItem.defaultImageUrl : bingoItem.status === 'selected' ? bingoItem.selectedImageUrl : bingoItem.defaultImageUrl) !== null && _ref2 !== void 0 ? _ref2 : ''
-  }), itemType === 'imageAndText' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledImg, {
-    alt: bingoItem.itemKey,
-    src: (_ref3 = bingoItem.status === 'already' ? bingoItem.alreadyImageUrl || bingoItem.defaultImageUrl : bingoItem.status === 'selected' ? bingoItem.selectedImageUrl : bingoItem.defaultImageUrl) !== null && _ref3 !== void 0 ? _ref3 : ''
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledText, null, bingoItem.text)));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().memo(Item));
-
-/***/ }),
-
-/***/ "./lib/components/Bingo/Result.tsx":
+/***/ "./lib/components/Avatar/index.tsx":
 /*!*****************************************!*\
-  !*** ./lib/components/Bingo/Result.tsx ***!
+  !*** ./lib/components/Avatar/index.tsx ***!
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -22895,77 +22620,103 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _Item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Item */ "./lib/components/Bingo/Item.tsx");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../constants */ "./lib/constants/index.ts");
+/* harmony import */ var _helpers_handleClickAvatar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/handleClickAvatar */ "./lib/helpers/handleClickAvatar.ts");
 
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7;
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
 
 
 
-var ResultContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  padding: 20px 12px;\n  background-image: url(", ");\n\n  background-size: 100% 100%;\n"])), function (p) {
-  return p.resultBGImageUrl ? p.resultBGImageUrl : '';
+
+var shimmer = (0,styled_components__WEBPACK_IMPORTED_MODULE_5__.keyframes)(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  100% {\n    transform: translateX(100%);\n  }\n"])));
+var Skeleton = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  overflow: hidden;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  background-color: #e0e0e0;\n\n  &::after {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background: linear-gradient(\n      90deg,\n      rgba(255, 255, 255, 0) 0,\n      rgba(255, 255, 255, 0.5) 50%,\n      rgba(255, 255, 255, 0) 100%\n    );\n    transform: translateX(-100%);\n    animation: ", " 1.5s infinite;\n  }\n"])), function (p) {
+  return p.size;
+}, function (p) {
+  return p.size;
+}, shimmer);
+var StyledImage = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].img(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  display: block;\n  border-radius: 50%;\n  box-sizing: border-box;\n  border: ", ";\n  /* A fallback color so the border is visible even if the image fails to load */\n  background-color: #ccc;\n"])), function (p) {
+  return p.border || 'none';
 });
-var ItemsContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  display: flex;\n  column-gap: 12px;\n  /* width: 280px; */\n  margin: 20px 0 10px;\n"])));
-var StyledTitle = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].h3(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  font-family: PingFangTC;\n  font-size: 20px;\n  font-weight: 500;\n  text-align: center;\n"])));
-var StyledItem = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  position: relative;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex: 1;\n  aspect-ratio: 1;\n"])));
-var StyledImg = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].img(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  max-width: 100%;\n  height: auto;\n"])));
-var StyledText = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].span(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  position: absolute;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  text-align: center;\n  font-family: PingFangTC;\n  font-size: 18px;\n  font-weight: 600;\n"])));
-var StyledSubmit = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  margin: 0 auto;\n  width: 140px;\n  height: 40px;\n  line-height: 40px;\n  color: #fff;\n  font-size: 13px;\n  text-align: center;\n  background-image: url(", ");\n  background-size: 100% 100%;\n  cursor: pointer;\n"])), function (p) {
-  return p.resultSubmitImageUrl ? p.resultSubmitImageUrl : '';
+var AvatarWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: relative;\n  width: ", "px;\n  height: ", "px;\n  border-radius: 50%;\n  overflow: hidden;\n  background-color: #ccc; /* Fallback color for the container */\n  cursor: ", ";\n  display: inline-block;\n  vertical-align: middle;\n  box-sizing: border-box;\n\n  ", "\n"])), function (p) {
+  return p.size;
+}, function (p) {
+  return p.size;
+}, function (p) {
+  return p.isClickable ? 'pointer' : 'auto';
+}, function (p) {
+  return p.isLive && (0,styled_components__WEBPACK_IMPORTED_MODULE_5__.css)(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n      &::after {\n        content: '';\n        background-image: url(http://webcdn.17app.co/campaign/assets/igOfficialCircle.png);\n        background-repeat: no-repeat;\n        background-position: center center;\n        background-size: contain;\n        width: 100%;\n        height: 100%;\n        position: absolute;\n        top: 0px;\n        left: 0px;\n      }\n    "])));
 });
-var Result = function Result(_ref) {
-  var selectedItems = _ref.selectedItems,
-    alreadyItems = _ref.alreadyItems,
-    maxSelectCount = _ref.maxSelectCount,
-    canSelectCount = _ref.canSelectCount,
-    itemType = _ref.itemType,
-    awaitSelectImageUrl = _ref.awaitSelectImageUrl,
-    awaitReachImageUrl = _ref.awaitReachImageUrl,
-    resultBGImageUrl = _ref.resultBGImageUrl,
-    resultSubmitImageUrl = _ref.resultSubmitImageUrl,
-    onItemClick = _ref.onItemClick,
-    onSubmit = _ref.onSubmit;
-  var showMaxSelectCount = maxSelectCount - alreadyItems.length;
-  var allItemIndexs = Array.from({
-    length: showMaxSelectCount
-  }, function (_, i) {
-    return i;
-  });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ResultContainer, {
-    resultBGImageUrl: resultBGImageUrl
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledTitle, null, "\u6211\u7684\u9078\u865F"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ItemsContainer, null, alreadyItems.map(function (alreadyItem) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      key: alreadyItem.itemKey,
-      bingoItem: alreadyItem,
-      itemType: itemType,
-      onClick: onItemClick
-    });
-  }), allItemIndexs.map(function (itemIndex) {
-    var isAwaitSelectItem = itemIndex < canSelectCount;
-    var selectItem = selectedItems[itemIndex];
-    return selectItem ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      key: itemIndex,
-      bingoItem: selectItem,
-      itemType: itemType,
-      onClick: onItemClick
-    }) : isAwaitSelectItem ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledItem, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledImg, {
-      alt: "awaitSelect",
-      src: awaitSelectImageUrl
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledText, null, "?")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledItem, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledImg, {
-      alt: "awaitReact",
-      src: awaitReachImageUrl
-    }));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(StyledSubmit, {
-    resultSubmitImageUrl: resultSubmitImageUrl,
-    onClick: function onClick() {
-      return onSubmit(selectedItems);
+var Avatar = function Avatar(_ref) {
+  var avatarUrl = _ref.avatarUrl,
+    _ref$defaultAvatarUrl = _ref.defaultAvatarUrl,
+    defaultAvatarUrl = _ref$defaultAvatarUrl === void 0 ? _constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_AVATAR_IMAGE : _ref$defaultAvatarUrl,
+    _ref$alt = _ref.alt,
+    alt = _ref$alt === void 0 ? 'avatar' : _ref$alt,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? 52 : _ref$size,
+    _ref$isLive = _ref.isLive,
+    isLive = _ref$isLive === void 0 ? false : _ref$isLive,
+    _ref$isLoading = _ref.isLoading,
+    isLoading = _ref$isLoading === void 0 ? false : _ref$isLoading,
+    border = _ref.border,
+    onClick = _ref.onClick,
+    _ref$isRedirectEnable = _ref.isRedirectEnabled,
+    isRedirectEnabled = _ref$isRedirectEnable === void 0 ? false : _ref$isRedirectEnable,
+    userID = _ref.userID,
+    openID = _ref.openID,
+    streamID = _ref.streamID;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(avatarUrl || defaultAvatarUrl),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    currentSrc = _useState2[0],
+    setCurrentSrc = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    setCurrentSrc(avatarUrl || defaultAvatarUrl || _constants__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_AVATAR_IMAGE);
+  }, [avatarUrl, defaultAvatarUrl]);
+  var handleError = function handleError() {
+    if (currentSrc !== defaultAvatarUrl) {
+      setCurrentSrc(defaultAvatarUrl);
     }
-  }, "\u9001\u51FA"));
+  };
+  var handleAvatarClick = function handleAvatarClick(event) {
+    if (onClick) {
+      onClick(event);
+    }
+    if (isRedirectEnabled) {
+      if (!userID || !openID) {
+        console.warn('Avatar: userID and openID are required for redirection.');
+        return;
+      }
+      (0,_helpers_handleClickAvatar__WEBPACK_IMPORTED_MODULE_4__["default"])(userID, openID, streamID);
+    }
+  };
+  if (isLoading) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Skeleton, {
+      size: size
+    });
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(AvatarWrapper, {
+    size: size,
+    isLive: isLive,
+    isClickable: !!onClick || isRedirectEnabled,
+    onClick: handleAvatarClick,
+    role: (onClick !== null && onClick !== void 0 ? onClick : isRedirectEnabled) ? 'button' : 'img',
+    tabIndex: (onClick !== null && onClick !== void 0 ? onClick : isRedirectEnabled) ? 0 : undefined,
+    "aria-label": alt
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(StyledImage, {
+    src: currentSrc,
+    alt: alt,
+    onError: handleError,
+    loading: "lazy",
+    border: border
+  }));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().memo(Result));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Avatar);
 
 /***/ }),
 
@@ -23475,7 +23226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Keyboard__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Keyboard */ "./playground/Keyboard.tsx");
 /* harmony import */ var _Copy__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Copy */ "./playground/Copy.tsx");
 /* harmony import */ var _Sentry__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./Sentry */ "./playground/Sentry.tsx");
-/* harmony import */ var _Bingo__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Bingo */ "./playground/Bingo.tsx");
+/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Avatar */ "./playground/Avatar.tsx");
 
 
 
@@ -23524,7 +23275,7 @@ var App = function App() {
     Keyboard: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Keyboard__WEBPACK_IMPORTED_MODULE_17__["default"], null),
     Copy: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Copy__WEBPACK_IMPORTED_MODULE_18__["default"], null),
     Sentry: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Sentry__WEBPACK_IMPORTED_MODULE_19__["default"], null),
-    Bingo: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Bingo__WEBPACK_IMPORTED_MODULE_20__["default"], null)
+    Avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Avatar__WEBPACK_IMPORTED_MODULE_20__["default"], null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "react 18 \u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
@@ -23540,10 +23291,10 @@ var App = function App() {
 
 /***/ }),
 
-/***/ "./playground/Bingo.tsx":
-/*!******************************!*\
-  !*** ./playground/Bingo.tsx ***!
-  \******************************/
+/***/ "./playground/Avatar.tsx":
+/*!*******************************!*\
+  !*** ./playground/Avatar.tsx ***!
+  \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -23551,258 +23302,225 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _lib_components_Bingo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../lib/components/Bingo */ "./lib/components/Bingo/index.ts");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/components/Avatar */ "./lib/components/Avatar/index.tsx");
+
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6;
 
 
 
-var _templateObject, _templateObject2, _templateObject3, _templateObject4;
-
-
-
-var MAX_SELECTED_COUNT = 5;
-var CAN_SELECTED_COUNT = 3;
-var ROW_COUNT = 5;
-var BINGO_COUNT = 99;
-var Container = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  display: flex;\n"])));
-var SettingContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  width: 450px;\n"])));
-var BingoContainer = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  box-sizing: border-box;\n  width: 370px;\n  height: fit-content;\n  margin: 20px auto 0;\n  padding: 20px 35px;\n  pointer-events: ", ";\n  opacity: ", ";\n  background-image: url('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/7b0dd75c-ca22-4da0-af8b-f5de195bfbc8_webp');\n  background-size: 100% 100%;\n"])), function (p) {
-  return p.isGameStart ? '' : 'none';
-}, function (p) {
-  return p.isGameStart ? '1' : '0.3';
-});
-var Input = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].input(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  margin-bottom: 20px;\n  padding: 5px 10px;\n  width: 300px;\n"])));
-var Playground = function Playground() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
-    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
-    itemPadding = _useState2[0],
-    setItemPadding = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/3c1b1760-5cc7-4a9f-b78d-9d3a4ccbdb6d_webp'),
-    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
-    defaultImageUrl = _useState4[0],
-    setDefaultImageUrl = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/0e73893a-bb7d-4c09-a26e-e9cccd68640d_webp'),
-    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
-    selectedImageUrl = _useState6[0],
-    setSelectedImageUrl = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/0e73893a-bb7d-4c09-a26e-e9cccd68640d_webp'),
-    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState7, 2),
-    alreadyImageUrl = _useState8[0],
-    setAlreadyImageUrl = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/214e7c3a-6944-4fe9-99f1-1414ab8e8537_webp'),
-    _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState9, 2),
-    awaitSelectImageUrl = _useState10[0],
-    setAwaitSelectImageUrl = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/d3770f67-5210-4841-b8ef-b53ca7c7fbcd_webp'),
-    _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState11, 2),
-    awaitReachImageUrl = _useState12[0],
-    setAwaitReachImageUrl = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/ebdbc54c-7672-4a40-a4be-eefaa1fc8962_webp'),
-    _useState14 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState13, 2),
-    resultBGImageUrl = _useState14[0],
-    setResultBGImageUrl = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('https://storage.googleapis.com/media17-sta-web-assets/campaign/16803-kev-2411-horse-racing-world-go/c7604b62-dfa7-4fee-bfb6-24182030b26f_webp'),
-    _useState16 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState15, 2),
-    resultSubmitImageUrl = _useState16[0],
-    setResultSubmitImageUrl = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(MAX_SELECTED_COUNT),
-    _useState18 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState17, 2),
-    maxSelectCount = _useState18[0],
-    setMaxSelectCount = _useState18[1];
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(CAN_SELECTED_COUNT),
-    _useState20 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState19, 2),
-    canSelectCount = _useState20[0],
-    setCanSelectCount = _useState20[1];
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(BINGO_COUNT),
-    _useState22 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState21, 2),
-    bingoCount = _useState22[0],
-    setBingoCount = _useState22[1];
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(ROW_COUNT),
-    _useState24 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState23, 2),
-    rowCount = _useState24[0],
-    setRowCount = _useState24[1];
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]),
-    _useState26 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState25, 2),
-    selectedItems = _useState26[0],
-    setSelectedItems = _useState26[1];
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]),
-    _useState28 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState27, 2),
-    defaultAlreadys = _useState28[0],
-    setDefaultAlreadys = _useState28[1];
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
-    _useState30 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState29, 2),
-    defaultSelected = _useState30[0],
-    setDefaultSelected = _useState30[1];
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-    _useState32 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState31, 2),
-    isGameStart = _useState32[0],
-    setIsGameStart = _useState32[1];
-  var handleItemClick = function handleItemClick(item) {
-    console.log('handleItemClick: ', item);
+var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n"])));
+var Controls = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-color: #f0f0f0;\n  padding: 15px;\n  border-radius: 8px;\n  margin-bottom: 20px;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 15px;\n"])));
+var ControlGroup = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n\n  label {\n    font-weight: bold;\n    font-size: 14px;\n  }\n\n  input[type='text'],\n  input[type='number'] {\n    padding: 8px;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n  }\n\n  input[type='checkbox'] {\n    margin-right: 8px;\n  }\n"])));
+var MainDisplay = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 30px;\n  border: 2px dashed #ccc;\n  border-radius: 8px;\n  margin-bottom: 30px;\n  min-height: 150px;\n"])));
+var Gallery = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-wrap: wrap;\n  gap: 20px;\n  align-items: center;\n  justify-content: center;\n"])));
+var Example = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 8px;\n  padding: 15px;\n  border: 1px solid #e0e0e0;\n  border-radius: 8px;\n  min-width: 120px;\n  text-align: center;\n\n  code {\n    background-color: #eee;\n    padding: 2px 4px;\n    border-radius: 3px;\n    font-size: 12px;\n  }\n"])));
+var AvatarPlayground = function AvatarPlayground() {
+  // State for interactive controls
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg'),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    avatarUrl = _useState2[0],
+    setAvatarUrl = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg'),
+    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
+    defaultAvatarUrl = _useState4[0],
+    setDefaultAvatarUrl = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(80),
+    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState5, 2),
+    size = _useState6[0],
+    setSize = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('4px solid #17E1D1'),
+    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState7, 2),
+    border = _useState8[0],
+    setBorder = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState9, 2),
+    isLive = _useState10[0],
+    setIsLive = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState11, 2),
+    isLoading = _useState12[0],
+    setIsLoading = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
+    _useState14 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState13, 2),
+    isClickable = _useState14[0],
+    setIsClickable = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState16 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState15, 2),
+    isRedirectEnabled = _useState16[0],
+    setIsRedirectEnabled = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('122d1372-0051-45a3-b909-ba0b27b12328'),
+    _useState18 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState17, 2),
+    userID = _useState18[0],
+    setUserID = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('18199368'),
+    _useState20 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState19, 2),
+    openID = _useState20[0],
+    setOpenID = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(212817403),
+    _useState22 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState21, 2),
+    streamID = _useState22[0],
+    setStreamID = _useState22[1];
+  var handleClick = function handleClick() {
+    alert('Avatar clicked!');
   };
-  var handleSubmit = function handleSubmit(items) {
-    console.log('handleSubmit items: ', items);
-    setSelectedItems(function (prevSelectItems) {
-      return [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(prevSelectItems), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(items));
-    });
-    setCanSelectCount(function (prevCanSelectCount) {
-      return prevCanSelectCount - items.length;
-    });
-  };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Container, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(SettingContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h3", null, "Bingo \u8A2D\u5B9A"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u7E3D\u5171\u5E7E\u500B: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "Avatar Component Playground"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Controls, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "avatarURL"
+  }, "Avatar URL"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "avatarURL",
+    type: "text",
+    value: avatarUrl,
+    onChange: function onChange(e) {
+      return setAvatarUrl(e.target.value);
+    },
+    placeholder: "Enter image URL"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "defaultAvatarUrl"
+  }, "Default Avatar URL (optional)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "defaultAvatarUrl",
+    type: "text",
+    value: defaultAvatarUrl,
+    onChange: function onChange(e) {
+      return setDefaultAvatarUrl(e.target.value);
+    },
+    placeholder: "Enter fallback image URL"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "size"
+  }, "Size (px)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "size",
     type: "number",
-    value: bingoCount,
-    min: 1,
-    max: 999,
-    disabled: isGameStart,
+    value: size,
     onChange: function onChange(e) {
-      return setBingoCount(+e.target.value);
+      return setSize(Number(e.target.value));
     }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u4E00\u884C\u5E7E\u500B: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "border"
+  }, "Border CSS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "border",
+    type: "text",
+    value: border,
+    onChange: function onChange(e) {
+      return setBorder(e.target.value);
+    },
+    placeholder: "e.g., 2px solid white"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "isLiveCheckbox"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    type: "checkbox",
+    id: "isLiveCheckbox",
+    checked: isLive,
+    onChange: function onChange(e) {
+      return setIsLive(e.target.checked);
+    }
+  }), "isLive"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "isLoadingCheckbox"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    type: "checkbox",
+    id: "isLoadingCheckbox",
+    checked: isLoading,
+    onChange: function onChange(e) {
+      return setIsLoading(e.target.checked);
+    }
+  }), "isLoading"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "isClickableCheckbox"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    type: "checkbox",
+    id: "isClickableCheckbox",
+    checked: isClickable,
+    onChange: function onChange(e) {
+      return setIsClickable(e.target.checked);
+    }
+  }), "onClick")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    type: "checkbox",
+    checked: isRedirectEnabled,
+    onChange: function onChange(e) {
+      return setIsRedirectEnabled(e.target.checked);
+    }
+  }), "isRedirectEnabled"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "userID"
+  }, "User ID"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "userID",
+    type: "text",
+    value: userID,
+    onChange: function onChange(e) {
+      return setUserID(e.target.value);
+    },
+    disabled: !isRedirectEnabled
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "openID"
+  }, "Open ID"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "openID",
+    type: "text",
+    value: openID,
+    onChange: function onChange(e) {
+      return setOpenID(e.target.value);
+    },
+    disabled: !isRedirectEnabled
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "streamID"
+  }, "Stream ID (optional)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "streamID",
     type: "number",
-    value: rowCount,
-    min: 1,
-    max: 999,
-    disabled: isGameStart,
+    value: streamID || '',
     onChange: function onChange(e) {
-      return setRowCount(+e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u6700\u591A\u9078\u53D6\u5E7E\u500B: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "number",
-    min: 1,
-    max: 99,
-    value: maxSelectCount,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setMaxSelectCount(+e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h3", null, "Bingo ball "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u9810\u8A2D\u5716: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "text",
-    value: defaultImageUrl,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setDefaultImageUrl(e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u9078\u53D6\u72C0\u614B\u5716: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "text",
-    value: selectedImageUrl,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setSelectedImageUrl(e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u9810\u8A2D\u5DF2\u9078\u53D6\u865F\u78BC\u5716 ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\uFF08opacity 0.3, \u6C92\u8A2D\u6703\u4F7F\u7528\u9810\u8A2D\u5716): ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "text",
-    value: alreadyImageUrl,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setAlreadyImageUrl(e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u4E0A\u65B9\u53EF\u9078\u53D6\u7B49\u5F85\u9078\u53D6\u5716: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "text",
-    value: awaitSelectImageUrl,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setAwaitSelectImageUrl(e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u4E0A\u65B9\u4E0D\u53EF\u9078\u53D6\u5269\u9918\u6578\u5716: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "text",
-    value: awaitReachImageUrl,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setAwaitReachImageUrl(e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u4E0A\u65B9\u5E95\u5716: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "text",
-    value: resultBGImageUrl,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setResultBGImageUrl(e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u4E0A\u65B9\u9001\u51FA\u6309\u9215\u5E95\u5716: ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "text",
-    value: resultSubmitImageUrl,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setResultSubmitImageUrl(e.target.value);
-    }
-  }), ' ')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(SettingContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h3", null, "\u904A\u6232\u8A2D\u5B9A"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u9810\u8A2D\u5DF2\u9078\u53D6\u865F\u78BC\uFF08\u9810\u8A2D\u72C0\u614B\uFF09:", ' ', defaultAlreadys.map(function (defaultAlready) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("span", {
-      key: defaultAlready
-    }, defaultAlready + 1, " ,");
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "number",
-    value: defaultSelected,
-    disabled: isGameStart,
-    onChange: function onChange(e) {
-      return setDefaultSelected(+e.target.value);
-    }
-  }), ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("button", {
-    type: "button",
-    disabled: isGameStart,
+      return setStreamID(Number(e.target.value));
+    },
+    placeholder: "e.g., 98765",
+    disabled: !isRedirectEnabled
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h2", null, "Interactive Demo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(MainDisplay, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: avatarUrl,
+    defaultAvatarUrl: defaultAvatarUrl,
+    size: size,
+    border: border,
+    isLive: isLive,
+    isLoading: isLoading,
+    onClick: isClickable ? handleClick : undefined,
+    isRedirectEnabled: isRedirectEnabled,
+    userID: userID,
+    openID: openID,
+    streamID: streamID,
+    alt: "Interactive Avatar"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h2", null, "Examples"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Gallery, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "Default")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg",
+    isLive: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "isLive")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg",
+    size: 100
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "size=", 100)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg",
+    border: "4px solid #17E1D1"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "border")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg",
+    isLive: true,
+    border: "4px solid #17E1D1"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "isLive + border")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    isLoading: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "isLoading")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "invalid-url.jpg"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "Fallback (default)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "invalid-url.jpg",
+    defaultAvatarUrl: "https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "Fallback (custom)")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg",
     onClick: function onClick() {
-      if (!defaultSelected) {
-        return;
-      }
-      setDefaultAlreadys(function (prevSelected) {
-        return [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(prevSelected), [defaultSelected - 1]);
-      });
-      setDefaultSelected(undefined);
+      return alert('Clicked!');
     }
-  }, "\u78BA\u8A8D"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u76EE\u524D\u53EF\u9078\u53D6\u5E7E\u500B: (\u52D5\u614B\u8ABF\u6574 by code)", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Input, {
-    type: "number",
-    value: canSelectCount,
-    disabled: isGameStart,
-    max: 99,
-    min: 0,
-    onChange: function onChange(e) {
-      return setCanSelectCount(+e.target.value);
-    }
-  }), ' '), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h3", null, "--\u904A\u6232--"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("button", {
-    type: "button",
-    onClick: function onClick() {
-      return setIsGameStart(true);
-    }
-  }, "start"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("button", {
-    type: "button",
-    onClick: function onClick() {
-      setSelectedItems([]);
-      setDefaultAlreadys([]);
-      setDefaultSelected(0);
-      setBingoCount(BINGO_COUNT);
-      setCanSelectCount(CAN_SELECTED_COUNT);
-      setIsGameStart(false);
-    }
-  }, "reset")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h3", null, "\u904A\u6232\u7D50\u679C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u5DF2\u9078\u53D6\u865F\u78BC:", ' ', selectedItems.map(function (selectedItem) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("span", {
-      key: selectedItem.itemKey
-    }, selectedItem.text, " ,");
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(BingoContainer, {
-    isGameStart: isGameStart
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_Bingo__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    itemType: "imageAndText",
-    rowCount: rowCount,
-    bingoCount: bingoCount,
-    maxSelectCount: maxSelectCount,
-    canSelectCount: canSelectCount,
-    itemPadding: itemPadding,
-    defaultImageUrl: defaultImageUrl,
-    selectedImageUrl: selectedImageUrl,
-    alreadyImageUrl: alreadyImageUrl,
-    awaitSelectImageUrl: awaitSelectImageUrl,
-    awaitReachImageUrl: awaitReachImageUrl,
-    resultBGImageUrl: resultBGImageUrl,
-    resultSubmitImageUrl: resultSubmitImageUrl,
-    onItemClick: handleItemClick,
-    onSubmit: handleSubmit,
-    defaultAlreadys: defaultAlreadys
-  })));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "onClick")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_lib_components_Avatar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    avatarUrl: "https://cdn.17app.co/THUMBNAIL_1f33ad66-30d0-42cd-8bd5-bdb942d4da38.jpg",
+    isRedirectEnabled: true,
+    userID: "122d1372-0051-45a3-b909-ba0b27b12328",
+    openID: "18199368",
+    streamID: 212817403
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "isRedirectEnabled"))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Playground);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().memo(AvatarPlayground));
 
 /***/ }),
 
