@@ -109,7 +109,7 @@ const AvatarWrapper = styled.div<{
     css`
       &::after {
         content: '';
-        background-image: url(http://webcdn.17app.co/campaign/assets/igOfficialCircle.png);
+        background-image: url(https://webcdn.17app.co/campaign/assets/igOfficialCircle.png);
         background-repeat: no-repeat;
         background-position: center center;
         background-size: contain;
