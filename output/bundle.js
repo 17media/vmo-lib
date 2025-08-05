@@ -23227,6 +23227,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Copy__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Copy */ "./playground/Copy.tsx");
 /* harmony import */ var _Sentry__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./Sentry */ "./playground/Sentry.tsx");
 /* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Avatar */ "./playground/Avatar.tsx");
+/* harmony import */ var _CssHelpers__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./CssHelpers */ "./playground/CssHelpers.tsx");
+
 
 
 
@@ -23249,7 +23251,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('Keyboard'),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('CssHelpers'),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     currentComponent = _useState2[0],
     setCurrentComponent = _useState2[1];
@@ -23275,7 +23277,8 @@ var App = function App() {
     Keyboard: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Keyboard__WEBPACK_IMPORTED_MODULE_17__["default"], null),
     Copy: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Copy__WEBPACK_IMPORTED_MODULE_18__["default"], null),
     Sentry: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Sentry__WEBPACK_IMPORTED_MODULE_19__["default"], null),
-    Avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Avatar__WEBPACK_IMPORTED_MODULE_20__["default"], null)
+    Avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Avatar__WEBPACK_IMPORTED_MODULE_20__["default"], null),
+    CssHelpers: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_CssHelpers__WEBPACK_IMPORTED_MODULE_21__["default"], null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "react 18 \u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
@@ -23628,6 +23631,96 @@ var Copy = function Copy() {
   }, "new one"));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().memo(Copy));
+
+/***/ }),
+
+/***/ "./playground/CssHelpers.tsx":
+/*!***********************************!*\
+  !*** ./playground/CssHelpers.tsx ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11;
+
+
+
+// 1. Define the global styles for the helper classes
+var fadeIn = (0,styled_components__WEBPACK_IMPORTED_MODULE_3__.keyframes)(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  from {\n    opacity: 0;\n    transform: scale(0.9);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n"])));
+var fadeOut = (0,styled_components__WEBPACK_IMPORTED_MODULE_3__.keyframes)(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  from {\n    opacity: 1;\n    transform: scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: scale(0.9);\n  }\n"])));
+var GlobalStyle = (0,styled_components__WEBPACK_IMPORTED_MODULE_3__.createGlobalStyle)(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  .popupFadeIn {\n    animation: ", " 0.3s ease-out forwards;\n  }\n\n  .popupFadeOut {\n    animation: ", " 0.3s ease-out forwards;\n  }\n\n  .non-selectable {\n    user-select: none;\n    -webkit-user-select: none; /* For Safari */\n    -moz-user-select: none; /* For Firefox */\n    -ms-user-select: none; /* For IE10+ */\n  }\n\n  .no-pointer-events {\n    pointer-events: none;\n  }\n\n  .all-pointer-events {\n    pointer-events: all;\n  }\n\n  .cursor-pointer {\n    cursor: pointer;\n  }\n\n  .cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .cursor-inherit {\n    cursor: inherit;\n  }\n"])), fadeIn, fadeOut);
+
+// 2. Create styled components for the playground layout
+var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n"])));
+var Section = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].section(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  margin-bottom: 40px;\n  border: 1px solid #ccc;\n  padding: 20px;\n  border-radius: 8px;\n"])));
+var SectionTitle = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].h2(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  margin-top: 0;\n  border-bottom: 2px solid #eee;\n  padding-bottom: 10px;\n"])));
+var ExampleGrid = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n  gap: 20px;\n"])));
+var ExampleBox = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject8 || (_templateObject8 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: 1px dashed #aaa;\n  padding: 15px;\n  text-align: center;\n  background-color: #f9f9f9;\n  min-height: 80px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n\n  code {\n    display: block;\n    margin-top: 10px;\n    background-color: #eee;\n    padding: 2px 6px;\n    border-radius: 4px;\n    font-size: 13px;\n  }\n"])));
+var PopupContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject9 || (_templateObject9 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1000;\n"])));
+var PopupContent = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject10 || (_templateObject10 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-color: white;\n  padding: 30px 40px;\n  border-radius: 8px;\n  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);\n  text-align: center;\n"])));
+var Button = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject11 || (_templateObject11 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 10px 15px;\n  cursor: pointer;\n"])));
+
+// 3. Create the main component
+var CssHelpers = function CssHelpers() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    isPopupVisible = _useState2[0],
+    setIsPopupVisible = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
+    isAnimatingOut = _useState4[0],
+    setIsAnimatingOut = _useState4[1];
+  var handleClosePopup = function handleClosePopup() {
+    setIsAnimatingOut(true);
+    setTimeout(function () {
+      setIsPopupVisible(false);
+      setIsAnimatingOut(false);
+    }, 300); // Animation duration
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement((react__WEBPACK_IMPORTED_MODULE_2___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(GlobalStyle, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "CSS Helper Classes Playground"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(SectionTitle, null, "Popup Transition Effect"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u4F7F\u7528 ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "popupFadeIn"), " \u548C ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "popupFadeOut"), " class \u4F86\u70BA\u5F48\u51FA\u8996\u7A97\u589E\u52A0\u6DE1\u5165/\u6DE1\u51FA\u52D5\u756B\u6548\u679C\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+    onClick: function onClick() {
+      return setIsPopupVisible(true);
+    }
+  }, "Show Popup"), isPopupVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PopupContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PopupContent, {
+    className: isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "\u6D3B\u52D5\u8AAA\u660E"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u9019\u662F\u4E00\u500B\u4F7F\u7528 fadeIn/fadeOut \u52D5\u756B\u7684\u5F48\u51FA\u8996\u7A97\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+    style: {
+      marginTop: '20px'
+    },
+    onClick: handleClosePopup
+  }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(SectionTitle, null, "Mouse Cursor & Pointer Events"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u4EE5\u4E0B\u662F\u5404\u7A2E\u6ED1\u9F20\u5716\u6A19\u548C\u6307\u6A19\u4E8B\u4EF6\u7684 helper classes\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ExampleGrid, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ExampleBox, {
+    className: "non-selectable"
+  }, "\u9019\u6BB5\u6587\u5B57\u7121\u6CD5\u9078\u53D6", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, ".non-selectable")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ExampleBox, {
+    className: "cursor-pointer"
+  }, "\u6307\u6A19\u6E38\u6A19", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, ".cursor-pointer")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ExampleBox, {
+    className: "cursor-not-allowed"
+  }, "\u7981\u6B62\u6E38\u6A19", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, ".cursor-not-allowed")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ExampleBox, {
+    className: "cursor-inherit",
+    style: {
+      cursor: 'help'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
+    className: "cursor-inherit"
+  }, "\u7E7C\u627F\u7684\u6E38\u6A19 (help)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, ".cursor-inherit")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ExampleBox, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
+    className: "no-pointer-events"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, null, "\u7121\u6CD5\u9EDE\u64CA")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, ".no-pointer-events")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ExampleBox, {
+    className: "no-pointer-events"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
+    className: "all-pointer-events"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, null, "\u53EF\u4EE5\u9EDE\u64CA")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, ".all-pointer-events (\u5728 .no-pointer-events \u5167)"))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().memo(CssHelpers));
 
 /***/ }),
 
