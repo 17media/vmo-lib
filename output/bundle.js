@@ -22650,7 +22650,7 @@ var AvatarWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].di
 }, function (p) {
   return p.isClickable ? 'pointer' : 'auto';
 }, function (p) {
-  return p.isLive && (0,styled_components__WEBPACK_IMPORTED_MODULE_5__.css)(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n      &::after {\n        content: '';\n        background-image: url(http://webcdn.17app.co/campaign/assets/igOfficialCircle.png);\n        background-repeat: no-repeat;\n        background-position: center center;\n        background-size: contain;\n        width: 100%;\n        height: 100%;\n        position: absolute;\n        top: 0px;\n        left: 0px;\n      }\n    "])));
+  return p.isLive && (0,styled_components__WEBPACK_IMPORTED_MODULE_5__.css)(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n      &::after {\n        content: '';\n        background-image: url(https://webcdn.17app.co/campaign/assets/igOfficialCircle.png);\n        background-repeat: no-repeat;\n        background-position: center center;\n        background-size: contain;\n        width: 100%;\n        height: 100%;\n        position: absolute;\n        top: 0px;\n        left: 0px;\n      }\n    "])));
 });
 var Avatar = function Avatar(_ref) {
   var avatarUrl = _ref.avatarUrl,
