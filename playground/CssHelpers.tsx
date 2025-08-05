@@ -33,6 +33,22 @@ const GlobalStyle = createGlobalStyle`
     animation: ${fadeOut} 0.3s ease-out forwards;
   }
 
+  /* Atomic padding classes are removed in favor of props-based approach */
+
+  /* Device size helpers */
+  .device-width {
+    width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
+  }
+  .device-height {
+    height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+  .device-width-max {
+    max-width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
+  }
+  .device-height-max {
+    max-height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+
   .non-selectable {
     user-select: none;
     -webkit-user-select: none; /* For Safari */
@@ -133,10 +149,75 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+// --- Components for Device Sizing Demo ---
+
+const DevicePopupBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Orange background for the "padding" area */
+  background-color: rgba(255, 165, 0, 0.7);
+  z-index: 1000;
+  cursor: pointer;
+`;
+
+const DevicePopupWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* Allow clicks to pass through to the backdrop */
+`;
+
+const DevicePopupContent = styled.div<{ px?: number; py?: number }>`
+  pointer-events: auto; /* Capture clicks on the content itself */
+  box-sizing: border-box;
+  /* Blue background for the "content" area */
+  background-color: rgba(0, 0, 255, 0.2);
+  color: white;
+  border: 2px dashed white;
+
+  /* Set CSS variables from props */
+  --device-padding-x: ${p => (p.px ? `${p.px}px` : '0px')};
+  --device-padding-y: ${p => (p.py ? `${p.py}px` : '0px')};
+
+  /* The inner content */
+  & > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    line-height: 1.5;
+
+    code {
+      background-color: #00008b; /* Darker blue for code blocks */
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      display: block;
+      margin-top: 10px;
+    }
+  }
+`;
+
 // 3. Create the main component
 const CssHelpers = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [isDeviceDemoVisible, setDeviceDemoVisible] = useState(false);
+  const [demoProps, setDemoProps] = useState({ px: 0, py: 0, useMax: false });
 
   const handleClosePopup = () => {
     setIsAnimatingOut(true);
@@ -144,6 +225,11 @@ const CssHelpers = () => {
       setIsPopupVisible(false);
       setIsAnimatingOut(false);
     }, 300); // Animation duration
+  };
+
+  const showDeviceDemo = (px: number, py: number, useMax: boolean) => {
+    setDemoProps({ px, py, useMax });
+    setDeviceDemoVisible(true);
   };
 
   return (
@@ -160,12 +246,18 @@ const CssHelpers = () => {
           </p>
           <Button onClick={() => setIsPopupVisible(true)}>Show Popup</Button>
           {isPopupVisible && (
-            <PopupContainer>
+            <PopupContainer onClick={handleClosePopup}>
               <PopupContent
                 className={isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn'}
+                onClick={e => e.stopPropagation()}
               >
                 <h1>活動說明</h1>
                 <p>這是一個使用 fadeIn/fadeOut 動畫的彈出視窗。</p>
+                <p
+                  style={{ fontSize: '14px', color: '#666', marginTop: '15px' }}
+                >
+                  (點擊背景可關閉)
+                </p>
                 <Button
                   style={{ marginTop: '20px' }}
                   onClick={handleClosePopup}
@@ -210,6 +302,74 @@ const CssHelpers = () => {
               <code>.all-pointer-events (在 .no-pointer-events 內)</code>
             </ExampleBox>
           </ExampleGrid>
+        </Section>
+
+        <Section>
+          <SectionTitle>Device-adaptive Sizing</SectionTitle>
+          <p>
+            點擊下方按鈕以彈出式視窗實際查看 <code>device-width/height</code>{' '}
+            系列 class 的效果。
+          </p>
+          <p>
+            彈出視窗的 <b style={{ color: 'orange' }}>橘色區域</b> 代表{' '}
+            <code>--device-padding-x/y</code> 所設定的間距，
+            <b style={{ color: 'blue' }}>藍色區域</b> 則是內容區塊。
+          </p>
+
+          <Button onClick={() => showDeviceDemo(0, 0, false)}>
+            Show Full Size (.device-width)
+          </Button>
+          <Button
+            style={{ marginLeft: '10px' }}
+            onClick={() => showDeviceDemo(16, 32, true)}
+          >
+            Show Padded Size (.device-width-max)
+          </Button>
+
+          {isDeviceDemoVisible && (
+            <>
+              <DevicePopupBackdrop
+                onClick={() => setDeviceDemoVisible(false)}
+              />
+              <DevicePopupWrapper onClick={() => setDeviceDemoVisible(false)}>
+                <DevicePopupContent
+                  className={
+                    demoProps.useMax
+                      ? 'device-width-max device-height-max'
+                      : 'device-width device-height'
+                  }
+                  px={demoProps.px}
+                  py={demoProps.py}
+                >
+                  <div>
+                    <span>
+                      {demoProps.useMax
+                        ? 'Max viewport size with padding'
+                        : 'Full viewport size'}
+                    </span>
+                    <code>
+                      {demoProps.useMax
+                        ? '.device-width-max & .device-height-max'
+                        : '.device-width & .device-height'}
+                    </code>
+                    {demoProps.px > 0 && (
+                      <code>
+                        px={demoProps.px} (左右各 {demoProps.px}px)
+                      </code>
+                    )}
+                    {demoProps.py > 0 && (
+                      <code>
+                        py={demoProps.py} (上下各 {demoProps.py}px)
+                      </code>
+                    )}
+                    <p style={{ marginTop: '20px', fontSize: '14px' }}>
+                      (點擊橘色區域關閉)
+                    </p>
+                  </div>
+                </DevicePopupContent>
+              </DevicePopupWrapper>
+            </>
+          )}
         </Section>
       </PlaygroundWrapper>
     </>
