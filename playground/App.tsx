@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import GlobalStyle from '../lib/helpers/cssHelper';
 import OfflineRound from './OfflineRound';
 import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
@@ -51,6 +52,7 @@ const App = () => {
 
   return (
     <div>
+      <GlobalStyle />
       <div>
         <p>react 18 選擇範例:</p>
         {Object.keys(playgrounds).map(playground => (
