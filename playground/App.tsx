@@ -18,9 +18,11 @@ import Keyboard from './Keyboard';
 import Copy from './Copy';
 import Sentry from './Sentry';
 import Avatar from './Avatar';
+import CssHelpers from './CssHelpers';
 
 const App = () => {
-  const [currentComponent, setCurrentComponent] = useState<string>('Keyboard');
+  const [currentComponent, setCurrentComponent] =
+    useState<string>('CssHelpers');
   const changeComponent = (componentName: string) =>
     setCurrentComponent(componentName);
 
@@ -44,6 +46,7 @@ const App = () => {
     Copy: <Copy />,
     Sentry: <Sentry />,
     Avatar: <Avatar />,
+    CssHelpers: <CssHelpers />,
   };
 
   return (
