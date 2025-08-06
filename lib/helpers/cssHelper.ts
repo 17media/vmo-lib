@@ -43,8 +43,35 @@ export const GlobalStyle = createGlobalStyle`
   .device-width-max {
     max-width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
   }
+  .device-width-min {
+    min-width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
+  }
   .device-height-max {
     max-height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+  .device-height-min {
+    min-height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+
+  /* --- Convenience Combinations & Layout --- */
+
+  /** Fills the safe area of the screen. */
+  .device-screen {
+    width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
+    height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    box-sizing: border-box;
+  }
+
+  /** Often used for overlays and popups. */
+  .device-fixed {
+    position: fixed;
+    inset: 0;
+  }
+
+  /** Center content within the element. */
+  .device-center-content {
+    display: grid;
+    place-items: center;
   }
 
   .non-selectable {

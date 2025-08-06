@@ -142,6 +142,7 @@ const CssHelpers = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [isDeviceDemoVisible, setDeviceDemoVisible] = useState(false);
+  const [isLayoutDemoVisible, setLayoutDemoVisible] = useState(false);
   const [demoProps, setDemoProps] = useState({
     px: 0,
     py: 0,
@@ -241,8 +242,8 @@ const CssHelpers = () => {
         <Section>
           <SectionTitle>Device-adaptive Sizing</SectionTitle>
           <p>
-            點擊下方按鈕以彈出式視窗實際查看 <code>device-width/height</code>{' '}
-            系列 class 的效果。
+            點擊下方按鈕以彈出式視窗實際查看 <code>device-*</code> 系列 class
+            的效果。
           </p>
           <p>
             彈出視窗的 <b style={{ color: 'orange' }}>橘色區域</b> 代表{' '}
@@ -251,7 +252,7 @@ const CssHelpers = () => {
           </p>
 
           <Button onClick={() => showDeviceDemo(0, 0, false, false)}>
-            Show Full Size (.device-width)
+            Show Full Size (.device-screen)
           </Button>
           <Button
             style={{ marginLeft: '10px' }}
@@ -278,7 +279,7 @@ const CssHelpers = () => {
                       ? 'device-width-max device-height-max'
                       : demoProps.useMin
                       ? 'device-width-min'
-                      : 'device-width device-height'
+                      : 'device-screen'
                   }
                   px={demoProps.px}
                   py={demoProps.py}
@@ -296,7 +297,7 @@ const CssHelpers = () => {
                         ? '.device-width-max & .device-height-max'
                         : demoProps.useMin
                         ? '.device-width-min'
-                        : '.device-width & .device-height'}
+                        : '.device-screen'}
                     </code>
                     {demoProps.px > 0 && (
                       <code>
@@ -315,6 +316,58 @@ const CssHelpers = () => {
                 </DevicePopupContent>
               </DevicePopupWrapper>
             </>
+          )}
+        </Section>
+
+        <Section>
+          <SectionTitle>Layout & Combination Helpers</SectionTitle>
+          <p>
+            組合型 helpers 讓您快速建立常見的版面，例如全螢幕置中的彈出視窗。
+          </p>
+          <Button onClick={() => setLayoutDemoVisible(true)}>
+            Show Fullscreen Centered Popup
+          </Button>
+          {isLayoutDemoVisible && (
+            <div
+              className="device-fixed device-center-content"
+              style={{
+                backgroundColor: 'rgba(40, 40, 90, 0.8)',
+                zIndex: 1002,
+              }}
+            >
+              <PopupContent
+                className="device-screen"
+                onClick={e => e.stopPropagation()}
+                style={{
+                  '--device-padding-x': '20px',
+                  '--device-padding-y': '40px',
+                }}
+              >
+                <h1>Centered Content</h1>
+                <p>This popup uses:</p>
+                <code style={{ display: 'block', margin: '8px 0' }}>
+                  .device-fixed
+                </code>
+                <code style={{ display: 'block', margin: '8px 0' }}>
+                  .device-screen
+                </code>
+                <code style={{ display: 'block', margin: '8px 0' }}>
+                  .device-center-content
+                </code>
+                <code style={{ display: 'block', margin: '8px 0' }}>
+                  --device-padding-x: 20px
+                </code>
+                <code style={{ display: 'block', margin: '8px 0' }}>
+                  --device-padding-y: 40px
+                </code>
+                <Button
+                  style={{ marginTop: '20px' }}
+                  onClick={() => setLayoutDemoVisible(false)}
+                >
+                  Close
+                </Button>
+              </PopupContent>
+            </div>
           )}
         </Section>
       </PlaygroundWrapper>
