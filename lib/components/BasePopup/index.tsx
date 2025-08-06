@@ -23,18 +23,27 @@ interface BasePopupProps {
   min?: boolean;
   /** If true, the popup content wrapper will be centered on the screen. */
   isCentered?: boolean;
-  /** If true, a semi-transparent backdrop is shown behind the popup. */
+  /** If true, a semi-transparent backdrop is shown behind the popup. @default true */
   hasBackdrop?: boolean;
+  /** If true, clicking the backdrop will trigger the `onClose` callback. Requires `hasBackdrop` to be true. @default true */
+  isBackdropClosable?: boolean;
+  /** Custom background color for the backdrop. @default 'rgba(0, 0, 0, 0.5)' */
+  backdropColor?: string;
+  /** Custom box-shadow for the content wrapper. @default '0 5px 15px rgba(0, 0, 0, 0.3)' */
+  boxShadow?: string;
   /** Optional custom className for the content wrapper. */
   className?: string;
   /** Optional custom style for the content wrapper. */
   style?: React.CSSProperties;
 }
 
-const Backdrop = styled.div<{ $isAnimatingOut: boolean }>`
+const Backdrop = styled.div<{
+  $isAnimatingOut: boolean;
+  $backdropColor?: string;
+}>`
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${p => p.$backdropColor || 'rgba(0, 0, 0, 0.5)'};
   z-index: 999;
   opacity: 1;
   transition: opacity 0.3s ease-out;
@@ -51,15 +60,15 @@ const PositioningWrapper = styled.div`
   pointer-events: none; /* Allow clicks to pass through to the backdrop */
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.div<{ $boxShadow?: string }>`
   pointer-events: auto; /* Capture clicks on the content itself */
   /* Default styles to make it look like a popup */
   background: white;
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: ${p => p.$boxShadow || '0 5px 15px rgba(0, 0, 0, 0.3)'};
   /* Prevent content from overflowing on small viewports if no device class is used */
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 90dvw;
+  max-height: 90dvh;
   overflow-y: auto;
 `;
 
@@ -75,6 +84,9 @@ const BasePopup: React.FC<BasePopupProps> = ({
   min = false,
   isCentered = true,
   hasBackdrop = true,
+  isBackdropClosable = true,
+  backdropColor,
+  boxShadow,
   className,
   style,
 }) => {
@@ -131,18 +143,20 @@ const BasePopup: React.FC<BasePopupProps> = ({
   return createPortal(
     <>
       {hasBackdrop && (
-        <Backdrop $isAnimatingOut={isAnimatingOut} onClick={onClose} />
+        <Backdrop
+          $isAnimatingOut={isAnimatingOut}
+          onClick={isBackdropClosable ? onClose : undefined}
+          $backdropColor={backdropColor}
+        />
       )}
-      <PositioningWrapper
-        className={positioningClasses.join(' ')}
-        onClick={onClose}
-      >
+      <PositioningWrapper className={positioningClasses.join(' ')}>
         <ContentWrapper
           className={contentClasses.join(' ')}
           style={contentStyles}
           onClick={e => e.stopPropagation()}
           role="dialog"
           aria-modal="true"
+          $boxShadow={boxShadow}
         >
           {children}
         </ContentWrapper>

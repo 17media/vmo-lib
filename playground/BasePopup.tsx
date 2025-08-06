@@ -33,6 +33,19 @@ const ControlGroup = styled.div`
   input[type='range'] {
     width: 100%;
   }
+
+  input[type='text'] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+`;
+
+const ColorInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
 
 const Button = styled.button`
@@ -68,6 +81,9 @@ const BasePopupPlayground = () => {
   const [useMin, setUseMin] = useState(false);
   const [isCentered, setIsCentered] = useState(true);
   const [hasBackdrop, setHasBackdrop] = useState(true);
+  const [isBackdropClosable, setIsBackdropClosable] = useState(true);
+  const [backdropColor, setBackdropColor] = useState('rgba(0, 0, 0, 0.5)');
+  const [boxShadow, setBoxShadow] = useState('0 5px 15px rgba(0, 0, 0, 0.3)');
 
   const handleMinMaxChange = (type: 'min' | 'max', checked: boolean) => {
     if (type === 'min' && checked) {
@@ -166,6 +182,45 @@ const BasePopupPlayground = () => {
             />
             hasBackdrop
           </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={isBackdropClosable}
+              onChange={e => setIsBackdropClosable(e.target.checked)}
+              disabled={!hasBackdrop}
+            />
+            isBackdropClosable
+          </label>
+        </ControlGroup>
+        <ControlGroup>
+          <label htmlFor="backdrop-color">Backdrop Color</label>
+          <ColorInputWrapper>
+            <input
+              id="backdrop-color"
+              type="color"
+              value={
+                backdropColor.startsWith('rgba') ? '#000000' : backdropColor
+              }
+              onChange={e => setBackdropColor(e.target.value)}
+              disabled={!hasBackdrop}
+            />
+            <input
+              type="text"
+              value={backdropColor}
+              onChange={e => setBackdropColor(e.target.value)}
+              disabled={!hasBackdrop}
+            />
+          </ColorInputWrapper>
+        </ControlGroup>
+        <ControlGroup>
+          <label htmlFor="box-shadow-input">Box Shadow</label>
+          <input
+            id="box-shadow-input"
+            type="text"
+            value={boxShadow}
+            onChange={e => setBoxShadow(e.target.value)}
+            style={{ width: '100%', boxSizing: 'border-box' }}
+          />
         </ControlGroup>
       </Controls>
 
@@ -182,6 +237,9 @@ const BasePopupPlayground = () => {
         min={useMin}
         isCentered={isCentered}
         hasBackdrop={hasBackdrop}
+        isBackdropClosable={isBackdropClosable}
+        backdropColor={backdropColor}
+        boxShadow={boxShadow}
       >
         <PopupInnerContent>
           <h2>Hello from BasePopup!</h2>
