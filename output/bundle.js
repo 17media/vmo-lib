@@ -19420,6 +19420,30 @@ var Env = /*#__PURE__*/function (Env) {
 
 /***/ }),
 
+/***/ "./lib/helpers/cssHelper.ts":
+/*!**********************************!*\
+  !*** ./lib/helpers/cssHelper.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   GlobalStyle: () => (/* binding */ GlobalStyle),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+var _templateObject, _templateObject2, _templateObject3;
+
+var fadeIn = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__.keyframes)(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  from {\n    opacity: 0;\n    transform: scale(0.9);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n"])));
+var fadeOut = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__.keyframes)(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  from {\n    opacity: 1;\n    transform: scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: scale(0.9);\n  }\n"])));
+var GlobalStyle = (0,styled_components__WEBPACK_IMPORTED_MODULE_1__.createGlobalStyle)(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  .popupFadeIn {\n    animation: ", " 0.3s ease-out forwards;\n  }\n\n  .popupFadeOut {\n    animation: ", " 0.3s ease-out forwards;\n  }\n\n  /* --- Device size helpers --- */\n  /*\n    These helpers adapt elements to the device's viewport, accounting for safe areas (notches)\n    and allowing for custom padding via CSS variables.\n  */\n  .device-width {\n    width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));\n    box-sizing: border-box;\n  }\n  .device-height {\n    height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));\n    box-sizing: border-box;\n  }\n  .device-width-max {\n    max-width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));\n    box-sizing: border-box;\n  }\n  .device-width-min {\n    min-width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));\n    box-sizing: border-box;\n  }\n  .device-height-max {\n    max-height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));\n    box-sizing: border-box;\n  }\n  .device-height-min {\n    min-height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));\n    box-sizing: border-box;\n  }\n\n  /* --- Layout & Combination Helpers --- */\n\n  /** Fills the entire safe area of the screen. */\n  .device-screen {\n    width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));\n    height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));\n    box-sizing: border-box;\n  }\n\n  /**\n   * Fixes an element to the viewport.\n   * Use with .device-screen for a full-screen overlay.\n   */\n  .device-fixed {\n    position: fixed;\n    inset: 0;\n  }\n\n  /** Centers the direct children of an element. */\n  .device-center-content {\n    display: grid;\n    place-items: center;\n  }\n\n  /* --- Cursor & Pointer Events --- */\n\n  .non-selectable {\n    user-select: none;\n    -webkit-user-select: none; /* For Safari */\n    -moz-user-select: none; /* For Firefox */\n    -ms-user-select: none; /* For IE10+ */\n  }\n\n  .no-pointer-events {\n    pointer-events: none;\n  }\n\n  .all-pointer-events {\n    pointer-events: all;\n  }\n\n  .cursor-pointer {\n    cursor: pointer;\n  }\n\n  .cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .cursor-inherit {\n    cursor: inherit;\n  }\n"])), fadeIn, fadeOut);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GlobalStyle);
+
+/***/ }),
+
 /***/ "./lib/helpers/handleClickAvatar.ts":
 /*!******************************************!*\
   !*** ./lib/helpers/handleClickAvatar.ts ***!
@@ -22720,6 +22744,136 @@ var Avatar = function Avatar(_ref) {
 
 /***/ }),
 
+/***/ "./lib/components/BasePopup/index.tsx":
+/*!********************************************!*\
+  !*** ./lib/components/BasePopup/index.tsx ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+
+var Backdrop = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  position: fixed;\n  inset: 0;\n  background-color: ", ";\n  z-index: 999;\n  opacity: 1;\n  transition: opacity 0.3s ease-out;\n\n  ", "\n"])), function (p) {
+  return p.$backdropColor || 'rgba(0, 0, 0, 0.5)';
+}, function (p) {
+  return p.$isAnimatingOut && (0,styled_components__WEBPACK_IMPORTED_MODULE_5__.css)(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n      opacity: 0;\n    "])));
+});
+var PositioningWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  z-index: 1000;\n  pointer-events: none; /* Allow clicks to pass through to the backdrop */\n"])));
+var ContentWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  pointer-events: auto; /* Capture clicks on the content itself */\n  /* Default styles to make it look like a popup */\n  background: white;\n  border-radius: 8px;\n  box-shadow: ", ";\n  overflow-y: auto;\n"])), function (p) {
+  return p.$boxShadow || '0 5px 15px rgba(0, 0, 0, 0.3)';
+});
+var BasePopup = function BasePopup(_ref) {
+  var isOpen = _ref.isOpen,
+    onClose = _ref.onClose,
+    children = _ref.children,
+    _ref$px = _ref.px,
+    px = _ref$px === void 0 ? 0 : _ref$px,
+    _ref$py = _ref.py,
+    py = _ref$py === void 0 ? 0 : _ref$py,
+    _ref$width = _ref.width,
+    width = _ref$width === void 0 ? true : _ref$width,
+    _ref$height = _ref.height,
+    height = _ref$height === void 0 ? true : _ref$height,
+    _ref$max = _ref.max,
+    max = _ref$max === void 0 ? false : _ref$max,
+    _ref$min = _ref.min,
+    min = _ref$min === void 0 ? false : _ref$min,
+    _ref$isCentered = _ref.isCentered,
+    isCentered = _ref$isCentered === void 0 ? true : _ref$isCentered,
+    _ref$hasBackdrop = _ref.hasBackdrop,
+    hasBackdrop = _ref$hasBackdrop === void 0 ? true : _ref$hasBackdrop,
+    _ref$isBackdropClosab = _ref.isBackdropClosable,
+    isBackdropClosable = _ref$isBackdropClosab === void 0 ? true : _ref$isBackdropClosab,
+    backdropColor = _ref.backdropColor,
+    boxShadow = _ref.boxShadow,
+    className = _ref.className,
+    style = _ref.style;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
+    isMounted = _useState2[0],
+    setIsMounted = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
+    isAnimatingOut = _useState4[0],
+    setIsAnimatingOut = _useState4[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    if (isOpen) {
+      setIsMounted(true);
+      setIsAnimatingOut(false);
+    } else if (isMounted) {
+      setIsAnimatingOut(true);
+      var timer = setTimeout(function () {
+        setIsMounted(false);
+      }, 300); // Must match animation duration
+      return function () {
+        return clearTimeout(timer);
+      };
+    }
+  }, [isOpen, isMounted]);
+  if (!isMounted) {
+    return null;
+  }
+
+  // --- Class & Style Composition ---
+  var positioningClasses = ['device-fixed'];
+  if (isCentered) {
+    positioningClasses.push('device-center-content');
+  }
+  var contentClasses = [className || ''];
+  if (width && height && !max && !min) {
+    contentClasses.push('device-screen');
+  } else {
+    if (width) {
+      if (min) contentClasses.push('device-width-min');else if (max) contentClasses.push('device-width-max');else contentClasses.push('device-width');
+    }
+    if (height) {
+      if (min) contentClasses.push('device-height-min');else if (max) contentClasses.push('device-height-max');else contentClasses.push('device-height');
+    }
+  }
+  contentClasses.push(isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn');
+  var contentStyles = _objectSpread({
+    '--device-padding-x': "".concat(px, "px"),
+    '--device-padding-y': "".concat(py, "px")
+  }, style);
+  return /*#__PURE__*/(0,react_dom__WEBPACK_IMPORTED_MODULE_4__.createPortal)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement((react__WEBPACK_IMPORTED_MODULE_3___default().Fragment), null, hasBackdrop && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Backdrop, {
+    $isAnimatingOut: isAnimatingOut,
+    onClick: isBackdropClosable ? onClose : undefined,
+    $backdropColor: backdropColor
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PositioningWrapper, {
+    className: positioningClasses.join(' ')
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ContentWrapper, {
+    className: contentClasses.join(' '),
+    style: contentStyles,
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    },
+    role: "dialog",
+    "aria-modal": "true",
+    $boxShadow: boxShadow
+  }, children))), document.body);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BasePopup);
+
+/***/ }),
+
 /***/ "./lib/components/ScratchOffCard/index.tsx":
 /*!*************************************************!*\
   !*** ./lib/components/ScratchOffCard/index.tsx ***!
@@ -23208,26 +23362,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _OfflineRound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OfflineRound */ "./playground/OfflineRound.tsx");
-/* harmony import */ var _OfflineTeamRound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OfflineTeamRound */ "./playground/OfflineTeamRound.tsx");
-/* harmony import */ var _LuckyDraw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LuckyDraw */ "./playground/LuckyDraw.tsx");
-/* harmony import */ var _TypeApi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TypeApi */ "./playground/TypeApi.tsx");
-/* harmony import */ var _TypeApi2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TypeApi2 */ "./playground/TypeApi2.tsx");
-/* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Filter */ "./playground/Filter.tsx");
-/* harmony import */ var _Follower__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Follower */ "./playground/Follower.tsx");
-/* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Score */ "./playground/Score.tsx");
-/* harmony import */ var _ScratchOff__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ScratchOff */ "./playground/ScratchOff.tsx");
-/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
-/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
-/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
-/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
-/* harmony import */ var _Expired__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Expired */ "./playground/Expired.tsx");
-/* harmony import */ var _Translation__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Translation */ "./playground/Translation.tsx");
-/* harmony import */ var _Keyboard__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Keyboard */ "./playground/Keyboard.tsx");
-/* harmony import */ var _Copy__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Copy */ "./playground/Copy.tsx");
-/* harmony import */ var _Sentry__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./Sentry */ "./playground/Sentry.tsx");
-/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Avatar */ "./playground/Avatar.tsx");
-/* harmony import */ var _CssHelpers__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./CssHelpers */ "./playground/CssHelpers.tsx");
+/* harmony import */ var _lib_helpers_cssHelper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/helpers/cssHelper */ "./lib/helpers/cssHelper.ts");
+/* harmony import */ var _OfflineRound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OfflineRound */ "./playground/OfflineRound.tsx");
+/* harmony import */ var _OfflineTeamRound__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./OfflineTeamRound */ "./playground/OfflineTeamRound.tsx");
+/* harmony import */ var _LuckyDraw__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./LuckyDraw */ "./playground/LuckyDraw.tsx");
+/* harmony import */ var _TypeApi__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TypeApi */ "./playground/TypeApi.tsx");
+/* harmony import */ var _TypeApi2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TypeApi2 */ "./playground/TypeApi2.tsx");
+/* harmony import */ var _Filter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Filter */ "./playground/Filter.tsx");
+/* harmony import */ var _Follower__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Follower */ "./playground/Follower.tsx");
+/* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Score */ "./playground/Score.tsx");
+/* harmony import */ var _ScratchOff__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ScratchOff */ "./playground/ScratchOff.tsx");
+/* harmony import */ var _Utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Utils */ "./playground/Utils.tsx");
+/* harmony import */ var _ScrollToLoading__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ScrollToLoading */ "./playground/ScrollToLoading.tsx");
+/* harmony import */ var _ScrollToStreamer__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ScrollToStreamer */ "./playground/ScrollToStreamer.tsx");
+/* harmony import */ var _StartRender__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./StartRender */ "./playground/StartRender.tsx");
+/* harmony import */ var _Expired__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Expired */ "./playground/Expired.tsx");
+/* harmony import */ var _Translation__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Translation */ "./playground/Translation.tsx");
+/* harmony import */ var _Keyboard__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Keyboard */ "./playground/Keyboard.tsx");
+/* harmony import */ var _Copy__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./Copy */ "./playground/Copy.tsx");
+/* harmony import */ var _Sentry__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Sentry */ "./playground/Sentry.tsx");
+/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Avatar */ "./playground/Avatar.tsx");
+/* harmony import */ var _BasePopup__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./BasePopup */ "./playground/BasePopup.tsx");
+/* harmony import */ var _CssHelpers__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./CssHelpers */ "./playground/CssHelpers.tsx");
+
+
 
 
 
@@ -23251,7 +23409,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('CssHelpers'),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('BasePopup'),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     currentComponent = _useState2[0],
     setCurrentComponent = _useState2[1];
@@ -23259,28 +23417,29 @@ var App = function App() {
     return setCurrentComponent(componentName);
   };
   var playgrounds = {
-    offlineRound: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_OfflineRound__WEBPACK_IMPORTED_MODULE_2__["default"], null),
-    luckyDraw: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_LuckyDraw__WEBPACK_IMPORTED_MODULE_4__["default"], null),
-    offlineTeamRound: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_OfflineTeamRound__WEBPACK_IMPORTED_MODULE_3__["default"], null),
-    typeApi: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_TypeApi__WEBPACK_IMPORTED_MODULE_5__["default"], null),
-    typeApi2: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_TypeApi2__WEBPACK_IMPORTED_MODULE_6__["default"], null),
-    filter: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Filter__WEBPACK_IMPORTED_MODULE_7__["default"], null),
-    follower: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Follower__WEBPACK_IMPORTED_MODULE_8__["default"], null),
-    score: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Score__WEBPACK_IMPORTED_MODULE_9__["default"], null),
-    scratchOff: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_ScratchOff__WEBPACK_IMPORTED_MODULE_10__["default"], null),
-    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Utils__WEBPACK_IMPORTED_MODULE_11__["default"], null),
-    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_12__["default"], null),
-    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_13__["default"], null),
-    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_StartRender__WEBPACK_IMPORTED_MODULE_14__["default"], null),
-    Expired: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Expired__WEBPACK_IMPORTED_MODULE_15__["default"], null),
-    Translation: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Translation__WEBPACK_IMPORTED_MODULE_16__["default"], null),
-    Keyboard: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Keyboard__WEBPACK_IMPORTED_MODULE_17__["default"], null),
-    Copy: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Copy__WEBPACK_IMPORTED_MODULE_18__["default"], null),
-    Sentry: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Sentry__WEBPACK_IMPORTED_MODULE_19__["default"], null),
-    Avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Avatar__WEBPACK_IMPORTED_MODULE_20__["default"], null),
-    CssHelpers: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_CssHelpers__WEBPACK_IMPORTED_MODULE_21__["default"], null)
+    offlineRound: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_OfflineRound__WEBPACK_IMPORTED_MODULE_3__["default"], null),
+    luckyDraw: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_LuckyDraw__WEBPACK_IMPORTED_MODULE_5__["default"], null),
+    offlineTeamRound: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_OfflineTeamRound__WEBPACK_IMPORTED_MODULE_4__["default"], null),
+    typeApi: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_TypeApi__WEBPACK_IMPORTED_MODULE_6__["default"], null),
+    typeApi2: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_TypeApi2__WEBPACK_IMPORTED_MODULE_7__["default"], null),
+    filter: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Filter__WEBPACK_IMPORTED_MODULE_8__["default"], null),
+    follower: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Follower__WEBPACK_IMPORTED_MODULE_9__["default"], null),
+    score: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Score__WEBPACK_IMPORTED_MODULE_10__["default"], null),
+    scratchOff: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_ScratchOff__WEBPACK_IMPORTED_MODULE_11__["default"], null),
+    utils: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Utils__WEBPACK_IMPORTED_MODULE_12__["default"], null),
+    ScrollToLoading: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_ScrollToLoading__WEBPACK_IMPORTED_MODULE_13__["default"], null),
+    ScrollToStreamer: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_ScrollToStreamer__WEBPACK_IMPORTED_MODULE_14__["default"], null),
+    StartRender: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_StartRender__WEBPACK_IMPORTED_MODULE_15__["default"], null),
+    Expired: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Expired__WEBPACK_IMPORTED_MODULE_16__["default"], null),
+    Translation: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Translation__WEBPACK_IMPORTED_MODULE_17__["default"], null),
+    Keyboard: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Keyboard__WEBPACK_IMPORTED_MODULE_18__["default"], null),
+    Copy: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Copy__WEBPACK_IMPORTED_MODULE_19__["default"], null),
+    Sentry: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Sentry__WEBPACK_IMPORTED_MODULE_20__["default"], null),
+    Avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Avatar__WEBPACK_IMPORTED_MODULE_21__["default"], null),
+    BasePopup: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_BasePopup__WEBPACK_IMPORTED_MODULE_22__["default"], null),
+    CssHelpers: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_CssHelpers__WEBPACK_IMPORTED_MODULE_23__["default"], null)
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "react 18 \u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_lib_helpers_cssHelper__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "react 18 \u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
       key: playground,
       type: "button",
@@ -23527,6 +23686,352 @@ var AvatarPlayground = function AvatarPlayground() {
 
 /***/ }),
 
+/***/ "./playground/BasePopup.tsx":
+/*!**********************************!*\
+  !*** ./playground/BasePopup.tsx ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../lib/components/BasePopup */ "./lib/components/BasePopup/index.tsx");
+
+
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9;
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+
+var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n"])));
+var Controls = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  background-color: #f0f0f0;\n  padding: 20px;\n  border-radius: 8px;\n  margin-bottom: 20px;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));\n  gap: 20px;\n"])));
+var ControlGroup = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n\n  label {\n    font-weight: bold;\n    font-size: 14px;\n    display: flex;\n    align-items: center;\n    gap: 8px;\n  }\n\n  input[type='range'] {\n    width: 100%;\n  }\n\n  input[type='text'] {\n    padding: 8px;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n    font-size: 14px;\n  }\n"])));
+var ColorInputWrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  display: flex;\n  align-items: center;\n  gap: 8px;\n"])));
+var InteractiveSection = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 50px;\n  border: 2px dashed #ccc;\n  border-radius: 8px;\n  margin-bottom: 30px;\n"])));
+var Gallery = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  display: flex;\n  flex-wrap: wrap;\n  gap: 20px;\n  align-items: flex-start;\n  justify-content: center;\n"])));
+var Example = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 8px;\n  padding: 15px;\n  border: 1px solid #e0e0e0;\n  border-radius: 8px;\n  min-width: 180px;\n  text-align: center;\n\n  code {\n    background-color: #eee;\n    padding: 2px 6px;\n    border-radius: 3px;\n    font-size: 12px;\n    word-break: break-all;\n  }\n"])));
+var Button = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].button(_templateObject8 || (_templateObject8 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  padding: 12px 20px;\n  font-size: 16px;\n  cursor: pointer;\n  border-radius: 8px;\n  border: none;\n  background-color: #007bff;\n  color: white;\n  &:hover {\n    background-color: #0056b3;\n  }\n"])));
+var PopupInnerContent = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject9 || (_templateObject9 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2__["default"])(["\n  padding: 20px;\n  color: #333;\n  h2 {\n    margin-top: 0;\n  }\n"])));
+var BasePopupPlayground = function BasePopupPlayground() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
+    isOpen = _useState2[0],
+    setIsOpen = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)({}),
+    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
+    examplesOpen = _useState4[0],
+    setExamplesOpen = _useState4[1];
+
+  // State for props
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(20),
+    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
+    px = _useState6[0],
+    setPx = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(40),
+    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState7, 2),
+    py = _useState8[0],
+    setPy = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(true),
+    _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState9, 2),
+    useWidth = _useState10[0],
+    setUseWidth = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(true),
+    _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState11, 2),
+    useHeight = _useState12[0],
+    setUseHeight = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState14 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState13, 2),
+    useMax = _useState14[0],
+    setUseMax = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState16 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState15, 2),
+    useMin = _useState16[0],
+    setUseMin = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(true),
+    _useState18 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState17, 2),
+    isCentered = _useState18[0],
+    setIsCentered = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(true),
+    _useState20 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState19, 2),
+    hasBackdrop = _useState20[0],
+    setHasBackdrop = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(true),
+    _useState22 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState21, 2),
+    isBackdropClosable = _useState22[0],
+    setIsBackdropClosable = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('rgba(0, 0, 0, 0.5)'),
+    _useState24 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState23, 2),
+    backdropColor = _useState24[0],
+    setBackdropColor = _useState24[1];
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('0 5px 15px rgba(0, 0, 0, 0.3)'),
+    _useState26 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState25, 2),
+    boxShadow = _useState26[0],
+    setBoxShadow = _useState26[1];
+  var toggleExample = function toggleExample(name, state) {
+    setExamplesOpen(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, name, state));
+    });
+  };
+  var handleMinMaxChange = function handleMinMaxChange(type, checked) {
+    if (type === 'min' && checked) {
+      setUseMin(true);
+      setUseMax(false);
+    } else if (type === 'max' && checked) {
+      setUseMax(true);
+      setUseMin(false);
+    } else {
+      setUseMin(false);
+      setUseMax(false);
+    }
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h1", null, "BasePopup Component Playground"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, "Use the controls below to configure the BasePopup component and see how it interacts with the device-sizing CSS helpers."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Controls, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", {
+    htmlFor: "px-slider"
+  }, "Padding X (px): ", px), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    id: "px-slider",
+    type: "range",
+    min: "0",
+    max: "100",
+    value: px,
+    onChange: function onChange(e) {
+      return setPx(Number(e.target.value));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", {
+    htmlFor: "py-slider"
+  }, "Padding Y (py): ", py), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    id: "py-slider",
+    type: "range",
+    min: "0",
+    max: "100",
+    value: py,
+    onChange: function onChange(e) {
+      return setPy(Number(e.target.value));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "checkbox",
+    checked: useWidth,
+    onChange: function onChange(e) {
+      return setUseWidth(e.target.checked);
+    }
+  }), "Use Width Helper"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "checkbox",
+    checked: useHeight,
+    onChange: function onChange(e) {
+      return setUseHeight(e.target.checked);
+    }
+  }), "Use Height Helper")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "checkbox",
+    checked: useMin,
+    onChange: function onChange(e) {
+      return handleMinMaxChange('min', e.target.checked);
+    }
+  }), "Use Min Constraint"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "checkbox",
+    checked: useMax,
+    onChange: function onChange(e) {
+      return handleMinMaxChange('max', e.target.checked);
+    }
+  }), "Use Max Constraint")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "checkbox",
+    checked: isCentered,
+    onChange: function onChange(e) {
+      return setIsCentered(e.target.checked);
+    }
+  }), "isCentered"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "checkbox",
+    checked: hasBackdrop,
+    onChange: function onChange(e) {
+      return setHasBackdrop(e.target.checked);
+    }
+  }), "hasBackdrop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "checkbox",
+    checked: isBackdropClosable,
+    onChange: function onChange(e) {
+      return setIsBackdropClosable(e.target.checked);
+    },
+    disabled: !hasBackdrop
+  }), "isBackdropClosable")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", {
+    htmlFor: "backdrop-color"
+  }, "Backdrop Color"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ColorInputWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    id: "backdrop-color",
+    type: "color",
+    value: backdropColor.startsWith('rgba') ? '#000000' : backdropColor,
+    onChange: function onChange(e) {
+      return setBackdropColor(e.target.value);
+    },
+    disabled: !hasBackdrop
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    type: "text",
+    value: backdropColor,
+    onChange: function onChange(e) {
+      return setBackdropColor(e.target.value);
+    },
+    disabled: !hasBackdrop
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("label", {
+    htmlFor: "box-shadow-input"
+  }, "Box Shadow"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("input", {
+    id: "box-shadow-input",
+    type: "text",
+    value: boxShadow,
+    onChange: function onChange(e) {
+      return setBoxShadow(e.target.value);
+    },
+    style: {
+      width: '100%',
+      boxSizing: 'border-box'
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Interactive Demo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(InteractiveSection, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return setIsOpen(true);
+    }
+  }, "Open Popup"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isOpen: isOpen,
+    onClose: function onClose() {
+      return setIsOpen(false);
+    },
+    px: px,
+    py: py,
+    width: useWidth,
+    height: useHeight,
+    max: useMax,
+    min: useMin,
+    isCentered: isCentered,
+    hasBackdrop: hasBackdrop,
+    isBackdropClosable: isBackdropClosable,
+    backdropColor: backdropColor,
+    boxShadow: boxShadow
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PopupInnerContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Hello from BasePopup!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, "This is the content area."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, "You can click the backdrop (if enabled) or the button below to close me."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return setIsOpen(false);
+    },
+    style: {
+      marginTop: '20px'
+    }
+  }, "Close Me")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Examples"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Gallery, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('simple', true);
+    }
+  }, "Simple Popup"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("code", null, "Default"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isOpen: !!examplesOpen.simple,
+    onClose: function onClose() {
+      return toggleExample('simple', false);
+    },
+    width: false,
+    height: false
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PopupInnerContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Simple Popup"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('simple', false);
+    }
+  }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('fullscreen', true);
+    }
+  }, "Full Screen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("code", null, "width, height"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isOpen: !!examplesOpen.fullscreen,
+    onClose: function onClose() {
+      return toggleExample('fullscreen', false);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PopupInnerContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Full Screen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('fullscreen', false);
+    }
+  }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('noBackdrop', true);
+    }
+  }, "No Backdrop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("code", null, "hasBackdrop=false"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isOpen: !!examplesOpen.noBackdrop,
+    onClose: function onClose() {
+      return toggleExample('noBackdrop', false);
+    },
+    width: false,
+    height: false,
+    hasBackdrop: false
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PopupInnerContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "No Backdrop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('noBackdrop', false);
+    }
+  }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('notClosable', true);
+    }
+  }, "Static Backdrop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("code", null, "isBackdropClosable=false"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isOpen: !!examplesOpen.notClosable,
+    onClose: function onClose() {
+      return toggleExample('notClosable', false);
+    },
+    width: false,
+    height: false,
+    isBackdropClosable: false
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PopupInnerContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Cannot close by clicking backdrop"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('notClosable', false);
+    }
+  }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('customStyle', true);
+    }
+  }, "Custom Style"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("code", null, "backdropColor, boxShadow"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isOpen: !!examplesOpen.customStyle,
+    onClose: function onClose() {
+      return toggleExample('customStyle', false);
+    },
+    width: false,
+    height: false,
+    backdropColor: "rgba(100, 20, 80, 0.7)",
+    boxShadow: "0 0 20px 5px #ffdd00"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PopupInnerContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Custom Style"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('customStyle', false);
+    }
+  }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('padded', true);
+    }
+  }, "Padded Screen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("code", null, "px=40, py=80"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isOpen: !!examplesOpen.padded,
+    onClose: function onClose() {
+      return toggleExample('padded', false);
+    },
+    px: 40,
+    py: 80
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PopupInnerContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Padded Screen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('padded', false);
+    }
+  }, "Close")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Example, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('maxWidth', true);
+    }
+  }, "Max-Width"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("code", null, "max=true, height=false"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(_lib_components_BasePopup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    isOpen: !!examplesOpen.maxWidth,
+    onClose: function onClose() {
+      return toggleExample('maxWidth', false);
+    },
+    max: true,
+    height: false,
+    style: {
+      width: '700px'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(PopupInnerContent, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("h2", null, "Max-Width Popup"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("p", null, "Content determines height."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Button, {
+    onClick: function onClick() {
+      return toggleExample('maxWidth', false);
+    }
+  }, "Close"))))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BasePopupPlayground);
+
+/***/ }),
+
 /***/ "./playground/Copy.tsx":
 /*!*****************************!*\
   !*** ./playground/Copy.tsx ***!
@@ -23655,21 +24160,23 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11;
 
 
+var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n"])));
+var Section = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].section(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  margin-bottom: 40px;\n  border: 1px solid #ccc;\n  padding: 20px;\n  border-radius: 8px;\n"])));
+var SectionTitle = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].h2(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  margin-top: 0;\n  border-bottom: 2px solid #eee;\n  padding-bottom: 10px;\n"])));
+var ExampleGrid = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n  gap: 20px;\n"])));
+var ExampleBox = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: 1px dashed #aaa;\n  padding: 15px;\n  text-align: center;\n  background-color: #f9f9f9;\n  min-height: 80px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n\n  code {\n    display: block;\n    margin-top: 10px;\n    background-color: #eee;\n    padding: 2px 6px;\n    border-radius: 4px;\n    font-size: 13px;\n  }\n"])));
+var PopupContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1000;\n"])));
+var PopupContent = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-color: white;\n  padding: 30px 40px;\n  border-radius: 8px;\n  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);\n  text-align: center;\n"])));
+var Button = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject8 || (_templateObject8 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 10px 15px;\n  cursor: pointer;\n"])));
 
-// 1. Define the global styles for the helper classes
-var fadeIn = (0,styled_components__WEBPACK_IMPORTED_MODULE_3__.keyframes)(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  from {\n    opacity: 0;\n    transform: scale(0.9);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n"])));
-var fadeOut = (0,styled_components__WEBPACK_IMPORTED_MODULE_3__.keyframes)(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  from {\n    opacity: 1;\n    transform: scale(1);\n  }\n  to {\n    opacity: 0;\n    transform: scale(0.9);\n  }\n"])));
-var GlobalStyle = (0,styled_components__WEBPACK_IMPORTED_MODULE_3__.createGlobalStyle)(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  .popupFadeIn {\n    animation: ", " 0.3s ease-out forwards;\n  }\n\n  .popupFadeOut {\n    animation: ", " 0.3s ease-out forwards;\n  }\n\n  .non-selectable {\n    user-select: none;\n    -webkit-user-select: none; /* For Safari */\n    -moz-user-select: none; /* For Firefox */\n    -ms-user-select: none; /* For IE10+ */\n  }\n\n  .no-pointer-events {\n    pointer-events: none;\n  }\n\n  .all-pointer-events {\n    pointer-events: all;\n  }\n\n  .cursor-pointer {\n    cursor: pointer;\n  }\n\n  .cursor-not-allowed {\n    cursor: not-allowed;\n  }\n\n  .cursor-inherit {\n    cursor: inherit;\n  }\n"])), fadeIn, fadeOut);
-
-// 2. Create styled components for the playground layout
-var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n"])));
-var Section = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].section(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  margin-bottom: 40px;\n  border: 1px solid #ccc;\n  padding: 20px;\n  border-radius: 8px;\n"])));
-var SectionTitle = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].h2(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  margin-top: 0;\n  border-bottom: 2px solid #eee;\n  padding-bottom: 10px;\n"])));
-var ExampleGrid = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n  gap: 20px;\n"])));
-var ExampleBox = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject8 || (_templateObject8 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  border: 1px dashed #aaa;\n  padding: 15px;\n  text-align: center;\n  background-color: #f9f9f9;\n  min-height: 80px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-direction: column;\n\n  code {\n    display: block;\n    margin-top: 10px;\n    background-color: #eee;\n    padding: 2px 6px;\n    border-radius: 4px;\n    font-size: 13px;\n  }\n"])));
-var PopupContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject9 || (_templateObject9 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 1000;\n"])));
-var PopupContent = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject10 || (_templateObject10 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-color: white;\n  padding: 30px 40px;\n  border-radius: 8px;\n  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);\n  text-align: center;\n"])));
-var Button = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject11 || (_templateObject11 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 10px 15px;\n  cursor: pointer;\n"])));
+// --- Components for Device Sizing Demo ---
+var DevicePopupBackdrop = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject9 || (_templateObject9 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  /* Orange background for the \"padding\" area */\n  background-color: rgba(255, 165, 0, 0.7);\n  z-index: 1000;\n  cursor: pointer;\n"])));
+var DevicePopupWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject10 || (_templateObject10 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 1001;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  pointer-events: none; /* Allow clicks to pass through to the backdrop */\n"])));
+var DevicePopupContent = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject11 || (_templateObject11 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  pointer-events: auto; /* Capture clicks on the content itself */\n  box-sizing: border-box;\n  /* Blue background for the \"content\" area */\n  background-color: rgba(0, 0, 255, 0.2);\n  color: white;\n  border: 2px dashed white;\n\n  width: 500px;\n  height: 800px;\n\n  /* Set CSS variables from props */\n  --device-padding-x: ", ";\n  --device-padding-y: ", ";\n\n  /* The inner content */\n  & > div {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-direction: column;\n    box-sizing: border-box;\n    padding: 10px;\n    text-align: center;\n    line-height: 1.5;\n\n    code {\n      background-color: #00008b; /* Darker blue for code blocks */\n      padding: 2px 6px;\n      border-radius: 4px;\n      font-size: 13px;\n      display: block;\n      margin-top: 10px;\n    }\n  }\n"])), function (p) {
+  return p.px ? "".concat(p.px, "px") : '0px';
+}, function (p) {
+  return p.py ? "".concat(p.py, "px") : '0px';
+});
 
 // 3. Create the main component
 var CssHelpers = function CssHelpers() {
@@ -23681,6 +24188,23 @@ var CssHelpers = function CssHelpers() {
     _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
     isAnimatingOut = _useState4[0],
     setIsAnimatingOut = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState5, 2),
+    isDeviceDemoVisible = _useState6[0],
+    setDeviceDemoVisible = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState7, 2),
+    isLayoutDemoVisible = _useState8[0],
+    setLayoutDemoVisible = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+      px: 0,
+      py: 0,
+      useMax: false,
+      useMin: false
+    }),
+    _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState9, 2),
+    demoProps = _useState10[0],
+    setDemoProps = _useState10[1];
   var handleClosePopup = function handleClosePopup() {
     setIsAnimatingOut(true);
     setTimeout(function () {
@@ -23688,13 +24212,34 @@ var CssHelpers = function CssHelpers() {
       setIsAnimatingOut(false);
     }, 300); // Animation duration
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement((react__WEBPACK_IMPORTED_MODULE_2___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(GlobalStyle, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "CSS Helper Classes Playground"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(SectionTitle, null, "Popup Transition Effect"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u4F7F\u7528 ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "popupFadeIn"), " \u548C ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "popupFadeOut"), " class \u4F86\u70BA\u5F48\u51FA\u8996\u7A97\u589E\u52A0\u6DE1\u5165/\u6DE1\u51FA\u52D5\u756B\u6548\u679C\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+  var showDeviceDemo = function showDeviceDemo(px, py, useMax) {
+    var useMin = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+    setDemoProps({
+      px: px,
+      py: py,
+      useMax: useMax,
+      useMin: useMin
+    });
+    setDeviceDemoVisible(true);
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement((react__WEBPACK_IMPORTED_MODULE_2___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "CSS Helper Classes Playground"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(SectionTitle, null, "Popup Transition Effect"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u4F7F\u7528 ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "popupFadeIn"), " \u548C ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "popupFadeOut"), " class \u4F86\u70BA\u5F48\u51FA\u8996\u7A97\u589E\u52A0\u6DE1\u5165/\u6DE1\u51FA\u52D5\u756B\u6548\u679C\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
     onClick: function onClick() {
       return setIsPopupVisible(true);
     }
-  }, "Show Popup"), isPopupVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PopupContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PopupContent, {
-    className: isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "\u6D3B\u52D5\u8AAA\u660E"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u9019\u662F\u4E00\u500B\u4F7F\u7528 fadeIn/fadeOut \u52D5\u756B\u7684\u5F48\u51FA\u8996\u7A97\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+  }, "Show Popup"), isPopupVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PopupContainer, {
+    onClick: handleClosePopup
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PopupContent, {
+    className: isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn',
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "\u6D3B\u52D5\u8AAA\u660E"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u9019\u662F\u4E00\u500B\u4F7F\u7528 fadeIn/fadeOut \u52D5\u756B\u7684\u5F48\u51FA\u8996\u7A97\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", {
+    style: {
+      fontSize: '14px',
+      color: '#666',
+      marginTop: '15px'
+    }
+  }, "(\u9EDE\u64CA\u80CC\u666F\u53EF\u95DC\u9589)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
     style: {
       marginTop: '20px'
     },
@@ -23718,7 +24263,102 @@ var CssHelpers = function CssHelpers() {
     className: "no-pointer-events"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
     className: "all-pointer-events"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, null, "\u53EF\u4EE5\u9EDE\u64CA")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, ".all-pointer-events (\u5728 .no-pointer-events \u5167)"))))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, null, "\u53EF\u4EE5\u9EDE\u64CA")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, ".all-pointer-events (\u5728 .no-pointer-events \u5167)")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(SectionTitle, null, "Device-adaptive Sizing"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u9EDE\u64CA\u4E0B\u65B9\u6309\u9215\u4EE5\u5F48\u51FA\u5F0F\u8996\u7A97\u5BE6\u969B\u67E5\u770B ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "device-*"), " \u7CFB\u5217 class \u7684\u6548\u679C\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u5F48\u51FA\u8996\u7A97\u7684 ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("b", {
+    style: {
+      color: 'orange'
+    }
+  }, "\u6A58\u8272\u5340\u57DF"), " \u4EE3\u8868", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "--device-padding-x/y"), " \u6240\u8A2D\u5B9A\u7684\u9593\u8DDD\uFF0C", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("b", {
+    style: {
+      color: 'blue'
+    }
+  }, "\u85CD\u8272\u5340\u57DF"), " \u5247\u662F\u5167\u5BB9\u5340\u584A\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+    onClick: function onClick() {
+      return showDeviceDemo(0, 0, false, false);
+    }
+  }, "Show Full Size (.device-screen)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+    style: {
+      marginLeft: '10px'
+    },
+    onClick: function onClick() {
+      return showDeviceDemo(16, 32, true, false);
+    }
+  }, "Show Padded Size (.device-width-max)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+    style: {
+      marginLeft: '10px',
+      marginTop: '10px'
+    },
+    onClick: function onClick() {
+      return showDeviceDemo(20, 0, false, true);
+    }
+  }, "Show Min-Width Demo (.device-width-min)"), isDeviceDemoVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement((react__WEBPACK_IMPORTED_MODULE_2___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(DevicePopupBackdrop, {
+    onClick: function onClick() {
+      return setDeviceDemoVisible(false);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(DevicePopupWrapper, {
+    onClick: function onClick() {
+      return setDeviceDemoVisible(false);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(DevicePopupContent, {
+    className: demoProps.useMax ? 'device-width-max device-height-max' : demoProps.useMin ? 'device-width-min' : 'device-screen',
+    px: demoProps.px,
+    py: demoProps.py
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("span", null, demoProps.useMax ? 'Max viewport size with padding' : demoProps.useMin ? 'Min viewport size with padding' : 'Full viewport size'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, demoProps.useMax ? '.device-width-max & .device-height-max' : demoProps.useMin ? '.device-width-min' : '.device-screen'), demoProps.px > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "px=", demoProps.px, " (\u5DE6\u53F3\u5404 ", demoProps.px, "px)"), demoProps.py > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", null, "py=", demoProps.py, " (\u4E0A\u4E0B\u5404 ", demoProps.py, "px)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", {
+    style: {
+      marginTop: '20px',
+      fontSize: '14px'
+    }
+  }, "(\u9EDE\u64CA\u6A58\u8272\u5340\u57DF\u95DC\u9589)")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Section, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(SectionTitle, null, "Layout & Combination Helpers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "\u7D44\u5408\u578B helpers \u8B93\u60A8\u5FEB\u901F\u5EFA\u7ACB\u5E38\u898B\u7684\u7248\u9762\uFF0C\u4F8B\u5982\u5168\u87A2\u5E55\u7F6E\u4E2D\u7684\u5F48\u51FA\u8996\u7A97\u3002"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+    onClick: function onClick() {
+      return setLayoutDemoVisible(true);
+    }
+  }, "Show Fullscreen Centered Popup"), isLayoutDemoVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
+    className: "device-fixed device-center-content",
+    style: {
+      backgroundColor: 'rgba(40, 40, 90, 0.8)',
+      zIndex: 1002
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PopupContent, {
+    className: "device-screen",
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    },
+    style: {
+      '--device-padding-x': '20px',
+      '--device-padding-y': '40px'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "Centered Content"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, "This popup uses:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", {
+    style: {
+      display: 'block',
+      margin: '8px 0'
+    }
+  }, ".device-fixed"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", {
+    style: {
+      display: 'block',
+      margin: '8px 0'
+    }
+  }, ".device-screen"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", {
+    style: {
+      display: 'block',
+      margin: '8px 0'
+    }
+  }, ".device-center-content"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", {
+    style: {
+      display: 'block',
+      margin: '8px 0'
+    }
+  }, "--device-padding-x: 20px"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("code", {
+    style: {
+      display: 'block',
+      margin: '8px 0'
+    }
+  }, "--device-padding-y: 40px"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Button, {
+    style: {
+      marginTop: '20px'
+    },
+    onClick: function onClick() {
+      return setLayoutDemoVisible(false);
+    }
+  }, "Close"))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().memo(CssHelpers));
 
