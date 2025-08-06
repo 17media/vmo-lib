@@ -19,11 +19,11 @@ import Keyboard from './Keyboard';
 import Copy from './Copy';
 import Sentry from './Sentry';
 import Avatar from './Avatar';
+import BasePopup from './BasePopup';
 import CssHelpers from './CssHelpers';
 
 const App = () => {
-  const [currentComponent, setCurrentComponent] =
-    useState<string>('CssHelpers');
+  const [currentComponent, setCurrentComponent] = useState<string>('BasePopup');
   const changeComponent = (componentName: string) =>
     setCurrentComponent(componentName);
 
@@ -47,6 +47,7 @@ const App = () => {
     Copy: <Copy />,
     Sentry: <Sentry />,
     Avatar: <Avatar />,
+    BasePopup: <BasePopup />,
     CssHelpers: <CssHelpers />,
   };
 

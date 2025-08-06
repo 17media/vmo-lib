@@ -31,40 +31,61 @@ export const GlobalStyle = createGlobalStyle`
     animation: ${fadeOut} 0.3s ease-out forwards;
   }
 
-  /* Atomic padding classes are removed in favor of props-based approach */
-
-  /* Device size helpers */
+  /* --- Device size helpers --- */
+  /*
+    These helpers adapt elements to the device's viewport, accounting for safe areas (notches)
+    and allowing for custom padding via CSS variables.
+  */
   .device-width {
     width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
+    box-sizing: border-box;
   }
   .device-height {
     height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    box-sizing: border-box;
   }
   .device-width-max {
     max-width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
+    box-sizing: border-box;
   }
   .device-width-min {
     min-width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
+    box-sizing: border-box;
   }
   .device-height-max {
     max-height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    box-sizing: border-box;
   }
   .device-height-min {
     min-height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    box-sizing: border-box;
   }
+
+  /* --- Layout & Combination Helpers --- */
+
+  /** Fills the entire safe area of the screen. */
   .device-screen {
     width: calc(100dvw - (var(--device-padding-x, 0px) * 2) - env(safe-area-inset-left) - env(safe-area-inset-right));
     height: calc(100dvh - (var(--device-padding-y, 0px) * 2) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
     box-sizing: border-box;
   }
+
+  /**
+   * Fixes an element to the viewport.
+   * Use with .device-screen for a full-screen overlay.
+   */
   .device-fixed {
     position: fixed;
     inset: 0;
   }
+
+  /** Centers the direct children of an element. */
   .device-center-content {
     display: grid;
     place-items: center;
   }
+
+  /* --- Cursor & Pointer Events --- */
 
   .non-selectable {
     user-select: none;
