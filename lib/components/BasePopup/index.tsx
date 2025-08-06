@@ -66,9 +66,6 @@ const ContentWrapper = styled.div<{ $boxShadow?: string }>`
   background: white;
   border-radius: 8px;
   box-shadow: ${p => p.$boxShadow || '0 5px 15px rgba(0, 0, 0, 0.3)'};
-  /* Prevent content from overflowing on small viewports if no device class is used */
-  max-width: 90dvw;
-  max-height: 90dvh;
   overflow-y: auto;
 `;
 

@@ -48,6 +48,45 @@ const ColorInputWrapper = styled.div`
   gap: 8px;
 `;
 
+const InteractiveSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  margin-bottom: 30px;
+`;
+
+const Gallery = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+`;
+
+const Example = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  min-width: 180px;
+  text-align: center;
+
+  code {
+    background-color: #eee;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    word-break: break-all;
+  }
+`;
+
 const Button = styled.button`
   padding: 12px 20px;
   font-size: 16px;
@@ -71,6 +110,9 @@ const PopupInnerContent = styled.div`
 
 const BasePopupPlayground = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [examplesOpen, setExamplesOpen] = useState<{ [key: string]: boolean }>(
+    {},
+  );
 
   // State for props
   const [px, setPx] = useState(20);
@@ -84,6 +126,10 @@ const BasePopupPlayground = () => {
   const [isBackdropClosable, setIsBackdropClosable] = useState(true);
   const [backdropColor, setBackdropColor] = useState('rgba(0, 0, 0, 0.5)');
   const [boxShadow, setBoxShadow] = useState('0 5px 15px rgba(0, 0, 0, 0.3)');
+
+  const toggleExample = (name: string, state: boolean) => {
+    setExamplesOpen(prev => ({ ...prev, [name]: state }));
+  };
 
   const handleMinMaxChange = (type: 'min' | 'max', checked: boolean) => {
     if (type === 'min' && checked) {
@@ -105,7 +151,6 @@ const BasePopupPlayground = () => {
         Use the controls below to configure the BasePopup component and see how
         it interacts with the device-sizing CSS helpers.
       </p>
-
       <Controls>
         <ControlGroup>
           <label htmlFor="px-slider">Padding X (px): {px}</label>
@@ -223,39 +268,187 @@ const BasePopupPlayground = () => {
           />
         </ControlGroup>
       </Controls>
+      <h2>Interactive Demo</h2>
+      <InteractiveSection>
+        <Button onClick={() => setIsOpen(true)}>Open Popup</Button>
+        <BasePopup
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          px={px}
+          py={py}
+          width={useWidth}
+          height={useHeight}
+          max={useMax}
+          min={useMin}
+          isCentered={isCentered}
+          hasBackdrop={hasBackdrop}
+          isBackdropClosable={isBackdropClosable}
+          backdropColor={backdropColor}
+          boxShadow={boxShadow}
+        >
+          <PopupInnerContent>
+            <h2>Hello from BasePopup!</h2>
+            <p>This is the content area.</p>
+            <p>
+              You can click the backdrop (if enabled) or the button below to
+              close me.
+            </p>
+            <Button
+              onClick={() => setIsOpen(false)}
+              style={{ marginTop: '20px' }}
+            >
+              Close Me
+            </Button>
+          </PopupInnerContent>
+        </BasePopup>
+      </InteractiveSection>
 
-      <Button onClick={() => setIsOpen(true)}>Open Popup</Button>
-
-      <BasePopup
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        px={px}
-        py={py}
-        width={useWidth}
-        height={useHeight}
-        max={useMax}
-        min={useMin}
-        isCentered={isCentered}
-        hasBackdrop={hasBackdrop}
-        isBackdropClosable={isBackdropClosable}
-        backdropColor={backdropColor}
-        boxShadow={boxShadow}
-      >
-        <PopupInnerContent>
-          <h2>Hello from BasePopup!</h2>
-          <p>This is the content area.</p>
-          <p>
-            You can click the backdrop (if enabled) or the button below to close
-            me.
-          </p>
-          <Button
-            onClick={() => setIsOpen(false)}
-            style={{ marginTop: '20px' }}
-          >
-            Close Me
+      <h2>Examples</h2>
+      <Gallery>
+        <Example>
+          <Button onClick={() => toggleExample('simple', true)}>
+            Simple Popup
           </Button>
-        </PopupInnerContent>
-      </BasePopup>
+          <code>Default</code>
+          <BasePopup
+            isOpen={!!examplesOpen.simple}
+            onClose={() => toggleExample('simple', false)}
+            width={false}
+            height={false}
+          >
+            <PopupInnerContent>
+              <h2>Simple Popup</h2>
+              <Button onClick={() => toggleExample('simple', false)}>
+                Close
+              </Button>
+            </PopupInnerContent>
+          </BasePopup>
+        </Example>
+
+        <Example>
+          <Button onClick={() => toggleExample('fullscreen', true)}>
+            Full Screen
+          </Button>
+          <code>width, height</code>
+          <BasePopup
+            isOpen={!!examplesOpen.fullscreen}
+            onClose={() => toggleExample('fullscreen', false)}
+          >
+            <PopupInnerContent>
+              <h2>Full Screen</h2>
+              <Button onClick={() => toggleExample('fullscreen', false)}>
+                Close
+              </Button>
+            </PopupInnerContent>
+          </BasePopup>
+        </Example>
+
+        <Example>
+          <Button onClick={() => toggleExample('noBackdrop', true)}>
+            No Backdrop
+          </Button>
+          <code>hasBackdrop=false</code>
+          <BasePopup
+            isOpen={!!examplesOpen.noBackdrop}
+            onClose={() => toggleExample('noBackdrop', false)}
+            width={false}
+            height={false}
+            hasBackdrop={false}
+          >
+            <PopupInnerContent>
+              <h2>No Backdrop</h2>
+              <Button onClick={() => toggleExample('noBackdrop', false)}>
+                Close
+              </Button>
+            </PopupInnerContent>
+          </BasePopup>
+        </Example>
+
+        <Example>
+          <Button onClick={() => toggleExample('notClosable', true)}>
+            Static Backdrop
+          </Button>
+          <code>isBackdropClosable=false</code>
+          <BasePopup
+            isOpen={!!examplesOpen.notClosable}
+            onClose={() => toggleExample('notClosable', false)}
+            width={false}
+            height={false}
+            isBackdropClosable={false}
+          >
+            <PopupInnerContent>
+              <h2>Cannot close by clicking backdrop</h2>
+              <Button onClick={() => toggleExample('notClosable', false)}>
+                Close
+              </Button>
+            </PopupInnerContent>
+          </BasePopup>
+        </Example>
+
+        <Example>
+          <Button onClick={() => toggleExample('customStyle', true)}>
+            Custom Style
+          </Button>
+          <code>backdropColor, boxShadow</code>
+          <BasePopup
+            isOpen={!!examplesOpen.customStyle}
+            onClose={() => toggleExample('customStyle', false)}
+            width={false}
+            height={false}
+            backdropColor="rgba(100, 20, 80, 0.7)"
+            boxShadow="0 0 20px 5px #ffdd00"
+          >
+            <PopupInnerContent>
+              <h2>Custom Style</h2>
+              <Button onClick={() => toggleExample('customStyle', false)}>
+                Close
+              </Button>
+            </PopupInnerContent>
+          </BasePopup>
+        </Example>
+
+        <Example>
+          <Button onClick={() => toggleExample('padded', true)}>
+            Padded Screen
+          </Button>
+          <code>px=40, py=80</code>
+          <BasePopup
+            isOpen={!!examplesOpen.padded}
+            onClose={() => toggleExample('padded', false)}
+            px={40}
+            py={80}
+          >
+            <PopupInnerContent>
+              <h2>Padded Screen</h2>
+              <Button onClick={() => toggleExample('padded', false)}>
+                Close
+              </Button>
+            </PopupInnerContent>
+          </BasePopup>
+        </Example>
+
+        <Example>
+          <Button onClick={() => toggleExample('maxWidth', true)}>
+            Max-Width
+          </Button>
+          <code>max=true, height=false</code>
+          <BasePopup
+            isOpen={!!examplesOpen.maxWidth}
+            onClose={() => toggleExample('maxWidth', false)}
+            max
+            height={false}
+            style={{ width: '700px' }}
+          >
+            <PopupInnerContent>
+              <h2>Max-Width Popup</h2>
+              <p>Content determines height.</p>
+              <Button onClick={() => toggleExample('maxWidth', false)}>
+                Close
+              </Button>
+            </PopupInnerContent>
+          </BasePopup>
+        </Example>
+      </Gallery>
     </PlaygroundWrapper>
   );
 };
