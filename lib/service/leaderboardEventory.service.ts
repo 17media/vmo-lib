@@ -17,6 +17,7 @@ interface Params {
   limit: number;
   cursor: string;
   withoutOnliveInfo?: boolean;
+  allBoards?: 'true' | 'false';
   callback?: Function;
   preData?: User[];
 }
@@ -44,6 +45,7 @@ interface FetchURLParams {
   count: number;
   cursor: string;
   withoutOnliveInfo?: boolean;
+  allBoards?: 'true' | 'false';
 }
 
 const getFetchURL = (
@@ -75,6 +77,7 @@ export const getParsedURL = ({
   limit,
   cursor,
   withoutOnliveInfo,
+  allBoards,
   env,
 }: FetchURL & {
   env?: Env;
@@ -84,6 +87,7 @@ export const getParsedURL = ({
     count: limit,
     cursor,
     withoutOnliveInfo,
+    allBoards,
   };
   if (cursor) {
     const [timestampCursor] = (cursor as string).split('-', 1);
@@ -102,6 +106,7 @@ const getLBDataCallback = ({
   limit,
   cursor,
   withoutOnliveInfo,
+  allBoards,
   cancelToken,
   env,
 }: Params & {
@@ -115,6 +120,7 @@ const getLBDataCallback = ({
       count: limit,
       cursor,
       withoutOnliveInfo,
+      allBoards,
     },
     cancelToken,
   });
@@ -125,6 +131,7 @@ export const getLeaderboardEventory = async ({
   limit = 1000,
   cursor = '',
   withoutOnliveInfo,
+  allBoards,
   strategy,
   env,
 }: Params & {
@@ -167,6 +174,7 @@ export const getLeaderboardEventory = async ({
     limit,
     cursor,
     withoutOnliveInfo,
+    allBoards,
     env,
   });
 
@@ -178,6 +186,7 @@ export const getLeaderboardEventory = async ({
       limit,
       cursor,
       withoutOnliveInfo,
+      allBoards,
       cancelToken,
       eventoryApi,
       env,

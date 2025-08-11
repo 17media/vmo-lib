@@ -38,6 +38,11 @@ const Button = styled.button`
   padding: 5px 10px;
 `;
 
+const Checkbox = styled.input`
+  margin-right: 20px;
+  padding: 5px 10px 5px 0;
+`;
+
 interface SearchFilterProps {
   handleOnChange: (value: string) => void;
 }
@@ -76,6 +81,7 @@ const LeaderboardData = ({ config }) => {
       ],
     ],
     opt: config.opt,
+    filterCount: config.filterCount,
   });
 
   // 因為apiList只有一筆，所以使用leaderboardData[0]資料，如果apiList有更多筆資料，後端資料會相對應leaderboardData[]位置
@@ -116,7 +122,7 @@ const LeaderboardData = ({ config }) => {
                 <b>主播名稱:</b> {item.userInfo.displayName}
                 <br />
                 <b>id: </b> {item.userInfo.userID} <br />
-                <b>value:</b> {item.score}
+                <b>rank: </b> {item.rank} <b>value:</b> {item.score}
               </Item>
             ))}
           </TransitionLeaderboardWrapper>
@@ -132,11 +138,14 @@ const TypeApi = () => {
   );
   const [realTime, setRealTime] = useState(0);
   const [limit, setLimit] = useState<number>(1000);
+  const [filterCount, setFilterCount] = useState<number>(0);
+  const [allBoards, setAllBoards] = useState<boolean>(false);
   const [config, setConfig] = useState<{
     apiList: APIType[];
     realTime: number;
     initialData?: User[][];
     opt?: EventoryApiOption;
+    filterCount?: number;
   } | null>();
 
   const eventoryContainerIdHandler = (
@@ -156,6 +165,11 @@ const TypeApi = () => {
     setConfig(null);
   };
 
+  const filterCountHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterCount(+e.target.value);
+    setConfig(null);
+  };
+
   const submitHandler = () => {
     setConfig({
       apiList: [
@@ -169,7 +183,9 @@ const TypeApi = () => {
         limit,
         cursor: '',
         withoutOnliveInfo: false,
+        allBoards: allBoards ? 'true' : 'false',
       },
+      filterCount,
     });
   };
 
@@ -200,6 +216,25 @@ const TypeApi = () => {
         value={limit}
         placeholder="請輸入向後端每次拿取的數量"
         onChange={limitHandler}
+      />
+      <br />
+      <span>要不要全部取完(超過3000):</span>
+      <Checkbox
+        type="checkbox"
+        value="test"
+        onChange={e => {
+          const { checked } = e.target;
+          setAllBoards(checked);
+        }}
+      />
+      <br />
+      <br />
+      <span>最後呈現的數量:</span>
+      <Input
+        type="number"
+        value={filterCount}
+        placeholder="請輸入最後呈現的數量"
+        onChange={filterCountHandler}
       />
       <br />
       <Button onClick={submitHandler}>送出</Button>

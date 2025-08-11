@@ -51,4 +51,5 @@ export interface EventoryApiOption {
   limit: number;
   cursor: string;
   withoutOnliveInfo: boolean;
+  allBoards?: 'true' | 'false';
 }
