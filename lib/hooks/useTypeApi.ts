@@ -133,21 +133,19 @@ export const useTypeApi = ({
     () =>
       leaderboardData?.map(leaderboard => {
         const seenIds = new Set();
-        const filteredLeaderboard = leaderboard
-          .filter(item => {
-            const isDuplicate = seenIds.has(item.userInfo.userID);
+        const filteredLeaderboard = leaderboard.reduce<User[]>((acc, item) => {
+          const isDuplicate = seenIds.has(item.userInfo.userID);
+          if (!isDuplicate) {
             seenIds.add(item.userInfo.userID);
-            return !isDuplicate;
-          })
-          .filter((item, index) => {
-            if (filterCount) {
-              return index < filterCount;
+            if (!filterCount || acc.length < filterCount) {
+              acc.push(item);
             }
-            return true;
-          });
+          }
+          return acc;
+        }, []);
         return filteredLeaderboard;
       }),
-    [leaderboardData],
+    [filterCount, leaderboardData],
   );
 
   const getApiPromiseList = useCallback(

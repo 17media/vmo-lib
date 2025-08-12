@@ -225,6 +225,7 @@ const TypeApi = () => {
         onChange={e => {
           const { checked } = e.target;
           setAllBoards(checked);
+          setConfig(null);
         }}
       />
       <br />
