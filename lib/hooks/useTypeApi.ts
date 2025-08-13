@@ -54,6 +54,7 @@ export const useTypeApi = ({
   realTime,
   initialData,
   cacheStrategy,
+  filterCount,
   opt = {
     limit: 1000,
     cursor: '',
@@ -65,6 +66,7 @@ export const useTypeApi = ({
   realTime: number;
   initialData?: User[][];
   cacheStrategy?: CacheStrategy;
+  filterCount?: number;
   opt?: EventoryApiOption;
   env?: Env;
 }) => {
@@ -73,7 +75,7 @@ export const useTypeApi = ({
   const [suspend, setSuspend] = useState(false);
   const [reload, setReload] = useState(false);
   const timeoutKey = useRef(0);
-  const { limit, cursor, withoutOnliveInfo } = opt;
+  const { limit, cursor, withoutOnliveInfo, allBoards } = opt;
   const initialConfig: Config = useMemo(
     () => ({
       cacheData: [],
@@ -93,6 +95,7 @@ export const useTypeApi = ({
           limit,
           cursor,
           withoutOnliveInfo,
+          allBoards,
         },
       ];
       initialConfig.sources = [
@@ -126,6 +129,25 @@ export const useTypeApi = ({
     [],
   );
 
+  const finalLeaderboardData = useMemo(
+    () =>
+      leaderboardData?.map(leaderboard => {
+        const seenIds = new Set();
+        const filteredLeaderboard = leaderboard.reduce<User[]>((acc, item) => {
+          const isDuplicate = seenIds.has(item.userInfo.userID);
+          if (!isDuplicate) {
+            seenIds.add(item.userInfo.userID);
+            if (!filterCount || acc.length < filterCount) {
+              acc.push(item);
+            }
+          }
+          return acc;
+        }, []);
+        return filteredLeaderboard;
+      }),
+    [filterCount, leaderboardData],
+  );
+
   const getApiPromiseList = useCallback(
     (strategy: CacheStrategy, apis: APIType[] = []) =>
       apis
@@ -143,6 +165,7 @@ export const useTypeApi = ({
               limit: options[index]?.limit,
               cursor: options[index]?.cursor,
               withoutOnliveInfo: options[index]?.withoutOnliveInfo,
+              allBoards: options[index]?.allBoards ?? 'false',
               strategy,
               env,
             });
@@ -153,7 +176,7 @@ export const useTypeApi = ({
           (i): i is Promise<HandleCacheStrategyResponse<Response<User>>> =>
             Boolean(i),
         ),
-    [options],
+    [env, options],
   );
 
   const getRequestApiIndex = useCallback(
@@ -293,11 +316,12 @@ export const useTypeApi = ({
             limit: opt.limit,
             cursor: nextCursor,
             withoutOnliveInfo: opt.withoutOnliveInfo,
+            allBoards: opt.allBoards ?? 'false',
           };
         }
         return option;
       }),
-    [opt.limit, opt.withoutOnliveInfo, options],
+    [opt.limit, opt.withoutOnliveInfo, opt.allBoards, options],
   );
 
   const handleLeaderboardData = useCallback(
@@ -519,7 +543,7 @@ export const useTypeApi = ({
     loading,
     polling,
     requestError,
-    leaderboardData,
+    leaderboardData: finalLeaderboardData,
   };
 };
 
