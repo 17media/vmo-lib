@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import GlobalStyle from '../lib/helpers/cssHelper';
 import OfflineRound from './OfflineRound';
 import OfflineTeamRound from './OfflineTeamRound';
 import LuckyDraw from './LuckyDraw';
@@ -18,9 +19,11 @@ import Keyboard from './Keyboard';
 import Copy from './Copy';
 import Sentry from './Sentry';
 import Avatar from './Avatar';
+import BasePopup from './BasePopup';
+import CssHelpers from './CssHelpers';
 
 const App = () => {
-  const [currentComponent, setCurrentComponent] = useState<string>('Keyboard');
+  const [currentComponent, setCurrentComponent] = useState<string>('BasePopup');
   const changeComponent = (componentName: string) =>
     setCurrentComponent(componentName);
 
@@ -44,10 +47,13 @@ const App = () => {
     Copy: <Copy />,
     Sentry: <Sentry />,
     Avatar: <Avatar />,
+    BasePopup: <BasePopup />,
+    CssHelpers: <CssHelpers />,
   };
 
   return (
     <div>
+      <GlobalStyle />
       <div>
         <p>react 18 選擇範例:</p>
         {Object.keys(playgrounds).map(playground => (
