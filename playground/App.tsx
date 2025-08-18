@@ -21,6 +21,7 @@ import Sentry from './Sentry';
 import Avatar from './Avatar';
 import BasePopup from './BasePopup';
 import CssHelpers from './CssHelpers';
+import LottoBall from './LottoBall';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] = useState<string>('BasePopup');
@@ -49,6 +50,7 @@ const App = () => {
     Avatar: <Avatar />,
     BasePopup: <BasePopup />,
     CssHelpers: <CssHelpers />,
+    LottoBall: <LottoBall />,
   };
 
   return (
