@@ -43,6 +43,7 @@ export interface ILottoBallListProps {
   ballList: Ball[];
   /** The total number of ball slots to display, including empty ones. */
   maximumPick: number;
+  className?: string;
 }
 
 interface IBaseLottoBallListProps extends ILottoBallListProps {
@@ -69,8 +70,9 @@ export const BaseLottoBallList: React.FC<IBaseLottoBallListProps> = ({
   ballList,
   lottoBallSrcConfig,
   maximumPick,
+  className,
 }) => (
-  <LottoBallListContainer style={ballListStyle}>
+  <LottoBallListContainer style={ballListStyle} className={className}>
     {Array.from({ length: maximumPick }).map((_, index) => {
       const ball = ballList[index];
       if (ball) {

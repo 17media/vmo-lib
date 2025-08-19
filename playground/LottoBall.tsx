@@ -93,6 +93,12 @@ const LottoBallPlayground = () => {
 
   const LottoBallListComponent = createLottoBallList(imageConfig);
 
+  const StyledLottoBallList = styled(LottoBallListComponent)`
+    border: 2px solid blue;
+    padding: 10px;
+    border-radius: 5px;
+  `;
+
   const handleImageConfigChange = (type: BallType, url: string) => {
     setImageConfig(prev => ({ ...prev, [type]: url }));
   };
@@ -220,7 +226,7 @@ const LottoBallPlayground = () => {
 
       <h2>Interactive Demo</h2>
       <MainDisplay>
-        <LottoBallListComponent
+        <StyledLottoBallList
           ballList={ballList}
           maximumPick={maximumPick}
           ballStyle={{
