@@ -10,6 +10,20 @@ import {
 const PlaygroundWrapper = styled.div`
   padding: 20px;
   font-family: sans-serif;
+
+  .stage-1 {
+    width: 100%;
+  }
+
+  .stage-2 {
+    width: 40%;
+    flex-wrap: wrap;
+  }
+
+  .stage-3 {
+    width: 10%;
+    flex-wrap: wrap;
+  }
 `;
 
 const Controls = styled.div`
@@ -90,11 +104,11 @@ const LottoBallPlayground = () => {
     { value: 3, type: BallType.SelfPick },
     { value: 4, type: BallType.WinningBall },
   ]);
+  const [stage, setStage] = useState('stage-1');
 
   const LottoBallListComponent = createLottoBallList(imageConfig);
 
   const StyledLottoBallList = styled(LottoBallListComponent)`
-    border: 2px solid blue;
     padding: 10px;
     border-radius: 5px;
   `;
@@ -168,6 +182,18 @@ const LottoBallPlayground = () => {
             onChange={e => setMarginLeft(Number(e.target.value))}
           />
         </ControlGroup>
+        <ControlGroup>
+          <label htmlFor="stage-select">Different Width Layout</label>
+          <select
+            id="stage-select"
+            value={stage}
+            onChange={e => setStage(e.target.value)}
+          >
+            <option value="stage-1">Width 100%</option>
+            <option value="stage-2">Width 40%</option>
+            <option value="stage-3">Width 10%</option>
+          </select>
+        </ControlGroup>
       </Controls>
 
       <h2>Ball Configuration</h2>
@@ -234,6 +260,7 @@ const LottoBallPlayground = () => {
             width: `${size}px`,
             marginLeft: `${marginLeft}px`,
           }}
+          className={stage}
         />
       </MainDisplay>
     </PlaygroundWrapper>
