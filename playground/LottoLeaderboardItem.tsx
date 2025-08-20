@@ -134,7 +134,6 @@ const LottoLeaderboardItem = () => {
   const [avatarUrl, setAvatarUrl] = useState(
     'https://i.pravatar.cc/150?img=12',
   );
-  const [avatarSize, setAvatarSize] = useState(80);
   const [isLive, setIsLive] = useState(true);
   const [openidValue, setOpenidValue] = useState(
     '😱癢癢😱的帳號真的超級無敵長的啦long',
@@ -145,6 +144,7 @@ const LottoLeaderboardItem = () => {
   const [showScore, setShowScore] = useState(true);
   const [ballList, setBallList] = useState(initialBallList);
   const [maxPick, setMaxPick] = useState(5);
+  const avatarSize = 80;
   const ballSize = 45;
 
   const LottoBallList = useCreateLottoBallList(lottoBallSrcConfig);
@@ -226,15 +226,6 @@ const LottoLeaderboardItem = () => {
               type="text"
               value={avatarUrl}
               onChange={e => setAvatarUrl(e.target.value)}
-            />
-          </Control>
-          <Control>
-            <label htmlFor="avatar-size-input">Size (px)</label>
-            <input
-              id="avatar-size-input"
-              type="number"
-              value={avatarSize}
-              onChange={e => setAvatarSize(Number(e.target.value))}
             />
           </Control>
           <Control>
