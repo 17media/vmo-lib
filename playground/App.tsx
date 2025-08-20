@@ -21,6 +21,7 @@ import Sentry from './Sentry';
 import Avatar from './Avatar';
 import BasePopup from './BasePopup';
 import CssHelpers from './CssHelpers';
+import LeaderboardScore from './LeaderboardScore';
 import LottoBall from './LottoBall';
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
     Avatar: <Avatar />,
     BasePopup: <BasePopup />,
     CssHelpers: <CssHelpers />,
+    LeaderboardScore: <LeaderboardScore />,
     LottoBall: <LottoBall />,
   };
 
