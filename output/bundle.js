@@ -20272,27 +20272,39 @@ var animation = function animation(duration, callback) {
     }
   });
 };
-
 /**
  * 給 givenScore 跟 duration 來產生能持續動態改變值的 score <br />
  * @param givenScore 給定的值
  * @param duration 動態改變值的時間, default 1000
+ * @param useAnimation 是否使用動畫, default true
  */
 var useScore = function useScore(_ref) {
   var givenScore = _ref.givenScore,
     _ref$duration = _ref.duration,
     duration = _ref$duration === void 0 ? 1000 : _ref$duration,
-    regionLanguage = _ref.regionLanguage;
+    regionLanguage = _ref.regionLanguage,
+    _ref$useAnimation = _ref.useAnimation,
+    useAnimation = _ref$useAnimation === void 0 ? true : _ref$useAnimation;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(givenScore),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     score = _useState2[0],
     setScore = _useState2[1];
+  var scoreRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(score);
+  scoreRef.current = score;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (!useAnimation) {
+      setScore(givenScore);
+      return;
+    }
+    var startValue = scoreRef.current;
+    if (startValue === givenScore) {
+      return;
+    }
     animation(duration, function (percent) {
-      var newScore = score + Math.round(percent * (givenScore - score));
+      var newScore = startValue + Math.round(percent * (givenScore - startValue));
       setScore(newScore);
     });
-  }, [duration, givenScore, score]);
+  }, [givenScore, duration, useAnimation]);
   return (0,_utils__WEBPACK_IMPORTED_MODULE_2__.numberFormat)(score, regionLanguage);
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useScore);
@@ -22902,6 +22914,152 @@ var BasePopup = function BasePopup(_ref) {
 
 /***/ }),
 
+/***/ "./lib/components/LottoBall/index.tsx":
+/*!********************************************!*\
+  !*** ./lib/components/LottoBall/index.tsx ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BallType: () => (/* binding */ BallType),
+/* harmony export */   useCreateLottoBallList: () => (/* binding */ useCreateLottoBallList)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+
+
+var _templateObject, _templateObject2;
+
+
+var BallType = /*#__PURE__*/function (BallType) {
+  BallType["SelfPick"] = "Self Pick";
+  BallType["ComputerPick"] = "Computer Pick";
+  BallType["NotYetPick"] = "Not Yet Pick";
+  BallType["WinningBall"] = "Winning Ball";
+  BallType["IneligibleBall"] = "Ineligible Ball";
+  return BallType;
+}({});
+
+/**
+ * LottoBall image resource settings
+ */
+
+/**
+ * A component that renders a list of lotto balls with pre-configured images.
+ * The props for this component are defined in `ILottoBallListProps`.
+ */
+
+var LottoBallListContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n"])));
+var LottoBall = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-image: url(", ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"])), function (p) {
+  return p.ballImageSrc;
+});
+var BaseLottoBallList = function BaseLottoBallList(_ref) {
+  var ballListStyle = _ref.ballListStyle,
+    ballStyle = _ref.ballStyle,
+    ballList = _ref.ballList,
+    lottoBallSrcConfig = _ref.lottoBallSrcConfig,
+    maximumPick = _ref.maximumPick,
+    className = _ref.className;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(LottoBallListContainer, {
+    style: ballListStyle,
+    className: className
+  }, Array.from({
+    length: maximumPick
+  }).map(function (_, index) {
+    var ball = ballList[index];
+    if (ball) {
+      var _key = "ball-".concat(index);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(LottoBall, {
+        key: _key,
+        style: ballStyle,
+        ballImageSrc: lottoBallSrcConfig[ball.type]
+      }, ball.value);
+    }
+    var key = "ineligible-".concat(index);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(LottoBall, {
+      key: key,
+      style: ballStyle,
+      ballImageSrc: lottoBallSrcConfig[BallType.IneligibleBall]
+    });
+  }));
+};
+
+/**
+ * A hook that returns a memoized LottoBallList component with a pre-configured set of ball images.
+ * This avoids re-creating the component on every render.
+ * @param lottoBallSrcConfig The configuration for the ball image sources.
+ * @returns A memoized, pre-configured LottoBallList component of type `LottoBallListComponent`.
+ */
+var useCreateLottoBallList = function useCreateLottoBallList(lottoBallSrcConfig) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
+    var ConfiguredLottoBallList = function ConfiguredLottoBallList(props) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(BaseLottoBallList, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+        lottoBallSrcConfig: lottoBallSrcConfig
+      }));
+    };
+    ConfiguredLottoBallList.displayName = 'LottoBallList';
+    return ConfiguredLottoBallList;
+  }, [lottoBallSrcConfig]);
+};
+
+/***/ }),
+
+/***/ "./lib/components/Score/index.tsx":
+/*!****************************************!*\
+  !*** ./lib/components/Score/index.tsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Score: () => (/* binding */ Score),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _hooks_useScore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../hooks/useScore */ "./lib/hooks/useScore.ts");
+
+var _templateObject;
+
+
+
+function formatString(text) {
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+  return text.replace(/{(\d+)}/g, function (_, val) {
+    return args[parseInt(val, 10)];
+  });
+}
+var Value = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n"])));
+var Score = function Score(_ref) {
+  var format = _ref.format,
+    value = _ref.value,
+    useAnimation = _ref.useAnimation,
+    duration = _ref.duration,
+    className = _ref.className;
+  var displayValue = (0,_hooks_useScore__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    givenScore: value,
+    duration: duration,
+    useAnimation: useAnimation
+  });
+  var formattedString = formatString(format, displayValue);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Value, {
+    className: className
+  }, formattedString);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Score);
+
+/***/ }),
+
 /***/ "./lib/components/ScratchOffCard/index.tsx":
 /*!*************************************************!*\
   !*** ./lib/components/ScratchOffCard/index.tsx ***!
@@ -23412,6 +23570,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Avatar */ "./playground/Avatar.tsx");
 /* harmony import */ var _BasePopup__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./BasePopup */ "./playground/BasePopup.tsx");
 /* harmony import */ var _CssHelpers__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./CssHelpers */ "./playground/CssHelpers.tsx");
+/* harmony import */ var _LeaderboardScore__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./LeaderboardScore */ "./playground/LeaderboardScore.tsx");
+/* harmony import */ var _LottoBall__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./LottoBall */ "./playground/LottoBall.tsx");
+
+
 
 
 
@@ -23465,7 +23627,9 @@ var App = function App() {
     Sentry: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Sentry__WEBPACK_IMPORTED_MODULE_20__["default"], null),
     Avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Avatar__WEBPACK_IMPORTED_MODULE_21__["default"], null),
     BasePopup: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_BasePopup__WEBPACK_IMPORTED_MODULE_22__["default"], null),
-    CssHelpers: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_CssHelpers__WEBPACK_IMPORTED_MODULE_23__["default"], null)
+    CssHelpers: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_CssHelpers__WEBPACK_IMPORTED_MODULE_23__["default"], null),
+    LeaderboardScore: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_LeaderboardScore__WEBPACK_IMPORTED_MODULE_24__["default"], null),
+    LottoBall: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_LottoBall__WEBPACK_IMPORTED_MODULE_25__["default"], null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_lib_helpers_cssHelper__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "react 18 \u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
@@ -24822,6 +24986,311 @@ var Keyboard = function Keyboard() {
   return !startRender ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "Loading...") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("div", null, "\u5DF2\u5C07\u9810\u8A2D\u8B80\u53D6\u9801\u9762\u5F9EofflineRound\u6539\u6210Keyboard", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\u9810\u8A2D\u652F\u63F41~9\u6578\u5B57\u9375\uFF0C\u4EE5\u53CA\u9375\u76E4\u5DE6(\u9801\u6578-1)\u53F3(\u9801\u6578+1)\uFF0C\u9801\u6578\u7BC4\u570D1~9", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\u9375\u76E4\u5DE6(\u9801\u6578-1)\u53F3(\u9801\u6578+1)\u8D85\u904E\u7BC4\u570D\u5C07\u505C\u7559\u5728\u539F\u672C\u9801\u9762", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\u5176\u4ED6\u6309\u9375\u90FD\u9700\u8981\u5916\u90E8\u50B3\u5165fn", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\u6B64playground\u6709\u5916\u90E8\u50B3\u5165\u9375\u76E4\u4E0B(\u9801\u6578-1)\u4E0A(\u9801\u6578+1)fn\u5207\u63DB\u524D\u5F8C\u9801\uFF0C\u9801\u6578\u7BC4\u570D\u662F1~9", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\u9375\u76E4\u4E0B(\u9801\u6578-1)\u4E0A(\u9801\u6578+1)\u8D85\u904E\u7BC4\u570D\u5C07\u505C\u7559\u5728\u539F\u672C\u9801\u9762", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), "\u7121\u5728\u8A2D\u5B9A\u9375\u76E4\u6309\u9375\u5167\u7684\u4E8B\u4EF6\u5C07\u88AB\u5FFD\u7565", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default().createElement("br", null), renderPage());
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Keyboard);
+
+/***/ }),
+
+/***/ "./playground/LeaderboardScore.tsx":
+/*!*****************************************!*\
+  !*** ./playground/LeaderboardScore.tsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_components_Score__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/components/Score */ "./lib/components/Score/index.tsx");
+
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
+
+
+
+var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n\n  .stage-1 {\n    color: blue;\n  }\n\n  .stage-2 {\n    color: green;\n    font-style: italic;\n  }\n\n  .stage-3 {\n    color: purple;\n    text-decoration: underline;\n  }\n"])));
+var Controls = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-color: #f0f0f0;\n  padding: 15px;\n  border-radius: 8px;\n  margin-bottom: 20px;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 15px;\n"])));
+var ControlGroup = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n\n  label {\n    font-weight: bold;\n    font-size: 14px;\n  }\n\n  input,\n  select {\n    padding: 8px;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n  }\n"])));
+var MainDisplay = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 30px;\n  border: 2px dashed #ccc;\n  border-radius: 8px;\n  font-size: 24px;\n"])));
+var StyledScore = (0,styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(_lib_components_Score__WEBPACK_IMPORTED_MODULE_3__.Score)(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  font-size: 32px;\n  font-weight: bold;\n"])));
+var ScorePlayground = function ScorePlayground() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('Score: {0} point'),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+    format = _useState2[0],
+    setFormat = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1234567),
+    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
+    value = _useState4[0],
+    setValue = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
+    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState5, 2),
+    useAnimation = _useState6[0],
+    setUseAnimation = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('stage-1'),
+    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState7, 2),
+    stage = _useState8[0],
+    setStage = _useState8[1];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "Score Component Playground"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Controls, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "format-input"
+  }, "Format"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "format-input",
+    type: "text",
+    value: format,
+    onChange: function onChange(e) {
+      return setFormat(e.target.value);
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "value-input"
+  }, "Value"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    id: "value-input",
+    type: "number",
+    value: value,
+    onChange: function onChange(e) {
+      return setValue(+e.target.value);
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
+    type: "checkbox",
+    checked: useAnimation,
+    onChange: function onChange(e) {
+      return setUseAnimation(e.target.checked);
+    }
+  }), "Use Animation")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
+    htmlFor: "stage-select"
+  }, "Different Stage CSS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("select", {
+    id: "stage-select",
+    value: stage,
+    onChange: function onChange(e) {
+      return setStage(e.target.value);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
+    value: "stage-1"
+  }, "Stage 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
+    value: "stage-2"
+  }, "Stage 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
+    value: "stage-3"
+  }, "Stage 3")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h2", null, "Interactive Demo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(MainDisplay, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(StyledScore, {
+    format: format,
+    value: value,
+    useAnimation: useAnimation,
+    className: stage
+  })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().memo(ScorePlayground));
+
+/***/ }),
+
+/***/ "./playground/LottoBall.tsx":
+/*!**********************************!*\
+  !*** ./playground/LottoBall.tsx ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../lib/components/LottoBall */ "./lib/components/LottoBall/index.tsx");
+
+
+
+
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7;
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+
+var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n\n  .stage-1 {\n    width: 100%;\n  }\n\n  .stage-2 {\n    width: 40%;\n    flex-wrap: wrap;\n  }\n\n  .stage-3 {\n    width: 10%;\n    flex-wrap: wrap;\n  }\n"])));
+var Controls = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background-color: #f0f0f0;\n  padding: 15px;\n  border-radius: 8px;\n  margin-bottom: 20px;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 15px;\n"])));
+var BallConfigurationControls = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background-color: #f0f0f0;\n  padding: 15px;\n  border-radius: 8px;\n  margin-bottom: 20px;\n  display: flex;\n  flex-direction: column;\n  gap: 10px;\n"])));
+var ControlGroup = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n\n  label {\n    font-weight: bold;\n    font-size: 14px;\n  }\n\n  input,\n  select {\n    padding: 8px;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n  }\n"])));
+var MainDisplay = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 30px;\n  border: 2px dashed #ccc;\n  border-radius: 8px;\n"])));
+var BallConfig = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  gap: 10px;\n  align-items: center;\n  margin-bottom: 10px;\n"])));
+var LottoBallPlayground = function LottoBallPlayground() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({}, _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.SelfPick, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_pink.png'), _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.ComputerPick, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_cyan.png'), _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.NotYetPick, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_gray.png'), _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.WinningBall, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_yellow.png'), _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.IneligibleBall, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_empty.png')),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
+    imageConfig = _useState2[0],
+    setImageConfig = _useState2[1];
+  var _useState4 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(10),
+    _useState5 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState4, 2),
+    maximumPick = _useState5[0],
+    setMaximumPick = _useState5[1];
+  var _useState6 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(50),
+    _useState7 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState6, 2),
+    size = _useState7[0],
+    setSize = _useState7[1];
+  var _useState8 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(5),
+    _useState9 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState8, 2),
+    marginLeft = _useState9[0],
+    setMarginLeft = _useState9[1];
+  var _useState10 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)([{
+      value: 1,
+      type: _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.ComputerPick
+    }, {
+      value: '?',
+      type: _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.NotYetPick
+    }, {
+      value: 3,
+      type: _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.SelfPick
+    }, {
+      value: 4,
+      type: _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.WinningBall
+    }]),
+    _useState11 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState10, 2),
+    ballList = _useState11[0],
+    setBallList = _useState11[1];
+  var _useState12 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)('stage-1'),
+    _useState13 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState12, 2),
+    stage = _useState13[0],
+    setStage = _useState13[1];
+  var LottoBallListComponent = (0,_lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.useCreateLottoBallList)(imageConfig);
+  var StyledLottoBallList = (0,styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(LottoBallListComponent)(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n    padding: 10px;\n    border-radius: 5px;\n  "])));
+  var handleImageConfigChange = function handleImageConfigChange(type, url) {
+    setImageConfig(function (prev) {
+      return _objectSpread(_objectSpread({}, prev), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({}, type, url));
+    });
+  };
+  var handleBallChange = function handleBallChange(index, field, value) {
+    var newList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(ballList);
+    newList[index] = _objectSpread(_objectSpread({}, newList[index]), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({}, field, value));
+    setBallList(newList);
+  };
+  var addBall = function addBall() {
+    if (ballList.length < maximumPick) {
+      setBallList([].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(ballList), [{
+        value: '',
+        type: _lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType.NotYetPick
+      }]));
+    }
+  };
+  var removeBall = function removeBall(index) {
+    var newList = ballList.filter(function (_, i) {
+      return i !== index;
+    });
+    setBallList(newList);
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
+    if (ballList.length > maximumPick) {
+      setBallList(ballList.slice(0, maximumPick));
+    }
+  }, [maximumPick, ballList]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("h1", null, "Lotto Ball Component Playground"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Controls, null, Object.values(_lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType).map(function (type) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ControlGroup, {
+      key: type
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
+      htmlFor: "image-url-".concat(type)
+    }, type, " Image URL"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
+      id: "image-url-".concat(type),
+      type: "text",
+      value: imageConfig[type],
+      onChange: function onChange(e) {
+        return handleImageConfigChange(type, e.target.value);
+      }
+    }));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
+    htmlFor: "maximum-pick"
+  }, "Maximum Pick"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
+    id: "maximum-pick",
+    type: "number",
+    value: maximumPick,
+    onChange: function onChange(e) {
+      return setMaximumPick(Number(e.target.value));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
+    htmlFor: "ball-size"
+  }, "Ball Size (px)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
+    id: "ball-size",
+    type: "number",
+    value: size,
+    onChange: function onChange(e) {
+      return setSize(Number(e.target.value));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
+    htmlFor: "ball-margin-left"
+  }, "Ball Margin Left (px)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
+    id: "ball-margin-left",
+    type: "number",
+    value: marginLeft,
+    onChange: function onChange(e) {
+      return setMarginLeft(Number(e.target.value));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
+    htmlFor: "stage-select"
+  }, "Different Width Layout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("select", {
+    id: "stage-select",
+    value: stage,
+    onChange: function onChange(e) {
+      return setStage(e.target.value);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("option", {
+    value: "stage-1"
+  }, "Width 100%"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("option", {
+    value: "stage-2"
+  }, "Width 40%"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("option", {
+    value: "stage-3"
+  }, "Width 10%")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("h2", null, "Ball Configuration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(BallConfigurationControls, null, ballList.map(function (ball, index) {
+    var key = index;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(BallConfig, {
+      key: key
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
+      htmlFor: "ball-value-".concat(index)
+    }, "Value"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
+      id: "ball-value-".concat(index),
+      type: "text",
+      value: ball.value,
+      onChange: function onChange(e) {
+        return handleBallChange(index, 'value', e.target.value);
+      }
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
+      htmlFor: "ball-type-".concat(index)
+    }, "Type"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("select", {
+      id: "ball-type-".concat(index),
+      value: ball.type,
+      onChange: function onChange(e) {
+        return handleBallChange(index, 'type', e.target.value);
+      }
+    }, Object.values(_lib_components_LottoBall__WEBPACK_IMPORTED_MODULE_5__.BallType).map(function (type) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("option", {
+        key: type,
+        value: type
+      }, type);
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("button", {
+      type: "button",
+      style: {
+        marginTop: '25px'
+      },
+      onClick: function onClick() {
+        return removeBall(index);
+      }
+    }, "Remove"));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(BallConfig, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("button", {
+    type: "button",
+    onClick: addBall,
+    disabled: ballList.length >= maximumPick
+  }, "Add Ball"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("h2", null, "Interactive Demo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(MainDisplay, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(StyledLottoBallList, {
+    ballList: ballList,
+    maximumPick: maximumPick,
+    ballStyle: {
+      height: "".concat(size, "px"),
+      width: "".concat(size, "px"),
+      marginLeft: "".concat(marginLeft, "px")
+    },
+    className: stage
+  })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().memo(LottoBallPlayground));
 
 /***/ }),
 
