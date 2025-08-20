@@ -36,7 +36,7 @@ export type APIType = {
   prod: string;
 };
 
-export { CacheStrategy } from '../service/cacheManager.service';
+// export { CacheStrategy } from '../service/cacheManager.service';
 
 /**
  * 取得 container 資料<br />
