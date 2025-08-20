@@ -1,60 +1,95 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
+/**
+ * Describes the different types of states a lotto ball can be in.
+ */
 export enum BallType {
-  /** Self-selected number */
+  /** The user has selected this number. */
   SelfPick = 'Self Pick',
-  /** Computer-selected number */
+  /** The number was selected by the system/computer. */
   ComputerPick = 'Computer Pick',
-  /** Can select a number, but the user has not yet selected */
+  /** A slot that is available for a number, but is not yet picked. */
   NotYetPick = 'Not Yet Pick',
-  /** Winning number */
+  /** A number that has been drawn as a winning number. */
   WinningBall = 'Winning Ball',
-  /** Not eligible */
+  /** A slot that is not available for selection. */
   IneligibleBall = 'Ineligible Ball',
 }
 
 /**
- * LottoBall image resource settings
+ * Defines the mapping from each ball type to its corresponding image source URL.
+ * @example
+ * ```ts
+ * const config: LottoBallImageSrcConfig = {
+ *   [BallType.SelfPick]: 'path/to/self_pick.png',
+ *   [BallType.ComputerPick]: 'path/to/computer_pick.png',
+ *   // ...and so on for all ball types
+ * };
+ * ```
  */
 export type LottoBallImageSrcConfig = Record<BallType, string>;
 
+/**
+ * Represents a single lotto ball with its value and type.
+ */
 export interface Ball {
+  /** The number or string value to display inside the ball. */
   value: number | string;
+  /** The type of the ball, which determines its appearance. See {@link BallType}. */
   type: BallType;
 }
 
+/**
+ * @internal
+ * Props for the internal LottoBall styled-component.
+ */
 interface LottoBallProps {
   ballImageSrc: string;
 }
 
 /**
- * A component that renders a list of lotto balls with pre-configured images.
- * The props for this component are defined in `ILottoBallListProps`.
+ * The type definition for a React functional component that renders a list of lotto balls.
+ * It is configured by the {@link useCreateLottoBallList} hook.
  */
 export type LottoBallListComponent = React.FC<ILottoBallListProps>;
 
+/**
+ * Props for the {@link LottoBallListComponent}.
+ */
 export interface ILottoBallListProps {
-  /** Custom styles for the ball list container. */
+  /** Custom styles for the container of the ball list. */
   ballListStyle?: React.CSSProperties;
-  /** Custom styles for each individual ball. */
+  /** Custom styles applied to each individual ball. */
   ballStyle?: React.CSSProperties;
-  /** The list of ball objects to be rendered. */
+  /** The list of ball objects to be rendered. See {@link Ball}. */
   ballList: Ball[];
-  /** The total number of ball slots to display, including empty ones. */
+  /** The total number of ball slots to display. If `ballList` has fewer items, empty slots will be shown. */
   maximumPick: number;
+  /** Optional CSS class name for the container. */
   className?: string;
 }
 
+/**
+ * @internal
+ * Props for the internal BaseLottoBallList component.
+ */
 interface IBaseLottoBallListProps extends ILottoBallListProps {
-  /** The configuration mapping ball types to image sources. */
   lottoBallSrcConfig: LottoBallImageSrcConfig;
 }
 
+/**
+ * @internal
+ * The flex container for the list of balls.
+ */
 const LottoBallListContainer = styled.div`
   display: flex;
 `;
 
+/**
+ * @internal
+ * The styled component for a single lotto ball, showing the background image.
+ */
 const LottoBall = styled.div<LottoBallProps>`
   background-image: url(${p => p.ballImageSrc});
   background-size: contain;
@@ -64,6 +99,10 @@ const LottoBall = styled.div<LottoBallProps>`
   align-items: center;
 `;
 
+/**
+ * @internal
+ * The base implementation of the lotto ball list.
+ */
 const BaseLottoBallList: React.FC<IBaseLottoBallListProps> = ({
   ballListStyle,
   ballStyle,
@@ -100,10 +139,24 @@ const BaseLottoBallList: React.FC<IBaseLottoBallListProps> = ({
 );
 
 /**
- * A hook that returns a memoized LottoBallList component with a pre-configured set of ball images.
- * This avoids re-creating the component on every render.
- * @param lottoBallSrcConfig The configuration for the ball image sources.
- * @returns A memoized, pre-configured LottoBallList component of type `LottoBallListComponent`.
+ * A React hook that returns a memoized `LottoBallListComponent`.
+ * This is the primary way to create a configurable list of lotto balls.
+ * Using this hook prevents the component from being recreated on every render.
+ *
+ * @param lottoBallSrcConfig - A configuration object mapping each `BallType` to an image URL.
+ * @returns A memoized `LottoBallListComponent` ready to be used.
+ *
+ * @example
+ * ```tsx
+ * const MyComponent = () => {
+ *   const lottoBallSrcConfig = { [BallType.SelfPick]: './ball.png', ... };
+ *   const LottoBallList = useCreateLottoBallList(lottoBallSrcConfig);
+ *
+ *   const balls = [{ value: 1, type: BallType.SelfPick }];
+ *
+ *   return <LottoBallList ballList={balls} maximumPick={5} />;
+ * }
+ * ```
  */
 export const useCreateLottoBallList = (
   lottoBallSrcConfig: LottoBallImageSrcConfig,
