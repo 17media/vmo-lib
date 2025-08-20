@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { numberFormat, RegionLanguage } from '../utils';
 
 const animation = (duration: number, callback: (percent: number) => void) => {
@@ -18,28 +18,48 @@ const animation = (duration: number, callback: (percent: number) => void) => {
   });
 };
 
+interface UseScoreProps {
+  givenScore: number;
+  duration?: number;
+  regionLanguage?: RegionLanguage;
+  useAnimation?: boolean;
+}
+
 /**
  * 給 givenScore 跟 duration 來產生能持續動態改變值的 score <br />
  * @param givenScore 給定的值
  * @param duration 動態改變值的時間, default 1000
+ * @param useAnimation 是否使用動畫, default true
  */
 const useScore = ({
   givenScore,
   duration = 1000,
   regionLanguage,
-}: {
-  givenScore: number;
-  duration?: number;
-  regionLanguage?: RegionLanguage;
-}) => {
+  useAnimation = true,
+}: UseScoreProps) => {
   const [score, setScore] = useState<number>(givenScore);
 
+  const scoreRef = useRef<number>(score);
+  scoreRef.current = score;
+
   useEffect(() => {
+    if (!useAnimation) {
+      setScore(givenScore);
+      return;
+    }
+
+    const startValue = scoreRef.current;
+
+    if (startValue === givenScore) {
+      return;
+    }
+
     animation(duration, percent => {
-      const newScore = score + Math.round(percent * (givenScore - score));
+      const newScore =
+        startValue + Math.round(percent * (givenScore - startValue));
       setScore(newScore);
     });
-  }, [duration, givenScore, score]);
+  }, [givenScore, duration, useAnimation]);
 
   return numberFormat(score, regionLanguage);
 };

@@ -14,10 +14,6 @@ function formatString(text: string, ...args: any[]) {
   return text.replace(/{(\d+)}/g, (_, val: string) => args[parseInt(val, 10)]);
 }
 
-function toLocaleString(value: string): string {
-  return parseFloat(value).toLocaleString();
-}
-
 const Value = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -31,12 +27,12 @@ export const Score: React.FC<IScoreProps> = ({
   duration,
   className,
 }) => {
-  const animatedValue = useScore({
+  const displayValue = useScore({
     givenScore: parseFloat(value),
     duration,
+    useAnimation,
   });
 
-  const displayValue = useAnimation ? animatedValue : toLocaleString(value);
   const formattedString = formatString(format, displayValue);
 
   return <Value className={className}>{formattedString}</Value>;

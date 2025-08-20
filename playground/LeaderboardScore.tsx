@@ -66,10 +66,9 @@ const StyledScore = styled(Score)`
 `;
 
 const ScorePlayground = () => {
-  const [format, setFormat] = useState('Score: {0}');
+  const [format, setFormat] = useState('Score: {0} point');
   const [value, setValue] = useState('1234567');
   const [useAnimation, setUseAnimation] = useState(true);
-  const [duration, setDuration] = useState(1000);
   const [stage, setStage] = useState('stage-1');
 
   return (
@@ -92,15 +91,6 @@ const ScorePlayground = () => {
             type="text"
             value={value}
             onChange={e => setValue(e.target.value)}
-          />
-        </ControlGroup>
-        <ControlGroup>
-          <label htmlFor="duration-input">Duration (ms)</label>
-          <input
-            id="duration-input"
-            type="number"
-            value={duration}
-            onChange={e => setDuration(Number(e.target.value))}
           />
         </ControlGroup>
         <ControlGroup>
@@ -133,7 +123,6 @@ const ScorePlayground = () => {
           format={format}
           value={value}
           useAnimation={useAnimation}
-          duration={duration}
           className={stage}
         />
       </MainDisplay>
