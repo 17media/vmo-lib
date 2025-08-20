@@ -69,7 +69,7 @@ const ContentWrapper = styled.div<{ $boxShadow?: string }>`
   overflow-y: auto;
 `;
 
-const BasePopup: React.FC<BasePopupProps> = ({
+export const BasePopup: React.FC<BasePopupProps> = ({
   isOpen,
   onClose,
   children,

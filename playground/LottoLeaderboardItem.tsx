@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-// Component Imports from the library
-import Avatar from '../lib/components/Avatar';
-import { OpenID } from '../lib/components/OpenID';
-import { Score } from '../lib/components/Score';
 import {
+  Avatar,
+  OpenID,
+  Score,
   useCreateLottoBallList,
   LottoBallImageSrcConfig,
   Ball,
   BallType,
-} from '../lib/components/LottoBall';
+} from '../lib';
 
 const PlaygroundWrapper = styled.div`
   padding: 20px;
