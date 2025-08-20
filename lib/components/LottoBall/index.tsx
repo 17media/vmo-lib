@@ -19,6 +19,7 @@ export enum BallType {
 
 /**
  * Defines the mapping from each ball type to its corresponding image source URL.
+ * See {@link BallType}.
  * @example
  * ```ts
  * const config: LottoBallImageSrcConfig = {
@@ -143,7 +144,7 @@ const BaseLottoBallList: React.FC<IBaseLottoBallListProps> = ({
  * This is the primary way to create a configurable list of lotto balls.
  * Using this hook prevents the component from being recreated on every render.
  *
- * @param lottoBallSrcConfig - A configuration object mapping each `BallType` to an image URL.
+ * @param lottoBallSrcConfig - A configuration object mapping each `BallType` to an image URL. See {@link LottoBallImageSrcConfig}
  * @returns A memoized `LottoBallListComponent` ready to be used.
  *
  * @example
