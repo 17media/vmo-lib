@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 export enum BallType {
@@ -64,7 +64,7 @@ const LottoBall = styled.div<LottoBallProps>`
   align-items: center;
 `;
 
-export const BaseLottoBallList: React.FC<IBaseLottoBallListProps> = ({
+const BaseLottoBallList: React.FC<IBaseLottoBallListProps> = ({
   ballListStyle,
   ballStyle,
   ballList,
@@ -76,7 +76,7 @@ export const BaseLottoBallList: React.FC<IBaseLottoBallListProps> = ({
     {Array.from({ length: maximumPick }).map((_, index) => {
       const ball = ballList[index];
       if (ball) {
-        const key = `ball-${ball.value.toString()}`;
+        const key = `ball-${index}`;
         return (
           <LottoBall
             key={key}
@@ -100,18 +100,20 @@ export const BaseLottoBallList: React.FC<IBaseLottoBallListProps> = ({
 );
 
 /**
- * Creates a LottoBallList component with a pre-configured set of ball images.
+ * A hook that returns a memoized LottoBallList component with a pre-configured set of ball images.
+ * This avoids re-creating the component on every render.
  * @param lottoBallSrcConfig The configuration for the ball image sources.
- * @returns A pre-configured LottoBallList component of type `LottoBallListComponent`.
+ * @returns A memoized, pre-configured LottoBallList component of type `LottoBallListComponent`.
  */
-export const createLottoBallList = (
+export const useCreateLottoBallList = (
   lottoBallSrcConfig: LottoBallImageSrcConfig,
-): LottoBallListComponent => {
-  const ConfiguredLottoBallList: LottoBallListComponent = props => (
-    <BaseLottoBallList {...props} lottoBallSrcConfig={lottoBallSrcConfig} />
-  );
+): LottoBallListComponent =>
+  useMemo(() => {
+    const ConfiguredLottoBallList: LottoBallListComponent = props => (
+      <BaseLottoBallList {...props} lottoBallSrcConfig={lottoBallSrcConfig} />
+    );
 
-  ConfiguredLottoBallList.displayName = 'LottoBallList';
+    ConfiguredLottoBallList.displayName = 'LottoBallList';
 
-  return ConfiguredLottoBallList;
-};
+    return ConfiguredLottoBallList;
+  }, [lottoBallSrcConfig]);

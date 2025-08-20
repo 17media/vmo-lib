@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
-  createLottoBallList,
+  useCreateLottoBallList,
   LottoBallImageSrcConfig,
   Ball,
   BallType,
@@ -106,7 +106,7 @@ const LottoBallPlayground = () => {
   ]);
   const [stage, setStage] = useState('stage-1');
 
-  const LottoBallListComponent = createLottoBallList(imageConfig);
+  const LottoBallListComponent = useCreateLottoBallList(imageConfig);
 
   const StyledLottoBallList = styled(LottoBallListComponent)`
     padding: 10px;
@@ -117,7 +117,11 @@ const LottoBallPlayground = () => {
     setImageConfig(prev => ({ ...prev, [type]: url }));
   };
 
-  const handleBallChange = (index: number, field: keyof Ball, value: any) => {
+  const handleBallChange = (
+    index: number,
+    field: keyof Ball,
+    value: string,
+  ) => {
     const newList = [...ballList];
     newList[index] = { ...newList[index], [field]: value };
     setBallList(newList);
