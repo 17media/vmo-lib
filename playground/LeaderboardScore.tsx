@@ -67,7 +67,7 @@ const StyledScore = styled(Score)`
 
 const ScorePlayground = () => {
   const [format, setFormat] = useState('Score: {0} point');
-  const [value, setValue] = useState('1234567');
+  const [value, setValue] = useState(1234567);
   const [useAnimation, setUseAnimation] = useState(true);
   const [stage, setStage] = useState('stage-1');
 
@@ -88,9 +88,9 @@ const ScorePlayground = () => {
           <label htmlFor="value-input">Value</label>
           <input
             id="value-input"
-            type="text"
+            type="number"
             value={value}
-            onChange={e => setValue(e.target.value)}
+            onChange={e => setValue(+e.target.value)}
           />
         </ControlGroup>
         <ControlGroup>

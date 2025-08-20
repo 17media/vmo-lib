@@ -4,7 +4,7 @@ import useScore from '../../hooks/useScore';
 
 interface IScoreProps {
   format: string;
-  value: string;
+  value: number;
   useAnimation?: boolean;
   duration?: number;
   className?: string;
@@ -28,7 +28,7 @@ export const Score: React.FC<IScoreProps> = ({
   className,
 }) => {
   const displayValue = useScore({
-    givenScore: parseFloat(value),
+    givenScore: value,
     duration,
     useAnimation,
   });
