@@ -131,7 +131,7 @@ export const BasePopup: React.FC<BasePopupProps> = ({
 
   contentClasses.push(isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn');
 
-  const contentStyles: React.CSSProperties = {
+  const contentStyles = {
     '--device-padding-x': `${px}px`,
     '--device-padding-y': `${py}px`,
     ...style,
