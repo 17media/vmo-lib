@@ -23,9 +23,13 @@ import BasePopup from './BasePopup';
 import CssHelpers from './CssHelpers';
 import LeaderboardScore from './LeaderboardScore';
 import LottoBall from './LottoBall';
+import OpenID from './OpenID';
+import LottoLeaderboardItem from './LottoLeaderboardItem';
 
 const App = () => {
-  const [currentComponent, setCurrentComponent] = useState<string>('BasePopup');
+  const [currentComponent, setCurrentComponent] = useState<string>(
+    'LottoLeaderboardItem',
+  );
   const changeComponent = (componentName: string) =>
     setCurrentComponent(componentName);
 
@@ -53,6 +57,8 @@ const App = () => {
     CssHelpers: <CssHelpers />,
     LeaderboardScore: <LeaderboardScore />,
     LottoBall: <LottoBall />,
+    OpenID: <OpenID />,
+    LottoLeaderboardItem: <LottoLeaderboardItem />,
   };
 
   return (

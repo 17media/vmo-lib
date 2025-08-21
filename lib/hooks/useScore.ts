@@ -31,7 +31,7 @@ interface UseScoreProps {
  * @param duration 動態改變值的時間, default 1000
  * @param useAnimation 是否使用動畫, default true
  */
-const useScore = ({
+export const useScore = ({
   givenScore,
   duration = 1000,
   regionLanguage,

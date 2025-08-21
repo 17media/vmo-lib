@@ -122,7 +122,7 @@ const AvatarWrapper = styled.div<{
     `}
 `;
 
-const Avatar: React.FC<AvatarProps> = ({
+export const Avatar: React.FC<AvatarProps> = ({
   avatarUrl,
   defaultAvatarUrl = DEFAULT_AVATAR_IMAGE,
   alt = 'avatar',

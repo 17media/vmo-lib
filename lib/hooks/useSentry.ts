@@ -6,7 +6,7 @@ import { SENTRY_DSN_URL } from '../constants';
 /**
  * 包相關設定檔案統一管理, 只需單純 useSentry.
  */
-const useSentry = () => {
+export const useSentry = () => {
   useEffect(() => {
     Sentry.init({
       dsn: SENTRY_DSN_URL,

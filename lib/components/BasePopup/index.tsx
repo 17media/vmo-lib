@@ -69,7 +69,7 @@ const ContentWrapper = styled.div<{ $boxShadow?: string }>`
   overflow-y: auto;
 `;
 
-const BasePopup: React.FC<BasePopupProps> = ({
+export const BasePopup: React.FC<BasePopupProps> = ({
   isOpen,
   onClose,
   children,
@@ -131,7 +131,7 @@ const BasePopup: React.FC<BasePopupProps> = ({
 
   contentClasses.push(isAnimatingOut ? 'popupFadeOut' : 'popupFadeIn');
 
-  const contentStyles: React.CSSProperties = {
+  const contentStyles = {
     '--device-padding-x': `${px}px`,
     '--device-padding-y': `${py}px`,
     ...style,
