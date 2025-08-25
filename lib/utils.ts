@@ -107,7 +107,7 @@ export const getOfficial17LiveUrl = (env?: Env) => {
     : isStagVmo17Media()
     ? OFFICIAL_17LIVE_HOST_STA
     : isUatVmo17Media()
-    ? EVENTORY_FIREANT_ENDPOINT_UAT
+    ? OFFICIAL_17LIVE_HOST_UAT
     : OFFICIAL_17LIVE_HOST_UAT;
 };
 
