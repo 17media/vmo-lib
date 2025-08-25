@@ -23,6 +23,7 @@ import BasePopup from './BasePopup';
 import CssHelpers from './CssHelpers';
 import LeaderboardScore from './LeaderboardScore';
 import LottoBall from './LottoBall';
+import Login from './Login';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] = useState<string>('BasePopup');
@@ -53,6 +54,7 @@ const App = () => {
     CssHelpers: <CssHelpers />,
     LeaderboardScore: <LeaderboardScore />,
     LottoBall: <LottoBall />,
+    Login: <Login />,
   };
 
   return (

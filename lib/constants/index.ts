@@ -15,6 +15,17 @@ export const EVENT_SERVER_ENDPOINT_STA =
 export const EVENT_SERVER_ENDPOINT_UAT =
   'https://event-server-uat.17app.co/api';
 
+export const EVENTORY_FIREANT_ENDPOINT =
+  'https://fireant.17app.co/api/v1/eventory';
+export const EVENTORY_FIREANT_ENDPOINT_STA =
+  'https://stag-fireant.17app.co/api/v1/eventory';
+export const EVENTORY_FIREANT_ENDPOINT_UAT =
+  'https://uat-fireant.17app.co/api/v1/eventory';
+
+export const OFFICIAL_17LIVE_HOST = 'https://17.live';
+export const OFFICIAL_17LIVE_HOST_STA = 'https://sta.17.live';
+export const OFFICIAL_17LIVE_HOST_UAT = 'https://uat.17.live';
+
 /**
  * GCP bucket
  */
