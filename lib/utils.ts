@@ -85,30 +85,20 @@ export const getGoapiUrl = (env?: Env) => {
     ? GOAPI_ENDPOINT_UAT
     : GOAPI_ENDPOINT_STA;
 };
-export const getEventoryFireantUrl = (env?: Env) => {
-  if (env === Env.PROD) return EVENTORY_FIREANT_ENDPOINT;
-  if (env === Env.STA) return EVENTORY_FIREANT_ENDPOINT_STA;
-  if (env === Env.UAT) return EVENTORY_FIREANT_ENDPOINT_UAT;
-  return isProdVmo17Media()
-    ? EVENTORY_FIREANT_ENDPOINT
-    : isStagVmo17Media()
-    ? EVENTORY_FIREANT_ENDPOINT_STA
-    : isUatVmo17Media()
-    ? EVENTORY_FIREANT_ENDPOINT_UAT
-    : EVENTORY_FIREANT_ENDPOINT_UAT;
+export const getEventoryFireantUrl = () => {
+  if (isProdVmo17Media()) return EVENTORY_FIREANT_ENDPOINT;
+  if (isStagVmo17Media()) return EVENTORY_FIREANT_ENDPOINT_STA;
+  if (isUatVmo17Media()) return EVENTORY_FIREANT_ENDPOINT_UAT;
+
+  return EVENTORY_FIREANT_ENDPOINT_UAT;
 };
 
-export const getOfficial17LiveUrl = (env?: Env) => {
-  if (env === Env.PROD) return OFFICIAL_17LIVE_HOST;
-  if (env === Env.STA) return OFFICIAL_17LIVE_HOST_STA;
-  if (env === Env.UAT) return OFFICIAL_17LIVE_HOST_UAT;
-  return isProdVmo17Media()
-    ? OFFICIAL_17LIVE_HOST
-    : isStagVmo17Media()
-    ? OFFICIAL_17LIVE_HOST_STA
-    : isUatVmo17Media()
-    ? OFFICIAL_17LIVE_HOST_UAT
-    : OFFICIAL_17LIVE_HOST_UAT;
+export const getOfficial17LiveUrl = () => {
+  if (isProdVmo17Media()) return OFFICIAL_17LIVE_HOST;
+  if (isStagVmo17Media()) return OFFICIAL_17LIVE_HOST_STA;
+  if (isUatVmo17Media()) return OFFICIAL_17LIVE_HOST_UAT;
+
+  return OFFICIAL_17LIVE_HOST_UAT;
 };
 
 // default type = api.sta
