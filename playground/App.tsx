@@ -25,6 +25,7 @@ import LeaderboardScore from './LeaderboardScore';
 import LottoBall from './LottoBall';
 import OpenID from './OpenID';
 import LottoLeaderboardItem from './LottoLeaderboardItem';
+import Login from './Login';
 
 const App = () => {
   const [currentComponent, setCurrentComponent] = useState<string>(
@@ -59,6 +60,7 @@ const App = () => {
     LottoBall: <LottoBall />,
     OpenID: <OpenID />,
     LottoLeaderboardItem: <LottoLeaderboardItem />,
+    Login: <Login />,
   };
 
   return (
