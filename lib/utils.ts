@@ -1,4 +1,7 @@
 import {
+  EVENTORY_FIREANT_ENDPOINT,
+  EVENTORY_FIREANT_ENDPOINT_STA,
+  EVENTORY_FIREANT_ENDPOINT_UAT,
   GOAPI_ENDPOINT,
   GOAPI_ENDPOINT_STA,
   GOAPI_ENDPOINT_UAT,
@@ -8,6 +11,9 @@ import {
   MAIN_HOST_STA_CN,
   MAIN_HOST_UAT,
   MAIN_HOST_UAT_CN,
+  OFFICIAL_17LIVE_HOST,
+  OFFICIAL_17LIVE_HOST_STA,
+  OFFICIAL_17LIVE_HOST_UAT,
 } from './constants';
 import { EventTypes, Env } from './enums';
 import { ISetting, LeaderboardItem } from './types';
@@ -78,6 +84,21 @@ export const getGoapiUrl = (env?: Env) => {
     : isUatVmo17Media()
     ? GOAPI_ENDPOINT_UAT
     : GOAPI_ENDPOINT_STA;
+};
+export const getEventoryFireantUrl = () => {
+  if (isProdVmo17Media()) return EVENTORY_FIREANT_ENDPOINT;
+  if (isStagVmo17Media()) return EVENTORY_FIREANT_ENDPOINT_STA;
+  if (isUatVmo17Media()) return EVENTORY_FIREANT_ENDPOINT_UAT;
+
+  return EVENTORY_FIREANT_ENDPOINT_UAT;
+};
+
+export const getOfficial17LiveUrl = () => {
+  if (isProdVmo17Media()) return OFFICIAL_17LIVE_HOST;
+  if (isStagVmo17Media()) return OFFICIAL_17LIVE_HOST_STA;
+  if (isUatVmo17Media()) return OFFICIAL_17LIVE_HOST_UAT;
+
+  return OFFICIAL_17LIVE_HOST_UAT;
 };
 
 // default type = api.sta
