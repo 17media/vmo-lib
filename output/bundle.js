@@ -19284,44 +19284,6 @@ var isMouseEvent = function isMouseEvent(e) {
 
 /***/ }),
 
-/***/ "./lib/components/index.ts":
-/*!*********************************!*\
-  !*** ./lib/components/index.ts ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Avatar: () => (/* reexport safe */ _Avatar__WEBPACK_IMPORTED_MODULE_6__.Avatar),
-/* harmony export */   BallType: () => (/* reexport safe */ _LottoBall__WEBPACK_IMPORTED_MODULE_3__.BallType),
-/* harmony export */   BasePopup: () => (/* reexport safe */ _BasePopup__WEBPACK_IMPORTED_MODULE_7__.BasePopup),
-/* harmony export */   OpenID: () => (/* reexport safe */ _OpenID__WEBPACK_IMPORTED_MODULE_4__.OpenID),
-/* harmony export */   Score: () => (/* reexport safe */ _Score__WEBPACK_IMPORTED_MODULE_5__.Score),
-/* harmony export */   ScratchOffCard: () => (/* reexport safe */ _ScratchOffCard__WEBPACK_IMPORTED_MODULE_2__.ScratchOffCard),
-/* harmony export */   TransitionLeaderboardWrapper: () => (/* reexport safe */ _TransitionLeaderboardWrapper__WEBPACK_IMPORTED_MODULE_0__.TransitionLeaderboardWrapper),
-/* harmony export */   VirtualizedList: () => (/* reexport safe */ _VirtualizedList__WEBPACK_IMPORTED_MODULE_1__.VirtualizedList),
-/* harmony export */   useCreateLottoBallList: () => (/* reexport safe */ _LottoBall__WEBPACK_IMPORTED_MODULE_3__.useCreateLottoBallList)
-/* harmony export */ });
-/* harmony import */ var _TransitionLeaderboardWrapper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TransitionLeaderboardWrapper */ "./lib/components/TransitionLeaderboardWrapper.tsx");
-/* harmony import */ var _VirtualizedList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VirtualizedList */ "./lib/components/VirtualizedList.tsx");
-/* harmony import */ var _ScratchOffCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ScratchOffCard */ "./lib/components/ScratchOffCard/index.tsx");
-/* harmony import */ var _LottoBall__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./LottoBall */ "./lib/components/LottoBall/index.tsx");
-/* harmony import */ var _OpenID__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./OpenID */ "./lib/components/OpenID/index.tsx");
-/* harmony import */ var _Score__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Score */ "./lib/components/Score/index.tsx");
-/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Avatar */ "./lib/components/Avatar/index.tsx");
-/* harmony import */ var _BasePopup__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./BasePopup */ "./lib/components/BasePopup/index.tsx");
-
-
-
-
-
-
-
-
-
-/***/ }),
-
 /***/ "./lib/constants/index.ts":
 /*!********************************!*\
   !*** ./lib/constants/index.ts ***!
@@ -19336,6 +19298,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   AVATAR_ENDPOINT: () => (/* binding */ AVATAR_ENDPOINT),
 /* harmony export */   DEFAULT_AVATAR_IMAGE: () => (/* binding */ DEFAULT_AVATAR_IMAGE),
 /* harmony export */   EVENTORY_ENDPOINT: () => (/* binding */ EVENTORY_ENDPOINT),
+/* harmony export */   EVENTORY_FIREANT_ENDPOINT: () => (/* binding */ EVENTORY_FIREANT_ENDPOINT),
+/* harmony export */   EVENTORY_FIREANT_ENDPOINT_STA: () => (/* binding */ EVENTORY_FIREANT_ENDPOINT_STA),
+/* harmony export */   EVENTORY_FIREANT_ENDPOINT_UAT: () => (/* binding */ EVENTORY_FIREANT_ENDPOINT_UAT),
 /* harmony export */   EVENTORY_OFFLINE_ENDPOINT: () => (/* binding */ EVENTORY_OFFLINE_ENDPOINT),
 /* harmony export */   EVENT_SERVER_ENDPOINT: () => (/* binding */ EVENT_SERVER_ENDPOINT),
 /* harmony export */   EVENT_SERVER_ENDPOINT_STA: () => (/* binding */ EVENT_SERVER_ENDPOINT_STA),
@@ -19353,6 +19318,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   MAIN_HOST_STA_CN: () => (/* binding */ MAIN_HOST_STA_CN),
 /* harmony export */   MAIN_HOST_UAT: () => (/* binding */ MAIN_HOST_UAT),
 /* harmony export */   MAIN_HOST_UAT_CN: () => (/* binding */ MAIN_HOST_UAT_CN),
+/* harmony export */   OFFICIAL_17LIVE_HOST: () => (/* binding */ OFFICIAL_17LIVE_HOST),
+/* harmony export */   OFFICIAL_17LIVE_HOST_STA: () => (/* binding */ OFFICIAL_17LIVE_HOST_STA),
+/* harmony export */   OFFICIAL_17LIVE_HOST_UAT: () => (/* binding */ OFFICIAL_17LIVE_HOST_UAT),
 /* harmony export */   ONLINE_RIM_IMAGE: () => (/* binding */ ONLINE_RIM_IMAGE),
 /* harmony export */   SENTRY_DSN_URL: () => (/* binding */ SENTRY_DSN_URL)
 /* harmony export */ });
@@ -19368,6 +19336,12 @@ var GOAPI_ENDPOINT_UAT = 'https://uat-api.17app.co/api';
 var EVENT_SERVER_ENDPOINT = 'https://event-server.17app.co/api';
 var EVENT_SERVER_ENDPOINT_STA = 'https://event-server-sta.17app.co/api';
 var EVENT_SERVER_ENDPOINT_UAT = 'https://event-server-uat.17app.co/api';
+var EVENTORY_FIREANT_ENDPOINT = 'https://fireant.17app.co/api/v1/eventory';
+var EVENTORY_FIREANT_ENDPOINT_STA = 'https://stag-fireant.17app.co/api/v1/eventory';
+var EVENTORY_FIREANT_ENDPOINT_UAT = 'https://uat-fireant.17app.co/api/v1/eventory';
+var OFFICIAL_17LIVE_HOST = 'https://17.live';
+var OFFICIAL_17LIVE_HOST_STA = 'https://sta.17.live';
+var OFFICIAL_17LIVE_HOST_UAT = 'https://uat.17.live';
 
 /**
  * GCP bucket
@@ -19549,91 +19523,6 @@ var handleClickAvatar = function handleClickAvatar(userID, openID) {
 
 /***/ }),
 
-/***/ "./lib/helpers/index.ts":
-/*!******************************!*\
-  !*** ./lib/helpers/index.ts ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   handleClickAvatar: () => (/* reexport module object */ _handleClickAvatar__WEBPACK_IMPORTED_MODULE_0__)
-/* harmony export */ });
-/* harmony import */ var _handleClickAvatar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./handleClickAvatar */ "./lib/helpers/handleClickAvatar.ts");
-
-
-
-/***/ }),
-
-/***/ "./lib/hooks/index.ts":
-/*!****************************!*\
-  !*** ./lib/hooks/index.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TimeStatus: () => (/* reexport safe */ _useCountdown__WEBPACK_IMPORTED_MODULE_0__.TimeStatus),
-/* harmony export */   eventFunc: () => (/* reexport safe */ _useKeyboard__WEBPACK_IMPORTED_MODULE_10__.eventFunc),
-/* harmony export */   formatCountdownText: () => (/* reexport safe */ _useCountdown__WEBPACK_IMPORTED_MODULE_0__.formatCountdownText),
-/* harmony export */   getRelatedDistance: () => (/* reexport safe */ _useCountdown__WEBPACK_IMPORTED_MODULE_0__.getRelatedDistance),
-/* harmony export */   mockUsers: () => (/* reexport safe */ _useMockLeaderboard__WEBPACK_IMPORTED_MODULE_4__.mockUsers),
-/* harmony export */   switchPageEvent: () => (/* reexport safe */ _useKeyboard__WEBPACK_IMPORTED_MODULE_10__.switchPageEvent),
-/* harmony export */   useAutoNext: () => (/* reexport safe */ _useAutoNext__WEBPACK_IMPORTED_MODULE_3__.useAutoNext),
-/* harmony export */   useCacheImage: () => (/* reexport safe */ _useCacheImage__WEBPACK_IMPORTED_MODULE_13__.useCacheImage),
-/* harmony export */   useCheckWebview: () => (/* reexport safe */ _useCheckWebview__WEBPACK_IMPORTED_MODULE_12__.useCheckWebview),
-/* harmony export */   useCountdown: () => (/* reexport safe */ _useCountdown__WEBPACK_IMPORTED_MODULE_0__.useCountdown),
-/* harmony export */   useFilter: () => (/* reexport safe */ _useFilter__WEBPACK_IMPORTED_MODULE_8__.useFilter),
-/* harmony export */   useFollower: () => (/* reexport safe */ _useFollower__WEBPACK_IMPORTED_MODULE_11__.useFollower),
-/* harmony export */   useItemTransition: () => (/* reexport safe */ _useItemTransition__WEBPACK_IMPORTED_MODULE_1__.useItemTransition),
-/* harmony export */   useKeyboard: () => (/* reexport safe */ _useKeyboard__WEBPACK_IMPORTED_MODULE_10__.useKeyboard),
-/* harmony export */   useLuckyDraw: () => (/* reexport safe */ _useLuckyDraw__WEBPACK_IMPORTED_MODULE_5__.useLuckyDraw),
-/* harmony export */   useMockLeaderboard: () => (/* reexport safe */ _useMockLeaderboard__WEBPACK_IMPORTED_MODULE_4__.useMockLeaderboard),
-/* harmony export */   usePageData: () => (/* reexport safe */ _usePageData__WEBPACK_IMPORTED_MODULE_2__.usePageData),
-/* harmony export */   useScore: () => (/* reexport safe */ _useScore__WEBPACK_IMPORTED_MODULE_14__.useScore),
-/* harmony export */   useScrollToLoadingContainer: () => (/* reexport safe */ _useScrollToLoadingContainer__WEBPACK_IMPORTED_MODULE_9__.useScrollToLoadingContainer),
-/* harmony export */   useSentry: () => (/* reexport safe */ _useSentry__WEBPACK_IMPORTED_MODULE_15__.useSentry),
-/* harmony export */   useSyncScroll: () => (/* reexport safe */ _useSyncScroll__WEBPACK_IMPORTED_MODULE_6__.useSyncScroll),
-/* harmony export */   useTypeApi: () => (/* reexport safe */ _useTypeApi__WEBPACK_IMPORTED_MODULE_7__.useTypeApi),
-/* harmony export */   usersID: () => (/* reexport safe */ _useMockLeaderboard__WEBPACK_IMPORTED_MODULE_4__.usersID)
-/* harmony export */ });
-/* harmony import */ var _useCountdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useCountdown */ "./lib/hooks/useCountdown.ts");
-/* harmony import */ var _useItemTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useItemTransition */ "./lib/hooks/useItemTransition.ts");
-/* harmony import */ var _usePageData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./usePageData */ "./lib/hooks/usePageData.ts");
-/* harmony import */ var _useAutoNext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useAutoNext */ "./lib/hooks/useAutoNext.ts");
-/* harmony import */ var _useMockLeaderboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./useMockLeaderboard */ "./lib/hooks/useMockLeaderboard.ts");
-/* harmony import */ var _useLuckyDraw__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./useLuckyDraw */ "./lib/hooks/useLuckyDraw.tsx");
-/* harmony import */ var _useSyncScroll__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./useSyncScroll */ "./lib/hooks/useSyncScroll.ts");
-/* harmony import */ var _useTypeApi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./useTypeApi */ "./lib/hooks/useTypeApi.ts");
-/* harmony import */ var _useFilter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./useFilter */ "./lib/hooks/useFilter.ts");
-/* harmony import */ var _useScrollToLoadingContainer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./useScrollToLoadingContainer */ "./lib/hooks/useScrollToLoadingContainer.ts");
-/* harmony import */ var _useKeyboard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./useKeyboard */ "./lib/hooks/useKeyboard.ts");
-/* harmony import */ var _useFollower__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./useFollower */ "./lib/hooks/useFollower.ts");
-/* harmony import */ var _useCheckWebview__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./useCheckWebview */ "./lib/hooks/useCheckWebview.ts");
-/* harmony import */ var _useCacheImage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./useCacheImage */ "./lib/hooks/useCacheImage.ts");
-/* harmony import */ var _useScore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./useScore */ "./lib/hooks/useScore.ts");
-/* harmony import */ var _useSentry__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./useSentry */ "./lib/hooks/useSentry.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
 /***/ "./lib/hooks/useAutoNext.ts":
 /*!**********************************!*\
   !*** ./lib/hooks/useAutoNext.ts ***!
@@ -19690,145 +19579,6 @@ var useAutoNext = function useAutoNext(isEnded, nextPage) {
   }, [isEnded, nextPage]);
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useAutoNext);
-
-/***/ }),
-
-/***/ "./lib/hooks/useCacheImage.ts":
-/*!************************************!*\
-  !*** ./lib/hooks/useCacheImage.ts ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   useCacheImage: () => (/* binding */ useCacheImage)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var idb_keyval__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! idb-keyval */ "./node_modules/idb-keyval/dist/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-
-
-
-var _this = undefined;
-
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-
-
-
-var useCacheImage = function useCacheImage(imageUrls) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)({}),
-    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
-    cacheImage = _useState2[0],
-    setCacheImage = _useState2[1];
-  var handleSetCache = /*#__PURE__*/function () {
-    var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(url) {
-      var res, reader;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_5__["default"].get(url, {
-              responseType: 'blob'
-            });
-          case 2:
-            res = _context.sent;
-            reader = new FileReader();
-            reader.readAsDataURL(res.data);
-            reader.onloadend = function () {
-              var base64data = reader.result;
-
-              // no await
-              (0,idb_keyval__WEBPACK_IMPORTED_MODULE_6__.set)(url, base64data);
-              setCacheImage(function (state) {
-                return _objectSpread(_objectSpread({}, state), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, url, base64data));
-              });
-            };
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee);
-    }));
-    return function handleSetCache(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
-    (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2() {
-      var allImageCaches;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return (0,idb_keyval__WEBPACK_IMPORTED_MODULE_6__.getMany)(imageUrls);
-          case 2:
-            allImageCaches = _context2.sent;
-            imageUrls.forEach(function (url, index) {
-              var cache = allImageCaches[index];
-              if (cache) {
-                setCacheImage(function (state) {
-                  return _objectSpread(_objectSpread({}, state), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, url, cache));
-                });
-              } else {
-                setCacheImage(function (state) {
-                  return _objectSpread(_objectSpread({}, state), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, url, url));
-                });
-                window.requestIdleCallback(handleSetCache.bind(_this, url));
-              }
-            });
-          case 4:
-          case "end":
-            return _context2.stop();
-        }
-      }, _callee2);
-    }))();
-  }, [JSON.stringify(imageUrls)]);
-  return cacheImage;
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useCacheImage);
-
-/***/ }),
-
-/***/ "./lib/hooks/useCheckWebview.ts":
-/*!**************************************!*\
-  !*** ./lib/hooks/useCheckWebview.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   useCheckWebview: () => (/* binding */ useCheckWebview)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-
-
-var useCheckWebview = function useCheckWebview() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
-    isWebview = _useState2[0],
-    setIsWebview = _useState2[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    var userAgent = window.navigator.userAgent.toLowerCase();
-    var safari = /safari/.test(userAgent);
-    var ios = /iphone|ipod|ipad/.test(userAgent);
-    setIsWebview(ios && !safari || !ios && userAgent.includes('wv'));
-  }, []);
-  return isWebview;
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useCheckWebview);
 
 /***/ }),
 
@@ -20299,6 +20049,38 @@ var useKeyboard = function useKeyboard(settings) {
 
 /***/ }),
 
+/***/ "./lib/hooks/useLogin.ts":
+/*!*******************************!*\
+  !*** ./lib/hooks/useLogin.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils */ "./lib/utils.ts");
+
+
+var useLogin = function useLogin() {
+  var login = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    var eventoryFireantUrl = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getEventoryFireantUrl)();
+    var official17LiveUrl = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.getOfficial17LiveUrl)();
+    var toParam = "".concat(eventoryFireantUrl, "/redirect?redirectUrl=").concat(encodeURIComponent(window.location.href));
+    var redirectLoginUrl = "".concat(official17LiveUrl, "/redirect_auth?method=post&to=").concat(encodeURIComponent(toParam));
+    window.location.href = redirectLoginUrl;
+  }, []);
+  return {
+    login: login
+  };
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useLogin);
+
+/***/ }),
+
 /***/ "./lib/hooks/useMockLeaderboard.ts":
 /*!*****************************************!*\
   !*** ./lib/hooks/useMockLeaderboard.ts ***!
@@ -20511,8 +20293,7 @@ var usePageData = function usePageData(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   useScore: () => (/* binding */ useScore)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -20617,8 +20398,7 @@ var useScrollToLoadingContainer = function useScrollToLoadingContainer(loading) 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   useSentry: () => (/* binding */ useSentry)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -20828,6 +20608,7 @@ var useTranslation = function useTranslation(eventType, supportLangs) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CacheStrategy: () => (/* reexport safe */ _service_cacheManager_service__WEBPACK_IMPORTED_MODULE_6__.CacheStrategy),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   useTypeApi: () => (/* binding */ useTypeApi)
 /* harmony export */ });
@@ -20852,7 +20633,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var endpoint = "/v1/leaderboards/eventory";
-// export { CacheStrategy } from '../service/cacheManager.service';
+
 
 /**
  * 取得 container 資料<br />
@@ -21353,332 +21134,6 @@ var useTypeApi = function useTypeApi(_ref) {
   };
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useTypeApi);
-
-/***/ }),
-
-/***/ "./lib/index.ts":
-/*!**********************!*\
-  !*** ./lib/index.ts ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ASSETS_CND_ENDPOINT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.ASSETS_CND_ENDPOINT),
-/* harmony export */   AVATAR_BASE_URL: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.AVATAR_BASE_URL),
-/* harmony export */   AVATAR_ENDPOINT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.AVATAR_ENDPOINT),
-/* harmony export */   Avatar: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Avatar),
-/* harmony export */   BallType: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.BallType),
-/* harmony export */   BasePopup: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.BasePopup),
-/* harmony export */   CacheStrategy: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.CacheStrategy),
-/* harmony export */   DEFAULT_AVATAR_IMAGE: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_AVATAR_IMAGE),
-/* harmony export */   EVENTORY_ENDPOINT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.EVENTORY_ENDPOINT),
-/* harmony export */   EVENTORY_OFFLINE_ENDPOINT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.EVENTORY_OFFLINE_ENDPOINT),
-/* harmony export */   EVENT_SERVER_ENDPOINT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_SERVER_ENDPOINT),
-/* harmony export */   EVENT_SERVER_ENDPOINT_STA: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_SERVER_ENDPOINT_STA),
-/* harmony export */   EVENT_SERVER_ENDPOINT_UAT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.EVENT_SERVER_ENDPOINT_UAT),
-/* harmony export */   Env: () => (/* reexport safe */ _enums__WEBPACK_IMPORTED_MODULE_6__.Env),
-/* harmony export */   EventTypes: () => (/* reexport safe */ _enums__WEBPACK_IMPORTED_MODULE_6__.EventTypes),
-/* harmony export */   GCP_CDN_DOMAIN: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.GCP_CDN_DOMAIN),
-/* harmony export */   GCP_CDN_HOST: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.GCP_CDN_HOST),
-/* harmony export */   GOAPI_ENDPOINT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.GOAPI_ENDPOINT),
-/* harmony export */   GOAPI_ENDPOINT_STA: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.GOAPI_ENDPOINT_STA),
-/* harmony export */   GOAPI_ENDPOINT_UAT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.GOAPI_ENDPOINT_UAT),
-/* harmony export */   HttpMethod: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.HttpMethod),
-/* harmony export */   IFRAME_ENDPOINT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.IFRAME_ENDPOINT),
-/* harmony export */   LANG_FILE_ENDPOINT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.LANG_FILE_ENDPOINT),
-/* harmony export */   LeaderboardData: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.LeaderboardData),
-/* harmony export */   MAIN_HOST: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.MAIN_HOST),
-/* harmony export */   MAIN_HOST_CN: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.MAIN_HOST_CN),
-/* harmony export */   MAIN_HOST_STA: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.MAIN_HOST_STA),
-/* harmony export */   MAIN_HOST_STA_CN: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.MAIN_HOST_STA_CN),
-/* harmony export */   MAIN_HOST_UAT: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.MAIN_HOST_UAT),
-/* harmony export */   MAIN_HOST_UAT_CN: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.MAIN_HOST_UAT_CN),
-/* harmony export */   ONLINE_RIM_IMAGE: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.ONLINE_RIM_IMAGE),
-/* harmony export */   OfflineNormalTemplate: () => (/* reexport safe */ _template__WEBPACK_IMPORTED_MODULE_5__.OfflineNormalTemplate),
-/* harmony export */   OpenID: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.OpenID),
-/* harmony export */   RegionLanguage: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.RegionLanguage),
-/* harmony export */   SENTRY_DSN_URL: () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__.SENTRY_DSN_URL),
-/* harmony export */   Score: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Score),
-/* harmony export */   ScratchOffCard: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.ScratchOffCard),
-/* harmony export */   TimeStatus: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.TimeStatus),
-/* harmony export */   TransitionLeaderboardWrapper: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.TransitionLeaderboardWrapper),
-/* harmony export */   VirtualizedList: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.VirtualizedList),
-/* harmony export */   addLeadingZeros: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.addLeadingZeros),
-/* harmony export */   checkCacheUsable: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.checkCacheUsable),
-/* harmony export */   convertDateToTime: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.convertDateToTime),
-/* harmony export */   copyLeaderboardDataToClipboard: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.copyLeaderboardDataToClipboard),
-/* harmony export */   copyStringToClipboard: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.copyStringToClipboard),
-/* harmony export */   cumulativeOffset: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.cumulativeOffset),
-/* harmony export */   debounce: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.debounce),
-/* harmony export */   eventFunc: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.eventFunc),
-/* harmony export */   formatCountdownText: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.formatCountdownText),
-/* harmony export */   getApiUrlStrategy: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.getApiUrlStrategy),
-/* harmony export */   getCurrentTranslateLang: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getCurrentTranslateLang),
-/* harmony export */   getGoapiUrl: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getGoapiUrl),
-/* harmony export */   getKeyboardSettings: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getKeyboardSettings),
-/* harmony export */   getLeaderboardEventory: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.getLeaderboardEventory),
-/* harmony export */   getNextLocation: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getNextLocation),
-/* harmony export */   getParsedURL: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.getParsedURL),
-/* harmony export */   getRandomInteger: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getRandomInteger),
-/* harmony export */   getRelatedDistance: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.getRelatedDistance),
-/* harmony export */   getStringDateByLocalFormat: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getStringDateByLocalFormat),
-/* harmony export */   getStringDateCountdownByLocalFormat: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getStringDateCountdownByLocalFormat),
-/* harmony export */   getTranslation: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.getTranslation),
-/* harmony export */   getType: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getType),
-/* harmony export */   getUserFollowers: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.getUserFollowers),
-/* harmony export */   getUserInfo: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getUserInfo),
-/* harmony export */   getUserLangs: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.getUserLangs),
-/* harmony export */   globalThis: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.globalThis),
-/* harmony export */   handleCacheStrategy: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.handleCacheStrategy),
-/* harmony export */   handleCacheThenNetwork: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.handleCacheThenNetwork),
-/* harmony export */   handleClickAvatar: () => (/* reexport safe */ _helpers__WEBPACK_IMPORTED_MODULE_2__.handleClickAvatar),
-/* harmony export */   handleNetworkFirst: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.handleNetworkFirst),
-/* harmony export */   handleNetworkOnly: () => (/* reexport safe */ _service__WEBPACK_IMPORTED_MODULE_4__.handleNetworkOnly),
-/* harmony export */   isAndroid: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isAndroid),
-/* harmony export */   isBrowser: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isBrowser),
-/* harmony export */   isClient: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isClient),
-/* harmony export */   isIOS: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isIOS),
-/* harmony export */   isMobile: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isMobile),
-/* harmony export */   isProdVmo17Media: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isProdVmo17Media),
-/* harmony export */   isSameDate: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isSameDate),
-/* harmony export */   isStagVmo17Media: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isStagVmo17Media),
-/* harmony export */   isUatVmo17Media: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.isUatVmo17Media),
-/* harmony export */   mockUsers: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.mockUsers),
-/* harmony export */   numberFormat: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.numberFormat),
-/* harmony export */   qs: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.qs),
-/* harmony export */   sleep: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.sleep),
-/* harmony export */   storeUserInfo: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_8__.storeUserInfo),
-/* harmony export */   switchPageEvent: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.switchPageEvent),
-/* harmony export */   useAutoNext: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useAutoNext),
-/* harmony export */   useCacheImage: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useCacheImage),
-/* harmony export */   useCheckWebview: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useCheckWebview),
-/* harmony export */   useCountdown: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useCountdown),
-/* harmony export */   useCreateLottoBallList: () => (/* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.useCreateLottoBallList),
-/* harmony export */   useFilter: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useFilter),
-/* harmony export */   useFollower: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useFollower),
-/* harmony export */   useItemTransition: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useItemTransition),
-/* harmony export */   useKeyboard: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useKeyboard),
-/* harmony export */   useLuckyDraw: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useLuckyDraw),
-/* harmony export */   useMockLeaderboard: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useMockLeaderboard),
-/* harmony export */   usePageData: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.usePageData),
-/* harmony export */   useScore: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useScore),
-/* harmony export */   useScrollToLoadingContainer: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useScrollToLoadingContainer),
-/* harmony export */   useSentry: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useSentry),
-/* harmony export */   useSyncScroll: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useSyncScroll),
-/* harmony export */   useTypeApi: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.useTypeApi),
-/* harmony export */   usersID: () => (/* reexport safe */ _hooks__WEBPACK_IMPORTED_MODULE_3__.usersID)
-/* harmony export */ });
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./lib/components/index.ts");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./lib/constants/index.ts");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers */ "./lib/helpers/index.ts");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hooks */ "./lib/hooks/index.ts");
-/* harmony import */ var _service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./service */ "./lib/service/index.ts");
-/* harmony import */ var _template__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./template */ "./lib/template/index.ts");
-/* harmony import */ var _enums__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./enums */ "./lib/enums.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./types */ "./lib/types.ts");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils */ "./lib/utils.ts");
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./lib/service/LeaderboardData.ts":
-/*!****************************************!*\
-  !*** ./lib/service/LeaderboardData.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
-
-
-
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-/**
- * 更新原始榜單
- * @param prevLB 原始榜單
- * @param newLB 新榜單資料
- * @returns 更新後的原始榜單
- */
-function updateLeaderboard(prevLB, newLB) {
-  var prevLBMap = new Map(prevLB.map(function (user) {
-    return [user.userInfo.userID, user];
-  }));
-  newLB.forEach(function (user) {
-    var curData = prevLBMap.get(user.userInfo.userID);
-    if (curData) {
-      curData.score += user.score;
-    } else {
-      prevLBMap.set(user.userInfo.userID, user);
-    }
-  });
-  return Array.from(prevLBMap.values());
-}
-
-/**
- * @example
- * ```
- * const team1 = []
- * const team2 = []
- * const team3 = []
- * const bonus1 = []
- * const whiteList = []
- * const data = [team1, team2, team3, bonus, whiteList] // 資料集
- * const { team1, team2, team3 } = new LeaderboardData(data)
- * .setLeaderboard(0, 'team1') // 設置資料集 0 為 team1
- * .setLeaderboard(1, 'team2') // 設置資料集 1 為 team2
- * .setLeaderboard(2, 'team3') // 設置資料集 2 為 team3
- * .setBonus(3, 'team1') // 把資料集 3 的 分數 設置為 team1 bomus meta
- * .setWhiteList(4, 'team2') // 把資料集 4 的 名單 設置為 team2 白名單
- * .getLeaderboard()
- * ```
- */
-var LeaderboardData = /*#__PURE__*/function () {
-  function LeaderboardData(data) {
-    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, LeaderboardData);
-    this.data = data;
-    this.leaderboardMap = {};
-  }
-
-  /**
-   * 分配 input 的 data array 至 leaderboardMap,
-   * 把 name 跟 [users] 綁成key-value pair. e.g. kitty隊 - [users]).
-   * 結果：leaderboardMap被更新
-   * @param lbIndex 要被設定的榜單index
-   * @param name 榜單要對應的name
-   */
-  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(LeaderboardData, [{
-    key: "setLeaderboard",
-    value: function setLeaderboard(lbIndex, name) {
-      var curData = this.data[lbIndex];
-      if (this.leaderboardMap[name]) {
-        this.leaderboardMap[name] = updateLeaderboard(this.leaderboardMap[name], curData);
-        return this;
-      }
-      this.leaderboardMap[name] = curData;
-      this.leaderboardMap[name].sort(function (a, b) {
-        return b.score - a.score;
-      });
-      return this;
-    }
-  }, {
-    key: "setLeaderboards",
-    value: function setLeaderboards(lbIndexes, names) {
-      var _this = this;
-      lbIndexes.forEach(function (lbIndex, index) {
-        _this.setLeaderboard(lbIndex, names[index]);
-      });
-      return this;
-    }
-
-    /**
-     * 有在白名單的user才留在leaderboard裡,
-     * 結果：input榜單被更新
-     * @param index 要被更新的榜單index
-     * @param name whitelist在leaderboardMap裡對應的name
-     */
-  }, {
-    key: "setWhiteList",
-    value: function setWhiteList(index, name) {
-      if (!this.leaderboardMap[name]) return this;
-      var curData = this.data[index];
-      var curDataUserSet = new Set(curData.map(function (user) {
-        return user.userInfo.userID;
-      }));
-      this.leaderboardMap[name] = this.leaderboardMap[name].filter(function (user) {
-        return curDataUserSet.has(user.userInfo.userID);
-      });
-      return this;
-    }
-
-    /**
-     * 沒有在黑名單的user才留在leaderboard裡.
-     * 結果：input榜單被更新
-     * @param index 要被更新的榜單index
-     * @param name blacklist在leaderboardMap裡對應的name
-     */
-  }, {
-    key: "setBlackList",
-    value: function setBlackList(index, name) {
-      if (!this.leaderboardMap[name]) return this;
-      var curData = this.data[index];
-      var curDataUserSet = new Set(curData.map(function (user) {
-        return user.userInfo.userID;
-      }));
-      this.leaderboardMap[name] = this.leaderboardMap[name].filter(function (user) {
-        return !curDataUserSet.has(user.userInfo.userID);
-      });
-      return this;
-    }
-
-    /**
-     * bonus 只合併 bonus key 與 meta key, 不合併分數.
-     * 對name(榜單) 做index(bonus)的操作.
-     * 結果：input榜單被更新
-     * @param index bonus data的index
-     * @param name 要被更新的榜單的name
-     */
-  }, {
-    key: "setBonus",
-    value: function setBonus(index, name) {
-      if (!this.leaderboardMap[name]) return this;
-      var bonusData = this.data[index];
-      var leaderboardData = this.leaderboardMap[name];
-      var leaderboardDataMap = new Map(leaderboardData.map(function (user) {
-        return [user.userInfo.userID, user];
-      }));
-      bonusData.forEach(function (data) {
-        var curData = leaderboardDataMap.get(data.userInfo.userID);
-        if (curData && curData.bonus) {
-          curData.bonus += data.score;
-          curData.meta = _objectSpread(_objectSpread({}, curData.meta), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, name, data.score));
-        }
-      });
-      return this;
-    }
-  }, {
-    key: "setBonuses",
-    value: function setBonuses(bonusIndexes, names) {
-      var _this2 = this;
-      bonusIndexes.forEach(function (bonusIndex, index) {
-        _this2.setBonus(bonusIndex, names[index]);
-      });
-      return this;
-    }
-
-    /**
-     * 取得 leaderboard
-     * @param operation 額外邏輯處理
-     */
-  }, {
-    key: "getLeaderboard",
-    value: function getLeaderboard(operation) {
-      if (operation) {
-        operation(this.leaderboardMap);
-        return this.leaderboardMap;
-      }
-      return this.leaderboardMap;
-    }
-  }]);
-  return LeaderboardData;
-}();
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LeaderboardData);
 
 /***/ }),
 
@@ -22320,42 +21775,6 @@ var getUserFollowers = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "./lib/service/index.ts":
-/*!******************************!*\
-  !*** ./lib/service/index.ts ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CacheStrategy: () => (/* reexport safe */ _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__.CacheStrategy),
-/* harmony export */   HttpMethod: () => (/* reexport safe */ _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__.HttpMethod),
-/* harmony export */   LeaderboardData: () => (/* reexport safe */ _LeaderboardData__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   checkCacheUsable: () => (/* reexport safe */ _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__.checkCacheUsable),
-/* harmony export */   getApiUrlStrategy: () => (/* reexport safe */ _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__.getApiUrlStrategy),
-/* harmony export */   getLeaderboardEventory: () => (/* reexport safe */ _leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_3__.getLeaderboardEventory),
-/* harmony export */   getParsedURL: () => (/* reexport safe */ _leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_3__.getParsedURL),
-/* harmony export */   getTranslation: () => (/* reexport safe */ _translation_service__WEBPACK_IMPORTED_MODULE_4__.getTranslation),
-/* harmony export */   getUserFollowers: () => (/* reexport safe */ _follower_service__WEBPACK_IMPORTED_MODULE_1__.getUserFollowers),
-/* harmony export */   handleCacheStrategy: () => (/* reexport safe */ _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__.handleCacheStrategy),
-/* harmony export */   handleCacheThenNetwork: () => (/* reexport safe */ _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__.handleCacheThenNetwork),
-/* harmony export */   handleNetworkFirst: () => (/* reexport safe */ _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__.handleNetworkFirst),
-/* harmony export */   handleNetworkOnly: () => (/* reexport safe */ _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__.handleNetworkOnly)
-/* harmony export */ });
-/* harmony import */ var _cacheManager_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cacheManager.service */ "./lib/service/cacheManager.service.ts");
-/* harmony import */ var _follower_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./follower.service */ "./lib/service/follower.service.ts");
-/* harmony import */ var _LeaderboardData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./LeaderboardData */ "./lib/service/LeaderboardData.ts");
-/* harmony import */ var _leaderboardEventory_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./leaderboardEventory.service */ "./lib/service/leaderboardEventory.service.ts");
-/* harmony import */ var _translation_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./translation.service */ "./lib/service/translation.service.ts");
-
-
-
-
-
-
-/***/ }),
-
 /***/ "./lib/service/leaderboardEventory.service.ts":
 /*!****************************************************!*\
   !*** ./lib/service/leaderboardEventory.service.ts ***!
@@ -22579,39 +21998,6 @@ var getTranslation = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "./lib/template/index.ts":
-/*!*******************************!*\
-  !*** ./lib/template/index.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   OfflineNormalTemplate: () => (/* reexport safe */ _offlineNormal__WEBPACK_IMPORTED_MODULE_0__.OfflineNormalTemplate),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _offlineNormal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./offlineNormal */ "./lib/template/offlineNormal.tsx");
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  OfflineNormalTemplate: _offlineNormal__WEBPACK_IMPORTED_MODULE_0__.OfflineNormalTemplate
-});
-
-/***/ }),
-
-/***/ "./lib/types.ts":
-/*!**********************!*\
-  !*** ./lib/types.ts ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-/***/ }),
-
 /***/ "./lib/utils.ts":
 /*!**********************!*\
   !*** ./lib/utils.ts ***!
@@ -22629,9 +22015,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   cumulativeOffset: () => (/* binding */ cumulativeOffset),
 /* harmony export */   debounce: () => (/* binding */ debounce),
 /* harmony export */   getCurrentTranslateLang: () => (/* binding */ getCurrentTranslateLang),
+/* harmony export */   getEventoryFireantUrl: () => (/* binding */ getEventoryFireantUrl),
 /* harmony export */   getGoapiUrl: () => (/* binding */ getGoapiUrl),
 /* harmony export */   getKeyboardSettings: () => (/* binding */ getKeyboardSettings),
 /* harmony export */   getNextLocation: () => (/* binding */ getNextLocation),
+/* harmony export */   getOfficial17LiveUrl: () => (/* binding */ getOfficial17LiveUrl),
 /* harmony export */   getRandomInteger: () => (/* binding */ getRandomInteger),
 /* harmony export */   getStringDateByLocalFormat: () => (/* binding */ getStringDateByLocalFormat),
 /* harmony export */   getStringDateCountdownByLocalFormat: () => (/* binding */ getStringDateCountdownByLocalFormat),
@@ -22716,6 +22104,18 @@ var getGoapiUrl = function getGoapiUrl(env) {
   if (env === _enums__WEBPACK_IMPORTED_MODULE_4__.Env.STA) return _constants__WEBPACK_IMPORTED_MODULE_3__.GOAPI_ENDPOINT_STA;
   if (env === _enums__WEBPACK_IMPORTED_MODULE_4__.Env.UAT) return _constants__WEBPACK_IMPORTED_MODULE_3__.GOAPI_ENDPOINT_UAT;
   return isProdVmo17Media() ? _constants__WEBPACK_IMPORTED_MODULE_3__.GOAPI_ENDPOINT : isStagVmo17Media() ? _constants__WEBPACK_IMPORTED_MODULE_3__.GOAPI_ENDPOINT_STA : isUatVmo17Media() ? _constants__WEBPACK_IMPORTED_MODULE_3__.GOAPI_ENDPOINT_UAT : _constants__WEBPACK_IMPORTED_MODULE_3__.GOAPI_ENDPOINT_STA;
+};
+var getEventoryFireantUrl = function getEventoryFireantUrl() {
+  if (isProdVmo17Media()) return _constants__WEBPACK_IMPORTED_MODULE_3__.EVENTORY_FIREANT_ENDPOINT;
+  if (isStagVmo17Media()) return _constants__WEBPACK_IMPORTED_MODULE_3__.EVENTORY_FIREANT_ENDPOINT_STA;
+  if (isUatVmo17Media()) return _constants__WEBPACK_IMPORTED_MODULE_3__.EVENTORY_FIREANT_ENDPOINT_UAT;
+  return _constants__WEBPACK_IMPORTED_MODULE_3__.EVENTORY_FIREANT_ENDPOINT_UAT;
+};
+var getOfficial17LiveUrl = function getOfficial17LiveUrl() {
+  if (isProdVmo17Media()) return _constants__WEBPACK_IMPORTED_MODULE_3__.OFFICIAL_17LIVE_HOST;
+  if (isStagVmo17Media()) return _constants__WEBPACK_IMPORTED_MODULE_3__.OFFICIAL_17LIVE_HOST_STA;
+  if (isUatVmo17Media()) return _constants__WEBPACK_IMPORTED_MODULE_3__.OFFICIAL_17LIVE_HOST_UAT;
+  return _constants__WEBPACK_IMPORTED_MODULE_3__.OFFICIAL_17LIVE_HOST_UAT;
 };
 
 // default type = api.sta
@@ -23340,7 +22740,6 @@ var open = function open(openID) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Avatar: () => (/* binding */ Avatar),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
@@ -23452,7 +22851,6 @@ var Avatar = function Avatar(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   BasePopup: () => (/* binding */ BasePopup),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
@@ -23596,10 +22994,6 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2;
 
 
-
-/**
- * Describes the different types of states a lotto ball can be in.
- */
 var BallType = /*#__PURE__*/function (BallType) {
   BallType["SelfPick"] = "Self Pick";
   BallType["ComputerPick"] = "Computer Pick";
@@ -23610,59 +23004,18 @@ var BallType = /*#__PURE__*/function (BallType) {
 }({});
 
 /**
- * Defines the mapping from each ball type to its corresponding image source URL.
- * See {@link BallType}.
- * @example
- * ```ts
- * const config: LottoBallImageSrcConfig = {
- *   [BallType.SelfPick]: 'path/to/self_pick.png',
- *   [BallType.ComputerPick]: 'path/to/computer_pick.png',
- *   // ...and so on for all ball types
- * };
- * ```
+ * LottoBall image resource settings
  */
 
 /**
- * Represents a single lotto ball with its value and type.
+ * A component that renders a list of lotto balls with pre-configured images.
+ * The props for this component are defined in `ILottoBallListProps`.
  */
 
-/**
- * @internal
- * Props for the internal LottoBall styled-component.
- */
-
-/**
- * The type definition for a React functional component that renders a list of lotto balls.
- * It is configured by the {@link useCreateLottoBallList} hook.
- */
-
-/**
- * Props for the {@link LottoBallListComponent}.
- */
-
-/**
- * @internal
- * Props for the internal BaseLottoBallList component.
- */
-
-/**
- * @internal
- * The flex container for the list of balls.
- */
 var LottoBallListContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n"])));
-
-/**
- * @internal
- * The styled component for a single lotto ball, showing the background image.
- */
 var LottoBall = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-image: url(", ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"])), function (p) {
   return p.ballImageSrc;
 });
-
-/**
- * @internal
- * The base implementation of the lotto ball list.
- */
 var BaseLottoBallList = function BaseLottoBallList(_ref) {
   var ballListStyle = _ref.ballListStyle,
     ballStyle = _ref.ballStyle,
@@ -23695,24 +23048,10 @@ var BaseLottoBallList = function BaseLottoBallList(_ref) {
 };
 
 /**
- * A React hook that returns a memoized `LottoBallListComponent`.
- * This is the primary way to create a configurable list of lotto balls.
- * Using this hook prevents the component from being recreated on every render.
- *
- * @param lottoBallSrcConfig - A configuration object mapping each `BallType` to an image URL. See {@link LottoBallImageSrcConfig}
- * @returns A memoized `LottoBallListComponent` ready to be used.
- *
- * @example
- * ```tsx
- * const MyComponent = () => {
- *   const lottoBallSrcConfig = { [BallType.SelfPick]: './ball.png', ... };
- *   const LottoBallList = useCreateLottoBallList(lottoBallSrcConfig);
- *
- *   const balls = [{ value: 1, type: BallType.SelfPick }];
- *
- *   return <LottoBallList ballList={balls} maximumPick={5} />;
- * }
- * ```
+ * A hook that returns a memoized LottoBallList component with a pre-configured set of ball images.
+ * This avoids re-creating the component on every render.
+ * @param lottoBallSrcConfig The configuration for the ball image sources.
+ * @returns A memoized, pre-configured LottoBallList component of type `LottoBallListComponent`.
  */
 var useCreateLottoBallList = function useCreateLottoBallList(lottoBallSrcConfig) {
   return (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
@@ -23725,61 +23064,6 @@ var useCreateLottoBallList = function useCreateLottoBallList(lottoBallSrcConfig)
     return ConfiguredLottoBallList;
   }, [lottoBallSrcConfig]);
 };
-
-/***/ }),
-
-/***/ "./lib/components/OpenID/index.tsx":
-/*!*****************************************!*\
-  !*** ./lib/components/OpenID/index.tsx ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   OpenID: () => (/* binding */ OpenID),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-
-var _templateObject;
-
-
-
-/**
- * Props for the {@link OpenID} component.
- */
-
-/**
- * @internal
- * A styled div for displaying the OpenID.
- * It handles overflow by showing an ellipsis (...) when the text is too long.
- */
-var Value = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n"])));
-
-/**
- * A component to display a user's OpenID. It prevents long IDs from breaking
- * the layout by truncating them with an ellipsis.
- *
- * @param props - The props for the component. See {@link IOpenIDProps}.
- * @returns A React element that displays the OpenID.
- *
- * @example
- * ```tsx
- * <OpenID value="a_very_long_openid_that_will_be_truncated" />
- * ```
- */
-var OpenID = function OpenID(_ref) {
-  var value = _ref.value,
-    className = _ref.className;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Value, {
-    className: className
-  }, value);
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OpenID);
 
 /***/ }),
 
@@ -23805,18 +23089,6 @@ var _templateObject;
 
 
 
-
-/**
- * Props for the {@link Score} component.
- */
-
-/**
- * @internal
- * Formats a string by replacing placeholders like {0} with provided arguments.
- * @param text - The string template.
- * @param args - The values to insert into the template.
- * @returns The formatted string.
- */
 function formatString(text) {
   for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     args[_key - 1] = arguments[_key];
@@ -23825,26 +23097,7 @@ function formatString(text) {
     return args[parseInt(val, 10)];
   });
 }
-
-/**
- * @internal
- * A styled div for displaying the score.
- * It handles overflow by showing an ellipsis (...) when the text is too long.
- */
 var Value = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n"])));
-
-/**
- * A component to display a numerical score. It supports custom formatting and
- * an optional count-up animation.
- *
- * @param props - The props for the component. See {@link IScoreProps}.
- * @returns A React element that displays the formatted score.
- *
- * @example
- * ```tsx
- * <Score value={12345} format="Points: {0}" useAnimation />
- * ```
- */
 var Score = function Score(_ref) {
   var format = _ref.format,
     value = _ref.value,
@@ -24339,71 +23592,6 @@ var useLuckyDraw = function useLuckyDraw(allCandidates) {
 
 /***/ }),
 
-/***/ "./lib/template/offlineNormal.tsx":
-/*!****************************************!*\
-  !*** ./lib/template/offlineNormal.tsx ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   OfflineNormalTemplate: () => (/* binding */ OfflineNormalTemplate),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _hooks_usePageData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks/usePageData */ "./lib/hooks/usePageData.ts");
-/* harmony import */ var _components_TransitionLeaderboardWrapper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/TransitionLeaderboardWrapper */ "./lib/components/TransitionLeaderboardWrapper.tsx");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils */ "./lib/utils.ts");
-
-var _templateObject, _templateObject2;
-
-
-
-
-
-var _qs = (0,_utils__WEBPACK_IMPORTED_MODULE_4__.qs)(),
-  test = _qs.test,
-  initMockList = _qs.initMockList;
-var round1 = {
-  startDate: '2023-06-18T18:55:00+08:00',
-  endDate: '2023-06-20T18:55:00+08:00',
-  nextPage: 2,
-  isResultPage: false,
-  endedText: '活動結束',
-  test: !!test,
-  init: !!initMockList
-};
-var rowCount = 4;
-var itemStyle = {
-  width: 100,
-  height: 100,
-  offsetX: 20,
-  offsetY: 20
-};
-var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  width: 100%;\n"])));
-var Item = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  width: 100px;\n  height: 100px;\n  border: 1px solid black;\n"])));
-var OfflineNormalTemplate = function OfflineNormalTemplate() {
-  var _usePageData = (0,_hooks_usePageData__WEBPACK_IMPORTED_MODULE_2__["default"])(round1),
-    countdownText = _usePageData.countdownText,
-    mockLeaderboard = _usePageData.mockLeaderboard;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("span", null, countdownText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Wrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_components_TransitionLeaderboardWrapper__WEBPACK_IMPORTED_MODULE_3__.TransitionLeaderboardWrapper, {
-    itemStyle: itemStyle,
-    rowCount: rowCount,
-    user: mockLeaderboard
-  }, mockLeaderboard.map(function (item) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Item, {
-      key: item.userInfo.userID
-    }, item.userInfo.openID, ": ", item.score);
-  }))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OfflineNormalTemplate);
-
-/***/ }),
-
 /***/ "./playground/App.tsx":
 /*!****************************!*\
   !*** ./playground/App.tsx ***!
@@ -24442,9 +23630,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CssHelpers__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./CssHelpers */ "./playground/CssHelpers.tsx");
 /* harmony import */ var _LeaderboardScore__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./LeaderboardScore */ "./playground/LeaderboardScore.tsx");
 /* harmony import */ var _LottoBall__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./LottoBall */ "./playground/LottoBall.tsx");
-/* harmony import */ var _OpenID__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./OpenID */ "./playground/OpenID.tsx");
-/* harmony import */ var _LottoLeaderboardItem__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./LottoLeaderboardItem */ "./playground/LottoLeaderboardItem.tsx");
-
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Login */ "./playground/Login.tsx");
 
 
 
@@ -24473,7 +23659,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('LottoLeaderboardItem'),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('BasePopup'),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     currentComponent = _useState2[0],
     setCurrentComponent = _useState2[1];
@@ -24504,8 +23690,7 @@ var App = function App() {
     CssHelpers: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_CssHelpers__WEBPACK_IMPORTED_MODULE_23__["default"], null),
     LeaderboardScore: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_LeaderboardScore__WEBPACK_IMPORTED_MODULE_24__["default"], null),
     LottoBall: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_LottoBall__WEBPACK_IMPORTED_MODULE_25__["default"], null),
-    OpenID: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_OpenID__WEBPACK_IMPORTED_MODULE_26__["default"], null),
-    LottoLeaderboardItem: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_LottoLeaderboardItem__WEBPACK_IMPORTED_MODULE_27__["default"], null)
+    Login: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_Login__WEBPACK_IMPORTED_MODULE_26__["default"], null)
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_lib_helpers_cssHelper__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "react 18 \u9078\u64C7\u7BC4\u4F8B:"), Object.keys(playgrounds).map(function (playground) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
@@ -25959,6 +25144,54 @@ var ScorePlayground = function ScorePlayground() {
 
 /***/ }),
 
+/***/ "./playground/Login.tsx":
+/*!******************************!*\
+  !*** ./playground/Login.tsx ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_hooks_useLogin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lib/hooks/useLogin */ "./lib/hooks/useLogin.ts");
+/* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/utils */ "./lib/utils.ts");
+
+
+
+var Login = function Login() {
+  var _useLogin = (0,_lib_hooks_useLogin__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+    login = _useLogin.login;
+  var _getUserInfo = (0,_lib_utils__WEBPACK_IMPORTED_MODULE_2__.getUserInfo)(),
+    _getUserInfo$userID = _getUserInfo.userID,
+    userID = _getUserInfo$userID === void 0 ? '' : _getUserInfo$userID,
+    _getUserInfo$jwtAcces = _getUserInfo.jwtAccessToken,
+    jwtAccessToken = _getUserInfo$jwtAcces === void 0 ? '' : _getUserInfo$jwtAcces;
+  var clearUserInfo = function clearUserInfo() {
+    var userInfoStorageName = 'userInfo';
+    localStorage.setItem(userInfoStorageName, JSON.stringify({
+      updateTime: Date.now()
+    }));
+    window.location.reload();
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    (0,_lib_utils__WEBPACK_IMPORTED_MODULE_2__.storeUserInfo)();
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Click button will go to 17live official website, login and redirect back with userID/jwtAccessToken(url)."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "test login:", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    type: "button",
+    onClick: login
+  }, "Login")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "test login:", ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    type: "button",
+    onClick: clearUserInfo
+  }, "clear userInfo")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "userID: ", userID), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "jwtAccessToken: ", jwtAccessToken));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().memo(Login));
+
+/***/ }),
+
 /***/ "./playground/LottoBall.tsx":
 /*!**********************************!*\
   !*** ./playground/LottoBall.tsx ***!
@@ -26167,263 +25400,6 @@ var LottoBallPlayground = function LottoBallPlayground() {
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().memo(LottoBallPlayground));
-
-/***/ }),
-
-/***/ "./playground/LottoLeaderboardItem.tsx":
-/*!*********************************************!*\
-  !*** ./playground/LottoLeaderboardItem.tsx ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../lib */ "./lib/index.ts");
-
-
-
-
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10;
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-
-
-
-var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n"])));
-var CardWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  align-items: center;\n  gap: 20px;\n  padding: 15px;\n  background-color: #fff0e5;\n  border-radius: 12px;\n  font-family: 'Helvetica Neue', 'PingFang TC', sans-serif;\n  max-width: 414px;\n  margin: 20px auto;\n"])));
-var UserInfoContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n"])));
-var LottoBallContainer = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  margin-top: 10px;\n  max-width: ", "px;\n"])), function (p) {
-  return p.maxWidth;
-});
-var StyledOpenID = (0,styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(_lib__WEBPACK_IMPORTED_MODULE_5__.OpenID)(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  font-size: 20px;\n  font-weight: bold;\n  color: #000;\n  width: 250px;\n"])));
-var StyledScore = (0,styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(_lib__WEBPACK_IMPORTED_MODULE_5__.Score)(_templateObject6 || (_templateObject6 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  font-size: 24px;\n  font-weight: bold;\n  color: #ff0055;\n"])));
-var ControlsWrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject7 || (_templateObject7 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  background-color: #f7f7f7;\n  padding: 20px;\n  border-radius: 8px;\n  margin-top: 30px;\n  display: flex;\n  flex-direction: column;\n  gap: 20px;\n"])));
-var SettingsGroup = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].fieldset(_templateObject8 || (_templateObject8 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  border: 2px solid #ddd;\n  padding: 20px;\n  border-radius: 8px;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));\n  gap: 15px;\n\n  legend {\n    font-weight: bold;\n    font-size: 1.2em;\n    padding: 0 10px;\n    color: #333;\n  }\n"])));
-var Control = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject9 || (_templateObject9 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n\n  label {\n    font-weight: 500;\n    font-size: 14px;\n  }\n\n  input[type='text'],\n  input[type='number'],\n  select {\n    padding: 8px;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n  }\n\n  input[type='checkbox'] {\n    width: 16px;\n    height: 16px;\n  }\n"])));
-var BallConfig = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(_templateObject10 || (_templateObject10 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_3__["default"])(["\n  display: flex;\n  gap: 10px;\n  align-items: center;\n  margin-bottom: 10px;\n  flex-wrap: wrap;\n"])));
-var lottoBallSrcConfig = (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])({}, _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.SelfPick, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_pink.png'), _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.ComputerPick, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_cyan.png'), _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.NotYetPick, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_gray.png'), _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.WinningBall, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_yellow.png'), _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.IneligibleBall, 'https://sta-vmo.17.media/2505-bingo/static/images/bingo/ball_empty.png');
-var initialBallList = [{
-  value: 99,
-  type: _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.WinningBall
-}, {
-  value: 96,
-  type: _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.SelfPick
-}, {
-  value: 25,
-  type: _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.ComputerPick
-}, {
-  value: '?',
-  type: _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.NotYetPick
-}];
-var LottoLeaderboardItem = function LottoLeaderboardItem() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)('https://i.pravatar.cc/150?img=12'),
-    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
-    avatarUrl = _useState2[0],
-    setAvatarUrl = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(true),
-    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
-    isLive = _useState4[0],
-    setIsLive = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)('😱癢癢😱的帳號真的超級無敵長的啦long'),
-    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
-    openidValue = _useState6[0],
-    setOpenidValue = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(179982),
-    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState7, 2),
-    scoreValue = _useState8[0],
-    setScoreValue = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(true),
-    _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState9, 2),
-    useAnimation = _useState10[0],
-    setUseAnimation = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)('{0}'),
-    _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState11, 2),
-    scoreFormat = _useState12[0],
-    setScoreFormat = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(true),
-    _useState14 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState13, 2),
-    showScore = _useState14[0],
-    setShowScore = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(initialBallList),
-    _useState16 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState15, 2),
-    ballList = _useState16[0],
-    setBallList = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(5),
-    _useState18 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState17, 2),
-    maxPick = _useState18[0],
-    setMaxPick = _useState18[1];
-  var avatarSize = 80;
-  var ballSize = 45;
-  var LottoBallList = (0,_lib__WEBPACK_IMPORTED_MODULE_5__.useCreateLottoBallList)(lottoBallSrcConfig);
-  var handleBallChange = function handleBallChange(index, field, value) {
-    var newList = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(ballList);
-    newList[index] = _objectSpread(_objectSpread({}, newList[index]), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])({}, field, value));
-    setBallList(newList);
-  };
-  var addBall = function addBall() {
-    if (ballList.length < maxPick) {
-      setBallList([].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(ballList), [{
-        value: '',
-        type: _lib__WEBPACK_IMPORTED_MODULE_5__.BallType.NotYetPick
-      }]));
-    }
-  };
-  var removeBall = function removeBall(index) {
-    var newList = ballList.filter(function (_, i) {
-      return i !== index;
-    });
-    setBallList(newList);
-  };
-  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
-    if (ballList.length > maxPick) {
-      setBallList(ballList.slice(0, maxPick));
-    }
-  }, [maxPick, ballList]);
-  var ballMargin = 5;
-  var containerMaxWidth = (ballSize + ballMargin) * 6;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("h1", null, "Lotto Leaderboard Item Demo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(CardWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(_lib__WEBPACK_IMPORTED_MODULE_5__.Avatar, {
-    avatarUrl: avatarUrl,
-    size: avatarSize,
-    isLive: isLive,
-    border: "3px solid #17E1D1"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(UserInfoContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(StyledOpenID, {
-    value: openidValue
-  }), showScore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(StyledScore, {
-    value: scoreValue,
-    useAnimation: useAnimation,
-    format: scoreFormat
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(LottoBallContainer, {
-    maxWidth: containerMaxWidth
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(LottoBallList, {
-    ballList: ballList,
-    maximumPick: maxPick,
-    ballStyle: {
-      width: ballSize,
-      height: ballSize,
-      marginLeft: ballMargin,
-      marginBottom: '5px'
-    },
-    ballListStyle: {
-      flexWrap: 'wrap'
-    }
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(ControlsWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(SettingsGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("legend", null, "Avatar Settings"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
-    htmlFor: "avatar-url-input"
-  }, "Avatar URL"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-    id: "avatar-url-input",
-    type: "text",
-    value: avatarUrl,
-    onChange: function onChange(e) {
-      return setAvatarUrl(e.target.value);
-    }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-    type: "checkbox",
-    checked: isLive,
-    onChange: function onChange(e) {
-      return setIsLive(e.target.checked);
-    }
-  }), "isLive"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(SettingsGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("legend", null, "OpenID Settings"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
-    htmlFor: "openid-value-input"
-  }, "Value"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-    id: "openid-value-input",
-    type: "text",
-    value: openidValue,
-    onChange: function onChange(e) {
-      return setOpenidValue(e.target.value);
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(SettingsGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("legend", null, "Score Settings"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-    type: "checkbox",
-    checked: showScore,
-    onChange: function onChange(e) {
-      return setShowScore(e.target.checked);
-    }
-  }), "Show Score")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
-    htmlFor: "score-value-input"
-  }, "Value"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-    id: "score-value-input",
-    type: "number",
-    value: scoreValue,
-    onChange: function onChange(e) {
-      return setScoreValue(Number(e.target.value));
-    },
-    disabled: !showScore
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
-    htmlFor: "score-format-input"
-  }, "Format"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-    id: "score-format-input",
-    type: "text",
-    value: scoreFormat,
-    onChange: function onChange(e) {
-      return setScoreFormat(e.target.value);
-    },
-    disabled: !showScore
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-    type: "checkbox",
-    checked: useAnimation,
-    onChange: function onChange(e) {
-      return setUseAnimation(e.target.checked);
-    },
-    disabled: !showScore
-  }), "Use Animation"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(SettingsGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("legend", null, "LottoBall General Settings"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
-    htmlFor: "max-pick-input"
-  }, "Maximum Pick"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-    id: "max-pick-input",
-    type: "number",
-    value: maxPick,
-    onChange: function onChange(e) {
-      return setMaxPick(Number(e.target.value));
-    }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(SettingsGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("legend", null, "LottoBall Configuration"), ballList.map(function (ball, index) {
-    var key = index;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(BallConfig, {
-      key: key
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
-      htmlFor: "ball-value-".concat(index)
-    }, "Value"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("input", {
-      id: "ball-value-".concat(index),
-      type: "text",
-      value: ball.value,
-      onChange: function onChange(e) {
-        return handleBallChange(index, 'value', e.target.value);
-      }
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(Control, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("label", {
-      htmlFor: "ball-type-".concat(index)
-    }, "Type"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("select", {
-      id: "ball-type-".concat(index),
-      value: ball.type,
-      onChange: function onChange(e) {
-        return handleBallChange(index, 'type', e.target.value);
-      }
-    }, Object.values(_lib__WEBPACK_IMPORTED_MODULE_5__.BallType).map(function (type) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("option", {
-        key: type,
-        value: type
-      }, type);
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("button", {
-      type: "button",
-      style: {
-        marginTop: '25px'
-      },
-      onClick: function onClick() {
-        return removeBall(index);
-      }
-    }, "Remove"));
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement(BallConfig, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().createElement("button", {
-    type: "button",
-    onClick: addBall,
-    disabled: ballList.length >= maxPick
-  }, "Add Ball")))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default().memo(LottoLeaderboardItem));
 
 /***/ }),
 
@@ -26756,116 +25732,6 @@ var OfflineTeamRound = function OfflineTeamRound() {
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().forwardRef(OfflineTeamRound));
-
-/***/ }),
-
-/***/ "./playground/OpenID.tsx":
-/*!*******************************!*\
-  !*** ./playground/OpenID.tsx ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _lib_components_OpenID__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/components/OpenID */ "./lib/components/OpenID/index.tsx");
-
-
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
-
-
-
-var PlaygroundWrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  padding: 20px;\n  font-family: sans-serif;\n\n  .custom-style-1 {\n    border: 2px solid steelblue;\n    padding: 10px;\n    border-radius: 8px;\n    background-color: #f0f8ff;\n    color: steelblue;\n    width: 250px;\n  }\n\n  .custom-style-2 {\n    border: 2px solid olive;\n    padding: 10px;\n    border-radius: 8px;\n    background-color: #f5f5dc;\n    color: olive;\n    font-style: italic;\n    width: 250px;\n  }\n\n  .custom-style-3 {\n    border: 2px solid crimson;\n    padding: 10px;\n    border-radius: 8px;\n    background-color: #fff0f5;\n    color: crimson;\n    width: 250px;\n    white-space: normal;\n    word-break: break-all;\n  }\n"])));
-var Controls = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject2 || (_templateObject2 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  background-color: #f0f0f0;\n  padding: 15px;\n  border-radius: 8px;\n  margin-bottom: 20px;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  gap: 15px;\n"])));
-var ControlGroup = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n\n  label {\n    font-weight: bold;\n    font-size: 14px;\n  }\n\n  input,\n  select {\n    padding: 8px;\n    border: 1px solid #ccc;\n    border-radius: 4px;\n  }\n"])));
-var MainDisplay = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject4 || (_templateObject4 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 30px;\n  border: 2px dashed #ccc;\n  border-radius: 8px;\n"])));
-var StyledOpenID = (0,styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(_lib_components_OpenID__WEBPACK_IMPORTED_MODULE_3__.OpenID)(_templateObject5 || (_templateObject5 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_1__["default"])(["\n  font-size: ", "px;\n  font-weight: bold;\n  font-family: ", ";\n"])), function (props) {
-  return props.fontSize;
-}, function (props) {
-  return props.fontFamily;
-});
-var OpenIDPlayground = function OpenIDPlayground() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('😱癢癢😱的帳號真的超級無敵長的啦long'),
-    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
-    value = _useState2[0],
-    setValue = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('custom-style-1'),
-    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
-    className = _useState4[0],
-    setClassName = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(18),
-    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState5, 2),
-    fontSize = _useState6[0],
-    setFontSize = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("'Microsoft JhengHei', 'Heiti TC', sans-serif"),
-    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState7, 2),
-    fontFamily = _useState8[0],
-    setFontFamily = _useState8[1];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(PlaygroundWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "OpenID Component Playground"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Controls, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
-    htmlFor: "value-input"
-  }, "OpenID Value"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
-    id: "value-input",
-    type: "text",
-    value: value,
-    onChange: function onChange(e) {
-      return setValue(e.target.value);
-    }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
-    htmlFor: "font-size-input"
-  }, "Font Size (px)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {
-    id: "font-size-input",
-    type: "number",
-    value: fontSize,
-    onChange: function onChange(e) {
-      return setFontSize(Number(e.target.value));
-    }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
-    htmlFor: "font-family-select"
-  }, "Font Family"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("select", {
-    id: "font-family-select",
-    value: fontFamily,
-    onChange: function onChange(e) {
-      return setFontFamily(e.target.value);
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
-    value: "'Microsoft JhengHei', 'Heiti TC', sans-serif"
-  }, "Microsoft JhengHei (\u5FAE\u8EDF\u6B63\u9ED1\u9AD4)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
-    value: "'PingFang TC', 'Helvetica Neue', sans-serif"
-  }, "PingFang TC (\u860B\u65B9\u9AD4)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
-    value: "'Arial', sans-serif"
-  }, "Arial"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
-    value: "'Times New Roman', serif"
-  }, "Times New Roman"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(ControlGroup, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("label", {
-    htmlFor: "style-select"
-  }, "Other Custom Style"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("select", {
-    id: "style-select",
-    value: className,
-    onChange: function onChange(e) {
-      return setClassName(e.target.value);
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
-    value: "custom-style-1"
-  }, "Custom Style 1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
-    value: "custom-style-2"
-  }, "Custom Style 2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
-    value: "custom-style-3"
-  }, "Custom Style 3 (Wrapping)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("option", {
-    value: ""
-  }, "None")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h2", null, "Interactive Demo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(MainDisplay, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement(StyledOpenID, {
-    value: value,
-    className: className,
-    fontSize: fontSize,
-    fontFamily: fontFamily
-  })));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().memo(OpenIDPlayground));
 
 /***/ }),
 
@@ -69362,217 +68228,6 @@ const isThenable = (thing) =>
   isAsyncFn,
   isThenable
 });
-
-
-/***/ }),
-
-/***/ "./node_modules/idb-keyval/dist/index.js":
-/*!***********************************************!*\
-  !*** ./node_modules/idb-keyval/dist/index.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   clear: () => (/* binding */ clear),
-/* harmony export */   createStore: () => (/* binding */ createStore),
-/* harmony export */   del: () => (/* binding */ del),
-/* harmony export */   delMany: () => (/* binding */ delMany),
-/* harmony export */   entries: () => (/* binding */ entries),
-/* harmony export */   get: () => (/* binding */ get),
-/* harmony export */   getMany: () => (/* binding */ getMany),
-/* harmony export */   keys: () => (/* binding */ keys),
-/* harmony export */   promisifyRequest: () => (/* binding */ promisifyRequest),
-/* harmony export */   set: () => (/* binding */ set),
-/* harmony export */   setMany: () => (/* binding */ setMany),
-/* harmony export */   update: () => (/* binding */ update),
-/* harmony export */   values: () => (/* binding */ values)
-/* harmony export */ });
-function promisifyRequest(request) {
-    return new Promise((resolve, reject) => {
-        // @ts-ignore - file size hacks
-        request.oncomplete = request.onsuccess = () => resolve(request.result);
-        // @ts-ignore - file size hacks
-        request.onabort = request.onerror = () => reject(request.error);
-    });
-}
-function createStore(dbName, storeName) {
-    const request = indexedDB.open(dbName);
-    request.onupgradeneeded = () => request.result.createObjectStore(storeName);
-    const dbp = promisifyRequest(request);
-    return (txMode, callback) => dbp.then((db) => callback(db.transaction(storeName, txMode).objectStore(storeName)));
-}
-let defaultGetStoreFunc;
-function defaultGetStore() {
-    if (!defaultGetStoreFunc) {
-        defaultGetStoreFunc = createStore('keyval-store', 'keyval');
-    }
-    return defaultGetStoreFunc;
-}
-/**
- * Get a value by its key.
- *
- * @param key
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function get(key, customStore = defaultGetStore()) {
-    return customStore('readonly', (store) => promisifyRequest(store.get(key)));
-}
-/**
- * Set a value with a key.
- *
- * @param key
- * @param value
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function set(key, value, customStore = defaultGetStore()) {
-    return customStore('readwrite', (store) => {
-        store.put(value, key);
-        return promisifyRequest(store.transaction);
-    });
-}
-/**
- * Set multiple values at once. This is faster than calling set() multiple times.
- * It's also atomic – if one of the pairs can't be added, none will be added.
- *
- * @param entries Array of entries, where each entry is an array of `[key, value]`.
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function setMany(entries, customStore = defaultGetStore()) {
-    return customStore('readwrite', (store) => {
-        entries.forEach((entry) => store.put(entry[1], entry[0]));
-        return promisifyRequest(store.transaction);
-    });
-}
-/**
- * Get multiple values by their keys
- *
- * @param keys
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function getMany(keys, customStore = defaultGetStore()) {
-    return customStore('readonly', (store) => Promise.all(keys.map((key) => promisifyRequest(store.get(key)))));
-}
-/**
- * Update a value. This lets you see the old value and update it as an atomic operation.
- *
- * @param key
- * @param updater A callback that takes the old value and returns a new value.
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function update(key, updater, customStore = defaultGetStore()) {
-    return customStore('readwrite', (store) => 
-    // Need to create the promise manually.
-    // If I try to chain promises, the transaction closes in browsers
-    // that use a promise polyfill (IE10/11).
-    new Promise((resolve, reject) => {
-        store.get(key).onsuccess = function () {
-            try {
-                store.put(updater(this.result), key);
-                resolve(promisifyRequest(store.transaction));
-            }
-            catch (err) {
-                reject(err);
-            }
-        };
-    }));
-}
-/**
- * Delete a particular key from the store.
- *
- * @param key
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function del(key, customStore = defaultGetStore()) {
-    return customStore('readwrite', (store) => {
-        store.delete(key);
-        return promisifyRequest(store.transaction);
-    });
-}
-/**
- * Delete multiple keys at once.
- *
- * @param keys List of keys to delete.
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function delMany(keys, customStore = defaultGetStore()) {
-    return customStore('readwrite', (store) => {
-        keys.forEach((key) => store.delete(key));
-        return promisifyRequest(store.transaction);
-    });
-}
-/**
- * Clear all values in the store.
- *
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function clear(customStore = defaultGetStore()) {
-    return customStore('readwrite', (store) => {
-        store.clear();
-        return promisifyRequest(store.transaction);
-    });
-}
-function eachCursor(store, callback) {
-    store.openCursor().onsuccess = function () {
-        if (!this.result)
-            return;
-        callback(this.result);
-        this.result.continue();
-    };
-    return promisifyRequest(store.transaction);
-}
-/**
- * Get all keys in the store.
- *
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function keys(customStore = defaultGetStore()) {
-    return customStore('readonly', (store) => {
-        // Fast path for modern browsers
-        if (store.getAllKeys) {
-            return promisifyRequest(store.getAllKeys());
-        }
-        const items = [];
-        return eachCursor(store, (cursor) => items.push(cursor.key)).then(() => items);
-    });
-}
-/**
- * Get all values in the store.
- *
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function values(customStore = defaultGetStore()) {
-    return customStore('readonly', (store) => {
-        // Fast path for modern browsers
-        if (store.getAll) {
-            return promisifyRequest(store.getAll());
-        }
-        const items = [];
-        return eachCursor(store, (cursor) => items.push(cursor.value)).then(() => items);
-    });
-}
-/**
- * Get all entries in the store. Each entry is an array of `[key, value]`.
- *
- * @param customStore Method to get a custom store. Use with caution (see the docs).
- */
-function entries(customStore = defaultGetStore()) {
-    return customStore('readonly', (store) => {
-        // Fast path for modern browsers
-        // (although, hopefully we'll get a simpler path some day)
-        if (store.getAll && store.getAllKeys) {
-            return Promise.all([
-                promisifyRequest(store.getAllKeys()),
-                promisifyRequest(store.getAll()),
-            ]).then(([keys, values]) => keys.map((key, i) => [key, values[i]]));
-        }
-        const items = [];
-        return customStore('readonly', (store) => eachCursor(store, (cursor) => items.push([cursor.key, cursor.value])).then(() => items));
-    });
-}
-
-
 
 
 /***/ }),
