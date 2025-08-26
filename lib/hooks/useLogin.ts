@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { getEventoryFireantUrl, getOfficial17LiveUrl } from '../utils';
 
 const useLogin = () => {
-  const login = useCallback(() => {
+  const login = () => {
     const eventoryFireantUrl = getEventoryFireantUrl();
     const official17LiveUrl = getOfficial17LiveUrl();
     const toParam = `${eventoryFireantUrl}/redirect?redirectUrl=${encodeURIComponent(
@@ -13,7 +13,7 @@ const useLogin = () => {
       toParam,
     )}`;
     window.location.href = redirectLoginUrl;
-  }, []);
+  };
 
   return { login };
 };
