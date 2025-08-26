@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useLogin from '../lib/hooks/useLogin';
 import { getUserInfo, storeUserInfo } from '../lib/utils';
 
 const Login = () => {
   const { login } = useLogin();
   const { userID = '', jwtAccessToken = '' } = getUserInfo();
+  const [showUserID, setShowUserID] = useState('');
+  const [showJwtAccessToken, setShowJwtAccessToken] = useState('');
 
   const clearUserInfo = () => {
     const userInfoStorageName = 'userInfo';
@@ -14,12 +16,16 @@ const Login = () => {
         updateTime: Date.now(),
       }),
     );
-    window.location.reload();
+
+    setShowUserID('');
+    setShowJwtAccessToken('');
   };
 
   useEffect(() => {
     storeUserInfo();
-  }, []);
+    setShowUserID(userID);
+    setShowJwtAccessToken(jwtAccessToken);
+  }, [jwtAccessToken, userID]);
 
   return (
     <div>
@@ -36,11 +42,11 @@ const Login = () => {
       <p>
         clear userInfo:{' '}
         <button type="button" onClick={clearUserInfo}>
-          clear userInfo
+          Clear User Info
         </button>
       </p>
-      <p>userID: {userID}</p>
-      <p>jwtAccessToken: {jwtAccessToken}</p>
+      <p>userID: {showUserID}</p>
+      <p>jwtAccessToken: {showJwtAccessToken}</p>
     </div>
   );
 };
