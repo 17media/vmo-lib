@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import {
+  useWorkerParser,
+  usePlayerState,
+  usePlayback,
+  Canvas,
+} from '@react-gifs/tools';
 import { User } from '../types';
 import { getRandomInteger, isBrowser, globalThis } from '../utils';
 
@@ -30,9 +36,18 @@ const StyledMaskDivInner = styled(maskDiv)`
   }
 `;
 
+const StyledAnimationContainer = styled(maskDiv)`
+  .target-canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #1b1818;
+  }
+`;
+
 type Props = (
   allCandidates: User[],
-  willAutoDrawRemainCount?: Boolean,
+  willAutoDrawRemainCount?: boolean,
 ) => {
   candidates: User[];
   winners: User[];
@@ -41,19 +56,70 @@ type Props = (
   clearWinners: () => void;
   reset: () => void;
   currentRound: number;
-  hasDraw: Boolean;
+  hasDraw: boolean;
   MaskDiv: React.FC;
+  AnimationMask: any;
+  isAnimationPlaying: boolean;
+  /** must send it to update props of Animation */
+  setIsAnimationPlaying: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function MaskDiv() {
-  return (
-    <>
-      <StyledMaskDivOuter />
-      <StyledMaskDivInner />
-    </>
-  );
-}
+type GifPlayerProps = {
+  src: string;
+  onStart?: () => void;
+  onEnded?: () => void;
+};
 
+type GifMaskProps = { src: string; update: (state: boolean) => void };
+
+const MaskDiv = () => (
+  <>
+    <StyledMaskDivOuter />
+    <StyledMaskDivInner />
+  </>
+);
+
+const GifPlayer = ({
+  src,
+  onStart = () => {},
+  onEnded = () => {},
+}: GifPlayerProps) => {
+  const FAILED_TO_FETCH = 'Failed to fetch';
+  const [state, update] = usePlayerState();
+  useWorkerParser(src, info => {
+    if ('error' in info && info.error.message === FAILED_TO_FETCH) {
+      console.warn(FAILED_TO_FETCH);
+      onEnded();
+      update(() => ({ autoPlay: false, playing: false }));
+      return;
+    }
+    onStart();
+    update(() => ({ ...info }));
+  });
+  usePlayback(state, () => {
+    if (state.length !== 0 && state.index === state.length - 1) {
+      onEnded();
+      return update(() => ({ playing: false }));
+    }
+    return update(({ index }) => ({ index: index + 1 }));
+  });
+
+  return <Canvas className="target-canvas" {...state} />;
+};
+
+const GifMask = ({ src, update }: GifMaskProps) => (
+  <StyledAnimationContainer>
+    <GifPlayer
+      src={src}
+      onStart={() => {
+        update(true);
+      }}
+      onEnded={() => {
+        update(false);
+      }}
+    />
+  </StyledAnimationContainer>
+);
 /**
  * useLuckyDraw - pass all candidates, use the draw function with number of round winners to get each round winners, remain candidates and allWinners.
  * - Record by localstorage for custom feature. ex: key: 'http://localhost:9000/?page=2'(location href), value: allWinners<User[][]> (This feature can only use in client side and will not clear.)
@@ -67,6 +133,7 @@ export const useLuckyDraw: Props = (
   const [allWinners, setAllWinners] = useState<User[][]>([]);
   const [currentRound, setCurrentRound] = useState<number>(0);
   const [hasDraw, setHasDraw] = useState<boolean>(false);
+  const [isAnimationPlaying, setIsAnimationPlaying] = useState<boolean>(false);
 
   const draw = (drawCount: number) => {
     if (!drawCount) {
@@ -156,6 +223,7 @@ export const useLuckyDraw: Props = (
       return prevCandidates;
     });
   }, [allCandidates, currentRound]);
+
   return {
     candidates,
     hasDraw,
@@ -166,6 +234,9 @@ export const useLuckyDraw: Props = (
     reset,
     currentRound,
     MaskDiv,
+    AnimationMask: GifMask,
+    isAnimationPlaying,
+    setIsAnimationPlaying,
   };
 };
 export default useLuckyDraw;

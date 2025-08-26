@@ -36,11 +36,25 @@ const Input = styled.input`
   padding: 5px 10px;
 `;
 
+const RowContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  & > * {
+    margin-bottom: 10px;
+  }
+`;
+
 const LuckyDraw = React.memo(() => {
   const allCandidates: User[] = mockUsers.slice(0, 50);
   const [drawCount, setDrawCount] = useState<number>(20);
   const [willAutoDrawRemainCount, setwillAutoDrawRemainCount] =
     useState<boolean>(true);
+  const [useAnimationMask, setUseAnimationMask] = useState<boolean>(false);
+  const [animationImageSrc, setAnimationImageSrc] = useState<string>('');
   const {
     MaskDiv,
     hasDraw,
@@ -51,6 +65,9 @@ const LuckyDraw = React.memo(() => {
     draw,
     clearWinners,
     reset,
+    AnimationMask,
+    isAnimationPlaying,
+    setIsAnimationPlaying,
   } = useLuckyDraw(allCandidates, willAutoDrawRemainCount);
   const href = window.localStorage.getItem(window.location.href);
   const recordAllWinners = href ? JSON.parse(href) : [];
@@ -68,34 +85,78 @@ const LuckyDraw = React.memo(() => {
     e: React.ChangeEvent<HTMLInputElement>,
   ) => setwillAutoDrawRemainCount(e.target.checked);
 
+  const handleUseAnimationMask = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUseAnimationMask(e.target.checked);
+
+  const handleAnimationMaskImageSrc = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setAnimationImageSrc(e.target.value);
+  };
+
   return (
     <Wrapper>
       <h1>抽獎 sample</h1>
-      <div>
-        <p>設定每輪開獎人數並開獎(依照 rank 排序)</p>
-        <Input
-          type="number"
-          value={drawCount}
-          placeholder="請輸入開獎人數"
-          onChange={handleWinnersCount}
-        />
-        <label htmlFor="autoDrawRemainCount">
-          自動抽出剩餘人數
-          <input
-            id="autoDrawRemainCount"
-            type="checkbox"
-            checked={willAutoDrawRemainCount}
-            onChange={handleAutoDrawWithRemainCount}
+      <RowContainer>
+        <div>
+          <p>設定每輪開獎人數並開獎(依照 rank 排序)</p>
+          <Input
+            type="number"
+            value={drawCount}
+            placeholder="請輸入開獎人數"
+            onChange={handleWinnersCount}
           />
-        </label>
-      </div>
-      <p>(當參加者不足抽獎人數時, 是否抽出所有剩餘人數)</p>
+          <label htmlFor="autoDrawRemainCount">
+            自動抽出剩餘人數
+            <input
+              id="autoDrawRemainCount"
+              type="checkbox"
+              checked={willAutoDrawRemainCount}
+              onChange={handleAutoDrawWithRemainCount}
+            />
+          </label>
+          <p>(當參加者不足抽獎人數時, 是否抽出所有剩餘人數)</p>
+        </div>
+        <div>
+          <label htmlFor="animationMask">
+            使用動畫過場(目前僅支援 .gif)
+            {/*
+             */}
+            <input
+              id="animationMask"
+              type="checkbox"
+              checked={useAnimationMask}
+              onChange={handleUseAnimationMask}
+            />
+          </label>
+        </div>
+        {useAnimationMask && (
+          <div>
+            <span>圖片連結：</span>
+            <Input
+              type="text"
+              value={animationImageSrc}
+              placeholder="請輸入圖片連結"
+              onChange={handleAnimationMaskImageSrc}
+            />
+          </div>
+        )}
+      </RowContainer>
       <div>
         <Button onClick={handleDraw}>開獎</Button>
         <Button onClick={handleClearWinners}>清空得獎者</Button>
         <Button onClick={handleReset}>重新開始</Button>
       </div>
-      {hasDraw && <MaskDiv />}
+      {(() => {
+        if (!useAnimationMask && hasDraw) return <MaskDiv />;
+        if (useAnimationMask && (hasDraw || isAnimationPlaying))
+          return (
+            <AnimationMask
+              src={animationImageSrc}
+              update={setIsAnimationPlaying}
+            />
+          );
+      })()}
       <LuckyDrawSection>
         <Left>
           <h2>參加者名單</h2>
