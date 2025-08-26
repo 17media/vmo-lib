@@ -34,7 +34,7 @@ const Login = () => {
         </button>
       </p>
       <p>
-        test login:{' '}
+        clear userInfo:{' '}
         <button type="button" onClick={clearUserInfo}>
           clear userInfo
         </button>
